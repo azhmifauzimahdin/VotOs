@@ -14,5 +14,8 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('Hello WPU');
+    return view('home', [
+        "name" => "Azhmi Fauzi Mahdin",
+        "email" => "azhmifauzi11@gmail.com"
+    ]);
 });
