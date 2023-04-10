@@ -14,11 +14,12 @@
     {{-- My Style --}}
     <link rel="stylesheet" href="/css/style.css">
     <title>Votos | {{ $title }}</title>
+
 </head>
 
 <body>
     @include('partials.navbar')
-    <div class="container mt-4">
+    <div class="container mt-5">
         @yield('container')
     </div>
 
