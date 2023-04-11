@@ -19,7 +19,7 @@
 
 <body>
     @include('partials.navbar')
-    <div class="container mt-5">
+    <div class="overflow-hidden pt-5">
         @yield('container')
     </div>
 

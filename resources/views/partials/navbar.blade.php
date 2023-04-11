@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top" style="background: #2192FF;">
     <div class="container px-sm-5">
         <a class="navbar-brand" href="/">Votos</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -7,16 +7,16 @@
         <div class="collapse navbar-collapse ms-auto" id="navbarNav">
             <ul class="navbar-nav ms-auto">
                 <li class="nav-item mx-2">
-                    <a class="nav-link {{ ($active === "home") ? 'active' : '' }}" href="/">Beranda</a>
+                    <a class="nav-link {{ Request::is('/') ? 'active' : ''}}" href="/">Beranda</a>
                 </li>
                 <li class="nav-item mx-2">
-                    <a class="nav-link {{ ($active === "posts") ? 'active' : '' }}" href="/posts">Perolehan Suara</a>
+                    <a class="nav-link {{ Request::is('posts*') ? 'active' : ''}}" href="/posts">Perolehan Suara</a>
                 </li>
                 <li class="nav-item mx-2">
-                    <a class="nav-link {{ ($active === "about") ? 'active' : '' }}" href="/about">Kandidat</a>
+                    <a class="nav-link {{ Request::is('dashboard') ? 'active' : ''}}" href="/about">Kandidat</a>
                 </li>
                 <li class="nav-item mx-2">
-                    <a class="nav-link {{ ($active === "categories") ? 'active' : '' }}" href="/categories">Voting</a>
+                    <a class="nav-link {{ Request::is('dashboard') ? 'active' : ''}}" href="/categories">Voting</a>
                 </li>
                 @auth
                     <li class="nav-item dropdown mx-2">
@@ -36,10 +36,10 @@
                     </li>
                 @else
                     <li class="nav-item mx-2 d-flex align-items-center">
-                        <a href="/login" class="btn btn-outline-light py-1 px-4 rounded-pill {{ ($active === "login") ? 'active' : '' }}">Login Pemilih</a>
+                        <a href="/login" class="btn btn-outline-light py-1 px-4 rounded-pill {{ Request::is('dashboard') ? 'active' : ''}}">Login Pemilih</a>
                     </li>
                     <li class="nav-item mx-2 d-flex align-items-center">
-                        <a href="/login" class="btn btn-success py-1 px-4 rounded-pill {{ ($active === "as") ? 'active' : '' }}">Login Panitia</a>
+                        <a href="/login" class="btn btn-success py-1 px-4 rounded-pill border-0 {{ Request::is('dashboard') ? 'active' : ''}}" style="background: #38E54D">Login Panitia</a>
                     </li>
                 @endauth
             </ul>

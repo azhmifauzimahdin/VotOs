@@ -21,11 +21,8 @@ use App\Http\Controllers\AdminCategoryController;
 */
 
 Route::get('/', function () {
-    return view('home', [
-        "title" => "Home",
-        "active" => "home",
-        "name" => "Azhmi Fauzi Mahdin",
-        "email" => "azhmifauzi11@gmail.com"
+    return view('beranda', [
+        "title" => "Beranda"
     ]);
 });
 
@@ -33,7 +30,6 @@ Route::get('/', function () {
 Route::get('/about', function () {
     return view('about', [
         "title" => "About",
-        "active" => "about"
     ]);
 });
 
@@ -43,7 +39,6 @@ Route::get('/posts/{post:slug}', [PostController::class, 'show']);
 Route::get('/categories', function () {
     return view('categories', [
         'title' => 'Post Categories',
-        'active' => 'categories',
         'categories' => Category::all()
     ]);
 });
