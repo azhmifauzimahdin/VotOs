@@ -58,3 +58,22 @@ Route::get('/dashboard/posts/checkSlug', [DashboardPostController::class, 'check
 Route::resource('/dashboard/posts', DashboardPostController::class)->middleware('auth');
 
 Route::resource('/dashboard/categories', AdminCategoryController::class)->except('show')->middleware('admin');
+
+// Votos New
+Route::get('/perolehan-suara', function () {
+    return view('perolehan_suara', [
+        'title' => 'Perolehan Suara'
+    ]);
+});
+
+Route::get('/kandidat', function () {
+    return view('kandidat', [
+        'title' => 'Kandidat'
+    ]);
+});
+
+Route::get('/kandidat/detail', function () {
+    return view('detail_kandidat', [
+        'title' => 'Detail Kandidat'
+    ]);
+});

@@ -10,10 +10,10 @@
                     <a class="nav-link {{ Request::is('/') ? 'active' : ''}}" href="/">Beranda</a>
                 </li>
                 <li class="nav-item mx-2">
-                    <a class="nav-link {{ Request::is('posts*') ? 'active' : ''}}" href="/posts">Perolehan Suara</a>
+                    <a class="nav-link {{ Request::is('perolehan-suara') ? 'active' : ''}}" href="/perolehan-suara">Perolehan Suara</a>
                 </li>
                 <li class="nav-item mx-2">
-                    <a class="nav-link {{ Request::is('dashboard') ? 'active' : ''}}" href="/about">Kandidat</a>
+                    <a class="nav-link {{ Request::is('kandidat*') ? 'active' : ''}}" href="/kandidat">Kandidat</a>
                 </li>
                 <li class="nav-item mx-2">
                     <a class="nav-link {{ Request::is('dashboard') ? 'active' : ''}}" href="/categories">Voting</a>
