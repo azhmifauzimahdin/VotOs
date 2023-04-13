@@ -1,7 +1,7 @@
 @extends('layouts.main')
 
 @section('container')
-    <div class="row">
+    <div class="row mt-5">
         <div class="col-md-12 text-center mb-3">
             <h3>Login Pemilih</h3>
         </div>

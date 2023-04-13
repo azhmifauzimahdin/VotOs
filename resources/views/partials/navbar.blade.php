@@ -1,4 +1,6 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top" style="background: #2192FF;">
+{{-- <nav class="navbar navbar-expand-lg navbar-dark fixed-top" style="background: linear-gradient(to right, #0D6EFD, #0da5fd,#0de1fd);"> --}}
+{{-- <nav class="navbar navbar-expand-lg navbar-dark fixed-top" style="background: linear-gradient(to right, #291bf2, #5449fc,#6C63FF);"> --}}
+<nav class="navbar navbar-expand-lg navbar-dark fixed-top" style="background: linear-gradient(to right, #1202f5, #5449fc,#3dabff);">
     <div class="container px-sm-5">
         <a class="navbar-brand" href="/">Votos</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -16,7 +18,7 @@
                     <a class="nav-link {{ Request::is('kandidat*') ? 'active' : ''}}" href="/kandidat">Kandidat</a>
                 </li>
                 <li class="nav-item mx-2">
-                    <a class="nav-link {{ Request::is('dashboard') ? 'active' : ''}}" href="/categories">Voting</a>
+                    <a class="nav-link {{ Request::is('voting') ? 'active' : ''}}" href="/voting">Voting</a>
                 </li>
                 @auth
                     <li class="nav-item dropdown mx-2">

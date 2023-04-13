@@ -1,7 +1,7 @@
 @extends('layouts.main')
 
 @section('container')
-    <div class="row pt-md-5 pt-3 pb-5 px-2 text-white d-flex align-items-center justify-content-center" style="background: #0D6EFD">
+    <div class="row pt-md-5 pt-3 pb-5 px-2 text-white d-flex align-items-center justify-content-center" style="background: linear-gradient(to right, #1202f5, #5449fc,#3dabff);">
         <div class="col-md-5 col-11 mb-3">
             <h3>Sistem E-Voting Pemilihan Ketua OSIS</h3>
             <h3 class="mb-3">Berbasis Web</h3>

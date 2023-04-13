@@ -12,14 +12,14 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
 
     {{-- My Style --}}
-    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/main.css">
     <title>Votos | {{ $title }}</title>
 
 </head>
 
 <body>
     @include('partials.navbar')
-    <div class="overflow-hidden pt-5">
+    <div class="mainContainer overflow-hidden pt-5">
         @yield('container')
     </div>
     @include('partials.footer')

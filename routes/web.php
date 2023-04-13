@@ -77,3 +77,9 @@ Route::get('/kandidat/detail', function () {
         'title' => 'Detail Kandidat'
     ]);
 });
+
+Route::get('/voting', function () {
+    return view('voting', [
+        'title' => 'Voting'
+    ]);
+});
