@@ -18,7 +18,7 @@
                     <a class="nav-link {{ Request::is('kandidat*') ? 'active' : ''}}" href="/kandidat">Kandidat</a>
                 </li>
                 <li class="nav-item mx-2">
-                    <a class="nav-link {{ Request::is('voting') ? 'active' : ''}}" href="/voting">Voting</a>
+                    <a class="nav-link {{ Request::is('voting*') ? 'active' : ''}}" href="/voting">Voting</a>
                 </li>
                 @auth
                     <li class="nav-item dropdown mx-2">

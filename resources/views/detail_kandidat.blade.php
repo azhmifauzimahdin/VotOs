@@ -5,7 +5,7 @@
         <div class="col-12 mt-5 text-center pb-2">
             <h3 class="d-inline pb-2 px-3" style="border-bottom-style: solid; border-width: 2px; border-radius: 50% ; border-image: linear-gradient(to right, #2dcddf, #2ddfbb,#2ddf8f) 1">Detail Kandidat</h3>
         </div>
-        <div class="col-12 text-center mb-4 mt-3">
+        <div class="col-12 text-center mb-4 mt-2">
             <p>Pelajari visi misi kandidat sebelum memilih</p>
         </div>
     </div>
@@ -17,7 +17,7 @@
                 </div>
                 <h5 class="text-center pt-3">Azhmi Fauzi Mahdin</h5>
                 <hr>    
-                <a href="/kandidat" class="btn btn-primary rounded-pill w-100 mt-2">Daftar Kandidat</a>
+                <a href="/kandidat" class="btn btn-success rounded-pill w-100 mt-2">Daftar Kandidat</a>
             </div>
             <div class="col-md-6 border bg-light py-3 px-4 mx-2">
                 <div class="row border-bottom py-2">

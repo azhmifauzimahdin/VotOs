@@ -83,3 +83,15 @@ Route::get('/voting', function () {
         'title' => 'Voting'
     ]);
 });
+
+Route::get('/voting/otp', function () {
+    return view('otp', [
+        'title' => 'One Time Password'
+    ]);
+});
+
+Route::get('/voting/berhasil', function () {
+    return view('voting_berhasil', [
+        'title' => 'Voting Berhasil'
+    ]);
+});
