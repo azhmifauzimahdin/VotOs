@@ -46,5 +46,31 @@
                 <a href="/voting/otp" class="btn btn-success rounded-pill px-4">Voting</a>
             </div>
         </div>
+        <div class="row d-flex justify-content-center g-2 mb-5">
+            <div class="col-md-5 border bg-light p-3 mx-2" style="height: 100%">
+                <h4 class="mb-4 text-center">Kandidat Pilihan Anda</h4>
+                <div class="px-md-5 pt-3 pb-4 border bg-light w-50 mx-auto" style="border-radius: 1vw">
+                    <h3 class="text-center">1</h3>
+                    <img src="https://birokratmenulis.org/wp-content/uploads/2017/05/hd-wallpapers.jpg" alt="Foto Kandidat" class="object-fit-contain border rounded" style="height: 240px; width: 100%">
+                    <h5 class="card-title text-center pt-3" style="width: 100%">Nama Kandidat</h5>
+                </div>
+            </div>
+            <div class="col-md-3 border bg-light py-3 px-4 mx-2">
+                <div class="row d-flex justify-content-center pb-4 border-bottom">
+                    <img src="https://cdn.britannica.com/17/155017-050-9AC96FC8/Example-QR-code.jpg" alt="QR Code" class="object-fit-contain border rounded" style="height: 300px; width: 300px">
+                </div>
+                <div class="row border-bottom py-2">
+                    <div class="col-md-4"><b>ID</b></div>
+                    <div class="col-md-8">xxxx</div>
+                </div>
+                <div class="row border-bottom py-2">
+                    <div class="col-md-4"><b>Kandidat</b></div>
+                    <div class="col-md-8">Nama Kandidat</div>
+                </div>
+                <div class="d-flex justify-content-center">
+                    <a href="/kandidat" class="btn btn-success rounded-pill mt-3 px-4" style="margin-right: 4%;"><i class="fa-solid fa-print"></i>  Cetak</a>
+                </div>
+            </div>
+        </div>
     </div>
 @endsection
