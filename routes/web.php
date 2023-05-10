@@ -20,11 +20,11 @@ use App\Http\Controllers\AdminCategoryController;
 |
 */
 
-// Route::get('/', function () {
-//     return view('beranda', [
-//         "title" => "Beranda"
-//     ]);
-// });
+Route::get('/', function () {
+    return view('beranda', [
+        "title" => "Beranda"
+    ]);
+});
 
 
 // Route::get('/about', function () {
@@ -43,9 +43,9 @@ use App\Http\Controllers\AdminCategoryController;
 //     ]);
 // });
 
-// Route::get('/login', [LoginController::class, 'index'])->name('login')->middleware('guest');
-// Route::post('/login', [LoginController::class, 'authenticate']);
-// Route::post('/logout', [LoginController::class, 'logout']);
+Route::get('/login', [LoginController::class, 'index'])->name('login')->middleware('guest');
+Route::post('/login', [LoginController::class, 'authenticate']);
+Route::post('/logout', [LoginController::class, 'logout']);
 
 // Route::get('/register', [RegisterController::class, 'index'])->middleware('guest');
 // Route::post('/register', [RegisterController::class, 'store']);
@@ -97,5 +97,11 @@ Route::get('/voting/berhasil', function () {
 });
 
 Route::get('/panitia', function () {
-    return view('dashboard.layouts.main');
+    return view('dashboard.layouts.main', [
+        'title' => 'Dashboard'
+    ]);
+});
+
+Route::get('/dashboard', function () {
+    return view('dashboardv.index');
 });

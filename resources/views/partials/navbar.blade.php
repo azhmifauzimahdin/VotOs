@@ -1,5 +1,3 @@
-{{-- <nav class="navbar navbar-expand-lg navbar-dark fixed-top" style="background: linear-gradient(to right, #0D6EFD, #0da5fd,#0de1fd);"> --}}
-{{-- <nav class="navbar navbar-expand-lg navbar-dark fixed-top" style="background: linear-gradient(to right, #291bf2, #5449fc,#6C63FF);"> --}}
 <nav class="navbar navbar-expand-lg navbar-dark fixed-top" style="background: linear-gradient(to right, #1202f5, #5449fc,#3dabff);">
     <div class="container px-sm-5">
         <a class="navbar-brand" href="/">Votos</a>

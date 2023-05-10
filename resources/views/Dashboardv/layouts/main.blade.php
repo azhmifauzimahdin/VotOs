@@ -75,11 +75,11 @@
         </ul>
     </div>
 
-    @include('dashboard.layouts.header')
+    @include('dashboardv.layouts.header')
 
     <div class="container-fluid">
         <div class="row">
-            @include('dashboard.layouts.sidebar')
+            @include('dashboardv.layouts.sidebar')
 
             <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
                 @yield('container')
