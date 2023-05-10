@@ -21,20 +21,19 @@
             </div>
         </div>
     </div>
-    <div class="px-5">
-        <div class="row row-cols-2 row-cols-md-4 g-2 g-md-3 mb-4 d-flex justify-content-center">
+    <div class="px-5 mx-md-5">
+        <div class="row row-cols-2 row-cols-md-4 g-2 g-md-4 mb-4 d-flex justify-content-center px-md-5 mx-md-3">
             <div class="col">
-                <div class="px-md-5 pt-3 pb-4 border bg-light hover-zoom" style="border-radius: 1vw">
-                    <h4 class="text-center">1</h4>
-                    <img src="https://birokratmenulis.org/wp-content/uploads/2017/05/hd-wallpapers.jpg" alt="Foto Kandidat" class="object-fit-contain border rounded" style="height: 300px; width: 100%">
-                    <div class="pt-3">
-                        <h4 class="card-title text-center pb-2" style="width: 100%">Nama Kandidat</h4>
-                        <div class="d-flex justify-content-center">
-                            <div class="form-check">
+                <div class="border bg-white overflow-hidden" style="border-radius: 1vw">
+                    <div class="candidate_thumb" style="height: 80%">
+                        <img src="https://akcdn.detik.net.id/community/media/visual/2023/04/04/siswa-sma-pradita-dirgantara-diterima-di-10-kampus-luar-negeri.jpeg?w=700&q=90" alt="Foto Kandidat" width="100%" height="300px">
+                        <div class="px-3" style="position: absolute; z-index: 1; width: 100%; bottom: 0; text-align: right;"><h5 class="text-primary">02</h5></div>
+                    </div>
+                    <div class="px-3 pt-2 pb-3">
+                        <h6 class="card-title text-end">Azhmi Fauzi Mahdin</h6>
+                        <div class="d-flex justify-content-end"> 
+                            <div class="form-check text-primary">
                                 <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                                <label class="form-check-label" for="flexCheckDefault">
-                                    Pilih
-                                </label>
                             </div>
                         </div>
                     </div>
@@ -46,13 +45,24 @@
                 <a href="/voting/otp" class="btn btn-success rounded-pill px-4">Voting</a>
             </div>
         </div>
+    </div>
+    <div class="px-5">
         <div class="row d-flex justify-content-center g-2 mb-5">
-            <div class="col-md-5 border bg-light p-3 mx-2" style="height: 100%">
+            <div class="col-md-5 border bg-light p-3 mx-2 pb-md-5" style="height: 100%">
                 <h4 class="mb-4 text-center">Kandidat Pilihan Anda</h4>
-                <div class="px-md-5 pt-3 pb-4 border bg-light w-50 mx-auto" style="border-radius: 1vw">
+                {{-- <div class="px-md-5 pt-3 pb-4 border bg-light w-50 mx-auto" style="border-radius: 1vw">
                     <h3 class="text-center">1</h3>
                     <img src="https://birokratmenulis.org/wp-content/uploads/2017/05/hd-wallpapers.jpg" alt="Foto Kandidat" class="object-fit-contain border rounded" style="height: 240px; width: 100%">
                     <h5 class="card-title text-center pt-3" style="width: 100%">Nama Kandidat</h5>
+                </div> --}}
+                <div class="border bg-white overflow-hidden w-50 mx-auto" style="border-radius: 1vw">
+                    <div class="candidate_thumb" style="height: 80%">
+                        <img src="https://akcdn.detik.net.id/community/media/visual/2023/04/04/siswa-sma-pradita-dirgantara-diterima-di-10-kampus-luar-negeri.jpeg?w=700&q=90" alt="Foto Kandidat" width="100%" height="300px">
+                        <div class="px-3" style="position: absolute; z-index: 1; width: 100%; bottom: 0; text-align: right;"><h5 class="text-primary">02</h5></div>
+                    </div>
+                    <div class="px-3 pt-2 pb-3">
+                        <h6 class="card-title text-end">Azhmi Fauzi Mahdin</h6>
+                    </div>
                 </div>
             </div>
             <div class="col-md-3 border bg-light py-3 px-4 mx-2">

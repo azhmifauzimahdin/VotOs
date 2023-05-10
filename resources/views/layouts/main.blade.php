@@ -15,6 +15,27 @@
     <link rel="stylesheet" href="/css/main.css">
     <title>Votos | {{ $title }}</title>
 
+    <style>
+        .candidate_thumb {
+            position: relative;
+            z-index: 1;
+            overflow: hidden;
+        }
+        .candidate_thumb::after{
+            -webkit-transition-duration: 500ms;
+            transition-duration: 500ms;
+            position: absolute;
+            width: 150%;
+            height: 80px;
+            bottom: -45px;
+            left: -25%;
+            content: "";
+            background-color: #ffffff;
+            -webkit-transform: rotate(-15deg);
+            transform: rotate(-10deg);
+        }
+    </style>
+
 </head>
 
 <body>

@@ -13,7 +13,7 @@
         <div class="row d-flex justify-content-center g-2">
             <div class="col-md-3 border bg-light p-5 mx-2 " style="height: 100%">
                 <div style="margin: 0 auto; width: 140px">
-                    <img src="https://birokratmenulis.org/wp-content/uploads/2017/05/hd-wallpapers.jpg" alt="Foto Kandidat" class="object-fit-contain border rounded-circle shadow-4-strong" style="width: 140px; height: 140px; margin: 0 auto">
+                    <img src="https://akcdn.detik.net.id/community/media/visual/2023/04/04/siswa-sma-pradita-dirgantara-diterima-di-10-kampus-luar-negeri.jpeg?w=700&q=90" alt="Foto Kandidat" class="object-fit-contain border rounded-circle shadow-4-strong" style="width: 140px; height: 140px; margin: 0 auto">
                 </div>
                 <h5 class="text-center pt-3">Azhmi Fauzi Mahdin</h5>
                 <hr>    
