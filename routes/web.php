@@ -108,11 +108,12 @@ Route::get('/panitia/pemilih', function () {
     ]);
 });
 Route::get('/panitia/pemilih/create', function () {
-    return view('dashboard.pemilih.edit', [
+    return view('dashboard.pemilih.create', [
         'title' => 'Tambah Data Pemilih'
     ]);
 });
-
-Route::get('/dashboard', function () {
-    return view('dashboardv.index');
+Route::get('/panitia/ganti_password', function () {
+    return view('dashboard.ganti_password.index', [
+        'title' => 'Ganti Password'
+    ]);
 });

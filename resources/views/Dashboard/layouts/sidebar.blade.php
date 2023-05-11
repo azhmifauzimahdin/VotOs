@@ -64,7 +64,7 @@
           </a>
         </li>
         <li class="nav-item">
-          <a href="pages/gallery.html" class="nav-link">
+          <a href="/panitia/ganti_password" class="nav-link">
             <i class="nav-icon fa-solid fa-unlock" style="color: #ffffff;"></i>
             <p>
               Ganti Password
