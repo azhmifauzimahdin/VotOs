@@ -97,7 +97,7 @@ Route::get('/voting/berhasil', function () {
 });
 
 Route::get('/panitia', function () {
-    return view('dashboard.layouts.main', [
+    return view('dashboard.index', [
         'title' => 'Dashboard'
     ]);
 });

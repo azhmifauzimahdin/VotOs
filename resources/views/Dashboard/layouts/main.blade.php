@@ -54,8 +54,9 @@
         </div>
 
         <section class="content">
-        <div class="container-fluid">
-            @yield('container')
+            <div class="container-fluid">
+                @yield('container')
+            </div>
         </section>
     </div>
 
