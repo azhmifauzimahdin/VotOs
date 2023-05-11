@@ -96,5 +96,7 @@
 <script src="{{ asset('AdminLTE') }}/dist/js/adminlte.js"></script>
 <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
 <script src="{{ asset('AdminLTE') }}/dist/js/pages/dashboard.js"></script>
+{{-- Font awesome --}}
+<script src="https://kit.fontawesome.com/dd7eecbb67.js" crossorigin="anonymous"></script>
 </body>
 </html>

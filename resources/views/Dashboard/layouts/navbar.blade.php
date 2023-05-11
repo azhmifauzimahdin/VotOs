@@ -6,22 +6,15 @@
     </ul>
 
     <ul class="navbar-nav ml-auto">
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-list-4" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbar-list-4">
-        <ul class="navbar-nav">
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle pt-0" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              <img src="{{ asset('AdminLTE') }}/dist/img/user2-160x160.jpg" width="40" height="40" class="rounded-circle bg-info">
-            </a>
-            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-              <a class="dropdown-item" href="#">Dashboard</a>
-              <a class="dropdown-item" href="#">Edit Profile</a>
-              <a class="dropdown-item" href="#">Log Out</a>
-            </div>
-          </li>   
-        </ul>
-      </div>
+      {{-- <li class="nav-item pr-md-3">
+        <img src="{{ asset('AdminLTE') }}/dist/img/user2-160x160.jpg" width="33" height="33" class="rounded-circle bg-info">
+        <a href="#" class="text-dark">Azhmi Fauzi Mahdin - Administrator</a>
+      </li> --}}
+      <li class="nav-item">
+        <form action="/logout" method="post">
+          @csrf
+          <button type="submit" class="dropdown-item"><i class="fa-solid fa-arrow-right-from-bracket" style="color: #000000;"></i> LOGOUT</button>
+        </form>
+      </li>
     </ul>
   </nav>

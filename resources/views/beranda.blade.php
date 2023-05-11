@@ -19,11 +19,10 @@
                 <div class="d-flex align-items-center">
                     <div class="flex-shrink-0">
                         <i class="fa-solid fa-person-booth fa-4x" style="color: #03C988;"></i>
-                        {{-- <i class="fa-solid fa-users fa-4x" style="color: #03C988;"></i> --}}
                     </div>
                     <div class="flex-grow-1 ms-3">
                         <h1>108</h1>
-                        <h6>Jumlah pemilih</h6>
+                        <h6>Jumlah Pemilih</h6>
                     </div>
                 </div>
             </div>
@@ -34,7 +33,7 @@
                     </div>
                     <div class="flex-grow-1 ms-3">
                         <h1>108</h1>
-                        <h6>Jumlah pemilih</h6>
+                        <h6>Jumlah Kandidat</h6>
                     </div>
                 </div>
             </div>
@@ -46,7 +45,7 @@
                     </div>
                     <div class="flex-grow-1 ms-3">
                         <h1>108</h1>
-                        <h6>Pemilih sudah memilih</h6>
+                        <h6>Pemilih Sudah Memilih</h6>
                     </div>
                 </div>
             </div>
@@ -58,7 +57,7 @@
                     </div>
                     <div class="flex-grow-1 ms-3">
                         <h1>108</h1>
-                        <h6>Pemilih belum memilih</h6>
+                        <h6>Pemilih Belum Memilih</h6>
                     </div>
                 </div>
             </div>
