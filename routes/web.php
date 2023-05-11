@@ -102,6 +102,17 @@ Route::get('/panitia', function () {
     ]);
 });
 
+Route::get('/panitia/pemilih', function () {
+    return view('dashboard.pemilih.index', [
+        'title' => 'Data Pemilih'
+    ]);
+});
+Route::get('/panitia/pemilih/create', function () {
+    return view('dashboard.pemilih.edit', [
+        'title' => 'Tambah Data Pemilih'
+    ]);
+});
+
 Route::get('/dashboard', function () {
     return view('dashboardv.index');
 });

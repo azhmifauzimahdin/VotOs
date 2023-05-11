@@ -16,7 +16,7 @@
     <nav class="mt-2">
       <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
         <li class="nav-item">
-          <a href="pages/gallery.html" class="nav-link">
+          <a href="/panitia" class="nav-link">
             <i class="nav-icon fa-solid fa-house" style="color: #ffffff;"></i>
             <p>
               Dashboard
@@ -24,7 +24,7 @@
           </a>
         </li>
         <li class="nav-item">
-          <a href="pages/gallery.html" class="nav-link">
+          <a href="/panitia/pemilih" class="nav-link">
             <i class="nav-icon fa-solid fa-users" style="color: #ffffff;"></i>
             <p>
               Data Pemilih
