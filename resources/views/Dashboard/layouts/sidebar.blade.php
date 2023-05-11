@@ -16,7 +16,7 @@
     <nav class="mt-2">
       <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
         <li class="nav-item">
-          <a href="/panitia" class="nav-link">
+          <a href="/dashboard" class="nav-link {{ Request::is('dashboard') ? 'active' : ''}}">
             <i class="nav-icon fa-solid fa-house" style="color: #ffffff;"></i>
             <p>
               Dashboard
@@ -24,7 +24,7 @@
           </a>
         </li>
         <li class="nav-item">
-          <a href="/panitia/pemilih" class="nav-link">
+          <a href="/dashboard/pemilih" class="nav-link {{ Request::is('dashboard/pemilih*') ? 'active' : ''}}">
             <i class="nav-icon fa-solid fa-users" style="color: #ffffff;"></i>
             <p>
               Data Pemilih
@@ -32,7 +32,7 @@
           </a>
         </li>
         <li class="nav-item">
-          <a href="pages/gallery.html" class="nav-link">
+          <a href="pages/gallery.html" class="nav-link {{ Request::is('dashboard/kandidat*') ? 'active' : ''}}">
             <i class="nav-icon fa-solid fa-user" style="color: #ffffff;"></i>
             <p>
               Data Kandidat
@@ -40,7 +40,7 @@
           </a>
         </li>
         <li class="nav-item">
-          <a href="pages/gallery.html" class="nav-link">
+          <a href="pages/gallery.html" class="nav-link {{ Request::is('dashboard/voting*') ? 'active' : ''}}">
             <i class="nav-icon fa-solid fa-pen" style="color: #ffffff;"></i>
             <p>
               Data Voting
@@ -48,7 +48,7 @@
           </a>
         </li>
         <li class="nav-item">
-          <a href="pages/gallery.html" class="nav-link">
+          <a href="pages/gallery.html" class="nav-link {{ Request::is('dashboard/panitia*') ? 'active' : ''}}">
             <i class="nav-icon fa-solid fa-users-gear" style="color: #ffffff;"></i>
             <p>
               Data Panitia
@@ -56,7 +56,7 @@
           </a>
         </li>
         <li class="nav-item">
-          <a href="pages/gallery.html" class="nav-link">
+          <a href="pages/gallery.html" class="nav-link {{ Request::is('dashboard/rekapitulasi*') ? 'active' : ''}}">
             <i class="nav-icon fa-solid fa-file" style="color: #ffffff;"></i>
             <p>
               Rekapitulasi
@@ -64,7 +64,7 @@
           </a>
         </li>
         <li class="nav-item">
-          <a href="/panitia/ganti_password" class="nav-link">
+          <a href="/dashboard/ganti_password" class="nav-link {{ Request::is('dashboard/ganti_password') ? 'active' : ''}}">
             <i class="nav-icon fa-solid fa-unlock" style="color: #ffffff;"></i>
             <p>
               Ganti Password

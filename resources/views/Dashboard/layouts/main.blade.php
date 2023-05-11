@@ -99,5 +99,7 @@
 <script src="{{ asset('AdminLTE') }}/dist/js/pages/dashboard.js"></script>
 {{-- Font awesome --}}
 <script src="https://kit.fontawesome.com/dd7eecbb67.js" crossorigin="anonymous"></script>
+{{-- Sweet Alert --}}
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 </body>
 </html>

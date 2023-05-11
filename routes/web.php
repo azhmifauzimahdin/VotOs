@@ -96,23 +96,23 @@ Route::get('/voting/berhasil', function () {
     ]);
 });
 
-Route::get('/panitia', function () {
+Route::get('/dashboard', function () {
     return view('dashboard.index', [
         'title' => 'Dashboard'
     ]);
 });
 
-Route::get('/panitia/pemilih', function () {
+Route::get('/dashboard/pemilih', function () {
     return view('dashboard.pemilih.index', [
         'title' => 'Data Pemilih'
     ]);
 });
-Route::get('/panitia/pemilih/create', function () {
+Route::get('/dashboard/pemilih/create', function () {
     return view('dashboard.pemilih.create', [
         'title' => 'Tambah Data Pemilih'
     ]);
 });
-Route::get('/panitia/ganti_password', function () {
+Route::get('/dashboard/ganti_password', function () {
     return view('dashboard.ganti_password.index', [
         'title' => 'Ganti Password'
     ]);

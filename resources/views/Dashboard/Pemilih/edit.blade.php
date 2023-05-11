@@ -17,7 +17,7 @@
                             <input type="text" class="form-control @error('slug') is-invalid @enderror" id="slug" name="slug" value="{{ old('slug') }}">
                         </div>
                         <button type="submit" class="btn btn-primary">Update</button>
-                        <a href="/panitia/pemilih" class="btn btn-danger">Batal</a>
+                        <a href="/dashboard/pemilih" class="btn btn-danger">Batal</a>
                     </form>
                 </div>
             </div>
