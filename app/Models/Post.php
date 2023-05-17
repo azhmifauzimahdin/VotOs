@@ -10,8 +10,13 @@ class Post extends Model
 {
     use HasFactory, Sluggable;
 
-    // protected $fillable = ['title', 'excerpt', 'body'];
+    // field boleh diisi tinker
+    // protected $fillable = ['title', 'excerpt', 'body'];  
+
+    // field tidak boleh diisi tinker
     protected $guarded = ['id'];
+
+    // eager loading
     protected $with = ['category', 'author'];
 
     public function scopeFilter($query, array $filters)

@@ -9,7 +9,7 @@
         <img src="{{ asset('AdminLTE') }}/dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
       </div>
       <div class="info">
-        <a href="#" class="d-block">Alexander Pierce</a>
+        <a href="#" class="d-block">{{ auth()->user()->nama }}</a>
       </div>
     </div>
 
@@ -71,14 +71,21 @@
             </p>
           </a>
         </li>
-        <li class="nav-item">
-          <a href="pages/gallery.html" class="nav-link">
+        <form action="/logoutUser" method="POST" id="logoutform" class="nav-item" style="cursor: pointer">
+          @csrf
+          <a onclick="document.getElementById('logoutform').submit()" class="nav-link">
             <i class="nav-icon fa-solid fa-arrow-right-from-bracket" style="color: #ffffff;"></i>
             <p>
               Logout
             </p>
           </a>
-        </li>
+        </form>
+          {{-- <a href="pages/gallery.html" class="nav-link">
+            <i class="nav-icon fa-solid fa-arrow-right-from-bracket" style="color: #ffffff;"></i>
+            <p>
+              Logout
+            </p>
+          </a> --}}
       </ul>
     </nav>
 

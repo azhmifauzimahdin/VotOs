@@ -2,15 +2,15 @@
 
 namespace App\Models;
 
-use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 
-class User extends Authenticatable
+class Pemilih extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
+    protected $guard = 'pemilih';
 
     protected $guarded = ['id'];
 
@@ -19,8 +19,8 @@ class User extends Authenticatable
         'remember_token',
     ];
 
-    public function pemilihs()
+    public function user()
     {
-        return $this->hasMany(Pemilih::class);
+        return $this->belongsTo(User::class, 'user_id');
     }
 }

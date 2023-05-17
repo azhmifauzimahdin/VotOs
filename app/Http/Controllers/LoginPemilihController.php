@@ -5,11 +5,11 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class LoginController extends Controller
+class LoginPemilihController extends Controller
 {
     public function index()
     {
-        return view('login.loginuser.index', [
+        return view('login.loginpemilih.index', [
             'title' => 'Login'
         ]);
     }
@@ -17,25 +17,26 @@ class LoginController extends Controller
     public function authenticate(Request $request)
     {
         $credentials = $request->validate([
-            'email' => 'required|email',
+            'username' => 'required',
             'password' => 'required'
         ]);
 
-        if (Auth::attempt($credentials)) {
+        if (Auth::guard('pemilih')->attempt($credentials)) {
             $request->session()->regenerate();
-            return redirect()->intended('/dashboard');
+
+            return redirect()->intended('/');
         }
 
-        return back()->with('loginError', 'Login gagal!');
+        return back()->with('loginError', 'Login Gagal!');
     }
 
     public function logout(Request $request)
     {
-        Auth::logout();
+        Auth::guard('pemilih')->logout();
 
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 
-        return redirect('/');
+        return redirect('/loginPemilih');
     }
 }

@@ -5,7 +5,7 @@ namespace Database\Factories;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
 
-class UserFactory extends Factory
+class PemilihFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -15,26 +15,14 @@ class UserFactory extends Factory
     public function definition()
     {
         return [
+            'user_id' => mt_rand(1, 3),
+            'nisn' => $this->faker->nik(),
             'nama' => $this->faker->name(),
+            'kelas' => mt_rand(10, 12),
+            'jk' => $this->faker->randomElement(['Laki-laki', 'Perempuan']),
             'username' => $this->faker->unique()->userName(),
             'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi',
-            'email' => $this->faker->unique()->safeEmail(),
-            'level' => mt_rand(1, 2),
             'remember_token' => Str::random(10),
         ];
     }
-
-    /**
-     * Indicate that the model's email address should be unverified.
-     *
-     * @return \Illuminate\Database\Eloquent\Factories\Factory
-     */
-    // public function unverified()
-    // {
-    //     return $this->state(function (array $attributes) {
-    //         return [
-    //             'email_verified_at' => null,
-    //         ];
-    //     });
-    // }
 }

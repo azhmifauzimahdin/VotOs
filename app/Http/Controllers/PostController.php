@@ -29,6 +29,7 @@ class PostController extends Controller
         ]);
     }
 
+    // Pencarian berdasarkan parameter
     public function show(Post $post)
     {
         return view('post', [

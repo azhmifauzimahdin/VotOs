@@ -6,14 +6,12 @@
     </ul>
 
     <ul class="navbar-nav ml-auto">
-      {{-- <li class="nav-item pr-md-3">
-        <img src="{{ asset('AdminLTE') }}/dist/img/user2-160x160.jpg" width="33" height="33" class="rounded-circle bg-info">
-        <a href="#" class="text-dark">Azhmi Fauzi Mahdin - Administrator</a>
-      </li> --}}
       <li class="nav-item">
-        <form action="/logout" method="post">
+        <form action="/logoutPemilih" method="post">
           @csrf
-          <button type="submit" class="dropdown-item"><i class="fa-solid fa-arrow-right-from-bracket" style="color: #000000;"></i> LOGOUT</button>
+          <button type="submit" class="dropdown-item rounded-pill">
+            <i class="fa-solid fa-arrow-right-from-bracket" style="color: #000000;"></i> Logout
+          </button>
         </form>
       </li>
     </ul>

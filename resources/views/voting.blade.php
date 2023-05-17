@@ -17,7 +17,7 @@
             <h4 class="text-center">Silakan Login Untuk Melakukan Voting</h4>
             <p class="text-center w-75 mx-auto">Anda harus login terlebih dahulu sebelum melakukan voting</p>
             <div class="d-flex justify-content-center">
-                <a href="/login" class="btn btn-primary rounded-pill px-4">Login Sekarang</a>
+                <a href="/loginPemilih" class="btn btn-primary rounded-pill px-4">Login Sekarang</a>
             </div>
         </div>
     </div>

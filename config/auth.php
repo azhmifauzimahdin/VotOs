@@ -40,6 +40,10 @@ return [
             'driver' => 'session',
             'provider' => 'users',
         ],
+        'pemilih' => [
+            'driver' => 'session',
+            'provider' => 'pemilihs',
+        ],
     ],
 
     /*
@@ -63,6 +67,10 @@ return [
         'users' => [
             'driver' => 'eloquent',
             'model' => App\Models\User::class,
+        ],
+        'pemilihs' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\Pemilih::class,
         ],
 
         // 'users' => [

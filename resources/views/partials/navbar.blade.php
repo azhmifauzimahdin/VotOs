@@ -20,26 +20,27 @@
                 </li>
                 @auth
                     <li class="nav-item dropdown mx-2">
-                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        Welcome back, {{ auth()->user()->name }}
+                        <a class="nav-link dropdown-toggle {{ Request::is('/*') ? 'active' : ''}}" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <b>{{ auth()->user()->nama }}</b>
                         </a>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="/dashboard"><i class="bi bi-layout-text-sidebar-reverse"></i> My Dashboard</a></li>
-                            <li><hr class="dropdown-divider"></li>
                             <li>
-                                <form action="/logout" method="post">
+                                <form action="/logoutPemilih" method="post">
                                     @csrf
-                                    <button type="submit" class="dropdown-item"><i class="bi bi-box-arrow-right"></i> Logout</button>
+                                    <button type="submit" class="dropdown-item">
+                                        <i class="nav-icon fa-solid fa-arrow-right-from-bracket mr-5"></i>
+                                        Logout
+                                    </button>
                                 </form>
                             </li>
                         </ul>
                     </li>
                 @else
                     <li class="nav-item mx-2 d-flex align-items-center">
-                        <a href="/login" class="btn btn-outline-light py-1 px-4 rounded-pill {{ Request::is('dashboard') ? 'active' : ''}}">Login Pemilih</a>
+                        <a href="/loginPemilih" class="btn btn-outline-light py-1 px-4 rounded-pill my-2 my-md-0{{ Request::is('dashboard') ? 'active' : ''}}">Login Pemilih</a>
                     </li>
                     <li class="nav-item mx-2 d-flex align-items-center">
-                        <a href="/login" class="btn btn-success py-1 px-4 rounded-pill border-0 {{ Request::is('dashboard') ? 'active' : ''}}" style="background: #38E54D">Login Panitia</a>
+                        <a href="/loginUser" class="btn btn-success py-1 px-4 rounded-pill border-0 my-2 my-md-0{{ Request::is('dashboard') ? 'active' : ''}}" style="background: #38E54D">Login Admin/Panitia</a>
                     </li>
                 @endauth
             </ul>
