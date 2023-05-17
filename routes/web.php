@@ -8,6 +8,7 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\LoginUserController;
 use App\Http\Controllers\AdminCategoryController;
+use App\Http\Controllers\DashboardPemilihController;
 use App\Http\Controllers\DashboardPostController;
 use App\Http\Controllers\LoginPemilihController;
 
@@ -122,17 +123,12 @@ Route::get('/dashboard', function () {
     ]);
 })->name('user.dashboard')->middleware('auth:web');
 
-Route::get('/dashboard/pemilih', function () {
-    return view('dashboard.pemilih.index', [
-        'title' => 'Data Pemilih'
-    ]);
-})->name('user.pemilih')->middleware('auth:web');
-
-Route::get('/dashboard/pemilih/create', function () {
-    return view('dashboard.pemilih.create', [
-        'title' => 'Tambah Data Pemilih'
-    ]);
-})->name('user.createPemilih')->middleware('auth:web');
+Route::get('/dashboard/pemilih/checkSlug', [DashboardPemilihController::class, 'checkSlug'])->middleware('auth:web');
+Route::resource('/dashboard/pemilih', DashboardPemilihController::class)->names([
+    'index' => 'user.pemilih.index',
+    'store' => 'user.pemilih.store',
+    'create' => 'user.pemilih.create',
+])->middleware('auth');
 
 Route::get('/dashboard/ganti_password', function () {
     return view('dashboard.ganti_password.index', [

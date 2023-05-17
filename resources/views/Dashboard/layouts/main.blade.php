@@ -25,6 +25,11 @@
     <link rel="stylesheet" href="{{ asset('AdminLTE') }}/plugins/daterangepicker/daterangepicker.css">
     <!-- summernote -->
     <link rel="stylesheet" href="{{ asset('AdminLTE') }}/plugins/summernote/summernote-bs4.min.css">
+    <style>
+        label {
+        font-weight: normal !important;
+    }
+    </style>
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
 <div class="wrapper">
@@ -99,7 +104,5 @@
 <script src="{{ asset('AdminLTE') }}/dist/js/pages/dashboard.js"></script>
 {{-- Font awesome --}}
 <script src="https://kit.fontawesome.com/dd7eecbb67.js" crossorigin="anonymous"></script>
-{{-- Sweet Alert --}}
-<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 </body>
 </html>

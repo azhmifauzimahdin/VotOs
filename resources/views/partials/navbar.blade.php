@@ -20,7 +20,7 @@
                 </li>
                 @auth
                     <li class="nav-item dropdown mx-2">
-                        <a class="nav-link dropdown-toggle {{ Request::is('/*') ? 'active' : ''}}" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <a class="nav-link dropdown-toggle {{ Request::is('*') ? 'active' : ''}}" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         <b>{{ auth()->user()->nama }}</b>
                         </a>
                         <ul class="dropdown-menu">
