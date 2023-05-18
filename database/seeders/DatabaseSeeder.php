@@ -6,6 +6,7 @@ use App\Models\Post;
 use App\Models\User;
 use App\Models\Pemilih;
 use App\Models\Category;
+use App\Models\Kandidat;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -19,6 +20,7 @@ class DatabaseSeeder extends Seeder
     {
         User::factory(3)->create();
         Pemilih::factory(3)->create();
+        Kandidat::factory(3)->create();
 
         Category::create([
             'name' => 'Web Programming',

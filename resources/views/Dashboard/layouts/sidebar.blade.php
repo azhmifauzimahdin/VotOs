@@ -32,7 +32,7 @@
           </a>
         </li>
         <li class="nav-item">
-          <a href="pages/gallery.html" class="nav-link {{ Request::is('dashboard/kandidat*') ? 'active' : ''}}">
+          <a href="/dashboard/kandidat" class="nav-link {{ Request::is('dashboard/kandidat*') ? 'active' : ''}}">
             <i class="nav-icon fa-solid fa-user" style="color: #ffffff;"></i>
             <p>
               Data Kandidat
