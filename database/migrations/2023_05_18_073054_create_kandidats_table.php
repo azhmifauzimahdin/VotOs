@@ -15,7 +15,7 @@ class CreateKandidatsTable extends Migration
     {
         Schema::create('kandidats', function (Blueprint $table) {
             $table->id();
-            $table->integer('nomor');
+            $table->integer('nomor')->unique();
             $table->string('nama');
             $table->string('foto')->nullable();
             $table->text('visi');

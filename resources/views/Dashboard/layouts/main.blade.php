@@ -25,10 +25,17 @@
     <link rel="stylesheet" href="{{ asset('AdminLTE') }}/plugins/daterangepicker/daterangepicker.css">
     <!-- summernote -->
     <link rel="stylesheet" href="{{ asset('AdminLTE') }}/plugins/summernote/summernote-bs4.min.css">
+    {{-- Trix Editor --}}
+    <link rel="stylesheet" type="text/css" href="https://unpkg.com/trix@2.0.0/dist/trix.css">
+    <script type="text/javascript" src="https://unpkg.com/trix@2.0.0/dist/trix.umd.min.js"></script>
     <style>
         label {
-        font-weight: normal !important;
-    }
+            font-weight: normal !important;
+        }
+
+        trix-toolbar [data-trix-button-group="file-tools"]{
+            display: none;
+        }
     </style>
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">

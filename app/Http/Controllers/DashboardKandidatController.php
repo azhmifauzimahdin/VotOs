@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Kandidat;
 use Illuminate\Http\Request;
+use \Cviebrock\EloquentSluggable\Services\SlugService;
 
 class DashboardKandidatController extends Controller
 {
@@ -27,7 +28,9 @@ class DashboardKandidatController extends Controller
      */
     public function create()
     {
-        //
+        return view('dashboard.kandidat.create', [
+            'title' => 'Tambah Data Kandidat'
+        ]);
     }
 
     /**
@@ -38,7 +41,18 @@ class DashboardKandidatController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validateData = $request->validate([
+            'nomor' => 'required|numeric|unique:kandidats',
+            'nama' => 'required|regex:/^[a-zA-Z\s]*$/',
+            'jk' => 'required',
+            'slug' => 'required|unique:kandidats',
+            'visi' => 'required',
+            'misi' => 'required'
+        ]);
+
+        Kandidat::create($validateData);
+
+        return redirect('/dashboard/kandidat')->with('success', 'Data kandidat berhasil ditambahkan!');
     }
 
     /**
@@ -84,5 +98,11 @@ class DashboardKandidatController extends Controller
     public function destroy(Kandidat $kandidat)
     {
         //
+    }
+
+    public function checkSlug(Request $request)
+    {
+        $slug = SlugService::createSlug(Kandidat::class, 'slug', $request->nama);
+        return response()->json(['slug' => $slug]);
     }
 }

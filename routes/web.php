@@ -131,8 +131,11 @@ Route::resource('/dashboard/pemilih', DashboardPemilihController::class)->names(
     'create' => 'user.pemilih.create',
 ])->middleware('auth');
 
+Route::get('/dashboard/kandidat/checkSlug', [DashboardKandidatController::class, 'checkSlug']);
 Route::resource('/dashboard/kandidat', DashboardKandidatController::class)->names([
-    'index' => 'user.kandidat.index'
+    'index' => 'user.kandidat.index',
+    'store' => 'user.kandidat.store',
+    'create' => 'user.kandidat.create',
 ])->middleware('auth');
 
 Route::get('/dashboard/ganti_password', function () {

@@ -11,7 +11,7 @@
                         @csrf
                         <div class="form-group">
                             <label for="nisn">NISN</label>
-                            <input type="text" class="form-control @error('nisn') is-invalid @enderror" id="nisn" name="nisn" placeholder="NISN" required value="{{  old('nisn', $pemilih->nisn) }}">
+                            <input type="text" class="form-control @error('nisn') is-invalid @enderror" id="nisn" name="nisn" placeholder="NISN" required value="{{  old('nisn', $pemilih->nisn) }}" autofocus>
                             @error('nisn')
                             <div class="invalid-feedback">
                                 {{ $message }}

@@ -15,7 +15,7 @@
                         </div>
                     @endif
                     <div class="d-flex justify-content-between mb-3">
-                        <a href="/dashboard/pemilih/create" class="btn btn-primary">
+                        <a href="/dashboard/kandidat/create" class="btn btn-primary">
                             <i class="fa-solid fa-plus pr-1"></i>
                             Tambah {{ $title }}
                         </a>
@@ -35,8 +35,7 @@
                                 <th scope="col">NAMA</th>
                                 <th scope="col">JENIS KELAMIN</th>
                                 <th scope="col">FOTO</th>
-                                <th scope="col">VISI</th>
-                                <th scope="col">MISI</th>
+                                <th scope="col">TENTANG</th>
                                 <th scope="col">Action</th>
                             </tr>
                         </thead>
@@ -47,8 +46,12 @@
                                     <td>{{ $kandidat->nama }}</td>
                                     <td>{{ $kandidat->jk }}</td>
                                     <td>{{ $kandidat->foto }}</td>
-                                    <td>{!! $kandidat->visi !!}</td>
-                                    <td>{!! $kandidat->misi !!}</td>
+                                    <td>
+                                        <b>Visi :</b>
+                                        <div>{!! $kandidat->visi !!}</div>
+                                        <b>Misi :</b>
+                                        <div>{!! $kandidat->misi !!}</div>
+                                    </td>
                                     <td>
                                         <a href="/dashboard/kandidat/{{ $kandidat->slug }}/edit" class="badge bg-warning">
                                             <i class="fa-solid fa-pen-to-square"></i>
