@@ -34,6 +34,8 @@
                                 <th scope="col">NO</th>
                                 <th scope="col">NISN</th>
                                 <th scope="col">NAMA</th>
+                                <th scope="col">USERNAME</th>
+                                <th scope="col">EMAIL</th>
                                 <th scope="col">KELAS</th>
                                 <th scope="col">JENIS KELAMIN</th>
                                 <th scope="col">Action</th>
@@ -45,19 +47,18 @@
                                     <td>{{ $loop->iteration }}</td>
                                     <td>{{ $pemilih->nisn }}</td>
                                     <td>{{ $pemilih->nama }}</td>
+                                    <td>{{ $pemilih->username }}</td>
+                                    <td>{{ $pemilih->email }}</td>
                                     <td>{{ $pemilih->kelas }}</td>
                                     <td>{{ $pemilih->jk }}</td>
                                     <td>
-                                        <a href="/dashboard/pemilih/{{ $pemilih->id }}" class="badge bg-info">
-                                            <i class="fa-regular fa-eye"></i>
-                                        </a>
-                                        <a href="/dashboard/pemilih/{{ $pemilih->id }}/edit" class="badge bg-warning">
+                                        <a href="/dashboard/pemilih/{{ $pemilih->slug }}/edit" class="badge bg-warning">
                                             <i class="fa-solid fa-pen-to-square"></i>
                                         </a>
-                                        <form action="/dashboard/pemilih/{{ $pemilih->id }}" method="post" class="d-inline">
+                                        <form action="/dashboard/pemilih/{{ $pemilih->slug }}" name="formDelete" method="post" class="d-inline">
                                             @method('delete')
                                             @csrf
-                                            <button class="badge bg-danger border-0" onclick="return confirm('Are you sure?')">
+                                            <button class="badge bg-danger border-0" onclick="archiveFunction()">
                                                 <i class="fa-solid fa-trash-can"></i>
                                             </button>
                                         </form>
@@ -70,4 +71,30 @@
             </div>
         </section>
     </div>
+    <script>
+        function archiveFunction() {
+            event.preventDefault();
+            var form = document.forms["formDelete"];
+            Swal.fire({
+                title: 'Hapus Data?',
+                text: "Klik Hapus untuk menghapus data",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Hapus',
+                cancelButtonText: 'Batal'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    Swal.fire(
+                    'Deleted!',
+                    'Your file has been deleted.',
+                    'success'
+                    ).then(function(){
+                        form.submit();
+                    })
+                }
+            })
+        }
+    </script>
 @endsection

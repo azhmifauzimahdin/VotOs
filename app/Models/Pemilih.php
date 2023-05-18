@@ -20,6 +20,11 @@ class Pemilih extends Authenticatable
         'remember_token',
     ];
 
+    public function getRouteKeyName()
+    {
+        return 'slug';
+    }
+
     public function sluggable(): array
     {
         return [

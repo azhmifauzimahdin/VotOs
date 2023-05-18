@@ -27,6 +27,24 @@
                             @enderror
                         </div>
                         <div class="form-group">
+                            <label for="username">Username</label>
+                            <input type="text" class="form-control @error('username') is-invalid @enderror" id="username" name="username" placeholder="Username" required value="{{  old('username') }}">
+                            @error('username')
+                            <div class="invalid-feedback">
+                                {{ $message }}
+                            </div>
+                            @enderror
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email" class="form-control @error('email') is-invalid @enderror" id="email" name="email" placeholder="Email" required value="{{  old('email') }}">
+                            @error('email')
+                            <div class="invalid-feedback">
+                                {{ $message }}
+                            </div>
+                            @enderror
+                        </div>
+                        <div class="form-group">
                             <label for="slug">Slug</label>
                             <input type="text" class="form-control @error('slug') is-invalid @enderror" id="slug" name="slug" placeholder="Slug" required value="{{  old('slug') }}">
                             @error('slug')
@@ -50,15 +68,6 @@
                                 <option value="Laki-laki" {{ old('jk') == "Laki-laki" ? "selected" : "" }}>Laki-laki</option>
                                 <option value="Perempuan" {{ old('jk') == "Perempuan" ? "selected" : "" }}>Perempuan</option>
                             </select>
-                        </div>
-                        <div class="form-group">
-                            <label for="username">Username</label>
-                            <input type="text" class="form-control @error('username') is-invalid @enderror" id="username" name="username" placeholder="Username" required value="{{  old('username') }}">
-                            @error('username')
-                            <div class="invalid-feedback">
-                                {{ $message }}
-                            </div>
-                            @enderror
                         </div>
                         <div class="form-group">
                             <label for="password">Password</label>

@@ -77,13 +77,13 @@ Route::get('/', function () {
     return view('beranda', [
         "title" => "Beranda"
     ]);
-})->name('pemilih.beranda');
+})->name('pemilih.beranda')->middleware('auth:pemilih');
 
 Route::get('/perolehan-suara', function () {
     return view('perolehan_suara', [
         'title' => 'Perolehan Suara'
     ]);
-})->name('pemilih.perolehanSuara');
+})->name('pemilih.perolehanSuara')->middleware('auth:pemilih');
 
 Route::get('/kandidat', function () {
     return view('kandidat', [

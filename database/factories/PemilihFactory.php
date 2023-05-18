@@ -18,6 +18,7 @@ class PemilihFactory extends Factory
             'user_id' => mt_rand(1, 3),
             'nisn' => $this->faker->nik(),
             'nama' => $this->faker->name(),
+            'email' => $this->faker->unique()->safeEmail(),
             'kelas' => mt_rand(10, 12),
             'jk' => $this->faker->randomElement(['Laki-laki', 'Perempuan']),
             'username' => $this->faker->unique()->userName(),

@@ -45,10 +45,11 @@ class DashboardPemilihController extends Controller
         $validateData = $request->validate([
             'nisn' => 'required|numeric|unique:pemilihs',
             'nama' => 'required|regex:/^[a-zA-Z\s]*$/',
+            'username' => 'required|unique:pemilihs',
+            'email' => 'required|email:dns|unique:pemilihs',
             'slug' => 'required|unique:pemilihs',
             'kelas' => 'required',
             'jk' => 'required',
-            'username' => 'required',
             'password' => 'required|min:6|regex:/[a-z]/|regex:/[A-Z]/|regex:/[0-9]/|regex:/[@$!%*#?&]/'
         ]);
 
@@ -79,7 +80,10 @@ class DashboardPemilihController extends Controller
      */
     public function edit(Pemilih $pemilih)
     {
-        //
+        return view('dashboard.pemilih.edit', [
+            'title' => 'Edit Data Pemilih',
+            'pemilih' => $pemilih
+        ]);
     }
 
     /**
@@ -91,7 +95,30 @@ class DashboardPemilihController extends Controller
      */
     public function update(Request $request, Pemilih $pemilih)
     {
-        //
+        $rules = [
+            'nama' => 'required|regex:/^[a-zA-Z\s]*$/',
+            'kelas' => 'required',
+            'jk' => 'required'
+        ];
+
+        if ($request->nisn != $pemilih->nisn) {
+            $rules['nisn'] = 'required|numeric|unique:pemilihs';
+        }
+        if ($request->slug != $pemilih->slug) {
+            $rules['slug'] = 'required|unique:pemilihs';
+        }
+        if ($request->username != $pemilih->username) {
+            $rules['username'] = 'required|unique:pemilihs';
+        }
+        if ($request->email != $pemilih->email) {
+            $rules['email'] = 'required|email:dns|unique:pemilihs';
+        }
+
+        $validateData = $request->validate($rules);
+
+        Pemilih::where('id', $pemilih->id)->update($validateData);
+
+        return redirect('/dashboard/pemilih')->with('success', 'Data pemilih berhasil diupdate!');
     }
 
     /**
@@ -102,7 +129,9 @@ class DashboardPemilihController extends Controller
      */
     public function destroy(Pemilih $pemilih)
     {
-        //
+        Pemilih::destroy($pemilih->id);
+
+        return redirect('/dashboard/pemilih')->with('success', 'Data pemilih berhasil dihapus!');
     }
 
     public function checkSlug(Request $request)

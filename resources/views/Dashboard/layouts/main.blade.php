@@ -104,5 +104,7 @@
 <script src="{{ asset('AdminLTE') }}/dist/js/pages/dashboard.js"></script>
 {{-- Font awesome --}}
 <script src="https://kit.fontawesome.com/dd7eecbb67.js" crossorigin="anonymous"></script>
+{{-- Sweet Alert --}}
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </body>
 </html>

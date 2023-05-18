@@ -18,6 +18,7 @@ class CreatePemilihsTable extends Migration
             $table->foreignId('user_id');
             $table->string('nisn')->unique();
             $table->string('nama');
+            $table->string('email')->unique();
             $table->string('kelas');
             $table->string('jk');
             $table->string('username')->unique();
