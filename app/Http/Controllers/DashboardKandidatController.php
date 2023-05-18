@@ -74,7 +74,10 @@ class DashboardKandidatController extends Controller
      */
     public function edit(Kandidat $kandidat)
     {
-        //
+        return view('dashboard.kandidat.edit', [
+            'title' => 'Edit Data Kandidat',
+            'kandidat' => $kandidat
+        ]);
     }
 
     /**
@@ -86,7 +89,26 @@ class DashboardKandidatController extends Controller
      */
     public function update(Request $request, Kandidat $kandidat)
     {
-        //
+        $rules = [
+            'nama' => 'required|regex:/^[a-zA-Z\s]*$/',
+            'jk' => 'required',
+            'visi' => 'required',
+            'misi' => 'required'
+        ];
+
+        if ($request->nomor != $kandidat->nomor) {
+            $rules['nomor'] = 'required|numeric|unique:kandidats';
+        }
+
+        if ($request->slug != $kandidat->slug) {
+            $rules['slug'] = 'required|unique:kandidats';
+        }
+
+        $validateData = $request->validate($rules);
+
+        Kandidat::where('id', $kandidat->id)->update($validateData);
+
+        return redirect('/dashboard/kandidat')->with('success', 'Data kandidat berhasil diupdate!');
     }
 
     /**
@@ -97,7 +119,9 @@ class DashboardKandidatController extends Controller
      */
     public function destroy(Kandidat $kandidat)
     {
-        //
+        Kandidat::destroy($kandidat->id);
+
+        return redirect('/dashboard/kandidat')->with('success', 'Data kandidat berhasil dihapus!');
     }
 
     public function checkSlug(Request $request)
