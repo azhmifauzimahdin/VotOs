@@ -44,8 +44,10 @@
                                 <tr>
                                     <td>{{ $kandidat->nomor }}</td>
                                     <td>{{ $kandidat->nama }}</td>
-                                    <td>{{ $kandidat->jk }}</td>
-                                    <td>{{ $kandidat->foto }}</td>
+                                    <td>{{ $kandidat->slug }}</td>
+                                    <td>
+                                        <img src="{{ asset('storage/'.$kandidat->foto) }}" style="width: 120px; height: 160px;" alt="Foto kandidat">    
+                                    </td>
                                     <td>
                                         <b>Visi :</b>
                                         <div>{!! $kandidat->visi !!}</div>
@@ -53,13 +55,14 @@
                                         <div>{!! $kandidat->misi !!}</div>
                                     </td>
                                     <td>
-                                        <a href="/dashboard/kandidat/{{ $kandidat->slug }}/edit" class="badge bg-warning">
+                                        <a href="/dashboard/kandidat/{{ $kandidat->slug }}/edit" class="btn btn-sm bg-warning">
                                             <i class="fa-solid fa-pen-to-square"></i>
                                         </a>
-                                        <form action="/dashboard/kandidat/{{ $kandidat->slug }}" name="formDelete" method="post" class="d-inline">
+                                        <form action="/dashboard/kandidat/{{ $kandidat->slug }}" name="formDeletee" method="post" class="d-inline">
                                             @method('delete')
-                                            @csrf
-                                            <button class="badge bg-danger border-0" onclick="archiveFunction()">
+                                            @csrf 
+                                            {{-- <button class="btn btn-sm bg-danger border-0" onclick="archiveFunction()"> --}}
+                                            <button class="btn btn-sm bg-danger border-0" type="submit">
                                                 <i class="fa-solid fa-trash-can"></i>
                                             </button>
                                         </form>
@@ -73,29 +76,29 @@
         </section>
     </div>
     <script>
-        function archiveFunction() {
-            event.preventDefault();
-            var form = document.forms["formDelete"];
-            Swal.fire({
-                title: 'Hapus Data?',
-                text: "Klik Hapus untuk menghapus data",
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33',
-                confirmButtonText: 'Hapus',
-                cancelButtonText: 'Batal'
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    Swal.fire(
-                    'Deleted!',
-                    'Your file has been deleted.',
-                    'success'
-                    ).then(function(){
-                        form.submit();
-                    })
-                }
-            })
-        }
+        // function archiveFunction() {
+        //     event.preventDefault();
+        //     var form = document.forms["formDeletee"];
+        //     Swal.fire({
+        //         title: 'Hapus Data?',
+        //         text: "Klik Hapus untuk menghapus data",
+        //         icon: 'warning',
+        //         showCancelButton: true,
+        //         confirmButtonColor: '#3085d6',
+        //         cancelButtonColor: '#d33',
+        //         confirmButtonText: 'Hapus',
+        //         cancelButtonText: 'Batal'
+        //     }).then((result) => {
+        //         if (result.isConfirmed) {
+        //             Swal.fire(
+        //             'Deleted!',
+        //             'Your file has been deleted.',
+        //             'success'
+        //             ).then(function(){
+        //                 form.submit();
+        //             })
+        //         }
+        //     })
+        // }
     </script>
 @endsection

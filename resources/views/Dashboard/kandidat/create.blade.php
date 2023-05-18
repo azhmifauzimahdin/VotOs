@@ -43,6 +43,16 @@
                             @enderror
                         </div>
                         <div class="form-group">
+                            <label for="foto">Foto</label>
+                            <img class="img-preview img-fluid mb-3" width="220">
+                            <input type="file" class="form-control-file @error('foto') is-invalid @enderror" id="foto" name="foto" onchange="previewImage()">
+                            @error('foto')
+                            <div class="invalid-feedback">
+                                {{ $message }}
+                            </div>
+                            @enderror
+                        </div>
+                        <div class="form-group">
                             <label for="visi">Visi</label>
                             <input id="visi" type="hidden" name="visi" value="{{  old('visi') }}" required>
                             <trix-editor input="visi"></trix-editor>
@@ -86,6 +96,20 @@
         document.addEventListener('trix-file-accept', function(e){
             e.preventDefault();
         });
+
+        function previewImage(){
+            const image = document.querySelector('#foto');
+            const imgPreview = document.querySelector('.img-preview');
+
+            imgPreview.style.display = 'block';
+
+            const oFReader = new FileReader();
+            oFReader.readAsDataURL(image.files[0]);
+
+            oFReader.onload = function(oFREvent) {
+                imgPreview.src = oFREvent.target.result;
+            }
+        }
 
     </script>
 @endsection

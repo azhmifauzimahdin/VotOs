@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Kandidat;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use \Cviebrock\EloquentSluggable\Services\SlugService;
 
 class DashboardKandidatController extends Controller
@@ -45,10 +46,15 @@ class DashboardKandidatController extends Controller
             'nomor' => 'required|numeric|unique:kandidats',
             'nama' => 'required|regex:/^[a-zA-Z\s]*$/',
             'jk' => 'required',
+            'foto' => 'image',
             'slug' => 'required|unique:kandidats',
             'visi' => 'required',
             'misi' => 'required'
         ]);
+
+        if ($request->file('foto')) {
+            $validateData['foto'] = $request->file('foto')->store('foto-kandidat');
+        }
 
         Kandidat::create($validateData);
 
@@ -92,9 +98,11 @@ class DashboardKandidatController extends Controller
         $rules = [
             'nama' => 'required|regex:/^[a-zA-Z\s]*$/',
             'jk' => 'required',
+            'foto' => 'image',
             'visi' => 'required',
             'misi' => 'required'
         ];
+
 
         if ($request->nomor != $kandidat->nomor) {
             $rules['nomor'] = 'required|numeric|unique:kandidats';
@@ -105,6 +113,13 @@ class DashboardKandidatController extends Controller
         }
 
         $validateData = $request->validate($rules);
+
+        if ($request->file('foto')) {
+            if ($request->fotoLama) {
+                Storage::delete($request->fotoLama);
+            }
+            $validateData['foto'] = $request->file('foto')->store('foto-kandidat');
+        }
 
         Kandidat::where('id', $kandidat->id)->update($validateData);
 
@@ -119,6 +134,9 @@ class DashboardKandidatController extends Controller
      */
     public function destroy(Kandidat $kandidat)
     {
+        if ($kandidat->foto) {
+            Storage::delete($kandidat->foto);
+        }
         Kandidat::destroy($kandidat->id);
 
         return redirect('/dashboard/kandidat')->with('success', 'Data kandidat berhasil dihapus!');

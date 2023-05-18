@@ -139,6 +139,5 @@ class DashboardPemilihController extends Controller
         $slug = SlugService::createSlug(Pemilih::class, 'slug', $request->nama);
         $username = str_replace(' ', '', $request->nama) . substr($request->nisn, -2);
         return response()->json(['slug' => $slug, 'username' => $username]);
-        // return response()->json(['slug' => $slug]);
     }
 }

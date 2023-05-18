@@ -44,6 +44,21 @@
                             @enderror
                         </div>
                         <div class="form-group">
+                            <label for="foto">Foto</label>
+                            <input type="hidden" name="fotoLama" value="{{ $kandidat->foto }}">
+                            @if ($kandidat->foto)
+                                <img src="{{ asset('storage/' . $kandidat->foto) }}" class="img-preview img-fluid mb-3 d-block" width="220">
+                            @else
+                                <img class="img-preview img-fluid mb-3" width="220">
+                            @endif
+                            <input type="file" class="form-control-file @error('foto') is-invalid @enderror" id="foto" name="foto" onchange="previewImage()">
+                            @error('foto')
+                            <div class="invalid-feedback">
+                                {{ $message }}
+                            </div>
+                            @enderror
+                        </div>
+                        <div class="form-group">
                             <label for="visi">Visi</label>
                             <input id="visi" type="hidden" name="visi" value="{{  old('visi', $kandidat->visi) }}" required>
                             <trix-editor input="visi"></trix-editor>
@@ -72,4 +87,34 @@
             </div>
         </section>
     </div>
+    <script>
+        const nama = document.querySelector('#nama');
+        const slug = document.querySelector('#slug');
+
+        nama.addEventListener('change',function(){
+            fetch('/dashboard/kandidat/checkSlug?nama=' + nama.value)
+            .then(response => response.json())
+            .then(data => {
+                slug.value = data.slug;
+            })
+        });
+
+        document.addEventListener('trix-file-accept', function(e){
+            e.preventDefault();
+        });
+
+        function previewImage(){
+            const image = document.querySelector('#foto');
+            const imgPreview = document.querySelector('.img-preview');
+
+            imgPreview.style.display = 'block';
+
+            const oFReader = new FileReader();
+            oFReader.readAsDataURL(image.files[0]);
+
+            oFReader.onload = function(oFREvent) {
+                imgPreview.src = oFREvent.target.result;
+            }
+        }
+    </script>
 @endsection

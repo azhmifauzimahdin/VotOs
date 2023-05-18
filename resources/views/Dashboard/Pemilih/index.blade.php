@@ -58,7 +58,8 @@
                                         <form action="/dashboard/pemilih/{{ $pemilih->slug }}" name="formDelete" method="post" class="d-inline">
                                             @method('delete')
                                             @csrf
-                                            <button class="badge bg-danger border-0" onclick="archiveFunction()">
+                                            {{-- <button class="badge bg-danger border-0" onclick="archiveFunction()"> --}}
+                                            <button class="badge bg-danger border-0" type="submit">
                                                 <i class="fa-solid fa-trash-can"></i>
                                             </button>
                                         </form>

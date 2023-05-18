@@ -136,6 +136,7 @@ Route::resource('/dashboard/kandidat', DashboardKandidatController::class)->name
     'index' => 'user.kandidat.index',
     'store' => 'user.kandidat.store',
     'create' => 'user.kandidat.create',
+    'destory' => 'user.kandidat.destroy',
 ])->middleware('auth');
 
 Route::get('/dashboard/ganti_password', function () {
