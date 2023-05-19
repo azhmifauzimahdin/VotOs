@@ -148,6 +148,7 @@ Route::resource('/dashboard/kandidat', DashboardKandidatController::class)->name
 
 Route::get('/dashboard/voting', [DashboardVotingController::class, 'index'])->name('user.voting')->middleware('auth:web');
 
+Route::get('/dashboard/user/checkSlug', [DashboardUserController::class, 'checkSlug'])->middleware('auth:web');
 Route::resource('/dashboard/user', DashboardUserController::class)->names([
     'index' => 'user.users.index',
     'create' => 'user.users.create',
