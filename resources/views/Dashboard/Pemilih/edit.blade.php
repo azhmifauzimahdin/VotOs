@@ -70,6 +70,17 @@
                                 <option value="Perempuan" {{ old('jk', $pemilih->jk) == "Perempuan" ? "selected" : "" }}>Perempuan</option>
                             </select>
                         </div>
+                        <div class="form-group">
+                            <label for="password">Password</label>
+                            <input type="password" class="form-control @error('password') is-invalid @enderror" id="password" name="password" placeholder="Password">
+                            @error('password')
+                            <div class="invalid-feedback">
+                                {{ $message }}
+                            </div>
+                            @else
+                                <small id="emailHelp" class="form-text text-muted">Jika password tidak ada perubahan. Password bisa dikosongkan.</small>
+                            @enderror
+                        </div>
                         <button type="submit" class="btn btn-primary">Update</button>
                         <a href="/dashboard/pemilih" class="btn btn-danger">Batal</a>
                     </form>

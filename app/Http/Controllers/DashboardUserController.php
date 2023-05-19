@@ -113,11 +113,13 @@ class DashboardUserController extends Controller
         if ($request->email != $user->email) {
             $rules['email'] = 'required|email:dns|unique:users';
         }
-        if ($request->password) {
-            $rules['password'] = 'required|min:6|regex:/[a-z]/|regex:/[A-Z]/|regex:/[0-9]/|regex:/[@$!%*#?&]/';
-        }
 
         $validateData = $request->validate($rules);
+
+        if ($request->password) {
+            $rules['password'] = 'required|min:6|regex:/[a-z]/|regex:/[A-Z]/|regex:/[0-9]/|regex:/[@$!%*#?&]/';
+            $validateData['password'] = bcrypt($request->password);
+        }
 
         if ($request->file('foto')) {
             if ($request->fotoLama) {

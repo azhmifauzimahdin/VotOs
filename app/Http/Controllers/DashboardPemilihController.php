@@ -115,6 +115,10 @@ class DashboardPemilihController extends Controller
         }
 
         $validateData = $request->validate($rules);
+        if ($request->password) {
+            $rules['password'] = 'required|min:6|regex:/[a-z]/|regex:/[A-Z]/|regex:/[0-9]/|regex:/[@$!%*#?&]/';
+            $validateData['password'] = bcrypt($request->password);
+        }
 
         Pemilih::where('id', $pemilih->id)->update($validateData);
 
