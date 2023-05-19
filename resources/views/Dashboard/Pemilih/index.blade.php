@@ -51,15 +51,14 @@
                                     <td>{{ $pemilih->email }}</td>
                                     <td>{{ $pemilih->kelas }}</td>
                                     <td>{{ $pemilih->jk }}</td>
-                                    <td>
-                                        <a href="/dashboard/pemilih/{{ $pemilih->slug }}/edit" class="badge bg-warning">
+                                    <td class="text-nowrap">
+                                        <a href="/dashboard/pemilih/{{ $pemilih->slug }}/edit" class="btn btn-sm bg-warning">
                                             <i class="fa-solid fa-pen-to-square"></i>
                                         </a>
-                                        <form action="/dashboard/pemilih/{{ $pemilih->slug }}" name="formDelete" method="post" class="d-inline">
+                                        <form action="/dashboard/pemilih/{{ $pemilih->slug }}" id="formHapus" method="post" class="d-inline">
                                             @method('delete')
                                             @csrf
-                                            {{-- <button class="badge bg-danger border-0" onclick="archiveFunction()"> --}}
-                                            <button class="badge bg-danger border-0" type="submit">
+                                            <button class="btn btn-sm bg-danger border-0 konfirmasi_hapus" onclick="hapusData()">
                                                 <i class="fa-solid fa-trash-can"></i>
                                             </button>
                                         </form>
@@ -73,9 +72,9 @@
         </section>
     </div>
     <script>
-        function archiveFunction() {
+        $('.konfirmasi_hapus').click(function(event) {
+            var form =  $(this).closest("form");
             event.preventDefault();
-            var form = document.forms["formDelete"];
             Swal.fire({
                 title: 'Hapus Data?',
                 text: "Klik Hapus untuk menghapus data",
@@ -88,14 +87,14 @@
             }).then((result) => {
                 if (result.isConfirmed) {
                     Swal.fire(
-                    'Deleted!',
-                    'Your file has been deleted.',
+                    'Sukses!',
+                    'Data berhasil dihapus.',
                     'success'
                     ).then(function(){
                         form.submit();
                     })
                 }
             })
-        }
+        });
     </script>
 @endsection
