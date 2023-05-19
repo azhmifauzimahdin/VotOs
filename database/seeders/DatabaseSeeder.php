@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use App\Models\Post;
 use App\Models\User;
+use App\Models\Voting;
 use App\Models\Pemilih;
 use App\Models\Category;
 use App\Models\Kandidat;
@@ -18,25 +19,9 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        User::factory(3)->create();
-        Pemilih::factory(3)->create();
-        Kandidat::factory(3)->create();
-
-        Category::create([
-            'name' => 'Web Programming',
-            'slug' => 'web-progamming'
-        ]);
-
-        Category::create([
-            'name' => 'Web Design',
-            'slug' => 'web-design'
-        ]);
-
-        Category::create([
-            'name' => 'Personal',
-            'slug' => 'personal'
-        ]);
-
-        Post::factory(20)->create();
+        User::factory(4)->create();
+        Pemilih::factory(4)->create();
+        Kandidat::factory(4)->create();
+        Voting::factory(8)->create();
     }
 }

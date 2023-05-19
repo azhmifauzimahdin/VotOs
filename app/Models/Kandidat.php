@@ -25,4 +25,9 @@ class Kandidat extends Model
             ]
         ];
     }
+
+    public function votings()
+    {
+        return $this->hasMany(Voting::class);
+    }
 }

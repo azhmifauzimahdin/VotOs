@@ -11,6 +11,7 @@ use App\Http\Controllers\AdminCategoryController;
 use App\Http\Controllers\DashboardKandidatController;
 use App\Http\Controllers\DashboardPemilihController;
 use App\Http\Controllers\DashboardPostController;
+use App\Http\Controllers\DashboardVotingController;
 use App\Http\Controllers\LoginPemilihController;
 
 /*
@@ -129,15 +130,19 @@ Route::resource('/dashboard/pemilih', DashboardPemilihController::class)->names(
     'index' => 'user.pemilih.index',
     'store' => 'user.pemilih.store',
     'create' => 'user.pemilih.create',
-])->middleware('auth');
+    'destroy' => 'user.pemilih.destroy'
+])->middleware('auth:web');
 
-Route::get('/dashboard/kandidat/checkSlug', [DashboardKandidatController::class, 'checkSlug']);
+Route::get('/dashboard/kandidat/checkSlug', [DashboardKandidatController::class, 'checkSlug'])->middleware('auth:web');
 Route::resource('/dashboard/kandidat', DashboardKandidatController::class)->names([
     'index' => 'user.kandidat.index',
     'store' => 'user.kandidat.store',
     'create' => 'user.kandidat.create',
-    'destory' => 'user.kandidat.destroy',
-])->middleware('auth');
+    'destory' => 'user.kandidat.destroy'
+])->middleware('auth:web');
+
+Route::get('/dashboard/voting', [DashboardVotingController::class, 'index'])->name('user.voting')->middleware('auth:web');
+
 
 Route::get('/dashboard/ganti_password', function () {
     return view('dashboard.ganti_password.index', [

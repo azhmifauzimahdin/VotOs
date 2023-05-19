@@ -40,7 +40,7 @@
           </a>
         </li>
         <li class="nav-item">
-          <a href="pages/gallery.html" class="nav-link {{ Request::is('dashboard/voting*') ? 'active' : ''}}">
+          <a href="/dashboard/voting" class="nav-link {{ Request::is('dashboard/voting*') ? 'active' : ''}}">
             <i class="nav-icon fa-solid fa-pen" style="color: #ffffff;"></i>
             <p>
               Data Voting
