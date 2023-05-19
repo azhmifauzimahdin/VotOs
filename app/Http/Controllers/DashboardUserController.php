@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use \Cviebrock\EloquentSluggable\Services\SlugService;
 
 class DashboardUserController extends Controller
@@ -81,7 +82,10 @@ class DashboardUserController extends Controller
      */
     public function edit(User $user)
     {
-        //
+        return view('dashboard.user.edit', [
+            'title' => 'Edit Data User',
+            'user' => $user
+        ]);
     }
 
     /**
@@ -93,7 +97,38 @@ class DashboardUserController extends Controller
      */
     public function update(Request $request, User $user)
     {
-        //
+        $rules = [
+            'nama' => 'required|regex:/^[a-zA-Z\s]*$/',
+            'level' => 'required',
+            'foto' => 'image',
+        ];
+
+
+        if ($request->username != $user->username) {
+            $rules['username'] = 'required|unique:users';
+        }
+        if ($request->slug != $user->slug) {
+            $rules['slug'] = 'required|unique:users';
+        }
+        if ($request->email != $user->email) {
+            $rules['email'] = 'required|email:dns|unique:users';
+        }
+        if ($request->password) {
+            $rules['password'] = 'required|min:6|regex:/[a-z]/|regex:/[A-Z]/|regex:/[0-9]/|regex:/[@$!%*#?&]/';
+        }
+
+        $validateData = $request->validate($rules);
+
+        if ($request->file('foto')) {
+            if ($request->fotoLama) {
+                Storage::delete($request->fotoLama);
+            }
+            $validateData['foto'] = $request->file('foto')->store('foto-user');
+        }
+
+        User::where('id', $user->id)->update($validateData);
+
+        return redirect('/dashboard/user')->with('success', 'Data user berhasil diupdate!');
     }
 
     /**
@@ -104,7 +139,9 @@ class DashboardUserController extends Controller
      */
     public function destroy(User $user)
     {
-        //
+        User::destroy($user->id);
+
+        return redirect('/dashboard/user')->with('success', 'Data user berhasil dihapus!');
     }
 
     public function checkSlug(Request $request)
