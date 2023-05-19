@@ -15,7 +15,7 @@
                         </div>
                     @endif
                     <div class="d-flex justify-content-between mb-3">
-                        <a href="/dashboard/kandidat/create" class="btn btn-primary">
+                        <a href="/dashboard/pemilih/create" class="btn btn-primary">
                             <i class="fa-solid fa-plus pr-1"></i>
                             Tambah {{ $title }}
                         </a>
@@ -33,36 +33,33 @@
                             <tr>
                                 <th scope="col">NO</th>
                                 <th scope="col">NAMA</th>
-                                <th scope="col">JENIS KELAMIN</th>
+                                <th scope="col">USERNAME</th>
+                                <th scope="col">EMAIL</th>
+                                <th scope="col">LEVEL</th>
                                 <th scope="col">FOTO</th>
-                                <th scope="col">TENTANG</th>
                                 <th scope="col">Action</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($kandidats as $kandidat)
+                            @foreach ($users as $user)
                                 <tr>
-                                    <td>{{ $kandidat->nomor }}</td>
-                                    <td>{{ $kandidat->nama }}</td>
-                                    <td>{{ $kandidat->slug }}</td>
-                                    <td>
-                                        @if ($kandidat->foto)
-                                            <img src="{{ asset('storage/'.$kandidat->foto) }}" style="width: 80px; aspect-ratio:3/4" alt="Foto kandidat">    
+                                    <td>{{ $loop->iteration }}</td>
+                                    <td>{{ $user->nama }}</td>
+                                    <td>{{ $user->username }}</td>
+                                    <td>{{ $user->email }}</td>
+                                    <td>{{ $user->level }}</td>
+                                    <td class="pb-2">
+                                        @if ($user->foto)
+                                            <img src="{{ asset('storage/'.$user->foto) }}" style="width: 80px; aspect-ratio:3/4" alt="Foto kandidat">    
                                         @else
                                             <img src="{{ asset('AdminLTE') }}/dist/img/user2-160x160.jpg" style="width: 80px; aspect-ratio:3/4" alt="Foto kandidat">    
                                         @endif
                                     </td>
-                                    <td>
-                                        <b>Visi :</b>
-                                        <div>{!! $kandidat->visi !!}</div>
-                                        <b>Misi :</b>
-                                        <div>{!! $kandidat->misi !!}</div>
-                                    </td>
                                     <td class="text-nowrap">
-                                        <a href="/dashboard/kandidat/{{ $kandidat->slug }}/edit" class="btn btn-sm bg-warning">
+                                        <a href="/dashboard/user/{{ $user->slug }}/edit" class="btn btn-sm bg-warning">
                                             <i class="fa-solid fa-pen-to-square"></i>
                                         </a>
-                                        <form action="/dashboard/kandidat/{{ $kandidat->slug }}" name="formDeletee" method="post" class="d-inline">
+                                        <form action="/dashboard/user/{{ $user->slug }}" name="formDeletee" method="post" class="d-inline">
                                             @method('delete')
                                             @csrf 
                                             <button class="btn btn-sm bg-danger border-0 konfirmasi_hapus" type="submit">

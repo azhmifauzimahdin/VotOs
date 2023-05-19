@@ -6,7 +6,11 @@
   <div class="sidebar">
     <div class="user-panel mt-3 pb-3 mb-3 d-flex">
       <div class="image d-flex align-items-center">
-        <img src="{{ asset('AdminLTE') }}/dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
+        @if (auth()->user()->foto)
+          <img src="{{ asset('storage/'. auth()->user()->foto) }}" class="img-circle elevation-2" style="aspect-ratio: 1/1" alt="User Image">
+        @else
+          <img src="{{ asset('AdminLTE') }}/dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
+        @endif
       </div>
       <div class="info">
         <a href="#" class="d-inline" style="white-space: initial;">{{ auth()->user()->nama }}</a>
@@ -48,10 +52,10 @@
           </a>
         </li>
         <li class="nav-item">
-          <a href="pages/gallery.html" class="nav-link {{ Request::is('dashboard/panitia*') ? 'active' : ''}}">
+          <a href="/dashboard/user" class="nav-link {{ Request::is('dashboard/user*') ? 'active' : ''}}">
             <i class="nav-icon fa-solid fa-users-gear" style="color: #ffffff;"></i>
             <p>
-              Data Panitia
+              Data User
             </p>
           </a>
         </li>

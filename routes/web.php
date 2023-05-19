@@ -11,6 +11,7 @@ use App\Http\Controllers\AdminCategoryController;
 use App\Http\Controllers\DashboardKandidatController;
 use App\Http\Controllers\DashboardPemilihController;
 use App\Http\Controllers\DashboardPostController;
+use App\Http\Controllers\DashboardUserController;
 use App\Http\Controllers\DashboardVotingController;
 use App\Http\Controllers\LoginPemilihController;
 
@@ -128,21 +129,33 @@ Route::get('/dashboard', function () {
 Route::get('/dashboard/pemilih/checkSlug', [DashboardPemilihController::class, 'checkSlug'])->middleware('auth:web');
 Route::resource('/dashboard/pemilih', DashboardPemilihController::class)->names([
     'index' => 'user.pemilih.index',
-    'store' => 'user.pemilih.store',
     'create' => 'user.pemilih.create',
+    'store' => 'user.pemilih.store',
+    'edit' => 'user.pemilih.edit',
+    'update' => 'user.pemilih.update',
     'destroy' => 'user.pemilih.destroy'
-])->middleware('auth:web');
+])->except('show')->middleware('auth:web');
 
 Route::get('/dashboard/kandidat/checkSlug', [DashboardKandidatController::class, 'checkSlug'])->middleware('auth:web');
 Route::resource('/dashboard/kandidat', DashboardKandidatController::class)->names([
     'index' => 'user.kandidat.index',
-    'store' => 'user.kandidat.store',
     'create' => 'user.kandidat.create',
+    'store' => 'user.kandidat.store',
+    'edit' => 'user.kandidat.edit',
+    'update' => 'user.kandidat.update',
     'destory' => 'user.kandidat.destroy'
-])->middleware('auth:web');
+])->except('show')->middleware('auth:web');
 
 Route::get('/dashboard/voting', [DashboardVotingController::class, 'index'])->name('user.voting')->middleware('auth:web');
 
+Route::resource('/dashboard/user', DashboardUserController::class)->names([
+    'index' => 'user.users.index',
+    'create' => 'user.users.create',
+    'store' => 'user.users.store',
+    'edit' => 'user.users.edit',
+    'update' => 'user.users.update',
+    'destroy' => 'user.users.destroy',
+])->except('show')->middleware('auth:web');
 
 Route::get('/dashboard/ganti_password', function () {
     return view('dashboard.ganti_password.index', [
