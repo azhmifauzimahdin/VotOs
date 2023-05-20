@@ -44,7 +44,7 @@
                                 <tr>
                                     <td>{{ $kandidat->nomor }}</td>
                                     <td>{{ $kandidat->nama }}</td>
-                                    <td>{{ $kandidat->slug }}</td>
+                                    <td>{{ $kandidat->jk }}</td>
                                     <td>
                                         @if ($kandidat->foto)
                                             <img src="{{ asset('storage/'.$kandidat->foto) }}" style="width: 80px; aspect-ratio:3/4" alt="Foto kandidat">    

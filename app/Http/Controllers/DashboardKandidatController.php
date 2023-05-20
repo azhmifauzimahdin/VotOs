@@ -18,7 +18,7 @@ class DashboardKandidatController extends Controller
     {
         return view('dashboard.kandidat.index', [
             'title' => 'Data Kandidat',
-            'kandidats' => Kandidat::all()
+            'kandidats' => Kandidat::orderBy('nomor', 'ASC')->get()
         ]);
     }
 

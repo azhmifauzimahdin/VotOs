@@ -26,7 +26,7 @@
                             </div>
                             @enderror
                         </div>
-                        <div class="form-group">
+                        <div class="form-group d-none">
                             <label for="slug">Slug</label>
                             <input type="text" class="form-control @error('slug') is-invalid @enderror" id="slug" name="slug" placeholder="Slug" required value="{{  old('slug') }}">
                             @error('slug')

@@ -9,7 +9,6 @@
                     <form action="/dashboard/user/{{ $user->slug }}" method="post" enctype="multipart/form-data">
                         @method('put')
                         @csrf
-                        {{ $user->slug }} aaa
                         <div class="form-group">
                             <label for="nama">Nama</label>
                             <input type="text" class="form-control @error('nama') is-invalid @enderror" id="nama" name="nama" placeholder="Nama" required value="{{  old('nama', $user->nama) }}">
@@ -28,7 +27,7 @@
                             </div>
                             @enderror
                         </div>
-                        <div class="form-group">
+                        <div class="form-group d-none">
                             <label for="slug">Slug</label>
                             <input type="text" class="form-control @error('slug') is-invalid @enderror" id="slug" name="slug" placeholder="Slug" required value="{{  old('slug', $user->slug) }}">
                             @error('slug')
@@ -76,7 +75,9 @@
                                 {{ $message }}
                             </div>
                             @else
-                                <small id="emailHelp" class="form-text text-muted">Jika password tidak ada perubahan. Password bisa dikosongkan.</small>
+                                <small id="emailHelp" class="form-text text-muted">
+                                    Jika password tidak diubah. Password bisa dikosongkan.
+                                </small>
                             @enderror
                         </div>
                         <button type="submit" class="btn btn-primary">Simpan</button>
