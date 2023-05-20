@@ -43,7 +43,7 @@ class DashboardUserController extends Controller
     public function store(Request $request)
     {
         $validateData = $request->validate([
-            'nama' => 'required|regex:/^[a-zA-Z\s]*$/',
+            'nama' => 'required',
             'username' => 'required|unique:users',
             'slug' => 'required|unique:users',
             'email' => 'required|email:dns|unique:users',
@@ -98,7 +98,7 @@ class DashboardUserController extends Controller
     public function update(Request $request, User $user)
     {
         $rules = [
-            'nama' => 'required|regex:/^[a-zA-Z\s]*$/',
+            'nama' => 'required',
             'level' => 'required',
             'foto' => 'image',
         ];

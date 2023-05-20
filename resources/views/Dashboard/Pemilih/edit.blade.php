@@ -88,4 +88,28 @@
             </div>
         </section>
     </div>
+    <script>
+        const nama = document.querySelector('#nama');
+        const slug = document.querySelector('#slug');
+        const nisn = document.querySelector('#nisn');
+        const username = document.querySelector('#username');
+
+        nisn.addEventListener('change',function(){
+            fetch('/dashboard/pemilih/checkSlug?nama=' + nama.value+'&nisn=' + nisn.value)
+            .then(response => response.json())
+            .then(data => {
+                slug.value = data.slug;
+                username.value = data.username;
+            })
+        })
+        
+        nama.addEventListener('change',function(){
+            fetch('/dashboard/pemilih/checkSlug?nama=' + nama.value+'&nisn=' + nisn.value)
+            .then(response => response.json())
+            .then(data => {
+                slug.value = data.slug;
+                username.value = data.username;
+            })
+        })
+    </script>
 @endsection

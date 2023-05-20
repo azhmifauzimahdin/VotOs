@@ -44,7 +44,7 @@ class DashboardPemilihController extends Controller
     {
         $validateData = $request->validate([
             'nisn' => 'required|numeric|unique:pemilihs',
-            'nama' => 'required|regex:/^[a-zA-Z\s]*$/',
+            'nama' => 'required',
             'username' => 'required|unique:pemilihs',
             'email' => 'required|email:dns|unique:pemilihs',
             'slug' => 'required|unique:pemilihs',
@@ -96,7 +96,7 @@ class DashboardPemilihController extends Controller
     public function update(Request $request, Pemilih $pemilih)
     {
         $rules = [
-            'nama' => 'required|regex:/^[a-zA-Z\s]*$/',
+            'nama' => 'required',
             'kelas' => 'required',
             'jk' => 'required'
         ];
@@ -141,7 +141,8 @@ class DashboardPemilihController extends Controller
     public function checkSlug(Request $request)
     {
         $slug = SlugService::createSlug(Pemilih::class, 'slug', $request->nama);
-        $username = str_replace(' ', '', $request->nama) . substr($request->nisn, -2);
+        $temp = str_replace(' ', '', $request->nama);
+        $username = preg_replace('/[^\p{L}\p{N}\s]/u', '', $temp) . substr($request->nisn, -2);
         return response()->json(['slug' => $slug, 'username' => $username]);
     }
 }

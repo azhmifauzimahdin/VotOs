@@ -44,7 +44,7 @@ class DashboardKandidatController extends Controller
     {
         $validateData = $request->validate([
             'nomor' => 'required|numeric|unique:kandidats',
-            'nama' => 'required|regex:/^[a-zA-Z\s]*$/',
+            'nama' => 'required',
             'jk' => 'required',
             'foto' => 'image',
             'slug' => 'required|unique:kandidats',
@@ -96,7 +96,7 @@ class DashboardKandidatController extends Controller
     public function update(Request $request, Kandidat $kandidat)
     {
         $rules = [
-            'nama' => 'required|regex:/^[a-zA-Z\s]*$/',
+            'nama' => 'required',
             'jk' => 'required',
             'foto' => 'image',
             'visi' => 'required',
