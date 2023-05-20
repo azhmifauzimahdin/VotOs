@@ -9,6 +9,7 @@
                     <form action="/dashboard/user/{{ $user->slug }}" method="post" enctype="multipart/form-data">
                         @method('put')
                         @csrf
+                        {{ $user->slug }} aaa
                         <div class="form-group">
                             <label for="nama">Nama</label>
                             <input type="text" class="form-control @error('nama') is-invalid @enderror" id="nama" name="nama" placeholder="Nama" required value="{{  old('nama', $user->nama) }}">

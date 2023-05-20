@@ -8,6 +8,7 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\LoginUserController;
 use App\Http\Controllers\AdminCategoryController;
+use App\Http\Controllers\DashboardGantiPasswordController;
 use App\Http\Controllers\DashboardKandidatController;
 use App\Http\Controllers\DashboardPemilihController;
 use App\Http\Controllers\DashboardPostController;
@@ -158,11 +159,8 @@ Route::resource('/dashboard/user', DashboardUserController::class)->names([
     'destroy' => 'user.users.destroy',
 ])->except('show')->middleware('auth:web');
 
-Route::get('/dashboard/ganti_password', function () {
-    return view('dashboard.ganti_password.index', [
-        'title' => 'Ganti Password'
-    ]);
-})->name('user.gantiPassword')->middleware('auth:web');
+Route::get('/dashboard/ganti_password', [DashboardGantiPasswordController::class, 'index'])->name('user.gantiPassword')->middleware('auth:web');
+Route::put('/dashboard/ganti_password/{user:slug}', [DashboardGantiPasswordController::class, 'update'])->name('user.gantiPassword.update')->middleware('auth:web');
 
 Route::get('/loginUser', [LoginUserController::class, 'index'])->name('user.login')->middleware('guest');
 Route::post('/loginUser', [LoginUserController::class, 'authenticate'])->name('user.autenticate');
