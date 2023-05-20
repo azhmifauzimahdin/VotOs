@@ -48,7 +48,30 @@ class DashboardUserController extends Controller
             'slug' => 'required|unique:users',
             'email' => 'required|email:dns|unique:users',
             'level' => 'required',
-            'password' => 'required|min:6|regex:/[a-z]/|regex:/[A-Z]/|regex:/[0-9]/|regex:/[@$!%*#?&]/',
+            'password' => [
+                'required',
+                'min:6',
+                function ($attribute, $value, $fail) {
+                    if (!preg_match("/[a-z]/", $value)) {
+                        $fail('Harus berisi setidaknya satu huruf kecil.');
+                    }
+                },
+                function ($attribute, $value, $fail) {
+                    if (!preg_match("/[A-Z]/", $value)) {
+                        $fail('Harus berisi setidaknya satu huruf besar.');
+                    }
+                },
+                function ($attribute, $value, $fail) {
+                    if (!preg_match("/[0-9]/", $value)) {
+                        $fail('Harus berisi setidaknya satu angka.');
+                    }
+                },
+                function ($attribute, $value, $fail) {
+                    if (!preg_match("/[@$!%*#?&]/", $value)) {
+                        $fail('Harus berisi setidaknya satu karakter khusus.');
+                    }
+                },
+            ],
             'foto' => 'image'
         ]);
 
@@ -113,11 +136,36 @@ class DashboardUserController extends Controller
         if ($request->email != $user->email) {
             $rules['email'] = 'required|email:dns|unique:users';
         }
+        if ($request->password) {
+            $rules['password'] = [
+                'required',
+                'min:6',
+                function ($attribute, $value, $fail) {
+                    if (!preg_match("/[a-z]/", $value)) {
+                        $fail('Harus berisi setidaknya satu huruf kecil.');
+                    }
+                },
+                function ($attribute, $value, $fail) {
+                    if (!preg_match("/[A-Z]/", $value)) {
+                        $fail('Harus berisi setidaknya satu huruf besar.');
+                    }
+                },
+                function ($attribute, $value, $fail) {
+                    if (!preg_match("/[0-9]/", $value)) {
+                        $fail('Harus berisi setidaknya satu angka.');
+                    }
+                },
+                function ($attribute, $value, $fail) {
+                    if (!preg_match("/[@$!%*#?&]/", $value)) {
+                        $fail('Harus berisi setidaknya satu karakter khusus.');
+                    }
+                },
+            ];
+        }
 
         $validateData = $request->validate($rules);
 
         if ($request->password) {
-            $rules['password'] = 'required|min:6|regex:/[a-z]/|regex:/[A-Z]/|regex:/[0-9]/|regex:/[@$!%*#?&]/';
             $validateData['password'] = bcrypt($request->password);
         }
 

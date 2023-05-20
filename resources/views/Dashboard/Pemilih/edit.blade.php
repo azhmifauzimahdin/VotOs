@@ -11,7 +11,7 @@
                         @csrf
                         <div class="form-group">
                             <label for="nisn">NISN</label>
-                            <input type="text" class="form-control @error('nisn') is-invalid @enderror" id="nisn" name="nisn" placeholder="NISN" required value="{{  old('nisn', $pemilih->nisn) }}" autofocus>
+                            <input type="text" class="form-control @error('nisn') is-invalid @enderror" id="nisn" name="nisn" placeholder="NISN" required value="{{  old('nisn', $pemilih->nisn) }}">
                             @error('nisn')
                             <div class="invalid-feedback">
                                 {{ $message }}
@@ -72,15 +72,24 @@
                         </div>
                         <div class="form-group">
                             <label for="password">Password</label>
+                            <small id="passwordRule" class="form-text text-muted" style="display: none;">
+                                <ul class="py-0 px-3 ">
+                                    <li>Berisi minimal 6 karakter.</li>
+                                    <li>Berisi setidaknya satu huruf kecil.</li>
+                                    <li>Berisi setidaknya satu huruf besar.</li>
+                                    <li>Berisi setidaknya satu angka.</li>
+                                    <li>Berisi setidaknya satu karakter khusus.</li>
+                                </ul>
+                            </small>
                             <input type="password" class="form-control @error('password') is-invalid @enderror" id="password" name="password" placeholder="Password">
                             @error('password')
                             <div class="invalid-feedback">
                                 {{ $message }}
                             </div>
                             @else
-                                <small id="emailHelp" class="form-text text-muted">
-                                    Jika password tidak diubah. Password bisa dikosongkan.
-                                </small>
+                            <small id="emailHelp" class="form-text text-muted">
+                                Jika password tidak diubah. Password bisa dikosongkan.
+                            </small>
                             @enderror
                         </div>
                         <button type="submit" class="btn btn-primary">Update</button>
@@ -95,6 +104,8 @@
         const slug = document.querySelector('#slug');
         const nisn = document.querySelector('#nisn');
         const username = document.querySelector('#username');
+        const password = document.querySelector('#password');
+        const passwordRule = document.querySelector('#passwordRule');
 
         nisn.addEventListener('change',function(){
             fetch('/dashboard/pemilih/checkSlug?nama=' + nama.value+'&nisn=' + nisn.value)
@@ -112,6 +123,14 @@
                 slug.value = data.slug;
                 username.value = data.username;
             })
+        })
+
+        password.addEventListener('click',function(){
+            passwordRule.style.display = 'block';
+        })
+
+        password.addEventListener('blur',function(){
+            passwordRule.style.display = 'none';
         })
     </script>
 @endsection

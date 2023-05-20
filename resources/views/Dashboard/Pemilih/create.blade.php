@@ -10,7 +10,7 @@
                         @csrf
                         <div class="form-group">
                             <label for="nisn">NISN</label>
-                            <input type="text" class="form-control @error('nisn') is-invalid @enderror" id="nisn" name="nisn" placeholder="NISN" required value="{{  old('nisn') }}" autofocus>
+                            <input type="text" class="form-control @error('nisn') is-invalid @enderror" id="nisn" name="nisn" placeholder="NISN" required value="{{  old('nisn') }}">
                             @error('nisn')
                             <div class="invalid-feedback">
                                 {{ $message }}
@@ -70,7 +70,16 @@
                             </select>
                         </div>
                         <div class="form-group">
-                            <label for="password">Password</label>
+                            <label for="password bg-danger mb-0">Password</label>
+                            <small id="passwordRule" class="form-text text-muted">
+                                <ul class="py-0 px-3 ">
+                                    <li>Berisi minimal 6 karakter.</li>
+                                    <li>Berisi setidaknya satu huruf kecil.</li>
+                                    <li>Berisi setidaknya satu huruf besar.</li>
+                                    <li>Berisi setidaknya satu angka.</li>
+                                    <li>Berisi setidaknya satu karakter khusus.</li>
+                                </ul>
+                            </small>
                             <input type="password" class="form-control @error('password') is-invalid @enderror" id="password" name="password" placeholder="Password" required>
                             @error('password')
                             <div class="invalid-feedback">

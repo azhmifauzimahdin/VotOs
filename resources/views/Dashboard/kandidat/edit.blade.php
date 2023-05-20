@@ -11,7 +11,7 @@
                         @csrf
                         <div class="form-group">
                             <label for="nomor">Nomor Kandidat</label>
-                            <input type="number" class="form-control @error('nomor') is-invalid @enderror" id="nomor" name="nomor" placeholder="Nomor Kandidat" required value="{{  old('nomor', $kandidat->nomor) }}" autofocus>
+                            <input type="number" class="form-control @error('nomor') is-invalid @enderror" id="nomor" name="nomor" placeholder="Nomor Kandidat" required value="{{  old('nomor', $kandidat->nomor) }}">
                             @error('nomor')
                             <div class="invalid-feedback">
                                 {{ $message }}

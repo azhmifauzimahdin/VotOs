@@ -69,6 +69,15 @@
                         </div>
                         <div class="form-group">
                             <label for="password">Password</label>
+                            <small id="passwordRule" class="form-text text-muted" style="display: none;">
+                                <ul class="py-0 px-3 ">
+                                    <li>Berisi minimal 6 karakter.</li>
+                                    <li>Berisi setidaknya satu huruf kecil.</li>
+                                    <li>Berisi setidaknya satu huruf besar.</li>
+                                    <li>Berisi setidaknya satu angka.</li>
+                                    <li>Berisi setidaknya satu karakter khusus.</li>
+                                </ul>
+                            </small>
                             <input type="password" class="form-control @error('password') is-invalid @enderror" id="password" name="password" placeholder="Password">
                             @error('password')
                             <div class="invalid-feedback">
@@ -90,6 +99,8 @@
     <script>
         const nama = document.querySelector('#nama');
         const slug = document.querySelector('#slug');
+        const password = document.querySelector('#password');
+        const passwordRule = document.querySelector('#passwordRule');
 
         nama.addEventListener('change',function(){
             fetch('/dashboard/user/checkSlug?nama=' + nama.value)
@@ -98,6 +109,14 @@
                 slug.value = data.slug;
             })
         });
+
+        password.addEventListener('click',function(){
+            passwordRule.style.display = 'block';
+        })
+
+        password.addEventListener('blur',function(){
+            passwordRule.style.display = 'none';
+        })
 
         document.addEventListener('trix-file-accept', function(e){
             e.preventDefault();

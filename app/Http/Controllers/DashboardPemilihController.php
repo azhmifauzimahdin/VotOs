@@ -42,20 +42,46 @@ class DashboardPemilihController extends Controller
      */
     public function store(Request $request)
     {
-        $validateData = $request->validate([
-            'nisn' => 'required|numeric|unique:pemilihs',
-            'nama' => 'required',
-            'username' => 'required|unique:pemilihs',
-            'email' => 'required|email:dns|unique:pemilihs',
-            'slug' => 'required|unique:pemilihs',
-            'kelas' => 'required',
-            'jk' => 'required',
-            'password' => 'required|min:6|regex:/[a-z]/|regex:/[A-Z]/|regex:/[0-9]/|regex:/[@$!%*#?&]/'
-        ]);
+        $validateData = $request->validate(
+            [
+                'nisn' => 'required|numeric|unique:pemilihs',
+                'nama' => 'required',
+                'username' => 'required|unique:pemilihs',
+                'email' => 'required|email:dns|unique:pemilihs',
+                'slug' => 'required|unique:pemilihs',
+                'kelas' => 'required',
+                'jk' => 'required',
+                'password' => [
+                    'required',
+                    'min:6',
+                    function ($attribute, $value, $fail) {
+                        if (!preg_match("/[a-z]/", $value)) {
+                            $fail('Harus berisi setidaknya satu huruf kecil.');
+                        }
+                    },
+                    function ($attribute, $value, $fail) {
+                        if (!preg_match("/[A-Z]/", $value)) {
+                            $fail('Harus berisi setidaknya satu huruf besar.');
+                        }
+                    },
+                    function ($attribute, $value, $fail) {
+                        if (!preg_match("/[0-9]/", $value)) {
+                            $fail('Harus berisi setidaknya satu angka.');
+                        }
+                    },
+                    function ($attribute, $value, $fail) {
+                        if (!preg_match("/[@$!%*#?&]/", $value)) {
+                            $fail('Harus berisi setidaknya satu karakter khusus.');
+                        }
+                    },
+                ]
+            ]
+        );
 
         $validateData['user_id'] = auth()->user()->id;
         $validateData['password'] = bcrypt($request->password);
 
+        ddd($validateData);
         Pemilih::create($validateData);
 
         return redirect('/dashboard/pemilih')->with('success', 'Data pemilih berhasil ditambahkan!');
@@ -114,9 +140,36 @@ class DashboardPemilihController extends Controller
             $rules['email'] = 'required|email:dns|unique:pemilihs';
         }
 
-        $validateData = $request->validate($rules);
         if ($request->password) {
-            $rules['password'] = 'required|min:6|regex:/[a-z]/|regex:/[A-Z]/|regex:/[0-9]/|regex:/[@$!%*#?&]/';
+            $rules['password'] = [
+                'required',
+                'min:6',
+                function ($attribute, $value, $fail) {
+                    if (!preg_match("/[a-z]/", $value)) {
+                        $fail('Harus berisi setidaknya satu huruf kecil.');
+                    }
+                },
+                function ($attribute, $value, $fail) {
+                    if (!preg_match("/[A-Z]/", $value)) {
+                        $fail('Harus berisi setidaknya satu huruf besar.');
+                    }
+                },
+                function ($attribute, $value, $fail) {
+                    if (!preg_match("/[0-9]/", $value)) {
+                        $fail('Harus berisi setidaknya satu angka.');
+                    }
+                },
+                function ($attribute, $value, $fail) {
+                    if (!preg_match("/[@$!%*#?&]/", $value)) {
+                        $fail('Harus berisi setidaknya satu karakter khusus.');
+                    }
+                },
+            ];
+        }
+
+        $validateData = $request->validate($rules);
+
+        if ($request->password) {
             $validateData['password'] = bcrypt($request->password);
         }
 
