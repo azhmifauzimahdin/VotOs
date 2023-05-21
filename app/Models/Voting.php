@@ -11,6 +11,20 @@ class Voting extends Model
 
     protected $guarded = ['id'];
 
+    public function scopeFilter($query, array $filters)
+    {
+        $query->when($filters['search'] ?? false, function ($query, $search) {
+            return $query->where('created_at', 'like', '%' . $search . '%')
+                ->orWhereHas('kandidat', function ($query) use ($search) {
+                    $query->where('nomor', 'like', '%' . $search . '%')
+                        ->orWhere('nama', 'like', '%' . $search . '%');
+                })->orWhereHas('pemilih', function ($query) use ($search) {
+                    $query->where('nisn', 'like', '%' . $search . '%')
+                        ->orWhere('nama', 'like', '%' . $search . '%');
+                });
+        });
+    }
+
     public function pemilih()
     {
         return $this->belongsTo(Pemilih::class);

@@ -24,7 +24,9 @@
                                 Search :
                             </li>
                             <li class="list-inline-item">
-                                <input class="form-control" type="text" aria-label="default input example">
+                                <form action="/dashboard/pemilih">
+                                    <input class="form-control" type="text" name="search" id="search" value="{{  request('search') }}">
+                                </form>
                             </li>
                         </ul>
                     </div>
@@ -38,13 +40,13 @@
                                 <th scope="col">EMAIL</th>
                                 <th scope="col">KELAS</th>
                                 <th scope="col">JENIS KELAMIN</th>
-                                <th scope="col">Action</th>
+                                <th scope="col">ACTION</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($pemilihs as $pemilih)
+                            @foreach ($pemilihs as $index => $pemilih)
                                 <tr>
-                                    <td>{{ $loop->iteration }}</td>
+                                    <td>{{ $index + $pemilihs->firstItem() }}</td>
                                     <td>{{ $pemilih->nisn }}</td>
                                     <td>{{ $pemilih->nama }}</td>
                                     <td>{{ $pemilih->username }}</td>
@@ -67,6 +69,9 @@
                             @endforeach
                         </tbody>
                     </table>
+                    <div class="d-flex justify-content-end mt-3">
+                        {{ $pemilihs->links() }}
+                    </div>
                 </div>
             </div>
         </section>

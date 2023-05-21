@@ -24,7 +24,9 @@
                                 Search :
                             </li>
                             <li class="list-inline-item">
-                                <input class="form-control" type="text" aria-label="default input example">
+                                <form action="/dashboard/kandidat">
+                                    <input class="form-control" type="text" name="search" id="search" value="{{  request('search') }}">
+                                </form>
                             </li>
                         </ul>
                     </div>
@@ -36,7 +38,7 @@
                                 <th scope="col">JENIS KELAMIN</th>
                                 <th scope="col">FOTO</th>
                                 <th scope="col">TENTANG</th>
-                                <th scope="col">Action</th>
+                                <th scope="col">ACTION</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -74,6 +76,9 @@
                             @endforeach
                         </tbody>
                     </table>
+                    <div class="d-flex justify-content-end mt-3">
+                        {{ $kandidats->links() }}
+                    </div>
                 </div>
             </div>
         </section>

@@ -14,7 +14,7 @@ class KandidatFactory extends Factory
     public function definition()
     {
         return [
-            'nomor' => mt_rand(1, 10),
+            'nomor' => mt_rand(1, 100),
             'nama' => $this->faker->name(),
             'visi' => collect($this->faker->paragraphs(mt_rand(5, 10)))->map(fn ($p) => "<p>$p</p>")->implode(''),
             'misi' => collect($this->faker->paragraphs(mt_rand(5, 10)))->map(fn ($p) => "<p>$p</p>")->implode(''),

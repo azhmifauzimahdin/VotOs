@@ -12,6 +12,17 @@ class Kandidat extends Model
 
     protected $guarded = ['id'];
 
+    public function scopeFilter($query, array $filters)
+    {
+        $query->when($filters['search'] ?? false, function ($query, $search) {
+            return $query->where('nama', 'like', '%' . $search . '%')
+                ->orWhere('jk', 'like', '%' . $search . '%')
+                ->orWhere('visi', 'like', '%' . $search . '%')
+                ->orWhere('misi', 'like', '%' . $search . '%')
+                ->orWhere('nomor', 'like', '%' . $search . '%');
+        });
+    }
+
     public function getRouteKeyName()
     {
         return 'slug';

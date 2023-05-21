@@ -19,6 +19,16 @@ class User extends Authenticatable
         'remember_token',
     ];
 
+    public function scopeFilter($query, array $filters)
+    {
+        $query->when($filters['search'] ?? false, function ($query, $search) {
+            return $query->where('nama', 'like', '%' . $search . '%')
+                ->orWhere('username', 'like', '%' . $search . '%')
+                ->orWhere('email', 'like', '%' . $search . '%')
+                ->orWhere('level', 'like', '%' . $search . '%');
+        });
+    }
+
     public function getRouteKeyName()
     {
         return 'slug';

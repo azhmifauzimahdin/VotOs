@@ -16,7 +16,9 @@
                                 Search :
                             </li>
                             <li class="list-inline-item">
-                                <input class="form-control" type="text" aria-label="default input example">
+                                <form action="/dashboard/voting">
+                                    <input class="form-control" type="text" name="search" id="search" value="{{  request('search') }}">
+                                </form>
                             </li>
                         </ul>
                     </div>
@@ -30,9 +32,9 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($votings as $voting)
+                            @foreach ($votings as $index => $voting)
                                 <tr>
-                                    <td>{{ $loop->iteration }}</td>
+                                    <td>{{ $index + $votings->firstItem() }}</td>
                                     <td>{{ $voting->pemilih->nisn }} - {{ $voting->pemilih->nama }}</td>
                                     <td>{{ $voting->kandidat->nomor }} - {{ $voting->kandidat->nama }}</td>
                                     <td>{{ $voting->created_at }}</td>
@@ -40,6 +42,9 @@
                             @endforeach
                         </tbody>
                     </table>
+                    <div class="d-flex justify-content-end mt-3">
+                        {{ $votings->links() }}
+                    </div>
                 </div>
             </div>
         </section>

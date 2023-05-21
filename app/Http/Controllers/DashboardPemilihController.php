@@ -18,7 +18,7 @@ class DashboardPemilihController extends Controller
     {
         return view('dashboard.pemilih.index', [
             'title' => 'Data Pemilih',
-            'pemilihs' => Pemilih::all()
+            'pemilihs' => Pemilih::filter(request(['search']))->paginate(10)->withQueryString()
         ]);
     }
 
@@ -95,7 +95,9 @@ class DashboardPemilihController extends Controller
      */
     public function show(Pemilih $pemilih)
     {
-        //
+        return view('dashboard.pemilih.show', [
+            'title' => 'Data Pemilih',
+        ]);
     }
 
     /**

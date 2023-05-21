@@ -24,7 +24,9 @@
                                 Search :
                             </li>
                             <li class="list-inline-item">
-                                <input class="form-control" type="text" aria-label="default input example">
+                                <form action="/dashboard/user">
+                                    <input class="form-control" type="text" name="search" id="search" value="{{  request('search') }}">
+                                </form>
                             </li>
                         </ul>
                     </div>
@@ -41,13 +43,13 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($users as $user)
+                            @foreach ($users as $index => $user)
                                 <tr>
-                                    <td>{{ $loop->iteration }}</td>
-                                    <td>{{ $user->nama }}</td>
-                                    <td>{{ $user->username }}</td>
-                                    <td>{{ $user->email }}</td>
-                                    <td>{{ $user->level }}</td>
+                                    <td class="align-middle">{{ $index + $users->firstItem() }}</td>
+                                    <td class="align-middle">{{ $user->nama }}</td>
+                                    <td class="align-middle">{{ $user->username }}</td>
+                                    <td class="align-middle">{{ $user->email }}</td>
+                                    <td class="align-middle">{{ $user->level }}</td>
                                     <td class="pb-2">
                                         @if ($user->foto)
                                             <img src="{{ asset('storage/'.$user->foto) }}" style="width: 80px; aspect-ratio:3/4" alt="Foto kandidat">    
@@ -55,7 +57,7 @@
                                             <img src="{{ asset('AdminLTE') }}/dist/img/user2-160x160.jpg" style="width: 80px; aspect-ratio:3/4" alt="Foto kandidat">    
                                         @endif
                                     </td>
-                                    <td class="text-nowrap">
+                                    <td class="text-nowrap align-middle">
                                         <a href="/dashboard/user/{{ $user->slug }}/edit" class="btn btn-sm bg-warning">
                                             <i class="fa-solid fa-pen-to-square"></i>
                                         </a>
@@ -71,6 +73,9 @@
                             @endforeach
                         </tbody>
                     </table>
+                    <div class="d-flex justify-content-end mt-3">
+                        {{ $users->links() }}
+                    </div>
                 </div>
             </div>
         </section>

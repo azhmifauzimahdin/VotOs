@@ -11,7 +11,7 @@ class DashboardVotingController extends Controller
     {
         return view('dashboard.voting.index', [
             'title' => 'Data Voting',
-            'votings' => Voting::all()
+            'votings' => Voting::latest()->filter(request(['search']))->paginate(10)->withQueryString()
         ]);
     }
 }

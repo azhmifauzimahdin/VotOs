@@ -142,6 +142,7 @@ Route::resource('/dashboard/kandidat', DashboardKandidatController::class)->name
     'index' => 'user.kandidat.index',
     'create' => 'user.kandidat.create',
     'store' => 'user.kandidat.store',
+    'show' => 'user.kandidat.show',
     'edit' => 'user.kandidat.edit',
     'update' => 'user.kandidat.update',
     'destory' => 'user.kandidat.destroy'
