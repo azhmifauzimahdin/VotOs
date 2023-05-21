@@ -72,12 +72,19 @@
                                     <li>Berisi setidaknya satu karakter khusus.</li>
                                 </ul>
                             </small>
-                            <input type="password" class="form-control @error('password') is-invalid @enderror" id="password" name="password" placeholder="Password" required>
-                            @error('password')
-                            <div class="invalid-feedback">
-                                {{ $message }}
-                            </div>
-                            @enderror
+                            <div class="input-group" id="show_hide_password">
+                                <input type="password" class="form-control @error('password') is-invalid @enderror" id="password" name="password" placeholder="Password" required>
+                                <div class="input-group-append">
+                                    <span class="input-group-text" id="basic-addon2">
+                                        <a href=""><i class="fa-regular fa-eye-slash" aria-hidden="true"></i></a>
+                                    </span>
+                                </div>
+                                @error('password')
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                                @enderror
+                            </div> 
                         </div>
                         <button type="submit" class="btn btn-primary">Simpan</button>
                         <a href="/dashboard/kandidat" class="btn btn-danger">Batal</a>
@@ -113,6 +120,21 @@
                 imgPreview.src = oFREvent.target.result;
             }
         }
+
+        $(document).ready(function() {
+            $("#show_hide_password a").on('click', function(event) {
+                event.preventDefault();
+                if($('#show_hide_password input').attr("type") == "text"){
+                    $('#show_hide_password input').attr('type', 'password');
+                    $('#show_hide_password i').addClass( "fa-eye-slash" );
+                    $('#show_hide_password i').removeClass( "fa-eye" );
+                }else if($('#show_hide_password input').attr("type") == "password"){
+                    $('#show_hide_password input').attr('type', 'text');
+                    $('#show_hide_password i').removeClass( "fa-eye-slash" );
+                    $('#show_hide_password i').addClass( "fa-eye" );
+                }
+            });
+        });
 
     </script>
 @endsection
