@@ -32,8 +32,7 @@
                         </div>
                     </form>
                     <hr>
-                    
-                    <div class="row d-flex justify-content-between mb-3 px-md-2">
+                    <div class="row d-flex justify-content-between mb-3 mx-1">
                         <a href="/dashboard/voting/print" class="btn btn-primary">
                             <i class="fa-solid fa-print"></i>
                             <span class="ml-1">Print</span>

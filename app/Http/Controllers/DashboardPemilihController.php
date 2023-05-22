@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Pemilih;
+use App\Models\Kelas;
 use Illuminate\Http\Request;
 use \Cviebrock\EloquentSluggable\Services\SlugService;
 
@@ -18,7 +19,7 @@ class DashboardPemilihController extends Controller
     {
         return view('dashboard.pemilih.index', [
             'title' => 'Data Pemilih',
-            'pemilihs' => Pemilih::filter(request(['search']))->paginate(10)->withQueryString()
+            'pemilihs' => Pemilih::latest()->filter(request(['search']))->paginate(10)->withQueryString()
         ]);
     }
 
@@ -30,7 +31,8 @@ class DashboardPemilihController extends Controller
     public function create()
     {
         return view('dashboard.pemilih.create', [
-            'title' => 'Tambah Data Pemilih'
+            'title' => 'Tambah Data Pemilih',
+            'kelas' => Kelas::orderBy('nama', 'ASC')->get()
         ]);
     }
 
@@ -49,7 +51,7 @@ class DashboardPemilihController extends Controller
                 'username' => 'required|unique:pemilihs',
                 'email' => 'required|email:dns|unique:pemilihs',
                 'slug' => 'required|unique:pemilihs',
-                'kelas' => 'required',
+                'kelas_id' => 'required',
                 'jk' => 'required',
                 'password' => [
                     'required',
@@ -81,7 +83,6 @@ class DashboardPemilihController extends Controller
         $validateData['user_id'] = auth()->user()->id;
         $validateData['password'] = bcrypt($request->password);
 
-        ddd($validateData);
         Pemilih::create($validateData);
 
         return redirect('/dashboard/pemilih')->with('success', 'Data pemilih berhasil ditambahkan!');
@@ -95,9 +96,7 @@ class DashboardPemilihController extends Controller
      */
     public function show(Pemilih $pemilih)
     {
-        return view('dashboard.pemilih.show', [
-            'title' => 'Data Pemilih',
-        ]);
+        //
     }
 
     /**
@@ -110,7 +109,8 @@ class DashboardPemilihController extends Controller
     {
         return view('dashboard.pemilih.edit', [
             'title' => 'Edit Data Pemilih',
-            'pemilih' => $pemilih
+            'pemilih' => $pemilih,
+            'kelas' => Kelas::orderBy('nama', 'ASC')->get()
         ]);
     }
 
@@ -125,7 +125,7 @@ class DashboardPemilihController extends Controller
     {
         $rules = [
             'nama' => 'required',
-            'kelas' => 'required',
+            'kelas_id' => 'required',
             'jk' => 'required'
         ];
 

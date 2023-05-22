@@ -55,9 +55,13 @@
                             @enderror
                         </div>
                         <div class="form-group">
-                            <label for="kelas">Kelas</label>
-                            <input type="text" class="form-control @error('kelas') is-invalid @enderror" id="kelas" name="kelas" placeholder="Kelas" required value="{{  old('kelas', $pemilih->kelas) }}">
-                            @error('kelas')
+                            <label for="kelas_id">Kelas</label>
+                            <select class="form-control" name="kelas_id" id="kelas_id">
+                                @foreach ($kelas as $data)
+                                    <option value="{{ $data->id }}" {{ old('kelas_id', $pemilih->kelas_id) == $data->id ? "selected" : "" }}>{{ $data->nama }}</option>
+                                @endforeach
+                            </select>
+                            @error('kelas_id')
                             <div class="invalid-feedback">
                                 {{ $message }}
                             </div>
@@ -82,7 +86,7 @@
                                 </ul>
                             </small>
                             <div class="input-group" id="show_hide_password">
-                                <input type="password" class="form-control @error('password') is-invalid @enderror" id="password" name="password" placeholder="Password" required>
+                                <input type="password" class="form-control @error('password') is-invalid @enderror" id="password" name="password" placeholder="Password">
                                 <div class="input-group-append">
                                     <span class="input-group-text" id="basic-addon2">
                                         <a href=""><i class="fa-regular fa-eye-slash" aria-hidden="true"></i></a>

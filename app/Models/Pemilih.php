@@ -27,8 +27,10 @@ class Pemilih extends Authenticatable
                 ->orWhere('nama', 'like', '%' . $search . '%')
                 ->orWhere('username', 'like', '%' . $search . '%')
                 ->orWhere('email', 'like', '%' . $search . '%')
-                ->orWhere('kelas', 'like', '%' . $search . '%')
-                ->orWhere('jk', 'like', '%' . $search . '%');
+                ->orWhere('jk', 'like', '%' . $search . '%')
+                ->orWhereHas('kelas', function ($query) use ($search) {
+                    $query->where('nama', 'like', '%' . $search . '%');
+                });
         });
     }
 

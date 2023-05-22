@@ -14,7 +14,7 @@
                             </button>
                         </div>
                     @endif
-                    <div class="row d-flex justify-content-between mb-3">
+                    <div class="row d-flex justify-content-between mb-3 mx-1">
                         <a href="/dashboard/pemilih/create" class="btn btn-primary">
                             <i class="fa-solid fa-plus pr-1"></i>
                             Tambah Data Pemilih
@@ -52,7 +52,7 @@
                                         <td>{{ $pemilih->nama }}</td>
                                         <td>{{ $pemilih->username }}</td>
                                         <td>{{ $pemilih->email }}</td>
-                                        <td>{{ $pemilih->kelas }}</td>
+                                        <td>{{ $pemilih->kelas->nama }}</td>
                                         <td>{{ $pemilih->jk }}</td>
                                         <td class="text-nowrap">
                                             <a href="/dashboard/pemilih/{{ $pemilih->slug }}/edit" class="btn btn-sm bg-warning">

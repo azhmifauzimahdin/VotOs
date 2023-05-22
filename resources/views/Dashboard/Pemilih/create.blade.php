@@ -54,9 +54,13 @@
                             @enderror
                         </div>
                         <div class="form-group">
-                            <label for="kelas">Kelas</label>
-                            <input type="text" class="form-control @error('kelas') is-invalid @enderror" id="kelas" name="kelas" placeholder="Kelas" required value="{{  old('kelas') }}">
-                            @error('kelas')
+                            <label for="kelas_id">Kelas</label>
+                            <select class="form-control @error('kelas_id') is-invalid @enderror" name="kelas_id" id="kelas_id">
+                                @foreach ($kelas as $data)
+                                    <option value="{{ $data->id }}" {{ old('kelas_id') == $data->id ? "selected" : "" }}>{{ $data->nama }}</option>
+                                @endforeach
+                            </select>
+                            @error('kelas_id')
                             <div class="invalid-feedback">
                                 {{ $message }}
                             </div>

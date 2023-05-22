@@ -16,10 +16,10 @@ class PemilihFactory extends Factory
     {
         return [
             'user_id' => mt_rand(1, 10000),
+            'kelas_id' => mt_rand(10, 12),
             'nisn' => $this->faker->nik(),
             'nama' => $this->faker->name(),
             'email' => $this->faker->unique()->safeEmail(),
-            'kelas' => mt_rand(10, 12),
             'jk' => $this->faker->randomElement(['Laki-laki', 'Perempuan']),
             'username' => $this->faker->unique()->userName(),
             'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi',

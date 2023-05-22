@@ -10,7 +10,7 @@ use Laravel\Sanctum\HasApiTokens;
 
 class Kelas extends Model
 {
-    use Notifiable, Sluggable;
+    use Notifiable, HasFactory, Sluggable;
 
     protected $guarded = ['id'];
 

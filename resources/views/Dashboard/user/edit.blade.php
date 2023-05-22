@@ -79,7 +79,7 @@
                                 </ul>
                             </small>
                             <div class="input-group" id="show_hide_password">
-                                <input type="password" class="form-control @error('password') is-invalid @enderror" id="password" name="password" placeholder="Password" required>
+                                <input type="password" class="form-control @error('password') is-invalid @enderror" id="password" name="password" placeholder="Password">
                                 <div class="input-group-append">
                                     <span class="input-group-text" id="basic-addon2">
                                         <a href=""><i class="fa-regular fa-eye-slash" aria-hidden="true"></i></a>
