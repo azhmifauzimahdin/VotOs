@@ -15,7 +15,7 @@ class PemilihFactory extends Factory
     public function definition()
     {
         return [
-            'user_id' => mt_rand(1, 100),
+            'user_id' => mt_rand(1, 10000),
             'nisn' => $this->faker->nik(),
             'nama' => $this->faker->name(),
             'email' => $this->faker->unique()->safeEmail(),

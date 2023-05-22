@@ -14,12 +14,12 @@
                             </button>
                         </div>
                     @endif
-                    <div class="d-flex justify-content-between mb-3">
+                    <div class="row d-flex justify-content-between mb-3">
                         <a href="/dashboard/pemilih/create" class="btn btn-primary">
                             <i class="fa-solid fa-plus pr-1"></i>
                             Tambah Data Pemilih
                         </a>
-                        <ul class="list-inline mb-0">
+                        <ul class="list-inline mb-0 mt-2 mt-md-0">
                             <li class="list-inline-item">
                                 Search :
                             </li>
@@ -30,47 +30,54 @@
                             </li>
                         </ul>
                     </div>
-                    <table class="table table-striped table-sm">
-                        <thead>
-                            <tr>
-                                <th scope="col">NO</th>
-                                <th scope="col">NISN</th>
-                                <th scope="col">NAMA</th>
-                                <th scope="col">USERNAME</th>
-                                <th scope="col">EMAIL</th>
-                                <th scope="col">KELAS</th>
-                                <th scope="col">JENIS KELAMIN</th>
-                                <th scope="col">ACTION</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach ($pemilihs as $index => $pemilih)
+                    <div class="table-responsive">
+                        <table class="table table-striped table-sm">
+                            <thead>
                                 <tr>
-                                    <td>{{ $index + $pemilihs->firstItem() }}</td>
-                                    <td>{{ $pemilih->nisn }}</td>
-                                    <td>{{ $pemilih->nama }}</td>
-                                    <td>{{ $pemilih->username }}</td>
-                                    <td>{{ $pemilih->email }}</td>
-                                    <td>{{ $pemilih->kelas }}</td>
-                                    <td>{{ $pemilih->jk }}</td>
-                                    <td class="text-nowrap">
-                                        <a href="/dashboard/pemilih/{{ $pemilih->slug }}/edit" class="btn btn-sm bg-warning">
-                                            <i class="fa-solid fa-pen-to-square"></i>
-                                        </a>
-                                        <form action="/dashboard/pemilih/{{ $pemilih->slug }}" id="formHapus" method="post" class="d-inline">
-                                            @method('delete')
-                                            @csrf
-                                            <button class="btn btn-sm bg-danger border-0 konfirmasi_hapus" onclick="hapusData()">
-                                                <i class="fa-solid fa-trash-can"></i>
-                                            </button>
-                                        </form>
-                                    </td>
+                                    <th scope="col">NO</th>
+                                    <th scope="col">NISN</th>
+                                    <th scope="col">NAMA</th>
+                                    <th scope="col">USERNAME</th>
+                                    <th scope="col">EMAIL</th>
+                                    <th scope="col">KELAS</th>
+                                    <th scope="col">JENIS KELAMIN</th>
+                                    <th scope="col">ACTION</th>
                                 </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
-                    <div class="d-flex justify-content-end mt-3">
-                        {{ $pemilihs->links() }}
+                            </thead>
+                            <tbody>
+                                @foreach ($pemilihs as $index => $pemilih)
+                                    <tr>
+                                        <td>{{ $index + $pemilihs->firstItem() }}</td>
+                                        <td>{{ $pemilih->nisn }}</td>
+                                        <td>{{ $pemilih->nama }}</td>
+                                        <td>{{ $pemilih->username }}</td>
+                                        <td>{{ $pemilih->email }}</td>
+                                        <td>{{ $pemilih->kelas }}</td>
+                                        <td>{{ $pemilih->jk }}</td>
+                                        <td class="text-nowrap">
+                                            <a href="/dashboard/pemilih/{{ $pemilih->slug }}/edit" class="btn btn-sm bg-warning">
+                                                <i class="fa-solid fa-pen-to-square"></i>
+                                            </a>
+                                            <form action="/dashboard/pemilih/{{ $pemilih->slug }}" id="formHapus" method="post" class="d-inline">
+                                                @method('delete')
+                                                @csrf
+                                                <button class="btn btn-sm bg-danger border-0 konfirmasi_hapus" onclick="hapusData()">
+                                                    <i class="fa-solid fa-trash-can"></i>
+                                                </button>
+                                            </form>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="row d-flex justify-content-between mx-1">
+                        <div>
+                            Showing {{ $pemilihs->firstItem() }} to {{ $pemilihs->lastItem() }} of {{$pemilihs->total()}} entries
+                        </div>
+                        <div class="mt-2 mt-md-0">
+                            {{ $pemilihs->onEachSide(0)->links() }}
+                        </div>
                     </div>
                 </div>
             </div>

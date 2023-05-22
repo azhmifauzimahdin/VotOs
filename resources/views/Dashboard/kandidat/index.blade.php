@@ -14,12 +14,12 @@
                             </button>
                         </div>
                     @endif
-                    <div class="d-flex justify-content-between mb-3">
+                    <div class="row d-flex justify-content-between mb-3">
                         <a href="/dashboard/kandidat/create" class="btn btn-primary">
                             <i class="fa-solid fa-plus pr-1"></i>
                             Tambah {{ $title }}
                         </a>
-                        <ul class="list-inline mb-0">
+                        <ul class="list-inline mb-0 mt-2 mt-md-0">
                             <li class="list-inline-item">
                                 Search :
                             </li>
@@ -30,50 +30,57 @@
                             </li>
                         </ul>
                     </div>
-                    <table class="table table-striped table-sm">
-                        <thead>
-                            <tr>
-                                <th scope="col">NO</th>
-                                <th scope="col">NAMA</th>
-                                <th scope="col">JENIS KELAMIN</th>
-                                <th scope="col">FOTO</th>
-                                <th scope="col">ACTION</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach ($kandidats as $kandidat)
+                    <div class="table-responsive">
+                        <table class="table table-striped table-sm">
+                            <thead>
                                 <tr>
-                                    <td class="align-middle">{{ $kandidat->nomor }}</td>
-                                    <td class="align-middle">{{ $kandidat->nama }}</td>
-                                    <td class="align-middle">{{ $kandidat->jk }}</td>
-                                    <td>
-                                        @if ($kandidat->foto)
-                                            <img src="{{ asset('storage/'.$kandidat->foto) }}" style="width: 80px; aspect-ratio:3/4" alt="Foto kandidat">    
-                                        @else
-                                            <img src="{{ asset('AdminLTE') }}/dist/img/user2-160x160.jpg" style="width: 80px; aspect-ratio:3/4" alt="Foto kandidat">    
-                                        @endif
-                                    </td>
-                                    <td class="text-nowrap align-middle">
-                                        <a href="/dashboard/kandidat/{{ $kandidat->slug }}" class="btn btn-sm bg-info">
-                                            <i class="fa-regular fa-eye"></i>
-                                        </a>
-                                        <a href="/dashboard/kandidat/{{ $kandidat->slug }}/edit" class="btn btn-sm bg-warning">
-                                            <i class="fa-solid fa-pen-to-square"></i>
-                                        </a>
-                                        <form action="/dashboard/kandidat/{{ $kandidat->slug }}" name="formDeletee" method="post" class="d-inline">
-                                            @method('delete')
-                                            @csrf 
-                                            <button class="btn btn-sm bg-danger border-0 konfirmasi_hapus" type="submit">
-                                                <i class="fa-solid fa-trash-can"></i>
-                                            </button>
-                                        </form>
-                                    </td>
+                                    <th scope="col">NO</th>
+                                    <th scope="col">NAMA</th>
+                                    <th scope="col">JENIS KELAMIN</th>
+                                    <th scope="col">FOTO</th>
+                                    <th scope="col">ACTION</th>
                                 </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
-                    <div class="d-flex justify-content-end mt-3">
-                        {{ $kandidats->links() }}
+                            </thead>
+                            <tbody>
+                                @foreach ($kandidats as $kandidat)
+                                    <tr>
+                                        <td class="align-middle">{{ $kandidat->nomor }}</td>
+                                        <td class="align-middle">{{ $kandidat->nama }}</td>
+                                        <td class="align-middle">{{ $kandidat->jk }}</td>
+                                        <td>
+                                            @if ($kandidat->foto)
+                                                <img src="{{ asset('storage/'.$kandidat->foto) }}" style="width: 80px; aspect-ratio:3/4" alt="Foto kandidat">    
+                                            @else
+                                                <img src="{{ asset('AdminLTE') }}/dist/img/user2-160x160.jpg" style="width: 80px; aspect-ratio:3/4" alt="Foto kandidat">    
+                                            @endif
+                                        </td>
+                                        <td class="text-nowrap align-middle">
+                                            <a href="/dashboard/kandidat/{{ $kandidat->slug }}" class="btn btn-sm bg-info">
+                                                <i class="fa-regular fa-eye"></i>
+                                            </a>
+                                            <a href="/dashboard/kandidat/{{ $kandidat->slug }}/edit" class="btn btn-sm bg-warning">
+                                                <i class="fa-solid fa-pen-to-square"></i>
+                                            </a>
+                                            <form action="/dashboard/kandidat/{{ $kandidat->slug }}" name="formDeletee" method="post" class="d-inline">
+                                                @method('delete')
+                                                @csrf 
+                                                <button class="btn btn-sm bg-danger border-0 konfirmasi_hapus" type="submit">
+                                                    <i class="fa-solid fa-trash-can"></i>
+                                                </button>
+                                            </form>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="row d-flex justify-content-between mx-1">
+                        <div>
+                            Showing {{ $kandidats->firstItem() }} to {{ $kandidats->lastItem() }} of {{$kandidats->total()}} entries
+                        </div>
+                        <div class="mt-2 mt-md-0">
+                            {{ $kandidats->onEachSide(0)->links() }}
+                        </div>
                     </div>
                 </div>
             </div>

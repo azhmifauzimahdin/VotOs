@@ -14,12 +14,12 @@
                             </button>
                         </div>
                     @endif
-                    <div class="d-flex justify-content-between mb-3">
+                    <div class="row d-flex justify-content-between mb-3">
                         <a href="/dashboard/user/create" class="btn btn-primary">
                             <i class="fa-solid fa-plus pr-1"></i>
                             Tambah {{ $title }}
                         </a>
-                        <ul class="list-inline mb-0">
+                        <ul class="list-inline mb-0 mt-2 mt-md-0">
                             <li class="list-inline-item">
                                 Search :
                             </li>
@@ -30,51 +30,58 @@
                             </li>
                         </ul>
                     </div>
-                    <table class="table table-striped table-sm">
-                        <thead>
-                            <tr>
-                                <th scope="col">NO</th>
-                                <th scope="col">NAMA</th>
-                                <th scope="col">USERNAME</th>
-                                <th scope="col">EMAIL</th>
-                                <th scope="col">LEVEL</th>
-                                <th scope="col">FOTO</th>
-                                <th scope="col">Action</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach ($users as $index => $user)
+                    <div class="table-responsive">
+                        <table class="table table-striped table-sm">
+                            <thead>
                                 <tr>
-                                    <td class="align-middle">{{ $index + $users->firstItem() }}</td>
-                                    <td class="align-middle">{{ $user->nama }}</td>
-                                    <td class="align-middle">{{ $user->username }}</td>
-                                    <td class="align-middle">{{ $user->email }}</td>
-                                    <td class="align-middle">{{ $user->level }}</td>
-                                    <td class="pb-2">
-                                        @if ($user->foto)
-                                            <img src="{{ asset('storage/'.$user->foto) }}" style="width: 80px; aspect-ratio:3/4" alt="Foto kandidat">    
-                                        @else
-                                            <img src="{{ asset('AdminLTE') }}/dist/img/user2-160x160.jpg" style="width: 80px; aspect-ratio:3/4" alt="Foto kandidat">    
-                                        @endif
-                                    </td>
-                                    <td class="text-nowrap align-middle">
-                                        <a href="/dashboard/user/{{ $user->slug }}/edit" class="btn btn-sm bg-warning">
-                                            <i class="fa-solid fa-pen-to-square"></i>
-                                        </a>
-                                        <form action="/dashboard/user/{{ $user->slug }}" name="formDeletee" method="post" class="d-inline">
-                                            @method('delete')
-                                            @csrf 
-                                            <button class="btn btn-sm bg-danger border-0 konfirmasi_hapus" type="submit">
-                                                <i class="fa-solid fa-trash-can"></i>
-                                            </button>
-                                        </form>
-                                    </td>
+                                    <th scope="col">NO</th>
+                                    <th scope="col">NAMA</th>
+                                    <th scope="col">USERNAME</th>
+                                    <th scope="col">EMAIL</th>
+                                    <th scope="col">LEVEL</th>
+                                    <th scope="col">FOTO</th>
+                                    <th scope="col">Action</th>
                                 </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
-                    <div class="d-flex justify-content-end mt-3">
-                        {{ $users->links() }}
+                            </thead>
+                            <tbody>
+                                @foreach ($users as $index => $user)
+                                    <tr>
+                                        <td class="align-middle">{{ $index + $users->firstItem() }}</td>
+                                        <td class="align-middle">{{ $user->nama }}</td>
+                                        <td class="align-middle">{{ $user->username }}</td>
+                                        <td class="align-middle">{{ $user->email }}</td>
+                                        <td class="align-middle">{{ $user->level }}</td>
+                                        <td class="pb-2">
+                                            @if ($user->foto)
+                                                <img src="{{ asset('storage/'.$user->foto) }}" style="width: 80px; aspect-ratio:3/4" alt="Foto kandidat">    
+                                            @else
+                                                <img src="{{ asset('AdminLTE') }}/dist/img/user2-160x160.jpg" style="width: 80px; aspect-ratio:3/4" alt="Foto kandidat">    
+                                            @endif
+                                        </td>
+                                        <td class="text-nowrap align-middle">
+                                            <a href="/dashboard/user/{{ $user->slug }}/edit" class="btn btn-sm bg-warning">
+                                                <i class="fa-solid fa-pen-to-square"></i>
+                                            </a>
+                                            <form action="/dashboard/user/{{ $user->slug }}" name="formDeletee" method="post" class="d-inline">
+                                                @method('delete')
+                                                @csrf 
+                                                <button class="btn btn-sm bg-danger border-0 konfirmasi_hapus" type="submit">
+                                                    <i class="fa-solid fa-trash-can"></i>
+                                                </button>
+                                            </form>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="row d-flex justify-content-between mx-1">
+                        <div>
+                            Showing {{ $users->firstItem() }} to {{ $users->lastItem() }} of {{$users->total()}} entries
+                        </div>
+                        <div class="mt-2 mt-md-0">
+                            {{ $users->onEachSide(0)->links() }}
+                        </div>
                     </div>
                 </div>
             </div>

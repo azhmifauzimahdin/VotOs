@@ -20,7 +20,7 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         User::factory(15)->create();
-        Pemilih::factory(15)->create();
+        Pemilih::factory(800)->create();
         Kandidat::factory(15)->create();
         Voting::factory(15)->create();
     }
