@@ -10,6 +10,7 @@ use App\Http\Controllers\LoginUserController;
 use App\Http\Controllers\AdminCategoryController;
 use App\Http\Controllers\DashboardGantiPasswordController;
 use App\Http\Controllers\DashboardKandidatController;
+use App\Http\Controllers\DashboardKelasController;
 use App\Http\Controllers\DashboardPemilihController;
 use App\Http\Controllers\DashboardPostController;
 use App\Http\Controllers\DashboardUserController;
@@ -158,6 +159,16 @@ Route::resource('/dashboard/user', DashboardUserController::class)->names([
     'edit' => 'user.users.edit',
     'update' => 'user.users.update',
     'destroy' => 'user.users.destroy',
+])->except('show')->middleware('auth:web');
+
+Route::get('/dashboard/kelas/checkSlug', [DashboardKelasController::class, 'checkSlug'])->middleware('auth:web');
+Route::resource('/dashboard/kelas', DashboardKelasController::class)->names([
+    'index' => 'user.kelas.index',
+    'create' => 'user.kelas.create',
+    'store' => 'user.kelas.store',
+    'edit' => 'user.kelas.edit',
+    'update' => 'user.kelas.update',
+    'destroy' => 'user.kelas.destroy',
 ])->except('show')->middleware('auth:web');
 
 Route::get('/dashboard/rekapitulasi', [DashboardVotingController::class, 'rekapitulasi'])->name('user.rekapitulasi')->middleware('auth:web');

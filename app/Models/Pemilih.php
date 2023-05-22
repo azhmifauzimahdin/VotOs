@@ -51,6 +51,11 @@ class Pemilih extends Authenticatable
         return $this->belongsTo(User::class, 'user_id');
     }
 
+    public function kelas()
+    {
+        return $this->belongsTo(Kelas::class);
+    }
+
     public function votings()
     {
         return $this->hasMany(Voting::class);

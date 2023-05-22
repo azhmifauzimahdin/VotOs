@@ -60,6 +60,14 @@
           </a>
         </li>
         <li class="nav-item">
+          <a href="/dashboard/kelas" class="nav-link {{ Request::is('dashboard/kelas*') ? 'active' : ''}}">
+            <i class="nav-icon fa-solid fa-school"></i>
+            <p>
+              Data Kelas
+            </p>
+          </a>
+        </li>
+        <li class="nav-item">
           <a href="/dashboard/rekapitulasi" class="nav-link {{ Request::is('dashboard/rekapitulasi*') ? 'active' : ''}}">
             <i class="nav-icon fa-solid fa-file" style="color: #ffffff;"></i>
             <p>

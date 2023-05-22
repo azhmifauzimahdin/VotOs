@@ -2,7 +2,7 @@
 
 @section('container')
     <div class="row">
-        <section class="col-6">
+        <section class="col-sm-6">
             <div class="card">
                 <h5 class="card-header">Ganti Password</h5>
                 <div class="card-body">
