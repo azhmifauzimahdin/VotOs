@@ -27,7 +27,7 @@ class LoginPemilihController extends Controller
             return redirect()->intended('/');
         }
 
-        return back()->with('loginError', 'Login Gagal!');
+        return back()->with('loginError', 'Login Gagal!')->withInput();
     }
 
     public function logout(Request $request)

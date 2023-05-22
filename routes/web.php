@@ -8,6 +8,7 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\LoginUserController;
 use App\Http\Controllers\AdminCategoryController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DashboardGantiPasswordController;
 use App\Http\Controllers\DashboardKandidatController;
 use App\Http\Controllers\DashboardKelasController;
@@ -122,11 +123,7 @@ Route::get('/voting/berhasil', function () {
 
 
 // Dashboard
-Route::get('/dashboard', function () {
-    return view('dashboard.index', [
-        'title' => 'Dashboard'
-    ]);
-})->name('user.dashboard')->middleware('auth:web');
+Route::get('/dashboard', [DashboardController::class, 'index'])->name('user.dashboard')->middleware('auth:web');
 
 Route::get('/dashboard/pemilih/checkSlug', [DashboardPemilihController::class, 'checkSlug'])->middleware(['auth:web', 'pemilih']);
 Route::resource('/dashboard/pemilih', DashboardPemilihController::class)->names([

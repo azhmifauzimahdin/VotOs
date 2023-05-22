@@ -17,28 +17,39 @@
                     <form action="/dashboard/ganti_password/{{ auth()->user()->slug }}" method="post">
                         @method('put')
                         @csrf
-                        <div class="form-group">
-                          <label for="password">Password Baru</label>
-                          <input type="password" class="form-control @error('password') is-invalid @enderror" id="password" name="password" placeholder="Password Baru" required>
-                          @error('password')
-                          <div class="invalid-feedback">
-                              {{ $message }}
-                          </div>
-                          @enderror
+                        <div class="input-group mb-3" id="show_hide_password">
+                            <input type="password" class="form-control @error('password') is-invalid @enderror" id="password" name="password" placeholder="Password" required>
+                            <div class="input-group-append">
+                                <span class="input-group-text" id="basic-addon2">
+                                    <a href=""><i class="fa-regular fa-eye-slash" aria-hidden="true"></i></a>
+                                </span>
+                            </div>
+                            @error('password')
+                            <div class="invalid-feedback">
+                                {{ $message }}
+                            </div>
+                            @enderror
                         </div>
-                        {{-- <div class="form-group">
-                          <label for="password_confirmation">Konfirmasi Password</label>
-                          <input type="password" class="form-control @error('password_confirmation') is-invalid @enderror" id="password_confirmation" name="password_confirmation" placeholder="Konfirmasi Password Baru" required>
-                          @error('password_confirmation')
-                          <div class="invalid-feedback">
-                              {{ $message }}
-                          </div>
-                          @enderror
-                        </div> --}}
                         <button type="submit" class="btn btn-primary">Simpan</button>
                       </form>
                 </div>
             </div>
         </section>
     </div>
+    <script>
+        $(document).ready(function() {
+            $("#show_hide_password a").on('click', function(event) {
+                event.preventDefault();
+                if($('#show_hide_password input').attr("type") == "text"){
+                    $('#show_hide_password input').attr('type', 'password');
+                    $('#show_hide_password i').addClass( "fa-eye-slash" );
+                    $('#show_hide_password i').removeClass( "fa-eye" );
+                }else if($('#show_hide_password input').attr("type") == "password"){
+                    $('#show_hide_password input').attr('type', 'text');
+                    $('#show_hide_password i').removeClass( "fa-eye-slash" );
+                    $('#show_hide_password i').addClass( "fa-eye" );
+                }
+            });
+        });
+    </script>
 @endsection

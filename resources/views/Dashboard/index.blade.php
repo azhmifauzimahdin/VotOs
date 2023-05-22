@@ -5,7 +5,7 @@
       <div class="col-lg-3 col-6">
         <div class="small-box bg-info">
             <div class="inner">
-                <h3>150</h3>
+                <h3>{{ count($pemilihs) }}</h3>
                 <p>Jumlah Pemilih</p>
             </div>
             <div class="icon">
@@ -16,7 +16,7 @@
       <div class="col-lg-3 col-6">
         <div class="small-box bg-success">
             <div class="inner">
-              <h3>53</h3>
+              <h3>{{ count($kandidats) }}</h3>
               <p>Jumlah Kandidat</p>
             </div>
             <div class="icon">
