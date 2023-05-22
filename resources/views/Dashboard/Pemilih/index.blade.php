@@ -45,29 +45,35 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($pemilihs as $index => $pemilih)
+                                @if (count($pemilihs))
+                                    @foreach ($pemilihs as $index => $pemilih)
+                                        <tr>
+                                            <td>{{ $index + $pemilihs->firstItem() }}</td>
+                                            <td>{{ $pemilih->nisn }}</td>
+                                            <td>{{ $pemilih->nama }}</td>
+                                            <td>{{ $pemilih->username }}</td>
+                                            <td>{{ $pemilih->email }}</td>
+                                            <td>{{ $pemilih->kelas->nama }}</td>
+                                            <td>{{ $pemilih->jk }}</td>
+                                            <td class="text-nowrap">
+                                                <a href="/dashboard/pemilih/{{ $pemilih->slug }}/edit" class="btn btn-sm bg-warning">
+                                                    <i class="fa-solid fa-pen-to-square"></i>
+                                                </a>
+                                                <form action="/dashboard/pemilih/{{ $pemilih->slug }}" id="formHapus" method="post" class="d-inline">
+                                                    @method('delete')
+                                                    @csrf
+                                                    <button class="btn btn-sm bg-danger border-0 konfirmasi_hapus" onclick="hapusData()">
+                                                        <i class="fa-solid fa-trash-can"></i>
+                                                    </button>
+                                                </form>
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                @else
                                     <tr>
-                                        <td>{{ $index + $pemilihs->firstItem() }}</td>
-                                        <td>{{ $pemilih->nisn }}</td>
-                                        <td>{{ $pemilih->nama }}</td>
-                                        <td>{{ $pemilih->username }}</td>
-                                        <td>{{ $pemilih->email }}</td>
-                                        <td>{{ $pemilih->kelas->nama }}</td>
-                                        <td>{{ $pemilih->jk }}</td>
-                                        <td class="text-nowrap">
-                                            <a href="/dashboard/pemilih/{{ $pemilih->slug }}/edit" class="btn btn-sm bg-warning">
-                                                <i class="fa-solid fa-pen-to-square"></i>
-                                            </a>
-                                            <form action="/dashboard/pemilih/{{ $pemilih->slug }}" id="formHapus" method="post" class="d-inline">
-                                                @method('delete')
-                                                @csrf
-                                                <button class="btn btn-sm bg-danger border-0 konfirmasi_hapus" onclick="hapusData()">
-                                                    <i class="fa-solid fa-trash-can"></i>
-                                                </button>
-                                            </form>
-                                        </td>
+                                        <td colspan="8" class="text-center py-2">Tidak ada data yang ditemukan</td>
                                     </tr>
-                                @endforeach
+                                @endif
                             </tbody>
                         </table>
                     </div>

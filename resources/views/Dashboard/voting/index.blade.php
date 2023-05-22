@@ -33,14 +33,20 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($votings as $index => $voting)
+                                @if (count($votings))
+                                    @foreach ($votings as $index => $voting)
+                                        <tr>
+                                            <td>{{ $index + $votings->firstItem() }}</td>
+                                            <td>{{ $voting->pemilih->nisn }} - {{ $voting->pemilih->nama }}</td>
+                                            <td>{{ $voting->kandidat->nomor }} - {{ $voting->kandidat->nama }}</td>
+                                            <td>{{ $voting->created_at }}</td>
+                                        </tr>
+                                    @endforeach
+                                @else
                                     <tr>
-                                        <td>{{ $index + $votings->firstItem() }}</td>
-                                        <td>{{ $voting->pemilih->nisn }} - {{ $voting->pemilih->nama }}</td>
-                                        <td>{{ $voting->kandidat->nomor }} - {{ $voting->kandidat->nama }}</td>
-                                        <td>{{ $voting->created_at }}</td>
+                                        <td colspan="4" class="text-center py-2">Tidak ada data yang ditemukan</td>
                                     </tr>
-                                @endforeach
+                                @endif
                             </tbody>
                         </table>
                     </div>

@@ -178,4 +178,4 @@ Route::put('/dashboard/ganti_password/{user:slug}', [DashboardGantiPasswordContr
 
 Route::get('/loginUser', [LoginUserController::class, 'index'])->name('user.login')->middleware('guest');
 Route::post('/loginUser', [LoginUserController::class, 'authenticate'])->name('user.autenticate')->middleware('guest');
-Route::post('/logoutUser', [LoginUserController::class, 'logout'])->name('user.logout')->middleware('guest');
+Route::post('/logoutUser', [LoginUserController::class, 'logout'])->name('user.logout');

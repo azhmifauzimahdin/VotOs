@@ -40,24 +40,30 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($kelas as $index => $data)
+                                @if (count($kelas))
+                                    @foreach ($kelas as $index => $data)
+                                        <tr>
+                                            <td style="width: 10%">{{ $index + $kelas->firstItem() }}</td>
+                                            <td style="width: 90%">{{ $data->nama }}</td>
+                                            <td class="text-nowrap" style="width: auto">
+                                                <a href="/dashboard/kelas/{{ $data->slug }}/edit" class="btn btn-sm bg-warning">
+                                                    <i class="fa-solid fa-pen-to-square"></i>
+                                                </a>
+                                                <form action="/dashboard/kelas/{{ $data->slug }}" name="formDeletee" method="post" class="d-inline">
+                                                    @method('delete')
+                                                    @csrf 
+                                                    <button class="btn btn-sm bg-danger border-0 konfirmasi_hapus" type="submit">
+                                                        <i class="fa-solid fa-trash-can"></i>
+                                                    </button>
+                                                </form>
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                @else
                                     <tr>
-                                        <td style="width: 10%">{{ $index + $kelas->firstItem() }}</td>
-                                        <td style="width: 90%">{{ $data->nama }}</td>
-                                        <td class="text-nowrap" style="width: auto">
-                                            <a href="/dashboard/kelas/{{ $data->slug }}/edit" class="btn btn-sm bg-warning">
-                                                <i class="fa-solid fa-pen-to-square"></i>
-                                            </a>
-                                            <form action="/dashboard/kelas/{{ $data->slug }}" name="formDeletee" method="post" class="d-inline">
-                                                @method('delete')
-                                                @csrf 
-                                                <button class="btn btn-sm bg-danger border-0 konfirmasi_hapus" type="submit">
-                                                    <i class="fa-solid fa-trash-can"></i>
-                                                </button>
-                                            </form>
-                                        </td>
+                                        <td colspan="3" class="text-center py-2">Tidak ada data yang ditemukan</td>
                                     </tr>
-                                @endforeach
+                                @endif
                             </tbody>
                         </table>
                     </div>

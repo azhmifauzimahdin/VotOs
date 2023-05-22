@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Voting;
 use App\Models\Kandidat;
+use App\Models\Kelas;
 
 class DashboardVotingController extends Controller
 {
@@ -21,7 +22,8 @@ class DashboardVotingController extends Controller
         return view('dashboard.rekapitulasi.index', [
             'title' => 'Rekapitulasi',
             'votings' => Voting::latest()->filter(request(['search', 'kandidat', 'kelas']))->paginate(10)->withQueryString(),
-            'kandidats' => Kandidat::orderBy('nomor', 'ASC')->get()
+            'kandidats' => Kandidat::orderBy('nomor', 'ASC')->get(),
+            'kelas' => Kelas::orderBy('nama', 'ASC')->get()
         ]);
     }
 }

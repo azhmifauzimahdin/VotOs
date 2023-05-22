@@ -33,7 +33,9 @@ class Voting extends Model
 
         $query->when($filters['kelas'] ?? false, function ($query, $search) {
             return $query->whereHas('pemilih', function ($query) use ($search) {
-                $query->where('kelas', 'like', '%' . $search . '%');
+                $query->whereHas('kelas', function ($query) use ($search) {
+                    $query->where('nama', 'like', '%' . $search . '%');
+                });
             });
         });
     }

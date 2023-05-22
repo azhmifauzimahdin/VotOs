@@ -42,35 +42,41 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($kandidats as $kandidat)
+                                @if (count($kandidats))
+                                    @foreach ($kandidats as $kandidat)
+                                        <tr>
+                                            <td class="align-middle">{{ $kandidat->nomor }}</td>
+                                            <td class="align-middle">{{ $kandidat->nama }}</td>
+                                            <td class="align-middle">{{ $kandidat->jk }}</td>
+                                            <td>
+                                                @if ($kandidat->foto)
+                                                    <img src="{{ asset('storage/'.$kandidat->foto) }}" style="width: 80px; aspect-ratio:3/4" alt="Foto kandidat">    
+                                                @else
+                                                    <img src="{{ asset('AdminLTE') }}/dist/img/user2-160x160.jpg" style="width: 80px; aspect-ratio:3/4" alt="Foto kandidat">    
+                                                @endif
+                                            </td>
+                                            <td class="text-nowrap align-middle">
+                                                <a href="/dashboard/kandidat/{{ $kandidat->slug }}" class="btn btn-sm bg-info">
+                                                    <i class="fa-regular fa-eye"></i>
+                                                </a>
+                                                <a href="/dashboard/kandidat/{{ $kandidat->slug }}/edit" class="btn btn-sm bg-warning">
+                                                    <i class="fa-solid fa-pen-to-square"></i>
+                                                </a>
+                                                <form action="/dashboard/kandidat/{{ $kandidat->slug }}" name="formDeletee" method="post" class="d-inline">
+                                                    @method('delete')
+                                                    @csrf 
+                                                    <button class="btn btn-sm bg-danger border-0 konfirmasi_hapus" type="submit">
+                                                        <i class="fa-solid fa-trash-can"></i>
+                                                    </button>
+                                                </form>
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                @else
                                     <tr>
-                                        <td class="align-middle">{{ $kandidat->nomor }}</td>
-                                        <td class="align-middle">{{ $kandidat->nama }}</td>
-                                        <td class="align-middle">{{ $kandidat->jk }}</td>
-                                        <td>
-                                            @if ($kandidat->foto)
-                                                <img src="{{ asset('storage/'.$kandidat->foto) }}" style="width: 80px; aspect-ratio:3/4" alt="Foto kandidat">    
-                                            @else
-                                                <img src="{{ asset('AdminLTE') }}/dist/img/user2-160x160.jpg" style="width: 80px; aspect-ratio:3/4" alt="Foto kandidat">    
-                                            @endif
-                                        </td>
-                                        <td class="text-nowrap align-middle">
-                                            <a href="/dashboard/kandidat/{{ $kandidat->slug }}" class="btn btn-sm bg-info">
-                                                <i class="fa-regular fa-eye"></i>
-                                            </a>
-                                            <a href="/dashboard/kandidat/{{ $kandidat->slug }}/edit" class="btn btn-sm bg-warning">
-                                                <i class="fa-solid fa-pen-to-square"></i>
-                                            </a>
-                                            <form action="/dashboard/kandidat/{{ $kandidat->slug }}" name="formDeletee" method="post" class="d-inline">
-                                                @method('delete')
-                                                @csrf 
-                                                <button class="btn btn-sm bg-danger border-0 konfirmasi_hapus" type="submit">
-                                                    <i class="fa-solid fa-trash-can"></i>
-                                                </button>
-                                            </form>
-                                        </td>
+                                        <td colspan="5" class="text-center py-2">Tidak ada data yang ditemukan</td>
                                     </tr>
-                                @endforeach
+                                @endif
                             </tbody>
                         </table>
                     </div>

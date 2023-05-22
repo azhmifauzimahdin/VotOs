@@ -44,34 +44,40 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($users as $index => $user)
+                                @if (count($users))
+                                    @foreach ($users as $index => $user)
+                                        <tr>
+                                            <td class="align-middle">{{ $index + $users->firstItem() }}</td>
+                                            <td class="align-middle">{{ $user->nama }}</td>
+                                            <td class="align-middle">{{ $user->username }}</td>
+                                            <td class="align-middle">{{ $user->email }}</td>
+                                            <td class="align-middle">{{ $user->level }}</td>
+                                            <td class="pb-2">
+                                                @if ($user->foto)
+                                                    <img src="{{ asset('storage/'.$user->foto) }}" style="width: 80px; aspect-ratio:3/4" alt="Foto kandidat">    
+                                                @else
+                                                    <img src="{{ asset('AdminLTE') }}/dist/img/user2-160x160.jpg" style="width: 80px; aspect-ratio:3/4" alt="Foto kandidat">    
+                                                @endif
+                                            </td>
+                                            <td class="text-nowrap align-middle">
+                                                <a href="/dashboard/user/{{ $user->slug }}/edit" class="btn btn-sm bg-warning">
+                                                    <i class="fa-solid fa-pen-to-square"></i>
+                                                </a>
+                                                <form action="/dashboard/user/{{ $user->slug }}" name="formDeletee" method="post" class="d-inline">
+                                                    @method('delete')
+                                                    @csrf 
+                                                    <button class="btn btn-sm bg-danger border-0 konfirmasi_hapus" type="submit">
+                                                        <i class="fa-solid fa-trash-can"></i>
+                                                    </button>
+                                                </form>
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                @else
                                     <tr>
-                                        <td class="align-middle">{{ $index + $users->firstItem() }}</td>
-                                        <td class="align-middle">{{ $user->nama }}</td>
-                                        <td class="align-middle">{{ $user->username }}</td>
-                                        <td class="align-middle">{{ $user->email }}</td>
-                                        <td class="align-middle">{{ $user->level }}</td>
-                                        <td class="pb-2">
-                                            @if ($user->foto)
-                                                <img src="{{ asset('storage/'.$user->foto) }}" style="width: 80px; aspect-ratio:3/4" alt="Foto kandidat">    
-                                            @else
-                                                <img src="{{ asset('AdminLTE') }}/dist/img/user2-160x160.jpg" style="width: 80px; aspect-ratio:3/4" alt="Foto kandidat">    
-                                            @endif
-                                        </td>
-                                        <td class="text-nowrap align-middle">
-                                            <a href="/dashboard/user/{{ $user->slug }}/edit" class="btn btn-sm bg-warning">
-                                                <i class="fa-solid fa-pen-to-square"></i>
-                                            </a>
-                                            <form action="/dashboard/user/{{ $user->slug }}" name="formDeletee" method="post" class="d-inline">
-                                                @method('delete')
-                                                @csrf 
-                                                <button class="btn btn-sm bg-danger border-0 konfirmasi_hapus" type="submit">
-                                                    <i class="fa-solid fa-trash-can"></i>
-                                                </button>
-                                            </form>
-                                        </td>
+                                        <td colspan="7" class="text-center py-2">Tidak ada data yang ditemukan</td>
                                     </tr>
-                                @endforeach
+                                @endif
                             </tbody>
                         </table>
                     </div>

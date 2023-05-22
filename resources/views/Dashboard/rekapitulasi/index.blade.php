@@ -21,9 +21,9 @@
                                 <label for="kelas">Kelas</label>
                                 <select class="form-control" name="kelas" id="kelas">
                                     <option value="" {{ request('kelas') == "" ? "selected" : "" }}>Semua Kelas</option>
-                                    <option value="10" {{ request('kelas') == "10" ? "selected" : "" }}>10</option>
-                                    <option value="11" {{ request('kelas') == "11" ? "selected" : "" }}>11</option>
-                                    <option value="12" {{ request('kelas') == "12" ? "selected" : "" }}>12</option>
+                                    @foreach ($kelas as $data)
+                                        <option value="{{ $data->nama }}" {{ request('kelas') == $data->nama ? "selected" : "" }}>{{ $data->nama }}</option>
+                                    @endforeach
                                 </select>
                             </div>
                             <div class="col-md-2 mb-1 d-flex align-items-end">
@@ -89,14 +89,20 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($votings as $index => $voting)
+                                @if(count($votings) > 0)
+                                    @foreach ($votings as $index => $voting)
+                                        <tr>
+                                            <td>{{ $index + $votings->firstItem() }}</td>
+                                            <td>{{ $voting->pemilih->nisn }} - {{ $voting->pemilih->kelas->nama }} - {{ $voting->pemilih->nama }}</td>
+                                            <td>{{ $voting->kandidat->nomor }} - {{ $voting->kandidat->nama }}</td>
+                                            <td>{{ $voting->created_at }}</td>
+                                        </tr>
+                                    @endforeach
+                                @else
                                     <tr>
-                                        <td>{{ $index + $votings->firstItem() }}</td>
-                                        <td>{{ $voting->pemilih->nisn }} - {{ $voting->pemilih->kelas }} - {{ $voting->pemilih->nama }}</td>
-                                        <td>{{ $voting->kandidat->nomor }} - {{ $voting->kandidat->nama }}</td>
-                                        <td>{{ $voting->created_at }}</td>
+                                        <td colspan="4" class="text-center py-2">Tidak ada data yang ditemukan</td>
                                     </tr>
-                                @endforeach
+                                @endif
                             </tbody>
                         </table>
                     </div>
