@@ -128,7 +128,7 @@ Route::get('/dashboard', function () {
     ]);
 })->name('user.dashboard')->middleware('auth:web');
 
-Route::get('/dashboard/pemilih/checkSlug', [DashboardPemilihController::class, 'checkSlug'])->middleware('auth:web');
+Route::get('/dashboard/pemilih/checkSlug', [DashboardPemilihController::class, 'checkSlug'])->middleware(['auth:web', 'pemilih']);
 Route::resource('/dashboard/pemilih', DashboardPemilihController::class)->names([
     'index' => 'user.pemilih.index',
     'create' => 'user.pemilih.create',
@@ -136,9 +136,9 @@ Route::resource('/dashboard/pemilih', DashboardPemilihController::class)->names(
     'edit' => 'user.pemilih.edit',
     'update' => 'user.pemilih.update',
     'destroy' => 'user.pemilih.destroy'
-])->except('show')->middleware('auth:web');
+])->except('show')->middleware(['auth:web', 'pemilih']);
 
-Route::get('/dashboard/kandidat/checkSlug', [DashboardKandidatController::class, 'checkSlug'])->middleware('auth:web');
+Route::get('/dashboard/kandidat/checkSlug', [DashboardKandidatController::class, 'checkSlug'])->middleware(['auth:web', 'pemilih']);
 Route::resource('/dashboard/kandidat', DashboardKandidatController::class)->names([
     'index' => 'user.kandidat.index',
     'create' => 'user.kandidat.create',
@@ -147,11 +147,11 @@ Route::resource('/dashboard/kandidat', DashboardKandidatController::class)->name
     'edit' => 'user.kandidat.edit',
     'update' => 'user.kandidat.update',
     'destory' => 'user.kandidat.destroy'
-])->middleware('auth:web');
+])->middleware(['auth:web', 'pemilih']);
 
-Route::get('/dashboard/voting', [DashboardVotingController::class, 'index'])->name('user.voting')->middleware('auth:web');
+Route::get('/dashboard/voting', [DashboardVotingController::class, 'index'])->name('user.voting')->middleware(['auth:web', 'pemilih']);
 
-Route::get('/dashboard/user/checkSlug', [DashboardUserController::class, 'checkSlug'])->middleware('auth:web');
+Route::get('/dashboard/user/checkSlug', [DashboardUserController::class, 'checkSlug'])->middleware(['auth:web', 'admin']);
 Route::resource('/dashboard/user', DashboardUserController::class)->names([
     'index' => 'user.users.index',
     'create' => 'user.users.create',
@@ -159,9 +159,9 @@ Route::resource('/dashboard/user', DashboardUserController::class)->names([
     'edit' => 'user.users.edit',
     'update' => 'user.users.update',
     'destroy' => 'user.users.destroy',
-])->except('show')->middleware('auth:web');
+])->except('show')->middleware(['auth:web', 'admin']);
 
-Route::get('/dashboard/kelas/checkSlug', [DashboardKelasController::class, 'checkSlug'])->middleware('auth:web');
+Route::get('/dashboard/kelas/checkSlug', [DashboardKelasController::class, 'checkSlug'])->middleware(['auth:web', 'pemilih']);
 Route::resource('/dashboard/kelas', DashboardKelasController::class)->names([
     'index' => 'user.kelas.index',
     'create' => 'user.kelas.create',
@@ -169,13 +169,13 @@ Route::resource('/dashboard/kelas', DashboardKelasController::class)->names([
     'edit' => 'user.kelas.edit',
     'update' => 'user.kelas.update',
     'destroy' => 'user.kelas.destroy',
-])->except('show')->middleware('auth:web');
+])->except('show')->middleware(['auth:web', 'pemilih']);
 
-Route::get('/dashboard/rekapitulasi', [DashboardVotingController::class, 'rekapitulasi'])->name('user.rekapitulasi')->middleware('auth:web');
+Route::get('/dashboard/rekapitulasi', [DashboardVotingController::class, 'rekapitulasi'])->name('user.rekapitulasi')->middleware(['auth:web', 'pemilih']);
 
 Route::get('/dashboard/ganti_password', [DashboardGantiPasswordController::class, 'index'])->name('user.gantiPassword')->middleware('auth:web');
 Route::put('/dashboard/ganti_password/{user:slug}', [DashboardGantiPasswordController::class, 'update'])->name('user.gantiPassword.update')->middleware('auth:web');
 
 Route::get('/loginUser', [LoginUserController::class, 'index'])->name('user.login')->middleware('guest');
-Route::post('/loginUser', [LoginUserController::class, 'authenticate'])->name('user.autenticate');
-Route::post('/logoutUser', [LoginUserController::class, 'logout'])->name('user.logout');
+Route::post('/loginUser', [LoginUserController::class, 'authenticate'])->name('user.autenticate')->middleware('guest');
+Route::post('/logoutUser', [LoginUserController::class, 'logout'])->name('user.logout')->middleware('guest');

@@ -27,54 +27,60 @@
             </p>
           </a>
         </li>
-        <li class="nav-item">
-          <a href="/dashboard/pemilih" class="nav-link {{ Request::is('dashboard/pemilih*') ? 'active' : ''}}">
-            <i class="nav-icon fa-solid fa-users" style="color: #ffffff;"></i>
-            <p>
-              Data Pemilih
-            </p>
-          </a>
-        </li>
-        <li class="nav-item">
-          <a href="/dashboard/kandidat" class="nav-link {{ Request::is('dashboard/kandidat*') ? 'active' : ''}}">
-            <i class="nav-icon fa-solid fa-user" style="color: #ffffff;"></i>
-            <p>
-              Data Kandidat
-            </p>
-          </a>
-        </li>
-        <li class="nav-item">
-          <a href="/dashboard/voting" class="nav-link {{ Request::is('dashboard/voting*') ? 'active' : ''}}">
-            <i class="nav-icon fa-solid fa-pen" style="color: #ffffff;"></i>
-            <p>
-              Data Voting
-            </p>
-          </a>
-        </li>
-        <li class="nav-item">
-          <a href="/dashboard/user" class="nav-link {{ Request::is('dashboard/user*') ? 'active' : ''}}">
-            <i class="nav-icon fa-solid fa-users-gear" style="color: #ffffff;"></i>
-            <p>
-              Data User
-            </p>
-          </a>
-        </li>
-        <li class="nav-item">
-          <a href="/dashboard/kelas" class="nav-link {{ Request::is('dashboard/kelas*') ? 'active' : ''}}">
-            <i class="nav-icon fa-solid fa-school"></i>
-            <p>
-              Data Kelas
-            </p>
-          </a>
-        </li>
-        <li class="nav-item">
-          <a href="/dashboard/rekapitulasi" class="nav-link {{ Request::is('dashboard/rekapitulasi*') ? 'active' : ''}}">
-            <i class="nav-icon fa-solid fa-file" style="color: #ffffff;"></i>
-            <p>
-              Rekapitulasi
-            </p>
-          </a>
-        </li>
+        @can('panitia')
+          <li class="nav-item">
+            <a href="/dashboard/pemilih" class="nav-link {{ Request::is('dashboard/pemilih*') ? 'active' : ''}}">
+              <i class="nav-icon fa-solid fa-users" style="color: #ffffff;"></i>
+              <p>
+                Data Pemilih
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="/dashboard/kandidat" class="nav-link {{ Request::is('dashboard/kandidat*') ? 'active' : ''}}">
+              <i class="nav-icon fa-solid fa-user" style="color: #ffffff;"></i>
+              <p>
+                Data Kandidat
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="/dashboard/voting" class="nav-link {{ Request::is('dashboard/voting*') ? 'active' : ''}}">
+              <i class="nav-icon fa-solid fa-pen" style="color: #ffffff;"></i>
+              <p>
+                Data Voting
+              </p>
+            </a>
+          </li>
+        @endcan
+        @can('admin')   
+          <li class="nav-item">
+            <a href="/dashboard/user" class="nav-link {{ Request::is('dashboard/user*') ? 'active' : ''}}">
+              <i class="nav-icon fa-solid fa-users-gear" style="color: #ffffff;"></i>
+              <p>
+                Data User
+              </p>
+            </a>
+          </li>
+        @endcan
+        @can('panitia')            
+          <li class="nav-item">
+            <a href="/dashboard/kelas" class="nav-link {{ Request::is('dashboard/kelas*') ? 'active' : ''}}">
+              <i class="nav-icon fa-solid fa-school"></i>
+              <p>
+                Data Kelas
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="/dashboard/rekapitulasi" class="nav-link {{ Request::is('dashboard/rekapitulasi*') ? 'active' : ''}}">
+              <i class="nav-icon fa-solid fa-file" style="color: #ffffff;"></i>
+              <p>
+                Rekapitulasi
+              </p>
+            </a>
+          </li>
+        @endcan
         <li class="nav-item">
           <a href="/dashboard/ganti_password" class="nav-link {{ Request::is('dashboard/ganti_password') ? 'active' : ''}}">
             <i class="nav-icon fa-solid fa-unlock" style="color: #ffffff;"></i>
@@ -92,12 +98,6 @@
             </p>
           </a>
         </form>
-          {{-- <a href="pages/gallery.html" class="nav-link">
-            <i class="nav-icon fa-solid fa-arrow-right-from-bracket" style="color: #ffffff;"></i>
-            <p>
-              Logout
-            </p>
-          </a> --}}
       </ul>
     </nav>
 
