@@ -69,7 +69,10 @@ class DashboardKandidatController extends Controller
      */
     public function show(Kandidat $kandidat)
     {
-        //
+        return view('dashboard.kandidat.show', [
+            'title' => 'Detail Kandidat',
+            'kandidat' => $kandidat
+        ]);
     }
 
     /**

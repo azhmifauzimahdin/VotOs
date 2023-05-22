@@ -146,7 +146,7 @@ Route::resource('/dashboard/kandidat', DashboardKandidatController::class)->name
     'edit' => 'user.kandidat.edit',
     'update' => 'user.kandidat.update',
     'destory' => 'user.kandidat.destroy'
-])->except('show')->middleware('auth:web');
+])->middleware('auth:web');
 
 Route::get('/dashboard/voting', [DashboardVotingController::class, 'index'])->name('user.voting')->middleware('auth:web');
 
