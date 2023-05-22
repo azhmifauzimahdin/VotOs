@@ -60,7 +60,7 @@
           </a>
         </li>
         <li class="nav-item">
-          <a href="pages/gallery.html" class="nav-link {{ Request::is('dashboard/rekapitulasi*') ? 'active' : ''}}">
+          <a href="/dashboard/rekapitulasi" class="nav-link {{ Request::is('dashboard/rekapitulasi*') ? 'active' : ''}}">
             <i class="nav-icon fa-solid fa-file" style="color: #ffffff;"></i>
             <p>
               Rekapitulasi

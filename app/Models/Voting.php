@@ -23,6 +23,19 @@ class Voting extends Model
                         ->orWhere('nama', 'like', '%' . $search . '%');
                 });
         });
+
+        $query->when($filters['kandidat'] ?? false, function ($query, $search) {
+            return $query->whereHas('kandidat', function ($query) use ($search) {
+                $query->where('nomor', 'like', '%' . $search . '%')
+                    ->orWhere('nama', 'like', '%' . $search . '%');
+            });
+        });
+
+        $query->when($filters['kelas'] ?? false, function ($query, $search) {
+            return $query->whereHas('pemilih', function ($query) use ($search) {
+                $query->where('kelas', 'like', '%' . $search . '%');
+            });
+        });
     }
 
     public function pemilih()

@@ -160,6 +160,8 @@ Route::resource('/dashboard/user', DashboardUserController::class)->names([
     'destroy' => 'user.users.destroy',
 ])->except('show')->middleware('auth:web');
 
+Route::get('/dashboard/rekapitulasi', [DashboardVotingController::class, 'rekapitulasi'])->name('user.rekapitulasi')->middleware('auth:web');
+
 Route::get('/dashboard/ganti_password', [DashboardGantiPasswordController::class, 'index'])->name('user.gantiPassword')->middleware('auth:web');
 Route::put('/dashboard/ganti_password/{user:slug}', [DashboardGantiPasswordController::class, 'update'])->name('user.gantiPassword.update')->middleware('auth:web');
 
