@@ -41,6 +41,9 @@
             .icon-beranda {
                 display: none !important;
             }
+            .foto-kandidat{
+                height: 170px;
+            }
         }
     </style>
 

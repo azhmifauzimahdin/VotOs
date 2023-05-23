@@ -18,7 +18,7 @@ class DashboardKandidatController extends Controller
     {
         return view('dashboard.kandidat.index', [
             'title' => 'Data Kandidat',
-            'kandidats' => Kandidat::latest()->filter(request(['search']))->orderBy('nomor', 'ASC')->paginate(10)->withQueryString()
+            'kandidats' => Kandidat::filter(request(['search']))->orderBy('nomor', 'ASC')->paginate(10)->withQueryString()
         ]);
     }
 

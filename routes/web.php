@@ -18,6 +18,7 @@ use App\Http\Controllers\DashboardUserController;
 use App\Http\Controllers\DashboardVotingController;
 use App\Http\Controllers\LoginPemilihController;
 use App\Http\Controllers\UserBerandaController;
+use App\Http\Controllers\UserKandidatController;
 
 /*
 |--------------------------------------------------------------------------
@@ -88,17 +89,10 @@ Route::get('/perolehan-suara', function () {
     ]);
 })->name('pemilih.perolehanSuara');
 
-Route::get('/kandidat', function () {
-    return view('kandidat', [
-        'title' => 'Kandidat'
-    ]);
-})->name('pemilih.kandidat');
-
-Route::get('/kandidat/detail', function () {
-    return view('detail_kandidat', [
-        'title' => 'Detail Kandidat'
-    ]);
-})->name('pemilih.detailKandidat');
+Route::resource('/kandidat', UserKandidatController::class)->names([
+    'index' => 'pemilih.kandidat.index',
+    'show' => 'pemilih.kandidat.show',
+])->except(['create', 'store', 'edit', 'update', 'destroy']);
 
 Route::get('/voting', function () {
     return view('voting', [

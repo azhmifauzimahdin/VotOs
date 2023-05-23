@@ -15,9 +15,6 @@
                         <div class="mt-3">
                             <h4>{{ $kandidat->nama }}</h4>
                             <p class="text-secondary mb-1">{{ $kandidat->jk }}</p>
-                            {{-- <p class="text-muted font-size-sm">{{ $kandidat->nomor }}</p> --}}
-                            {{-- <button class="btn btn-primary mt-3">Kembali</button> --}}
-                            {{-- <button class="btn btn-outline-primary">Message</button> --}}
                         </div>
                     </div>
                 </div>
@@ -80,5 +77,5 @@
             </div>
       </div>
     </div>
-  </div>
+</div>
 @endsection
