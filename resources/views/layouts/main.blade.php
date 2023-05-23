@@ -34,6 +34,14 @@
             -webkit-transform: rotate(-15deg);
             transform: rotate(-10deg);
         }
+        @media only screen and (max-width: 600px) {
+            .img-ilustration-beranda{
+                display: none !important;
+            }
+            .icon-beranda {
+                display: none !important;
+            }
+        }
     </style>
 
 </head>

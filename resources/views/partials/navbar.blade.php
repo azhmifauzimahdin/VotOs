@@ -18,10 +18,10 @@
                 <li class="nav-item mx-2">
                     <a class="nav-link {{ Request::is('voting*') ? 'active' : ''}}" href="/voting">Voting</a>
                 </li>
-                @auth
+                @auth('pemilih')
                     <li class="nav-item dropdown mx-2">
                         <a class="nav-link dropdown-toggle {{ Request::is('*') ? 'active' : ''}}" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        <b>{{ auth()->user()->nama }}</b>
+                        <b>{{ auth('pemilih')->user()->nama }}</b>
                         </a>
                         <ul class="dropdown-menu">
                             <li>
@@ -40,7 +40,8 @@
                         <a href="/loginPemilih" class="btn btn-outline-light py-1 px-4 rounded-pill my-2 my-md-0{{ Request::is('dashboard') ? 'active' : ''}}">Login Pemilih</a>
                     </li>
                     <li class="nav-item mx-2 d-flex align-items-center">
-                        <a href="/loginUser" class="btn btn-success py-1 px-4 rounded-pill border-0 my-2 my-md-0{{ Request::is('dashboard') ? 'active' : ''}}" style="background: #38E54D">Login Admin/Panitia</a>
+                        <a href="/loginUser" class="btn btn-success py-1 px-4d rounded-pill border-0 my-2 my-md-0{{ Request::is('dashboard') ? 'active' : ''}}" style="background: #03C988">Login Admin/Panitia</a>
+                        {{-- <a href="/loginUser" class="btn btn-success py-1 px-4 rounded-pill border-0 my-2 my-md-0{{ Request::is('dashboard') ? 'active' : ''}}" style="background: #38E54D">Login Admin/Panitia</a> --}}
                     </li>
                 @endauth
             </ul>

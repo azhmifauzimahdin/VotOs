@@ -17,6 +17,7 @@ use App\Http\Controllers\DashboardPostController;
 use App\Http\Controllers\DashboardUserController;
 use App\Http\Controllers\DashboardVotingController;
 use App\Http\Controllers\LoginPemilihController;
+use App\Http\Controllers\UserBerandaController;
 
 /*
 |--------------------------------------------------------------------------
@@ -79,17 +80,13 @@ Route::get('/loginPemilih', [LoginPemilihController::class, 'index'])->name('pem
 Route::post('/loginPemilih', [LoginPemilihController::class, 'authenticate'])->name('pemilih.autenticate');
 Route::post('/logoutPemilih', [LoginPemilihController::class, 'logout'])->name('pemilih.logout');
 
-Route::get('/', function () {
-    return view('beranda', [
-        "title" => "Beranda"
-    ]);
-})->name('pemilih.beranda')->middleware('auth:pemilih');
+Route::get('/', [UserBerandaController::class, 'index'])->name('pemilih.beranda');
 
 Route::get('/perolehan-suara', function () {
     return view('perolehan_suara', [
         'title' => 'Perolehan Suara'
     ]);
-})->name('pemilih.perolehanSuara')->middleware('auth:pemilih');
+})->name('pemilih.perolehanSuara');
 
 Route::get('/kandidat', function () {
     return view('kandidat', [

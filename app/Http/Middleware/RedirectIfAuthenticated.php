@@ -20,9 +20,10 @@ class RedirectIfAuthenticated
     public function handle(Request $request, Closure $next,  $guard = null)
     {
         if (Auth::guard($guard)->check()) {
-            if ($guard === 'pemilih')
-                return redirect()->route('pemilih.beranda');
-
+            if ($guard === 'pemilih') {
+                $url = str_replace(url('/'), '', url()->previous());
+                return redirect("$url");
+            }
             return redirect()->route('user.dashboard');
         }
 
