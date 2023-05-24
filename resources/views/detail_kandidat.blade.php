@@ -37,11 +37,7 @@
                                 <h6 class="mb-0">Nomor Kandidat</h6>
                             </div>
                             <div class="col-sm-8">
-                                @if ($kandidat->nomor < 10)
-                                    0{{ $kandidat->nomor }}
-                                @else
-                                    {{ $kandidat->nomor }}
-                                @endif
+                                {{ $kandidat->nomor }}
                             </div>
                         </div>
                         <hr class="my-2">

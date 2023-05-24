@@ -19,6 +19,7 @@ use App\Http\Controllers\DashboardVotingController;
 use App\Http\Controllers\LoginPemilihController;
 use App\Http\Controllers\UserBerandaController;
 use App\Http\Controllers\UserKandidatController;
+use App\Http\Controllers\UserVotingController;
 
 /*
 |--------------------------------------------------------------------------
@@ -94,12 +95,15 @@ Route::resource('/kandidat', UserKandidatController::class)->names([
     'show' => 'pemilih.kandidat.show',
 ])->except(['create', 'store', 'edit', 'update', 'destroy']);
 
-Route::get('/voting', function () {
-    return view('voting', [
-        'title' => 'Voting'
-    ]);
-})->name('pemilih.voting');
-
+Route::resource('/voting', UserVotingController::class)->names([
+    'index' => 'pemilih.voting.index',
+    'create' => 'pemilih.voting.create',
+    'store' => 'pemilih.voting.store',
+    'show' => 'pemilih.voting.show',
+    'edit' => 'pemilih.voting.edit',
+    'update' => 'pemilih.voting.update',
+    'destroy' => 'pemilih.voting.destroy'
+]);
 Route::get('/voting/otp', function () {
     return view('otp', [
         'title' => 'One Time Password'

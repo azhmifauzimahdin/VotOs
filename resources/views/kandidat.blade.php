@@ -22,12 +22,7 @@
                             @endif
                             <div class="px-3" style="position: absolute; z-index: 1; width: 100%; bottom: 0; text-align: right;">
                                 <h5 class="text-primary">
-                                    @if ($kandidat->nomor < 10)
-                                        0{{ $kandidat->nomor }}
-                                    @else
-                                        {{ $kandidat->nomor }}
-                                    @endif
-                                    
+                                    {{ $kandidat->nomor }}
                                 </h5>
                             </div>
                         </div>

@@ -34,6 +34,8 @@
             -webkit-transform: rotate(-15deg);
             transform: rotate(-10deg);
         }
+        .kotak-profil:hover{
+        }
         @media only screen and (max-width: 600px) {
             .img-ilustration-beranda{
                 display: none !important;
