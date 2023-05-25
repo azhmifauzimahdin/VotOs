@@ -10,15 +10,15 @@
         </div>
     </div>
     <div class="px-5 mx-md-5">
-        <div class="row row-cols-2 row-cols-md-4 g-2 g-md-4 d-flex justify-content-center align-self-stretch px-md-5 mx-md-3 mb-5">
+        <div class="row row-cols-2 row-cols-md-4 g-2 g-md-4 d-flex justify-content-center px-md-5 mx-md-3 mb-5">
             @foreach ($kandidats as $kandidat) 
                 <div class="col">
-                    <div class="border bg-white overflow-hidden" style="border-radius: 1vw; min-height: 100%" >
+                    <div class="kotak-profil bg-white overflow-hidden" style="border-radius: 1vw; min-height: 100%; position:relative" >
                         <div class="candidate_thumb" style="height: 80%">
                             @if ($kandidat->foto)
-                                <img src="{{ asset('storage/'. $kandidat->foto) }}" class="foto-kandidat" alt="Foto Kandidat" width="100%" height="230px">
+                                <img src="{{ asset('storage/'. $kandidat->foto) }}" class="foto-kandidat" alt="Foto Kandidat" width="100%" height="250px">
                             @else
-                                <img src="{{ asset('AdminLTE') }}/dist/img/default_user.jpg" class="foto-kandidat" alt="Foto Kandidat" width="100%" height="230px">
+                                <img src="{{ asset('AdminLTE') }}/dist/img/default_user.jpg" class="foto-kandidat" alt="Foto Kandidat" width="100%" height="250px">
                             @endif
                             <div class="px-3" style="position: absolute; z-index: 1; width: 100%; bottom: 0; text-align: right;">
                                 <h5 class="text-primary">
@@ -26,9 +26,9 @@
                                 </h5>
                             </div>
                         </div>
-                        <div class="px-3 pt-2 pb-3">
-                            <h6 class="card-title text-end">{{ $kandidat->nama }}</h6>
-                            <div class="d-flex justify-content-end"> 
+                        <div class="px-3 pt-1 pb-3">
+                            <h6 class="card-title text-end mb-4">{{ $kandidat->nama }}</h6>
+                            <div class="px-3 mb-2" style="position: absolute; bottom:0; right: 0"> 
                                 <a href="/kandidat/{{ $kandidat->slug }}" class="text-decoration-none">Lihat Detail</a>
                             </div>
                         </div>

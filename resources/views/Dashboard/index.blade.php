@@ -27,7 +27,7 @@
       <div class="col-lg-3 col-6">
         <div class="small-box bg-warning">
           <div class="inner">
-            <h3>44</h3>
+            <h3>{{ count($votings) }}</h3>
             <p>Pemilih Sudah Memilih</p>
           </div>
           <div class="icon">
@@ -38,7 +38,7 @@
       <div class="col-lg-3 col-6">
         <div class="small-box bg-danger">
           <div class="inner">
-            <h3>65</h3>
+            <h3>{{ count($pemilihs) - count($votings) }}</h3>
             <p>Pemilih Belum Memilih</p>
           </div>
           <div class="icon">

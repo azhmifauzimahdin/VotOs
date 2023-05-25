@@ -42,7 +42,7 @@
                         <i class="icon-beranda fa-solid fa-file-shield fa-4x" style="color: #6C63FF;"></i>
                     </div>
                     <div class="flex-grow-1 ms-3">
-                        <h1>108</h1>
+                        <h1>{{ count($votings) }}</h1>
                         <h6>Pemilih Sudah Memilih</h6>
                     </div>
                 </div>
@@ -53,7 +53,7 @@
                         <i class="icon-beranda fa-solid fa-file-circle-question fa-4x" style="color: #EB455F;"></i>
                     </div>
                     <div class="flex-grow-1 ms-3">
-                        <h1>108</h1>
+                        <h1>{{ count($pemilihs) - count($votings) }}</h1>
                         <h6>Pemilih Belum Memilih</h6>
                     </div>
                 </div>

@@ -53,9 +53,10 @@ class UserVotingController extends Controller
             ]
         );
 
-        $validateData['user_id'] = auth('pemilih')->user()->id;
-
-        return redirect('/dashboard/pemilih')->with('success', 'Data pemilih berhasil ditambahkan!');
+        $validateData['pemilih_id'] = auth('pemilih')->user()->id;
+        Voting::create($validateData);
+        Kandidat::where('id', $validateData['kandidat_id'])->increment('jumlah_suara',1);
+        return redirect('/')->with('success', 'Data pemilih berhasil ditambahkan!');
     }
 
     /**
