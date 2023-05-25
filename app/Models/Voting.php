@@ -25,8 +25,11 @@ class Voting extends Model
                     $query->where('nomor', 'like', '%' . $search . '%')
                         ->orWhere('nama', 'like', '%' . $search . '%');
                 })->orWhereHas('pemilih', function ($query) use ($search) {
-                    $query->where('nisn', 'like', '%' . $search . '%')
-                        ->orWhere('nama', 'like', '%' . $search . '%');
+                    $query->where('id', 'like', '%' . $search . '%')
+                        ->orWhere('nama', 'like', '%' . $search . '%')
+                        ->orWhereHas('kelas', function ($query) use ($search) {
+                            $query->where('nama', 'like', '%' . $search . '%');
+                        });
                 });
         });
 

@@ -33,7 +33,7 @@
                     </form>
                     <hr>
                     <div class="row d-flex justify-content-between mb-3 mx-1">
-                        <a href="/dashboard/voting/print" class="btn btn-primary">
+                        <a href="/dashboard/rekapitulasi/print?kandidat={{ request('kandidat') }}&kelas={{ request('kelas') }}" target="_blank" class="btn btn-primary">
                             <i class="fa-solid fa-print"></i>
                             <span class="ml-1">Print</span>
                         </a>
@@ -93,7 +93,7 @@
                                     @foreach ($votings as $index => $voting)
                                         <tr>
                                             <td>{{ $index + $votings->firstItem() }}</td>
-                                            <td>{{ $voting->pemilih->nisn }} - {{ $voting->pemilih->kelas->nama }} - {{ $voting->pemilih->nama }}</td>
+                                            <td>{{ $voting->pemilih_id }} - {{ $voting->pemilih->kelas->nama }} - {{ $voting->pemilih->nama }}</td>
                                             <td>{{ $voting->kandidat->nomor }} - {{ $voting->kandidat->nama }}</td>
                                             <td>{{ $voting->created_at }}</td>
                                         </tr>

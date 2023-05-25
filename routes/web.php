@@ -139,6 +139,7 @@ Route::resource('/dashboard/kandidat', DashboardKandidatController::class)->name
 ])->middleware(['auth:web', 'pemilih']);
 
 Route::get('/dashboard/voting', [DashboardVotingController::class, 'index'])->name('user.voting')->middleware(['auth:web', 'pemilih']);
+Route::get('/dashboard/voting/print', [DashboardVotingController::class, 'cetakPdf'])->name('user.voting.cetakPdf')->middleware(['auth:web', 'pemilih']);
 
 Route::get('/dashboard/user/checkSlug', [DashboardUserController::class, 'checkSlug'])->middleware(['auth:web', 'admin']);
 Route::resource('/dashboard/user', DashboardUserController::class)->names([
@@ -161,6 +162,7 @@ Route::resource('/dashboard/kelas', DashboardKelasController::class)->names([
 ])->except('show')->middleware(['auth:web', 'pemilih']);
 
 Route::get('/dashboard/rekapitulasi', [DashboardVotingController::class, 'rekapitulasi'])->name('user.rekapitulasi')->middleware(['auth:web', 'pemilih']);
+Route::get('/dashboard/rekapitulasi/print', [DashboardVotingController::class, 'cetakPdfRekapitulasi'])->name('user.rekapitulasi')->middleware(['auth:web', 'pemilih']);
 
 Route::get('/dashboard/ganti_password', [DashboardGantiPasswordController::class, 'index'])->name('user.gantiPassword')->middleware('auth:web');
 Route::put('/dashboard/ganti_password/{user:slug}', [DashboardGantiPasswordController::class, 'update'])->name('user.gantiPassword.update')->middleware('auth:web');

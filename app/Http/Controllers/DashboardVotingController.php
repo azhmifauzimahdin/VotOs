@@ -26,4 +26,19 @@ class DashboardVotingController extends Controller
             'kelas' => Kelas::orderBy('nama', 'ASC')->get()
         ]);
     }
+
+    public function cetakPdf(){
+        return view('dashboard.voting.print', [
+            'title' => 'Cetak Data Voting',
+            'votings' => Voting::latest()->get()
+        ]);
+    }
+    
+    public function cetakPdfRekapitulasi(){
+        return view('dashboard.rekapitulasi.print', [
+            'title' => 'Cetak Rekapitulasi Voting',
+            'votings' => Voting::latest()->filter(request(['kandidat', 'kelas']))->get()
+        ]);
+
+    }
 }

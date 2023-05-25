@@ -23,7 +23,7 @@ class DatabaseSeeder extends Seeder
         User::factory(15)->create();
         Pemilih::factory(4)->create();
         Kandidat::factory(4)->create();
-        // Voting::factory(4)->create();
+        Voting::factory(4)->create();
         Kelas::factory(1)->create();
     }
 }
