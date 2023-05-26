@@ -29,6 +29,8 @@
     <link rel="stylesheet" type="text/css" href="https://unpkg.com/trix@2.0.0/dist/trix.css">
     {{-- Jquery --}}
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    {{-- Highchart --}}
+    <script src="https://code.highcharts.com/highcharts.js"></script>
     <style>
         label {
             font-weight: normal !important;
@@ -89,7 +91,7 @@
 <!-- Bootstrap 4 -->
 <script src="{{ asset('AdminLTE') }}/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
 <!-- ChartJS -->
-<script src="{{ asset('AdminLTE') }}/plugins/chart.js/Chart.min.js"></script>
+{{-- <script src="{{ asset('AdminLTE') }}/plugins/chart.js/Chart.min.js"></script> --}}
 <!-- Sparkline -->
 <script src="{{ asset('AdminLTE') }}/plugins/sparklines/sparkline.js"></script>
 <!-- JQVMap -->

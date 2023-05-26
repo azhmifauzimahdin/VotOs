@@ -12,6 +12,15 @@ class Kandidat extends Model
 
     protected $guarded = ['id'];
 
+    public function scopeHasil($query){
+        $kandidat = Kandidat::all();
+        $query = [];
+        foreach($kandidat as $data){
+            $query[] = $data->jumlah_suara;
+        }
+        return $query;
+    }
+
     public function scopeFilter($query, array $filters)
     {
         $query->when($filters['search'] ?? false, function ($query, $search) {

@@ -12,6 +12,8 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
     {{-- Jquery --}}
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    {{-- Highchart --}}
+    <script src="https://code.highcharts.com/highcharts.js"></script>
     {{-- My Style --}}
     <link rel="stylesheet" href="/css/main.css">
     <title>Votos | {{ $title }}</title>

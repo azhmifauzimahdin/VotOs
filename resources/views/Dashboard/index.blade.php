@@ -52,9 +52,46 @@
       <div class="card">
         <h5 class="card-header">Grafik Perolehan Suara</h5>
         <div class="card-body">
-          <div id="donut-chart" style="height: 300px;"></div>
+          <div id="perolehan_suara"></div>
         </div>
       </div>
     </section>
   </div>
+  <script>
+    Highcharts.chart('perolehan_suara', {
+      chart: {
+        type: 'column'
+      },
+      title: {
+        text: 'Grafik Perolehan Suara'
+      },
+      xAxis: {
+        categories: {!! json_encode($label) !!},
+        crosshair: true
+      },
+      yAxis: {
+        min: 0, 
+        title: {
+          text: 'Suara'
+        }
+      },
+      tooltip: {
+        headerFormat: '<table>',
+        pointFormat: '<tr><td style="padding:0">{point.y:.0f} Suara</td></tr>',
+        footerFormat: '</table>',
+        shared: true,
+        useHTML: true
+      },
+      plotOptions: {
+        column: {
+          pointPadding: 0.2,
+          borderWidth: 0
+        }
+      },
+      series: [{
+        name: 'Jumlah Suara',
+        data: {!! json_encode($hasil) !!}
+      }]
+    });
+  </script>
 @endsection
