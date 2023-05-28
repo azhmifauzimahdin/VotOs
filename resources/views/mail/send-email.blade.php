@@ -1,9 +1,10 @@
 @component('mail::message')
 # Introduction
+Hai, {{ $details['name'] }}
 
 The body of your message.
 
-@component('mail::button', ['url' => ''])
+@component('mail::button', ['url' => $details['url']])
 Button Text
 @endcomponent
 

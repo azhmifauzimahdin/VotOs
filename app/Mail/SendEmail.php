@@ -30,6 +30,7 @@ class SendEmail extends Mailable
      */
     public function build()
     {
-        return $this->subject('Mail from websitepercobaan.com')->view('emails.index');
+        return $this->markdown('mail.send-email')->with('details',$this->details);
+        // return $this->subject('Mail from websitepercobaan.com')->view('mail.send-email');
     }
 }
