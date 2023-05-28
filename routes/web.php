@@ -16,6 +16,7 @@ use App\Http\Controllers\DashboardPemilihController;
 use App\Http\Controllers\DashboardPostController;
 use App\Http\Controllers\DashboardUserController;
 use App\Http\Controllers\DashboardVotingController;
+use App\Http\Controllers\KirimEmailController;
 use App\Http\Controllers\LoginPemilihController;
 use App\Http\Controllers\UserBerandaController;
 use App\Http\Controllers\UserKandidatController;
@@ -32,52 +33,6 @@ use App\Http\Controllers\UserVotingController;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
-// Route::get('/', function () {
-//     return view('beranda', [
-//         "title" => "Beranda"
-//     ]);
-// });
-
-
-Route::get('/about', function () {
-    return view('about', [
-        "title" => "About",
-    ]);
-});
-
-Route::get('/posts', [PostController::class, 'index']);
-Route::get('/posts/{post:slug}', [PostController::class, 'show']);
-
-Route::get('/categories', function () {
-    return view('categories', [
-        'title' => 'Post Categories',
-        'categories' => Category::all()
-    ]);
-});
-
-// Route::get('/login', [LoginController::class, 'index'])->name('login')->middleware('guest');
-// Route::post('/login', [LoginController::class, 'authenticate']);
-// Route::post('/logout', [LoginController::class, 'logout']);
-
-// Route::get('/register', [RegisterController::class, 'index'])->middleware('guest');
-// Route::post('/register', [RegisterController::class, 'store']);
-
-// Route::get('/dashboard', function () {
-//     return view('dashboard.index');
-// })->middleware('auth');
-
-// Route::get('/dashboard/posts/checkSlug', [DashboardPostController::class, 'checkSlug'])->middleware('auth');
-// Route::resource('/dashboard/posts', DashboardPostController::class)->middleware('auth');
-
-// Route::resource('/dashboard/categories', AdminCategoryController::class)->except('show')->middleware('admin');
-
-
-
-
-
-
-// Votos New
 
 Route::get('/loginPemilih', [LoginPemilihController::class, 'index'])->name('pemilih.login')->middleware('guest:pemilih');
 Route::post('/loginPemilih', [LoginPemilihController::class, 'authenticate'])->name('pemilih.autenticate');
@@ -101,6 +56,9 @@ Route::resource('/voting', UserVotingController::class)->names([
     'update' => 'pemilih.voting.update',
     'destroy' => 'pemilih.voting.destroy'
 ]);
+
+Route::get('/kirim_email', [KirimEmailController::class, 'index']);
+
 Route::get('/voting/otp', function () {
     return view('otp', [
         'title' => 'One Time Password'
@@ -112,7 +70,6 @@ Route::get('/voting/berhasil', function () {
         'title' => 'Voting Berhasil'
     ]);
 })->name('pemilih.berhasilVoting');
-
 
 // Dashboard
 Route::get('/dashboard', [DashboardController::class, 'index'])->name('user.dashboard')->middleware('auth:web');
