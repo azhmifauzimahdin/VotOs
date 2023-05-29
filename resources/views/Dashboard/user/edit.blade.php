@@ -95,7 +95,7 @@
                                 Jika password tidak diubah. Password bisa dikosongkan.
                             </small>
                         </div>
-                        <button type="submit" class="btn btn-primary">Simpan</button>
+                        <button type="submit" class="btn btn-primary">Update</button>
                         <a href="/dashboard/user" class="btn btn-danger">Batal</a>
                     </form>
                 </div>

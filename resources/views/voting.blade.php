@@ -29,20 +29,16 @@
                 <div class="px-5">
                     <h4 class="mb-4 text-center">Kandidat Pilihan Anda</h4>
                     <div class="row d-flex justify-content-center g-2 mb-5">
-                        <div class="col-md-3">
-                            <div class="border bg-white overflow-hidden" style="border-radius: 1vw;" >
-                                <div style="height: 80%">
-                                    @if ($data->kandidat->foto)
-                                        <img src="{{ asset('storage/'. $data->kandidat->foto) }}" alt="Foto Kandidat" width="100%" height="320px">
-                                    @else
-                                        <img src="{{ asset('AdminLTE') }}/dist/img/default_user.jpg" alt="Foto Kandidat" width="100%" height="320px">
-                                    @endif
-                                </div>
-                            </div>
+                        <div class="col-12 col-md-3 bg-light border overflow-hidden px-0" style="border-radius: 1vw; height: 100%">
+                            @if ($data->kandidat->foto)
+                                <img src="{{ asset('storage/'. $data->kandidat->foto) }}" alt="Foto Kandidat" width="100%" height="320px">
+                            @else
+                                <img src="{{ asset('AdminLTE') }}/dist/img/default_user.jpg" alt="Foto Kandidat" width="100%" height="320px">
+                            @endif
                         </div>
-                        <div class="col-md-4 bg-light border py-3 px-4 mx-2" style="border-radius: 1vw;">
-                            <div class="row d-flex justify-content-center pb-4 border-bottom">
-                                <img src="https://cdn.britannica.com/17/155017-050-9AC96FC8/Example-QR-code.jpg" alt="QR Code" class="object-fit-contain border rounded" style="height: 300px; width: 300px">
+                        <div class="col-12 col-md-4 bg-light border py-3 px-5 mx-2" style="border-radius: 1vw;">
+                            <div class="row py-md-4 border-bottom">
+                                {{ $qrcode }}
                             </div>
                             <div class="row border-bottom py-2">
                                 <div class="col-md-4"><b>Nomor Kandidat</b></div>
@@ -55,7 +51,7 @@
                                 <div class="col-md-8">{{ $data->kandidat->nama }}</div>
                             </div>
                             <div class="d-flex justify-content-center">
-                                <a href="/kandidat" class="btn btn-success rounded-pill mt-3 px-4" style="margin-right: 4%;"><i class="fa-solid fa-print"></i>  Cetak</a>
+                                <a href="/voting/print" target="_blank" class="btn btn-success rounded-pill mt-3 px-3" style="margin-right: 4%;"><i class="fa-solid fa-print"></i> Print</a>
                             </div>
                         </div>
                     </div>

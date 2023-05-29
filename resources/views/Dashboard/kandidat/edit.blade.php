@@ -80,7 +80,7 @@
                                 </div>                            
                             @enderror
                         </div>
-                        <button type="submit" class="btn btn-primary">Simpan</button>
+                        <button type="submit" class="btn btn-primary">Update</button>
                         <a href="/dashboard/kandidat" class="btn btn-danger">Batal</a>
                     </form>
                 </div>

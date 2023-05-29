@@ -47,6 +47,7 @@ Route::resource('/kandidat', UserKandidatController::class)->names([
     'show' => 'pemilih.kandidat.show',
 ])->except(['create', 'store', 'edit', 'update', 'destroy']);
 
+Route::get('/voting/print', [UserVotingController::class, 'cetakPdfQrCode'])->name('pemilih.voting.cetak');
 Route::resource('/voting', UserVotingController::class)->names([
     'index' => 'pemilih.voting.index',
     'create' => 'pemilih.voting.create',
@@ -56,6 +57,7 @@ Route::resource('/voting', UserVotingController::class)->names([
     'update' => 'pemilih.voting.update',
     'destroy' => 'pemilih.voting.destroy'
 ]);
+
 
 Route::get('/kirim_email', [KirimEmailController::class, 'index']);
 

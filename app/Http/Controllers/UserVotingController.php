@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Voting;
 use App\Models\Kandidat;
 use Illuminate\Http\Request;
+use SimpleSoftwareIO\QrCode\Facades\QrCode;
 
 class UserVotingController extends Controller
 {
@@ -21,11 +22,16 @@ class UserVotingController extends Controller
             $id = 0;
         }
 
+        $status = Voting::vote($id)->get();
+        foreach($status as $data)
+        $qrcode = 'ID Voting : '.$data->id.', Nomor Kandidat : '.$data->kandidat->nomor.', Nama : '.$data->kandidat->nama;
+
         return view('voting', [
             'title' => 'Voting',
             'kandidats' => Kandidat::orderBy('nomor', 'ASC')->get(),
             'votings' => Voting::get(),
-            'status' => Voting::vote($id)->get()
+            'status' => $status,
+            'qrcode' => QrCode::size(300)->errorCorrection('H')->generate($qrcode)
         ]);
     }
 
@@ -103,4 +109,20 @@ class UserVotingController extends Controller
     {
         //
     }
+
+    public function cetakPdfQrCode(){
+        if(auth('pemilih')->check()){
+            $id = auth('pemilih')->user()->id;
+        }else{
+            $id = 0;
+        }
+        $status = Voting::vote($id)->get();
+        foreach($status as $data)
+        $qrcode = 'ID Voting : '.$data->id.', Nomor Kandidat : '.$data->kandidat->nomor.', Nama : '.$data->kandidat->nama;
+        return view('cetakQrCode', [
+            'title' => 'Cetak QR Code',
+            'qrcode' => QrCode::size(400)->errorCorrection('H')->generate($qrcode)
+        ]);
+    }
+
 }
