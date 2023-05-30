@@ -24,42 +24,46 @@
         </div>
     @endguest
     @auth('pemilih')
-        @if(count($status))
-            @foreach ($status as $data)
-                <div class="px-5">
-                    <h4 class="mb-4 text-center">Kandidat Pilihan Anda</h4>
-                    <div class="row d-flex justify-content-center g-2 mb-5">
-                        <div class="col-12 col-md-3 bg-light border overflow-hidden px-0" style="border-radius: 1vw; height: 100%">
-                            @if ($data->kandidat->foto)
-                                <img src="{{ asset('storage/'. $data->kandidat->foto) }}" alt="Foto Kandidat" width="100%" height="320px">
-                            @else
-                                <img src="{{ asset('AdminLTE') }}/dist/img/default_user.jpg" alt="Foto Kandidat" width="100%" height="320px">
-                            @endif
+        @if($status)
+            <div class="px-5">
+                @if(session()->has('message'))
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    {{ session('message') }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+                @endif
+                <h4 class="mb-4 text-center">Kandidat Pilihan Anda</h4>
+                <div class="row d-flex justify-content-center mb-5">
+                    <div class="col-12 col-md-3 bg-light border overflow-hidden px-0" style="border-radius: 1vw; height: 100%">
+                        @if ($status->kandidat->foto)
+                            <img src="{{ asset('storage/'. $status->kandidat->foto) }}" alt="Foto Kandidat" width="100%" height="320px">
+                        @else
+                            <img src="{{ asset('AdminLTE') }}/dist/img/default_user.jpg" alt="Foto Kandidat" width="100%" height="320px">
+                        @endif
+                    </div>
+                    <div class="col-12 col-md-4 bg-light border py-3 px-5 mx-2" style="border-radius: 1vw;">
+                        <div class="row py-md-4 border-bottom">
+                            {{ $qrcode }}
                         </div>
-                        <div class="col-12 col-md-4 bg-light border py-3 px-5 mx-2" style="border-radius: 1vw;">
-                            <div class="row py-md-4 border-bottom">
-                                {{ $qrcode }}
+                        <div class="row border-bottom py-2">
+                            <div class="col-md-4"><b>Nomor Kandidat</b></div>
+                            <div class="col-md-8">
+                                {{ $status->kandidat->nomor }}
                             </div>
-                            <div class="row border-bottom py-2">
-                                <div class="col-md-4"><b>Nomor Kandidat</b></div>
-                                <div class="col-md-8">
-                                    {{ $data->kandidat->nomor }}
-                                </div>
-                            </div>
-                            <div class="row border-bottom py-2">
-                                <div class="col-md-4"><b>Nama Kandidat</b></div>
-                                <div class="col-md-8">{{ $data->kandidat->nama }}</div>
-                            </div>
-                            <div class="d-flex justify-content-center">
-                                <a href="/voting/print" target="_blank" class="btn btn-success rounded-pill mt-3 px-3" style="margin-right: 4%;"><i class="fa-solid fa-print"></i> Print</a>
-                            </div>
+                        </div>
+                        <div class="row border-bottom py-2">
+                            <div class="col-md-4"><b>Nama Kandidat</b></div>
+                            <div class="col-md-8">{{ $status->kandidat->nama }}</div>
+                        </div>
+                        <div class="d-flex justify-content-center">
+                            <a href="/voting/print" target="_blank" class="btn btn-success rounded-pill mt-3 px-3" style="margin-right: 4%;"><i class="fa-solid fa-print"></i> Print</a>
                         </div>
                     </div>
                 </div>
-            @endforeach
+            </div>
         @else
             <div class="px-5 mx-md-5">
-                <form action="/voting" method="post" enctype="multipart/form-data">
+                <form action="/voting/generate" method="post" enctype="multipart/form-data">
                     @csrf
                     <div class="row row-cols-2 row-cols-md-4 g-2 g-md-4 mb-4 d-flex justify-content-center px-md-5 mx-md-3">
                         @foreach ($kandidats as $kandidat)
@@ -81,8 +85,8 @@
                                         <h6 class="card-title text-end mb-4">{{ $kandidat->nama }}</h6>
                                         <div class="px-3 mb-2 w-100 d-flex justify-content-center" style="position: absolute; bottom:0; left: 0"> 
                                             <div class="form-check">
-                                                <input class="form-check-input" type="radio" name="kandidat_id" id="kandidat_id" value="{{ $kandidat->id }}" style="cursor: pointer">
-                                                <label class="form-check-label" for="kandidat_id">
+                                                <input class="form-check-input" type="radio" name="slug" id="slug{{ $kandidat->id }}" value="{{ $kandidat->slug }}" style="cursor: pointer">
+                                                <label class="form-check-label" for="slug{{ $kandidat->id }}">
                                                     <b class="text-primary">Vote</b>
                                                 </label>
                                             </div>
@@ -104,7 +108,7 @@
     <script>
         $(document).ready(function() {
             $('#submit_voting').attr('disabled', true);
-                $("input[name=kandidat_id]:radio").click(function(){
+                $("input[name=slug]:radio").click(function(){
                     $('#submit_voting').attr('disabled', false);
                 })
                 

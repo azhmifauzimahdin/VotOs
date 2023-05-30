@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateVotingsTable extends Migration
+class CreateVerificationCodesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,11 @@ class CreateVotingsTable extends Migration
      */
     public function up()
     {
-        Schema::create('votings', function (Blueprint $table) {
+        Schema::create('verification_codes', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('kandidat_id');
-            $table->foreignId('pemilih_id')->unique();
+            $table->bigInteger('pemilih_id');
+            $table->string('otp');
+            $table->timestamp('expire_at')->nullable();
             $table->timestamps();
         });
     }
@@ -28,6 +29,6 @@ class CreateVotingsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('votings');
+        Schema::dropIfExists('verification_codes');
     }
 }

@@ -18,6 +18,7 @@ use App\Http\Controllers\DashboardUserController;
 use App\Http\Controllers\DashboardVotingController;
 use App\Http\Controllers\KirimEmailController;
 use App\Http\Controllers\LoginPemilihController;
+use App\Http\Controllers\OtpController;
 use App\Http\Controllers\UserBerandaController;
 use App\Http\Controllers\UserKandidatController;
 use App\Http\Controllers\UserPerolehanSuaraController;
@@ -48,30 +49,20 @@ Route::resource('/kandidat', UserKandidatController::class)->names([
 ])->except(['create', 'store', 'edit', 'update', 'destroy']);
 
 Route::get('/voting/print', [UserVotingController::class, 'cetakPdfQrCode'])->name('pemilih.voting.cetak');
-Route::resource('/voting', UserVotingController::class)->names([
-    'index' => 'pemilih.voting.index',
-    'create' => 'pemilih.voting.create',
-    'store' => 'pemilih.voting.store',
-    'show' => 'pemilih.voting.show',
-    'edit' => 'pemilih.voting.edit',
-    'update' => 'pemilih.voting.update',
-    'destroy' => 'pemilih.voting.destroy'
-]);
+Route::get('/kirim_email', [KirimEmailController::class, 'index'])->name('pemilih.sendemail');
+Route::get('/kirim', function(){
+    return view('mail.send-email');
+});
+Route::controller(UserVotingController::class)->group(function(){
+    Route::get('/voting', 'index')->name('pemilih.voting');
+    Route::post('/voting/generate', 'generate')->name('pemilih.voting.generate');
+    Route::get('/voting/otp/{slug}', 'otp')->name('pemilih.voting.otp');
+    Route::post('/voting/vote', 'voteWithOtp')->name('pemilih.voting.vote');
+    Route::get('/coba/{slug}/{otp}/{id}', 'voteWithOtpEmail')->name('pemilih.voting.otpemail');
+});
 
 
-Route::get('/kirim_email', [KirimEmailController::class, 'index']);
 
-Route::get('/voting/otp', function () {
-    return view('otp', [
-        'title' => 'One Time Password'
-    ]);
-})->name('pemilih.otp');
-
-Route::get('/voting/berhasil', function () {
-    return view('voting_berhasil', [
-        'title' => 'Voting Berhasil'
-    ]);
-})->name('pemilih.berhasilVoting');
 
 // Dashboard
 Route::get('/dashboard', [DashboardController::class, 'index'])->name('user.dashboard')->middleware('auth:web');
@@ -129,3 +120,15 @@ Route::put('/dashboard/ganti_password/{user:slug}', [DashboardGantiPasswordContr
 Route::get('/loginUser', [LoginUserController::class, 'index'])->name('user.login')->middleware('guest');
 Route::post('/loginUser', [LoginUserController::class, 'authenticate'])->name('user.autenticate')->middleware('guest');
 Route::post('/logoutUser', [LoginUserController::class, 'logout'])->name('user.logout');
+
+
+
+
+
+
+Route::controller(OtpController::class)->group(function(){
+    Route::get('/otp/login', 'login')->name('otp.login');
+    Route::post('/otp/generate', 'generate')->name('otp.generate');
+    Route::get('/otp/verification/{user_id}', 'verification')->name('otp.verification');
+    Route::post('/otp/login', 'loginWithOtp')->name('otp.getlogin');
+});

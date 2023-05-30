@@ -16,16 +16,51 @@
         <div class="col-md-5 d-flex justify-content-center">
             <div class="w-75">
                 <p>Kode One Time Password (OTP) telah di Kirim ke email terdaftar. Periksa email dan masukan kodenya!</p>
-                <form action="/voting/berhasil" method="post">
+                @if(session()->has('message'))
+                    <div class="alert alert-success alert-dismissible fade show" role="alert">
+                        {{ session('message') }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                @endif
+                @if(session()->has('errormessage'))
+                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                        {{ session('errormessage') }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                @endif
+                <form action="/voting/vote" method="post">
                     @csrf
+                    <input type="hidden" name="slug" id="slug" value="{{ $slug }}">
                     <div class="form-floating input-group-sm mb-3">
                         <input type="password" class="form-control input-sm" name="otp" id="otp" placeholder="One Time Password (OTP)" required>
-                        <label for="password">One Time Password (OTP)</label>
+                        <label for="otp">One Time Password (OTP)</label>
+                        <div id="emailHelp" class="form-text mt-2">
+                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                            <label class="form-check-label" for="flexCheckDefault">
+                                Lihat password
+                            </label> 
+                        </div>
                     </div>
-                    {{-- <button class="w-100 btn btn-lg btn-success" type="submit">Voting</button> --}}
-                    <a href="/voting/berhasil" class="btn btn-success w-100 btn-lg">Voting</a>
+                    <button type="submit" class="btn btn-success w-100 btn-lg mb-3">Voting</button>
+                </form>
+                <form action="/voting/generate" method="post">
+                    @csrf
+                    <input type="hidden" name="slug" id="slug" value="{{ $slug }}">
+                    <input type="hidden" name="update" id="update" value="{{ $slug }}">
+                    <button type="submit" class="btn btn-sm btn-link px-0">Kirim ulang kode OTP</button>
                 </form>
             </div>
         </div>
     </div>
+    <script>
+        $(document).ready(function(){
+            $('.form-check-input').click(function(){
+                if($(this).is(':checked')){
+                    $('#otp').attr('type','text');
+                }else{
+                    $('#otp').attr('type','password');
+                }
+            });
+	    });
+    </script>
 @endsection
