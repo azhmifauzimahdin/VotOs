@@ -4,13 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Models\Voting;
 use App\Models\Kandidat;
+use App\Models\Pemilu;
 use Illuminate\Http\Request;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
 use Carbon\Carbon;
 use App\Models\VerificationCode;
 use App\Mail\SendEmail;
 use Illuminate\Support\Facades\Mail;
-
 
 class UserVotingController extends Controller
 {
@@ -21,7 +21,6 @@ class UserVotingController extends Controller
         }else{
             $id = 0;
         }
-
         $status = Voting::vote($id)->first();
         if($status){
             $qrcode = 'ID Voting : '.$status->id.', Nomor Kandidat : '.$status->kandidat->nomor.', Nama : '.$status->kandidat->nama;
@@ -37,6 +36,8 @@ class UserVotingController extends Controller
             'kandidats' => Kandidat::orderBy('nomor', 'ASC')->get(),
             'votings' => Voting::get(),
             'status' => $status,
+            'waktu' => Carbon::now(),
+            'pemilu' => Pemilu::first(),
             'qrcode' => QrCode::size(300)->errorCorrection('H')->generate($qrcode)
         ]);
     }
