@@ -12,6 +12,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DashboardGantiPasswordController;
 use App\Http\Controllers\DashboardKandidatController;
 use App\Http\Controllers\DashboardKelasController;
+use App\Http\Controllers\DashboardPelaksanaanController;
 use App\Http\Controllers\DashboardPemilihController;
 use App\Http\Controllers\DashboardPostController;
 use App\Http\Controllers\DashboardUserController;
@@ -50,9 +51,6 @@ Route::resource('/kandidat', UserKandidatController::class)->names([
 
 Route::get('/voting/print', [UserVotingController::class, 'cetakPdfQrCode'])->name('pemilih.voting.cetak');
 Route::get('/kirim_email', [KirimEmailController::class, 'index'])->name('pemilih.sendemail');
-Route::get('/kirim', function(){
-    return view('mail.send-email');
-});
 Route::controller(UserVotingController::class)->group(function(){
     Route::get('/voting', 'index')->name('pemilih.voting');
     Route::post('/voting/generate', 'generate')->name('pemilih.voting.generate');
@@ -60,8 +58,6 @@ Route::controller(UserVotingController::class)->group(function(){
     Route::post('/voting/vote', 'voteWithOtp')->name('pemilih.voting.vote');
     Route::get('/coba/{slug}/{otp}/{id}', 'voteWithOtpEmail')->name('pemilih.voting.otpemail');
 });
-
-
 
 
 // Dashboard
@@ -109,6 +105,16 @@ Route::resource('/dashboard/kelas', DashboardKelasController::class)->names([
     'edit' => 'user.kelas.edit',
     'update' => 'user.kelas.update',
     'destroy' => 'user.kelas.destroy',
+])->except('show')->middleware(['auth:web', 'pemilih']);
+
+Route::post('/dashboard/pelaksanaan/selesai', [DashboardPelaksanaanController::class, 'selesai'])->name('user.pelaksanaan.selesai')->middleware(['auth:web', 'pemilih']);
+Route::resource('/dashboard/pelaksanaan', DashboardPelaksanaanController::class)->names([
+    'index' => 'user.pelaksanaan.index',
+    'create' => 'user.pelaksanaan.create',
+    'store' => 'user.pelaksanaan.store',
+    'edit' => 'user.pelaksanaan.edit',
+    'update' => 'user.pelaksanaan.update',
+    'destroy' => 'user.pelaksanaan.destroy',
 ])->except('show')->middleware(['auth:web', 'pemilih']);
 
 Route::get('/dashboard/rekapitulasi', [DashboardVotingController::class, 'rekapitulasi'])->name('user.rekapitulasi')->middleware(['auth:web', 'pemilih']);

@@ -16,7 +16,7 @@ class PemilihFactory extends Factory
     {
         return [
             'user_id' => mt_rand(1, 10000),
-            'kelas_id' => mt_rand(10, 12),
+            'kelas_id' => 1,
             'nisn' => $this->faker->nik(),
             'nama' => $this->faker->name(),
             'email' => $this->faker->unique()->safeEmail(),

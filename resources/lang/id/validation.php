@@ -132,6 +132,12 @@ return [
         'attribute-name' => [
             'rule-name' => 'custom-message',
         ],
+        'mulai' => [
+            'after_or_equal' => ':attribute harus berisi tanggal dan waktu setelah atau sama dengan sekarang.',
+        ],
+        'selesai' => [
+            'after' => ':attribute harus berisi tanggal dan waktu setelah :date',
+        ],
     ],
 
     /*

@@ -21,7 +21,7 @@
       <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
         <li class="nav-item">
           <a href="/dashboard" class="nav-link {{ Request::is('dashboard') ? 'active' : ''}}">
-            <i class="nav-icon fa-solid fa-house" style="color: #ffffff;"></i>
+            <i class="nav-icon fa-solid fa-house"></i>
             <p>
               Dashboard
             </p>
@@ -30,7 +30,7 @@
         @can('panitia')
           <li class="nav-item">
             <a href="/dashboard/pemilih" class="nav-link {{ Request::is('dashboard/pemilih*') ? 'active' : ''}}">
-              <i class="nav-icon fa-solid fa-users" style="color: #ffffff;"></i>
+              <i class="nav-icon fa-solid fa-users"></i>
               <p>
                 Data Pemilih
               </p>
@@ -38,7 +38,7 @@
           </li>
           <li class="nav-item">
             <a href="/dashboard/kandidat" class="nav-link {{ Request::is('dashboard/kandidat*') ? 'active' : ''}}">
-              <i class="nav-icon fa-solid fa-user" style="color: #ffffff;"></i>
+              <i class="nav-icon fa-solid fa-user"></i>
               <p>
                 Data Kandidat
               </p>
@@ -54,9 +54,17 @@
           </li>
           <li class="nav-item">
             <a href="/dashboard/voting" class="nav-link {{ Request::is('dashboard/voting*') ? 'active' : ''}}">
-              <i class="nav-icon fa-solid fa-pen" style="color: #ffffff;"></i>
+              <i class="nav-icon fa-solid fa-pen"></i>
               <p>
                 Data Voting
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="/dashboard/pelaksanaan" class="nav-link {{ Request::is('dashboard/pelaksanaan*') ? 'active' : ''}}">
+              <i class="nav-icon fa-solid fa-calendar-days"></i>
+              <p>
+                Waktu Pelaksanaan
               </p>
             </a>
           </li>
@@ -64,7 +72,7 @@
         @can('admin')   
           <li class="nav-item">
             <a href="/dashboard/user" class="nav-link {{ Request::is('dashboard/user*') ? 'active' : ''}}">
-              <i class="nav-icon fa-solid fa-users-gear" style="color: #ffffff;"></i>
+              <i class="nav-icon fa-solid fa-users-gear"></i>
               <p>
                 Data User
               </p>
@@ -74,7 +82,7 @@
         @can('panitia')            
           <li class="nav-item">
             <a href="/dashboard/rekapitulasi" class="nav-link {{ Request::is('dashboard/rekapitulasi*') ? 'active' : ''}}">
-              <i class="nav-icon fa-solid fa-file" style="color: #ffffff;"></i>
+              <i class="nav-icon fa-solid fa-file"></i>
               <p>
                 Rekapitulasi
               </p>
@@ -83,7 +91,7 @@
         @endcan
         <li class="nav-item">
           <a href="/dashboard/ganti_password" class="nav-link {{ Request::is('dashboard/ganti_password') ? 'active' : ''}}">
-            <i class="nav-icon fa-solid fa-unlock" style="color: #ffffff;"></i>
+            <i class="nav-icon fa-solid fa-unlock"></i>
             <p>
               Ganti Password
             </p>
@@ -92,7 +100,7 @@
         <form action="/logoutUser" method="POST" id="logoutform" class="nav-item" style="cursor: pointer">
           @csrf
           <a onclick="document.getElementById('logoutform').submit()" class="nav-link">
-            <i class="nav-icon fa-solid fa-arrow-right-from-bracket" style="color: #ffffff;"></i>
+            <i class="nav-icon fa-solid fa-arrow-right-from-bracket"></i>
             <p>
               Logout
             </p>

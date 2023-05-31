@@ -6,16 +6,27 @@ use Illuminate\Http\Request;
 use App\Models\Pemilih;
 use App\Models\Kandidat;
 use App\Models\Voting;
-use Illuminate\Support\Facades\DB;
+use App\Models\Pemilu;
+use Carbon\Carbon;
 
 class DashboardController extends Controller
 {
     public function index()
     {
         $kandidats = Kandidat::all();
-        foreach($kandidats as $data){
-            $label[] = $data->nama;
-            $hasil[] = $data->jumlah_suara;
+        $pemilu = Pemilu::first();
+        $now = Carbon::now();
+
+        if($pemilu){
+            if ($now->isAfter($pemilu->selesai)){
+                foreach($kandidats as $data){
+                    $label[] = $data->nama;
+                    $hasil[] = $data->jumlah_suara;
+                }
+            }else{
+                $label[] = [];
+                $hasil[] = [];
+            }
         }
 
         return view('dashboard.index', [
@@ -24,7 +35,7 @@ class DashboardController extends Controller
             'votings' => Voting::get(),
             'kandidats' => $kandidats,
             'label' => $label,
-            'hasil' => $hasil
+            'hasil' => $hasil,
         ]);
     }
 }

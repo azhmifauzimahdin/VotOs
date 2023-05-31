@@ -2,7 +2,7 @@
 
 @section('container')
     <div class="row">
-        <section class="col-md-7">
+        <section class="col-sm-7">
             <div class="card">
                 <h5 class="card-header">{{ $title }}</h5>
                 <div class="card-body">
@@ -14,45 +14,47 @@
                             </button>
                         </div>
                     @endif
-                    <div class="row d-flex justify-content-between mb-3 mx-1">
-                        <a href="/dashboard/kelas/create" class="btn btn-primary">
-                            <i class="fa-solid fa-plus pr-1"></i>
-                            Tambah {{ $title }}
-                        </a>
-                        <ul class="list-inline mb-0 mt-2 mt-md-0">
-                            <li class="list-inline-item">
-                                Search :
-                            </li>
-                            <li class="list-inline-item">
-                                <form action="/dashboard/kelas">
-                                    <input class="form-control" type="text" name="search" id="search" value="{{  request('search') }}">
-                                </form>
-                            </li>
-                        </ul>
-                    </div>
+                    @if (count($pemilus) == 0)   
+                        <div class="row d-flex justify-content-between mb-3 mx-1">
+                            <a href="/dashboard/pelaksanaan/create" class="btn btn-primary">
+                                <i class="fa-solid fa-plus pr-1"></i>
+                                Tambah {{ $title }}
+                            </a>
+                        </div>
+                    @else
+                        <div class="row d-flex justify-content-between mb-3 mx-1">
+                            <form action="/dashboard/pelaksanaan/selesai" method="post">
+                                @csrf
+                                <button type="submit" class="btn btn-success">
+                                    <i class="fa-regular fa-clock pr-1"></i>
+                                    Waktu Pemilu Selesai
+                                </button>
+                            </form>
+                        </div>
+                    @endif
                     <div class="table-responsive">
                         <table class="table table-striped table-sm">
                             <thead>
                                 <tr>
-                                    <th scope="col">NO</th>
-                                    <th scope="col">NAMA KELAS</th>
+                                    <th scope="col">WAKTU MULAI</th>
+                                    <th scope="col">WAKTU SELESAI</th>
                                     <th scope="col">ACTION</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @if (count($kelas))
-                                    @foreach ($kelas as $index => $data)
+                                @if (count($pemilus))
+                                    @foreach ($pemilus as $pemilu)
                                         <tr>
-                                            <td style="width: 10%">{{ $index + $kelas->firstItem() }}</td>
-                                            <td style="width: 90%">{{ $data->nama }}</td>
-                                            <td class="text-nowrap" style="width: auto">
-                                                <a href="/dashboard/kelas/{{ $data->slug }}/edit" class="btn btn-sm bg-warning">
+                                            <td>{{ $pemilu->mulai }}</td>
+                                            <td>{{ $pemilu->selesai }}</td>
+                                            <td class="text-nowrap">
+                                                <a href="/dashboard/pelaksanaan/{{ $pemilu->id }}/edit" class="btn btn-sm bg-warning">
                                                     <i class="fa-solid fa-pen-to-square"></i>
                                                 </a>
-                                                <form action="/dashboard/kelas/{{ $data->slug }}" name="formDeletee" method="post" class="d-inline">
+                                                <form action="/dashboard/pelaksanaan/{{ $pemilu->id }}" id="formHapus" method="post" class="d-inline">
                                                     @method('delete')
-                                                    @csrf 
-                                                    <button class="btn btn-sm bg-danger border-0 konfirmasi_hapus" type="submit">
+                                                    @csrf
+                                                    <button class="btn btn-sm bg-danger border-0 konfirmasi_hapus" onclick="hapusData()">
                                                         <i class="fa-solid fa-trash-can"></i>
                                                     </button>
                                                 </form>
@@ -61,19 +63,11 @@
                                     @endforeach
                                 @else
                                     <tr>
-                                        <td colspan="3" class="text-center py-2">Tidak ada data yang ditemukan</td>
+                                        <td colspan="8" class="text-center py-2">Tidak ada data yang ditemukan</td>
                                     </tr>
                                 @endif
                             </tbody>
                         </table>
-                    </div>
-                    <div class="row d-flex justify-content-between mx-1">
-                        <div>
-                            Showing {{ $kelas->firstItem() }} to {{ $kelas->lastItem() }} of {{$kelas->total()}} entries
-                        </div>
-                        <div class="mt-2 mt-md-0">
-                            {{ $kelas->onEachSide(0)->links() }}
-                        </div>
                     </div>
                 </div>
             </div>

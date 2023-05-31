@@ -6,7 +6,7 @@
             <h3 class="d-inline pb-2 px-3" style="border-bottom-style: solid; border-width: 2px; border-radius: 50% ; border-image: linear-gradient(to right, #2dcddf, #2ddfbb,#2ddf8f) 1">Perolehan Suara</h3>
         </div>
         <div class="col-12 text-center mb-4 mt-2">
-            <p>Hasil Perolehan Suara</p>
+            <p>Hasil perolehan suara akan muncul ketika waktu voting telah selesai atau semua pemilih telah memilih</p>
         </div>
     </div>
     <div class="px-5 mx-md-5">
@@ -29,7 +29,16 @@
                         <div class="px-3 pt-1 pb-3">
                             <h6 class="card-title text-end mb-4">{{ $kandidat->nama }}</h6>
                             <div class="px-3 mb-2" style="position: absolute; bottom:0; right: 0"> 
-                                <div class="pb-1"><b class="text-primary">{{ $kandidat->jumlah_suara }}</b> Suara</div>
+                                <div class="pb-1">
+                                    <b class="text-primary">
+                                        @if ($waktu->isAfter($pemilu->selesai))
+                                            {{ $kandidat->jumlah_suara }}
+                                        @else
+                                            0
+                                        @endif
+                                    </b>
+                                    Suara
+                                </div>
                             </div>
                         </div>
                     </div>
