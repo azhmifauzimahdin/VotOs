@@ -17,15 +17,14 @@ class DashboardController extends Controller
         $pemilu = Pemilu::first();
         $now = Carbon::now();
 
+        $label[] = [];
+        $hasil[] = [];
         if($pemilu){
             if ($now->isAfter($pemilu->selesai)){
                 foreach($kandidats as $data){
                     $label[] = $data->nama;
                     $hasil[] = $data->jumlah_suara;
                 }
-            }else{
-                $label[] = [];
-                $hasil[] = [];
             }
         }
 

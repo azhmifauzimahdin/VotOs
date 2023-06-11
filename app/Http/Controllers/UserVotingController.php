@@ -11,6 +11,8 @@ use Carbon\Carbon;
 use App\Models\VerificationCode;
 use App\Mail\SendEmail;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Crypt;
+use Illuminate\Contracts\Encryption\DecryptException;
 
 class UserVotingController extends Controller
 {
@@ -63,6 +65,7 @@ class UserVotingController extends Controller
         $pemilih_id = auth('pemilih')->user()->id;
         $verificationCode = VerificationCode::where('pemilih_id', $pemilih_id)->latest()->first();
         $otp = rand(123456, 999999);
+        $encryptOtp = Crypt::encryptString($otp);
         $details = [
             'name'=> auth('pemilih')->user()->nama,
             'kode' => $otp,
@@ -73,14 +76,14 @@ class UserVotingController extends Controller
 
         if($verificationCode){
             return $verificationCode->update([
-                'otp' => $otp,
+                'otp' => $encryptOtp,
                 'expire_at' => Carbon::now()->addMinutes(2)
             ]);
         }
         
         return VerificationCode::create([
             'pemilih_id' => $pemilih_id,
-            'otp' => $otp,
+            'otp' => $encryptOtp,
             'expire_at' => Carbon::now()->addMinutes(2)
         ]);
     }
@@ -115,12 +118,24 @@ class UserVotingController extends Controller
             'pemilih_id' => auth('pemilih')->user()->id,
             'kandidat_id' => $kandidat->id,
         ];
-        $verificationCode = VerificationCode::where('pemilih_id', $validateData['pemilih_id'])->where('otp', $request->otp)->first();
+
+        // $verificationCode = VerificationCode::where('pemilih_id', $validateData['pemilih_id'])->where('otp', $decryptOtp)->first();
+        $verificationCode = VerificationCode::where('pemilih_id', $validateData['pemilih_id'])->first();
+        try {
+            $decryptOtp = Crypt::decryptString($verificationCode->otp);
+        } catch (DecryptException $e) {
+            return redirect()->back()->with('errormessage', 'Gagal deskripsi data!');
+        }
 
         $now = Carbon::now();
-        if (!$verificationCode) {
+        // if (!$verificationCode) {
+        //     return redirect()->back()->with('errormessage', 'Kode OTP salah!');
+        // }elseif($verificationCode && $now->isAfter($verificationCode->expire_at)){
+        //     return redirect()->back()->with('errormessage', 'Kode OTP telah kadaluarsa!');
+        // }
+        if ($request->otp !== $decryptOtp) {
             return redirect()->back()->with('errormessage', 'Kode OTP salah!');
-        }elseif($verificationCode && $now->isAfter($verificationCode->expire_at)){
+        }elseif($request->otp === $decryptOtp && $now->isAfter($verificationCode->expire_at)){
             return redirect()->back()->with('errormessage', 'Kode OTP telah kadaluarsa!');
         }
 
