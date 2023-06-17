@@ -9,7 +9,7 @@ class Voting extends Model
 {
     use HasFactory;
 
-    protected $guarded = ['id'];
+    // protected $guarded = ['id'];
 
     public function scopeVote($query, $id){
         $query->when($id ?? false, function ($query, $search) {

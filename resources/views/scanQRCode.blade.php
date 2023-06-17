@@ -26,9 +26,12 @@
                     <div class="col-md-4"><b>Nomor Kandidat</b></div>
                     <div class="col-md-8" id="nomor">-</div>
                 </div>
-                <div class="row py-2">
+                <div class="row border-bottom py-2">
                     <div class="col-md-4"><b>Nama Kandidat</b></div>
                     <div class="col-md-8" id="nama">-</div>
+                </div>
+                <div class="row py-2 d-flex justify-content-center">
+                    <input type="hidden" id="scanulang" class="btn btn-success rounded-pill mt-3 px-3" value="Scan Ulang" onClick="document.location.reload(true)">
                 </div>
             </div>
         </div>
@@ -52,6 +55,13 @@
                         success: function (response) { 
                             console.log(response)
                             if(response.status == 404){
+                                Swal.fire({
+                                    icon: 'error',
+                                    title: 'Oops...',
+                                    text: 'Surat suara tidak valid!',
+                                }).then((result) => {
+                                    document.location.reload(true);
+                                })
                             }else{
                                 $temp = "{{ asset('storage/') }}";
                                 $("#nomor").empty();
@@ -64,6 +74,7 @@
                                 $('#foto').css('display', 'block');
                                 $("#nomor").append(response.kandidat.nomor);
                                 $("#nama").append(response.kandidat.nama);
+                                $('#scanulang').attr('type','button')
                             }
                             
                         }
