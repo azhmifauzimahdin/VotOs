@@ -73,6 +73,7 @@
                     <li><i class="bi bi-check2-circle" style="color:#0D6EFD"></i><span class="mx-2">Pilih Menu Voting</span></li>
                     <li><i class="bi bi-check2-circle" style="color:#0D6EFD"></i><span class="mx-2">Pilih Kandidat</span></li>
                     <li><i class="bi bi-check2-circle" style="color:#0D6EFD"></i><span class="mx-2">Pilih Tombol Voting (Bagian bawah)</span></li>
+                    <li><i class="bi bi-check2-circle" style="color:#0D6EFD"></i><span class="mx-2">Masukan One Time Password</span></li>
                     <li><i class="bi bi-check2-circle" style="color:#0D6EFD"></i><span class="mx-2">Selesai</span></li>
                 </ul>
             </div>

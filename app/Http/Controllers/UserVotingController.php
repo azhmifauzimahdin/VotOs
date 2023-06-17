@@ -26,7 +26,7 @@ class UserVotingController extends Controller
         $status = Voting::vote($id)->first();
         $qrcode = ' ';
         if($status){
-            $qrcode = $status->id;
+            $qrcode = $status->kode;
             $verificationCode = VerificationCode::where('pemilih_id', $id)->latest()->first();
             if($verificationCode){
                 VerificationCode::destroy($verificationCode->id);
@@ -40,7 +40,7 @@ class UserVotingController extends Controller
             'status' => $status,
             'waktu' => Carbon::now(),
             'pemilu' => Pemilu::first(),
-            'qrcode' => QrCode::size(300)->errorCorrection('H')->generate($qrcode)
+            'qrcode' => QrCode::size(300)->errorCorrection('Q')->generate($qrcode)
         ]);
     }
 
@@ -68,8 +68,7 @@ class UserVotingController extends Controller
         $encryptOtp = Crypt::encryptString($otp);
         $details = [
             'name'=> auth('pemilih')->user()->nama,
-            'kode' => $otp,
-            // 'url'=>'http://www.votos.test/coba/'.$slug.'/'.$otp.'/'.auth('pemilih')->user()->id
+            'kode' => $otp
         ];
  
         Mail::to(auth('pemilih')->user()->email)->send(new SendEmail($details));
@@ -117,6 +116,7 @@ class UserVotingController extends Controller
         $validateData = [
             'pemilih_id' => auth('pemilih')->user()->id,
             'kandidat_id' => $kandidat->id,
+            'kode' => Crypt::encryptString($this->generateKodeVoting()),
         ];
 
         $verificationCode = VerificationCode::where('pemilih_id', $validateData['pemilih_id'])->first();
@@ -143,6 +143,23 @@ class UserVotingController extends Controller
         return redirect('/voting')->with('message', 'Hasil voting berhasil ditambahkan');
     }
 
+    public function generateKodeVoting() {
+        $number = mt_rand(1000000000, 9999999999);
+        if (count($this->CekKode($number))) {
+            return $this->generateKodeVoting();
+        }
+        return $number;
+    }
+    
+    public function CekKode($number) {
+        $items = Voting::all()->filter(function($record) use($number) {
+            if(Crypt::decryptString($record->kode) == $number) {
+                return $record;
+            }      
+        });
+        return $items;
+    }
+
     public function cetakPdfQrCode(){
         if(auth('pemilih')->check()){
             $id = auth('pemilih')->user()->id;
@@ -154,13 +171,13 @@ class UserVotingController extends Controller
         $qrcode = ' ';
         if($status){
             foreach($status as $data){
-                $qrcode = $data->id;
+                $qrcode = $data->kode;
             }
         }
 
         return view('cetakQrCode', [
             'title' => 'Cetak QR Code',
-            'qrcode' => QrCode::size(400)->errorCorrection('H')->generate($qrcode)
+            'qrcode' => QrCode::size(400)->errorCorrection('Q')->generate($qrcode)
         ]);
     }
 

@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Kandidat;
 use App\Models\Voting;
 use Illuminate\Http\Request;
-use SimpleSoftwareIO\QrCode\Facades\QrCode;
+use Illuminate\Support\Facades\Crypt;
 
 class UserScanController extends Controller
 {
@@ -17,12 +17,12 @@ class UserScanController extends Controller
     }
 
     public function validasi(Request $request){
-        $voting = Voting::where('id', $request->qr_code)->first();
+        $voting = Voting::where('kode', $request->qr_code)->first();
         if($voting){
             $kandidat = Kandidat::where('id', $voting->kandidat_id)->first();
             return response()->json([
                 'status' => 200,
-                'kandidat' => $kandidat,
+                'kandidat' => $kandidat
             ]);
         }else{
             return response()->json([

@@ -4,12 +4,14 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Crypt;
+use Illuminate\Contracts\Encryption\DecryptException;
 
 class Voting extends Model
 {
     use HasFactory;
 
-    // protected $guarded = ['id'];
+    protected $guarded = ['id'];
 
     public function scopeVote($query, $id){
         $query->when($id ?? false, function ($query, $search) {

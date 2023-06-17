@@ -57,7 +57,7 @@
                             if(response.status == 404){
                                 Swal.fire({
                                     icon: 'error',
-                                    title: 'Oops...',
+                                    title: 'Gagal',
                                     text: 'Surat suara tidak valid!',
                                 }).then((result) => {
                                     document.location.reload(true);
