@@ -43,7 +43,7 @@
                     </div>
                     <div class="col-12 col-md-4 bg-light border py-3 px-5 mx-2" style="border-radius: 1vw;">
                         <div class="row py-md-4 border-bottom">
-                            {{ $qrcode }}
+                            {!! $qrcode !!}
                         </div>
                         <div class="row border-bottom py-2">
                             <div class="col-md-4"><b>Nomor Kandidat</b></div>

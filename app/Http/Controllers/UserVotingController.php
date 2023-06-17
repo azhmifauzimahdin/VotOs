@@ -24,14 +24,14 @@ class UserVotingController extends Controller
             $id = 0;
         }
         $status = Voting::vote($id)->first();
+        $qrcode = ' ';
         if($status){
-            $qrcode = 'ID Voting : '.$status->id.', Nomor Kandidat : '.$status->kandidat->nomor.', Nama : '.$status->kandidat->nama;
+            $qrcode = $status->id;
             $verificationCode = VerificationCode::where('pemilih_id', $id)->latest()->first();
             if($verificationCode){
                 VerificationCode::destroy($verificationCode->id);
             }
         }
-        $qrcode = ' ';
        
         return view('voting', [
             'title' => 'Voting',
@@ -119,7 +119,6 @@ class UserVotingController extends Controller
             'kandidat_id' => $kandidat->id,
         ];
 
-        // $verificationCode = VerificationCode::where('pemilih_id', $validateData['pemilih_id'])->where('otp', $decryptOtp)->first();
         $verificationCode = VerificationCode::where('pemilih_id', $validateData['pemilih_id'])->first();
         try {
             $decryptOtp = Crypt::decryptString($verificationCode->otp);
@@ -128,11 +127,6 @@ class UserVotingController extends Controller
         }
 
         $now = Carbon::now();
-        // if (!$verificationCode) {
-        //     return redirect()->back()->with('errormessage', 'Kode OTP salah!');
-        // }elseif($verificationCode && $now->isAfter($verificationCode->expire_at)){
-        //     return redirect()->back()->with('errormessage', 'Kode OTP telah kadaluarsa!');
-        // }
         if ($request->otp !== $decryptOtp) {
             return redirect()->back()->with('errormessage', 'Kode OTP salah!');
         }elseif($request->otp === $decryptOtp && $now->isAfter($verificationCode->expire_at)){
@@ -149,33 +143,6 @@ class UserVotingController extends Controller
         return redirect('/voting')->with('message', 'Hasil voting berhasil ditambahkan');
     }
 
-    // Vote button email
-    // public function VoteWithOtpEmail($slug, $otp, $id)
-    // {
-    //     $kandidat = Kandidat::where('slug', $slug)->first();
-    //     $validateData = [
-    //         'pemilih_id' => $id,
-    //         'kandidat_id' => $kandidat->id,
-    //     ];
-    //     $verificationCode = VerificationCode::where('pemilih_id', $validateData['pemilih_id'])->where('otp', $otp)->first();
-
-    //     $now = Carbon::now();
-    //     if (!$verificationCode) {
-    //         return redirect()->back()->with('errormessage', 'Kode OTP salah!');
-    //     }elseif($verificationCode && $now->isAfter($verificationCode->expire_at)){
-    //         return redirect()->back()->with('errormessage', 'Kode OTP telah kadaluarsa!');
-    //     }
-
-    //     $verificationCode->update([
-    //         'expire_at' => Carbon::now()
-    //     ]);
-
-    //     Voting::create($validateData);
-    //     Kandidat::where('id', $validateData['kandidat_id'])->increment('jumlah_suara',1);
-
-    //     return redirect('/voting')->with('message', 'Hasil voting berhasil ditambahkan');
-    // }
-
     public function cetakPdfQrCode(){
         if(auth('pemilih')->check()){
             $id = auth('pemilih')->user()->id;
@@ -187,7 +154,7 @@ class UserVotingController extends Controller
         $qrcode = ' ';
         if($status){
             foreach($status as $data){
-                $qrcode = 'ID Voting : '.$data->id.', Nomor Kandidat : '.$data->kandidat->nomor.', Nama : '.$data->kandidat->nama;
+                $qrcode = $data->id;
             }
         }
 

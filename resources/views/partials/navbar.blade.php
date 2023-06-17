@@ -18,6 +18,9 @@
                 <li class="nav-item mx-2">
                     <a class="nav-link {{ Request::is('voting*') ? 'active' : ''}}" href="/voting">Voting</a>
                 </li>
+                <li class="nav-item mx-2">
+                    <a class="nav-link {{ Request::is('scan*') ? 'active' : ''}}" href="/scan">Scan QR Code</a>
+                </li>
                 @auth('pemilih')
                     <li class="nav-item dropdown mx-2">
                         <a class="nav-link dropdown-toggle {{ Request::is('*') ? 'active' : ''}}" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">

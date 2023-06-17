@@ -23,6 +23,7 @@ use App\Http\Controllers\OtpController;
 use App\Http\Controllers\UserBerandaController;
 use App\Http\Controllers\UserKandidatController;
 use App\Http\Controllers\UserPerolehanSuaraController;
+use App\Http\Controllers\UserScanController;
 use App\Http\Controllers\UserVotingController;
 
 /*
@@ -58,6 +59,9 @@ Route::controller(UserVotingController::class)->group(function(){
     Route::post('/voting/vote', 'voteWithOtp')->name('pemilih.voting.vote');
     Route::get('/coba/{slug}/{otp}/{id}', 'voteWithOtpEmail')->name('pemilih.voting.otpemail');
 });
+
+Route::get('/scan', [UserScanController::class, 'index'])->name('pemilih.scan');
+Route::post('/scan', [UserScanController::class, 'validasi'])->name('pemilih.scan.validasi');
 
 
 // Dashboard
@@ -126,15 +130,3 @@ Route::put('/dashboard/ganti_password/{user:slug}', [DashboardGantiPasswordContr
 Route::get('/loginUser', [LoginUserController::class, 'index'])->name('user.login')->middleware('guest');
 Route::post('/loginUser', [LoginUserController::class, 'authenticate'])->name('user.autenticate')->middleware('guest');
 Route::post('/logoutUser', [LoginUserController::class, 'logout'])->name('user.logout');
-
-
-
-
-
-
-Route::controller(OtpController::class)->group(function(){
-    Route::get('/otp/login', 'login')->name('otp.login');
-    Route::post('/otp/generate', 'generate')->name('otp.generate');
-    Route::get('/otp/verification/{user_id}', 'verification')->name('otp.verification');
-    Route::post('/otp/login', 'loginWithOtp')->name('otp.getlogin');
-});
