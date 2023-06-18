@@ -22,15 +22,17 @@
                             </a>
                         </div>
                     @else
-                        <div class="row d-flex justify-content-between mb-3 mx-1">
-                            <form action="/dashboard/pelaksanaan/selesai" method="post">
-                                @csrf
-                                <button type="submit" class="btn btn-success">
-                                    <i class="fa-regular fa-clock pr-1"></i>
-                                    Waktu Pemilu Selesai
-                                </button>
-                            </form>
-                        </div>
+                        @if(!$cek)
+                            <div class="row d-flex justify-content-between mb-3 mx-1">
+                                <form action="/dashboard/pelaksanaan/selesai" method="post">
+                                    @csrf
+                                    <button type="submit" class="btn btn-success">
+                                        <i class="fa-regular fa-clock pr-1"></i>
+                                        Waktu Pemilu Selesai
+                                    </button>
+                                </form>
+                            </div>
+                        @endif
                     @endif
                     <div class="table-responsive">
                         <table class="table table-striped table-sm">
