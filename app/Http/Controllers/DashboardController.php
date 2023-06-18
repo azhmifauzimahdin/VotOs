@@ -13,14 +13,16 @@ class DashboardController extends Controller
 {
     public function index()
     {
-        $kandidats = Kandidat::all();
+        $pemilihs = Pemilih::get();
+        $votings = Voting::get();
+        $kandidats = Kandidat::get();
         $pemilu = Pemilu::first();
         $now = Carbon::now();
 
         $label[] = [];
         $hasil[] = [];
         if($pemilu){
-            if ($now->isAfter($pemilu->selesai)){
+            if ($now->isAfter($pemilu->selesai) || count($pemilihs) - count($votings) == 0){
                 foreach($kandidats as $data){
                     $label[] = $data->nama;
                     $hasil[] = $data->jumlah_suara;
@@ -30,8 +32,8 @@ class DashboardController extends Controller
 
         return view('dashboard.index', [
             'title' => 'Dashboard',
-            'pemilihs' => Pemilih::get(),
-            'votings' => Voting::get(),
+            'pemilihs' => $pemilihs,
+            'votings' => $votings,
             'kandidats' => $kandidats,
             'label' => $label,
             'hasil' => $hasil,
