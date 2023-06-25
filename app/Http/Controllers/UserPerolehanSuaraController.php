@@ -18,8 +18,9 @@ class UserPerolehanSuaraController extends Controller
         $pemilu = Pemilu::first();
         $now = Carbon::now();
 
+        $cekPerolehan = $now->isAfter($pemilu->selesai) || count($pemilihs) - count($votings) == 0;
         if($pemilu){
-            if ($now->isAfter($pemilu->selesai) || count($pemilihs) - count($votings) == 0){
+            if ($cekPerolehan){
                 foreach($kandidats as $data){
                     $label[] = $data->nama;
                     $hasil[] = $data->jumlah_suara;
@@ -36,7 +37,8 @@ class UserPerolehanSuaraController extends Controller
             'label' => $label,
             'hasil' => $hasil,
             'waktu' => $now,
-            'pemilu' => $pemilu
+            'pemilu' => $pemilu,
+            'cekPerolehan' => $cekPerolehan
         ]);
     }
 }

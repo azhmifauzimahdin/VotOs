@@ -31,7 +31,7 @@
                             <div class="px-3 mb-2" style="position: absolute; bottom:0; right: 0"> 
                                 <div class="pb-1">
                                     <b class="text-primary">
-                                        @if ($waktu->isAfter($pemilu->selesai))
+                                        @if ($cekPerolehan)
                                             {{ $kandidat->jumlah_suara }}
                                         @else
                                             0
