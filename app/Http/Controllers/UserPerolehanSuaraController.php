@@ -18,16 +18,16 @@ class UserPerolehanSuaraController extends Controller
         $pemilu = Pemilu::first();
         $now = Carbon::now();
 
-        $cekPerolehan = $now->isAfter($pemilu->selesai) || count($pemilihs) - count($votings) == 0;
+        $label = [];
+        $hasil = [];
+        $cekPerolehan = null;
         if($pemilu){
+            $cekPerolehan = $now->isAfter($pemilu->selesai) || count($pemilihs) - count($votings) == 0;
             if ($cekPerolehan){
                 foreach($kandidats as $data){
                     $label[] = $data->nama;
                     $hasil[] = $data->jumlah_suara;
                 }
-            }else{
-                $label[] = [];
-                $hasil[] = [];
             }
         }
 

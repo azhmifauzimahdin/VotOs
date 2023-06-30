@@ -14,6 +14,15 @@
                             </button>
                         </div>
                     @endif
+                    <small id="passwordRule" class="form-text text-muted">
+                        <ul class="py-0 px-3 ">
+                            <li>Berisi minimal 6 karakter.</li>
+                            <li>Berisi setidaknya satu huruf kecil.</li>
+                            <li>Berisi setidaknya satu huruf besar.</li>
+                            <li>Berisi setidaknya satu angka.</li>
+                            <li>Berisi setidaknya satu karakter khusus.</li>
+                        </ul>
+                    </small>
                     <form action="/dashboard/ganti_password/{{ auth()->user()->slug }}" method="post">
                         @method('put')
                         @csrf

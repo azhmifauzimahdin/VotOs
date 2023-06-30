@@ -53,7 +53,7 @@
                                             <td>{{ $pemilih->nama }}</td>
                                             <td>{{ $pemilih->username }}</td>
                                             <td>{{ $pemilih->email }}</td>
-                                            <td>{{ $pemilih->kelas->nama }}</td>
+                                            <td class="text-nowrap">{{ $pemilih->kelas->nama }}</td>
                                             <td>{{ $pemilih->jk }}</td>
                                             <td class="text-nowrap">
                                                 <a href="/dashboard/pemilih/{{ $pemilih->slug }}/edit" class="btn btn-sm bg-warning">
@@ -94,8 +94,8 @@
             var form =  $(this).closest("form");
             event.preventDefault();
             Swal.fire({
-                title: 'Hapus Data?',
-                text: "Klik Hapus untuk menghapus data",
+                title: 'Apakah Anda Yakin?',
+                text: "Data Anda tidak dapat dikembalikan.",
                 icon: 'warning',
                 showCancelButton: true,
                 confirmButtonColor: '#3085d6',

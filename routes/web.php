@@ -3,11 +3,7 @@
 use App\Models\Category;
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\PostController;
-use App\Http\Controllers\LoginController;
-use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\LoginUserController;
-use App\Http\Controllers\AdminCategoryController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DashboardGantiPasswordController;
 use App\Http\Controllers\DashboardKandidatController;
@@ -19,7 +15,6 @@ use App\Http\Controllers\DashboardUserController;
 use App\Http\Controllers\DashboardVotingController;
 use App\Http\Controllers\KirimEmailController;
 use App\Http\Controllers\LoginPemilihController;
-use App\Http\Controllers\OtpController;
 use App\Http\Controllers\UserBerandaController;
 use App\Http\Controllers\UserKandidatController;
 use App\Http\Controllers\UserPerolehanSuaraController;

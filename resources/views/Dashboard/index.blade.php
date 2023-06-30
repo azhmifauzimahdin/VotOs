@@ -63,7 +63,7 @@
         type: 'column'
       },
       title: {
-        text: 'Grafik Perolehan Suara'
+        text: ' '
       },
       xAxis: {
         categories: {!! json_encode($label) !!},

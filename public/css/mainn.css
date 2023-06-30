@@ -1,0 +1,87 @@
+body {
+    background: #f0f0f0;
+}
+
+.valign {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.ilustrasi_loginUser,
+.box_loginUser {
+    background: #03c988;
+}
+
+.ilustrasi_loginPemilih,
+.box_loginPemilih {
+    background: #5449fc;
+}
+
+.mainContainer {
+    min-height: 92.2vh;
+}
+
+.candidate_thumb {
+    position: relative;
+    z-index: 1;
+    overflow: hidden;
+}
+.candidate_thumb::after {
+    -webkit-transition-duration: 500ms;
+    transition-duration: 500ms;
+    position: absolute;
+    width: 150%;
+    height: 80px;
+    bottom: -45px;
+    left: -25%;
+    content: "";
+    background-color: #ffffff;
+    -webkit-transform: rotate(-15deg);
+    transform: rotate(-10deg);
+}
+
+.foto_kandidat_voting {
+    border-top: 1px solid rgb(236, 236, 236);
+    border-bottom: 1px solid rgb(236, 236, 236);
+}
+
+@media (min-width: 320px) and (max-width: 767px) {
+    .mainContainer {
+        min-height: 93.2vh;
+    }
+
+    .img-ilustration-beranda1,
+    .img-ilustration-beranda2,
+    .ilustrasi_loginUser,
+    .ilustrasi_loginPemilih {
+        display: none !important;
+    }
+
+    .dropdown-logout {
+        background: transparent;
+        margin: 12px;
+    }
+
+    .button-logout {
+        color: #bdbdbd;
+        /* padding: 0; */
+    }
+
+    .button-logout:hover {
+        color: #dadada;
+        background: transparent;
+    }
+
+    .icon-logout {
+        display: none !important;
+    }
+
+    .box-otp {
+        width: 94% !important;
+    }
+    .foto-kandidat {
+        height: 170px;
+    }
+}

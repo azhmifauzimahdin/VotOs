@@ -23,9 +23,8 @@ class CreatePemilihsTable extends Migration
             $table->string('jk');
             $table->string('username')->unique();
             $table->string('password');
-            $table->rememberToken();
-            $table->timestamps();
             $table->string('slug')->unique();
+            $table->timestamps();
         });
     }
 

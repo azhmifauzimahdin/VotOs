@@ -74,7 +74,7 @@
                                 <option value="Perempuan" {{ old('jk', $pemilih->jk) == "Perempuan" ? "selected" : "" }}>Perempuan</option>
                             </select>
                         </div>
-                        <div class="form-group">
+                        {{-- <div class="form-group">
                             <label for="password">Password</label>
                             <small id="passwordRule" class="form-text text-muted">
                                 <ul class="py-0 px-3 ">
@@ -101,7 +101,7 @@
                             <small id="passwordHelp" class="form-text text-muted">
                                 Jika password tidak diubah. Password bisa dikosongkan.
                             </small>
-                        </div>
+                        </div> --}}
                         <button type="submit" class="btn btn-primary">Update</button>
                         <a href="/dashboard/pemilih" class="btn btn-danger">Batal</a>
                     </form>

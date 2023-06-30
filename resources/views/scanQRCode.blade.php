@@ -18,16 +18,19 @@
         @endif
         <div class="row d-flex justify-content-center my-5">
             <div class="col-12 col-md-4 bg-light border py-3 px-5 mx-2" style="border-radius: 0.5vw;">
-                <div class="row py-md-4">
+                <div class="row py-md-4 mb-3 mb-md-0">
                     <div id="reader" width="600px"></div>
                     <img src="" alt="Foto Kandidat" width="100%" height="320px" id="foto" style="display: none">
                 </div>
+                <div class="alert alert-warning d-none" id="status" role="alert">
+                    Surat Suara Sudah Pernah discan!
+                </div>
                 <div class="row border-bottom pb-2">
-                    <div class="col-md-4"><b>Nomor Kandidat</b></div>
+                    <div class="col-md-4"><b>Nomor</b></div>
                     <div class="col-md-8" id="nomor">-</div>
                 </div>
                 <div class="row border-bottom py-2">
-                    <div class="col-md-4"><b>Nama Kandidat</b></div>
+                    <div class="col-md-4"><b>Nama</b></div>
                     <div class="col-md-8" id="nama">-</div>
                 </div>
                 <div class="row py-2 d-flex justify-content-center">
@@ -66,6 +69,7 @@
                                 $temp = "{{ asset('storage/') }}";
                                 $("#nomor").empty();
                                 $("#nama").empty();
+                                $("#kode").empty();
                                 if(response.kandidat.foto){
                                     $('#foto').attr('src', $temp + '/' + response.kandidat.foto);
                                 }else{
@@ -75,6 +79,9 @@
                                 $("#nomor").append(response.kandidat.nomor);
                                 $("#nama").append(response.kandidat.nama);
                                 $('#scanulang').attr('type','button')
+                                if(response.kode){
+                                    $('#status').removeClass('d-none');
+                                }
                             }
                             
                         }

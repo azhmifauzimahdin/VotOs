@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateVerificationCodesTable extends Migration
+class CreateOtpsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,9 @@ class CreateVerificationCodesTable extends Migration
      */
     public function up()
     {
-        Schema::create('verification_codes', function (Blueprint $table) {
+        Schema::create('otps', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('pemilih_id');
+            $table->foreignId('pemilih_id');
             $table->string('otp');
             $table->timestamp('expire_at')->nullable();
             $table->timestamps();
@@ -29,6 +29,6 @@ class CreateVerificationCodesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('verification_codes');
+        Schema::dropIfExists('otps');
     }
 }

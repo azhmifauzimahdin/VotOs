@@ -80,8 +80,8 @@
             var form =  $(this).closest("form");
             event.preventDefault();
             Swal.fire({
-                title: 'Hapus Data?',
-                text: "Klik Hapus untuk menghapus data",
+                title: 'Apakah Anda Yakin?',
+                text: "Data Anda tidak dapat dikembalikan.",
                 icon: 'warning',
                 showCancelButton: true,
                 confirmButtonColor: '#3085d6',

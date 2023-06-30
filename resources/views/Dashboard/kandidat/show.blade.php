@@ -12,9 +12,11 @@
                         @else
                         <img src="{{ asset('AdminLTE') }}/dist/img/user2-160x160.jpg" alt="Admin" class="rounded-circle" width="150" style="aspect-ratio:1/1">
                         @endif
-                        <div class="mt-3">
+                        <div class="mt-3 w-100">
                             <h4>{{ $kandidat->nama }}</h4>
                             <p class="text-secondary mb-1">{{ $kandidat->jk }}</p>
+                            <hr>
+                            <a class="text-decoration-none" href="/dashboard/kandidat">Kembali</a>
                         </div>
                     </div>
                 </div>
@@ -67,12 +69,12 @@
                             {!! $kandidat->misi !!}
                         </div>
                     </div>
-                    <hr>
+                    {{-- <hr>
                     <div class="row">
                         <div class="col-sm-12">
                             <a class="btn btn-danger" href="/dashboard/kandidat">Kembali</a>
                         </div>
-                    </div>
+                    </div> --}}
                 </div>
             </div>
       </div>

@@ -17,7 +17,30 @@ class DashboardGantiPasswordController extends Controller
     public function update(Request $request, User $user)
     {
         $validateData = $request->validate([
-            'password' => 'required|min:6|regex:/[a-z]/|regex:/[A-Z]/|regex:/[0-9]/|regex:/[@$!%*#?&]/',
+            'password' => [
+                'required',
+                'min:6',
+                function ($attribute, $value, $fail) {
+                    if (!preg_match("/[a-z]/", $value)) {
+                        $fail('Harus berisi setidaknya satu huruf kecil.');
+                    }
+                },
+                function ($attribute, $value, $fail) {
+                    if (!preg_match("/[A-Z]/", $value)) {
+                        $fail('Harus berisi setidaknya satu huruf besar.');
+                    }
+                },
+                function ($attribute, $value, $fail) {
+                    if (!preg_match("/[0-9]/", $value)) {
+                        $fail('Harus berisi setidaknya satu angka.');
+                    }
+                },
+                function ($attribute, $value, $fail) {
+                    if (!preg_match("/[@$!%*#?&]/", $value)) {
+                        $fail('Harus berisi setidaknya satu karakter khusus.');
+                    }
+                },
+            ],
         ]);
 
         $validateData['password'] = bcrypt($request->password);

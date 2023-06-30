@@ -1,7 +1,7 @@
 @extends('layouts.main')
 
 @section('container')
-    <div class="row bg-primary mb-4 text-light" style="background: linear-gradient(to right, #1202f5, #5449fc,#3dabff);">
+    <div class="row bg-primary mb-4 px-3 text-light" style="background: linear-gradient(to right, #1202f5, #5449fc,#3dabff);">
         <div class="col-12 mt-5 text-center pb-2">
             <h3 class="d-inline pb-2 px-3" style="border-bottom-style: solid; border-width: 2px; border-radius: 50% ; border-image: linear-gradient(to right, #2dcddf, #2ddfbb,#2ddf8f) 1">Perolehan Suara</h3>
         </div>

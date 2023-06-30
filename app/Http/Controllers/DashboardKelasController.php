@@ -42,8 +42,8 @@ class DashboardKelasController extends Controller
     public function store(Request $request)
     {
         $validateData = $request->validate([
-            'nama' => 'required',
-            'slug' => 'required|unique:kandidats'
+            'nama' => 'required|unique:kelas',
+            'slug' => 'required|unique:kelas'
         ]);
 
         Kelas::create($validateData);

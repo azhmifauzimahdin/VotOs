@@ -26,12 +26,12 @@
                         <a class="nav-link dropdown-toggle {{ Request::is('*') ? 'active' : ''}}" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         {{ auth('pemilih')->user()->nama }}
                         </a>
-                        <ul class="dropdown-menu border-0 py-0 overflow-hidden">
+                        <ul class="dropdown-menu border-0 py-0 overflow-hidden dropdown-logout">
                             <li>
                                 <form action="/logoutPemilih" method="post">
                                     @csrf
-                                    <button type="submit" class="dropdown-item py-2">
-                                        <i class="nav-icon fa-solid fa-arrow-right-from-bracket mr-5"></i>
+                                    <button type="submit" class="button-logout dropdown-item py-0 py-md-2">
+                                        <i class="icon-logout nav-icon fa-solid fa-arrow-right-from-bracket mr-5"></i>
                                         Logout
                                     </button>
                                 </form>

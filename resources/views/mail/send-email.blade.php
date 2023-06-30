@@ -1,5 +1,5 @@
 @component('mail::message')
-Hai {{ $details['name'] }}!
+Hai {{ $details['nama'] }}!
 
 Perhatian! Jangan memberitahukan OTP ini ke pihak siapa pun.
 
@@ -10,6 +10,6 @@ Gunakan OTP <b>{{ $details['kode'] }}</b> untuk melakukan vote di website Votos.
 Vote
 @endcomponent --}}
 
-Thanks,<br>
+Terimakasih,<br>
 {{ config('app.name') }}
 @endcomponent

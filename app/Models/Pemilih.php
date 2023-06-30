@@ -62,4 +62,9 @@ class Pemilih extends Authenticatable
     {
         return $this->hasMany(Voting::class);
     }
+
+    public function otp()
+    {
+        return $this->belongsTo(Otp::class);
+    }
 }

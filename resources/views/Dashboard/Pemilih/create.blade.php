@@ -73,7 +73,7 @@
                                 <option value="Perempuan" {{ old('jk') == "Perempuan" ? "selected" : "" }}>Perempuan</option>
                             </select>
                         </div>
-                        <div class="form-group">
+                        {{-- <div class="form-group">
                             <label for="password bg-danger mb-0">Password</label>
                             <small id="passwordRule" class="form-text text-muted">
                                 <ul class="py-0 px-3 ">
@@ -97,7 +97,7 @@
                                 </div>
                                 @enderror
                             </div>                            
-                        </div>
+                        </div> --}}
                         <button type="submit" class="btn btn-primary">Simpan</button>
                         <a href="/dashboard/pemilih" class="btn btn-danger">Batal</a>
                     </form>

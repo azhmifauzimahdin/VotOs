@@ -23,7 +23,6 @@ class PemilihFactory extends Factory
             'jk' => $this->faker->randomElement(['Laki-laki', 'Perempuan']),
             'username' => $this->faker->unique()->userName(),
             'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi',
-            'remember_token' => Str::random(10),
             'slug' => $this->faker->slug(),
         ];
     }

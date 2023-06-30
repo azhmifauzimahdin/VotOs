@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\SendAccount;
 use App\Models\Pemilih;
 use App\Models\Kelas;
 use Illuminate\Http\Request;
 use \Cviebrock\EloquentSluggable\Services\SlugService;
-
+use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Mail;
 
 class DashboardPemilihController extends Controller
 {
@@ -53,37 +55,48 @@ class DashboardPemilihController extends Controller
                 'slug' => 'required|unique:pemilihs',
                 'kelas_id' => 'required',
                 'jk' => 'required',
-                'password' => [
-                    'required',
-                    'min:6',
-                    function ($attribute, $value, $fail) {
-                        if (!preg_match("/[a-z]/", $value)) {
-                            $fail('Harus berisi setidaknya satu huruf kecil.');
-                        }
-                    },
-                    function ($attribute, $value, $fail) {
-                        if (!preg_match("/[A-Z]/", $value)) {
-                            $fail('Harus berisi setidaknya satu huruf besar.');
-                        }
-                    },
-                    function ($attribute, $value, $fail) {
-                        if (!preg_match("/[0-9]/", $value)) {
-                            $fail('Harus berisi setidaknya satu angka.');
-                        }
-                    },
-                    function ($attribute, $value, $fail) {
-                        if (!preg_match("/[@$!%*#?&]/", $value)) {
-                            $fail('Harus berisi setidaknya satu karakter khusus.');
-                        }
-                    },
-                ]
+                // 'password' => [
+                //     'required',
+                //     'min:6',
+                //     function ($attribute, $value, $fail) {
+                //         if (!preg_match("/[a-z]/", $value)) {
+                //             $fail('Harus berisi setidaknya satu huruf kecil.');
+                //         }
+                //     },
+                //     function ($attribute, $value, $fail) {
+                //         if (!preg_match("/[A-Z]/", $value)) {
+                //             $fail('Harus berisi setidaknya satu huruf besar.');
+                //         }
+                //     },
+                //     function ($attribute, $value, $fail) {
+                //         if (!preg_match("/[0-9]/", $value)) {
+                //             $fail('Harus berisi setidaknya satu angka.');
+                //         }
+                //     },
+                //     function ($attribute, $value, $fail) {
+                //         if (!preg_match("/[@$!%*#?&]/", $value)) {
+                //             $fail('Harus berisi setidaknya satu karakter khusus.');
+                //         }
+                //     },
+                // ]
             ]
         );
 
         $validateData['user_id'] = auth()->user()->id;
-        $validateData['password'] = bcrypt($request->password);
+        // $validateData['password'] = bcrypt($request->password);
+        $password = Str::random(6);
+        $validateData['password'] = bcrypt($password);
+
+        $details = [
+            'nama' => $request->nama,
+            'username' => $request->username,
+            'password' => $password
+        ];
+
 
         Pemilih::create($validateData);
+
+        Mail::to($request->email)->send(new SendAccount($details));
 
         return redirect('/dashboard/pemilih')->with('success', 'Data pemilih berhasil ditambahkan!');
     }
@@ -142,38 +155,38 @@ class DashboardPemilihController extends Controller
             $rules['email'] = 'required|email:dns|unique:pemilihs';
         }
 
-        if ($request->password) {
-            $rules['password'] = [
-                'required',
-                'min:6',
-                function ($attribute, $value, $fail) {
-                    if (!preg_match("/[a-z]/", $value)) {
-                        $fail('Harus berisi setidaknya satu huruf kecil.');
-                    }
-                },
-                function ($attribute, $value, $fail) {
-                    if (!preg_match("/[A-Z]/", $value)) {
-                        $fail('Harus berisi setidaknya satu huruf besar.');
-                    }
-                },
-                function ($attribute, $value, $fail) {
-                    if (!preg_match("/[0-9]/", $value)) {
-                        $fail('Harus berisi setidaknya satu angka.');
-                    }
-                },
-                function ($attribute, $value, $fail) {
-                    if (!preg_match("/[@$!%*#?&]/", $value)) {
-                        $fail('Harus berisi setidaknya satu karakter khusus.');
-                    }
-                },
-            ];
-        }
+        // if ($request->password) {
+        //     $rules['password'] = [
+        //         'required',
+        //         'min:6',
+        //         function ($attribute, $value, $fail) {
+        //             if (!preg_match("/[a-z]/", $value)) {
+        //                 $fail('Harus berisi setidaknya satu huruf kecil.');
+        //             }
+        //         },
+        //         function ($attribute, $value, $fail) {
+        //             if (!preg_match("/[A-Z]/", $value)) {
+        //                 $fail('Harus berisi setidaknya satu huruf besar.');
+        //             }
+        //         },
+        //         function ($attribute, $value, $fail) {
+        //             if (!preg_match("/[0-9]/", $value)) {
+        //                 $fail('Harus berisi setidaknya satu angka.');
+        //             }
+        //         },
+        //         function ($attribute, $value, $fail) {
+        //             if (!preg_match("/[@$!%*#?&]/", $value)) {
+        //                 $fail('Harus berisi setidaknya satu karakter khusus.');
+        //             }
+        //         },
+        //     ];
+        // }
 
         $validateData = $request->validate($rules);
 
-        if ($request->password) {
-            $validateData['password'] = bcrypt($request->password);
-        }
+        // if ($request->password) {
+        //     $validateData['password'] = bcrypt($request->password);
+        // }
 
         Pemilih::where('id', $pemilih->id)->update($validateData);
 
@@ -197,7 +210,7 @@ class DashboardPemilihController extends Controller
     {
         $slug = SlugService::createSlug(Pemilih::class, 'slug', $request->nama);
         $temp = str_replace(' ', '', $request->nama);
-        $username = preg_replace('/[^\p{L}\p{N}\s]/u', '', $temp) . substr($request->nisn, -2);
+        $username = Str::lower(preg_replace('/[^\p{L}\p{N}\s]/u', '', $temp)) . substr($request->nisn, -2);
         return response()->json(['slug' => $slug, 'username' => $username]);
     }
 }

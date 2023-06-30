@@ -18,6 +18,7 @@ class CreateVotingsTable extends Migration
             $table->foreignId('kandidat_id');
             $table->foreignId('pemilih_id')->unique();
             $table->string('kode')->unique();
+            $table->boolean('status')->default(false);
             $table->timestamps();
         });
     }

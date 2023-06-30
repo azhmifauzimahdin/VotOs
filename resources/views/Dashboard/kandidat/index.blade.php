@@ -52,7 +52,7 @@
                                                 @if ($kandidat->foto)
                                                     <img src="{{ asset('storage/'.$kandidat->foto) }}" style="width: 80px; aspect-ratio:3/4" alt="Foto kandidat">    
                                                 @else
-                                                    <img src="{{ asset('AdminLTE') }}/dist/img/user2-160x160.jpg" style="width: 80px; aspect-ratio:3/4" alt="Foto kandidat">    
+                                                    <img src="{{ asset('AdminLTE') }}/dist/img/default_user.jpg" style="width: 80px; aspect-ratio:3/4" alt="Foto kandidat">    
                                                 @endif
                                             </td>
                                             <td class="text-nowrap align-middle">
@@ -97,8 +97,8 @@
             var form =  $(this).closest("form");
             event.preventDefault();
             Swal.fire({
-                title: 'Hapus Data?',
-                text: "Klik Hapus untuk menghapus data",
+                title: 'Apakah Anda Yakin?',
+                text: "Data Anda tidak dapat dikembalikan.",
                 icon: 'warning',
                 showCancelButton: true,
                 confirmButtonColor: '#3085d6',
