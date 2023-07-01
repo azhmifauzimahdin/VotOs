@@ -100,10 +100,11 @@ class UserVotingController extends Controller
     public function VoteWithOtp(Request $request)
     {
         $request->validate([
-            'slug' => 'required',
+            'slugVote' => 'required',
             'otp' => 'required'
         ]);
-        $kandidat = Kandidat::where('slug', $request->slug)->first();
+
+        $kandidat = Kandidat::where('slug', $request->slugVote)->first();
         $kode = Crypt::encryptString($this->generateKodeVoting());
         $validateData = [
             'pemilih_id' => auth('pemilih')->user()->id,

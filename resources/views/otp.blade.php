@@ -30,7 +30,7 @@
                 @endif
                 <form action="/voting/vote" method="post">
                     @csrf
-                    <input type="hidden" name="slug" id="slug" value="{{ $slug }}">
+                    <input type="hidden" name="slugVote" id="slugVote" value="{{ $slug }}">
                     <div class="form-floating input-group-sm mb-3">
                         <input type="password" class="form-control input-sm" name="otp" id="otp" placeholder="One Time Password (OTP)" required>
                         <label for="otp">One Time Password (OTP)</label>

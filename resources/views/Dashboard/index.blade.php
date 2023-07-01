@@ -62,6 +62,9 @@
       chart: {
         type: 'column'
       },
+      accessibility: {
+        enabled: false
+      },
       title: {
         text: ' '
       },
