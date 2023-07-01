@@ -13,28 +13,23 @@ class UserScanController extends Controller
     public function index()
     {
         return view('scanQRCode', [
-            "title" => "Scan QR Code",
+            "title" => "Scan Suarat Suara",
         ]);
     }
 
-    public function validasi(Request $request){
+    public function validasi(Request $request)
+    {
         $voting = Voting::where('kode', $request->qr_code)->first();
-        if($voting){
+        if ($voting) {
             $kandidat = Kandidat::where('id', $voting->kandidat_id)->first();
-            if(!$voting->status){
-                $validateData['status'] = true;
-                Voting::where('kode', $request->qr_code)->update($validateData);
-            }
             return response()->json([
                 'status' => 200,
                 'kandidat' => $kandidat,
-                'kode' => $voting->status
             ]);
-        }else{
+        } else {
             return response()->json([
                 'status' => 404,
             ]);
-
         }
     }
 }

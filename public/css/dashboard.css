@@ -1,0 +1,13 @@
+label {
+    font-weight: normal !important;
+}
+
+trix-toolbar [data-trix-button-group="file-tools"] {
+    display: none;
+}
+
+.foto-scan-pemilih {
+    width: 50%;
+    aspect-ratio: 1/1;
+    margin: 0 auto;
+}

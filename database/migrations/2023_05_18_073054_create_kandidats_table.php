@@ -23,6 +23,7 @@ class CreateKandidatsTable extends Migration
             $table->string('jk');
             $table->string('slug')->unique();
             $table->integer('jumlah_suara')->default(0);
+            $table->integer('hitung_suara')->default(0);
             $table->timestamps();
         });
     }

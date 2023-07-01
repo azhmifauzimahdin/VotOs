@@ -38,9 +38,9 @@
                     <div class="col-12 col-md-3 bg-light shadow-sm overflow-hidden px-0 mb-3" style="border-radius: 1vw; height: 100%">
                         <div class="py-3"></div>
                         @if ($status->kandidat->foto)
-                            <img src="{{ asset('storage/'. $status->kandidat->foto) }}" alt="Foto Kandidat" width="100%" height="300px">
+                            <img src="{{ asset('storage/'. $status->kandidat->foto) }}" alt="Foto Kandidat" class="foto-kandidat-voting">
                         @else
-                            <img src="{{ asset('AdminLTE') }}/dist/img/default_user.jpg" alt="Foto Kandidat" width="100%" height="320px">
+                            <img src="{{ asset('AdminLTE') }}/dist/img/default_user.jpg" alt="Foto Kandidat" class="foto-kandidat-voting">
                         @endif
                         <h6 class="text-center py-2"><b>{{ $status->kandidat->nama }}</b></h6>
                     </div>

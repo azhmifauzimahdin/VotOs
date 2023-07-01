@@ -88,6 +88,14 @@
               </p>
             </a>
           </li>
+          <li class="nav-item">
+            <a href="/dashboard/scan" class="nav-link {{ Request::is('dashboard/scan*') ? 'active' : ''}}">
+              <i class=" nav-icon fa-solid fa-qrcode"></i>
+              <p>
+                Scan Surat Suara
+              </p>
+            </a>
+          </li>
         @endcan
         <li class="nav-item">
           <a href="/dashboard/ganti_password" class="nav-link {{ Request::is('dashboard/ganti_password') ? 'active' : ''}}">

@@ -62,7 +62,7 @@
                                                 <form action="/dashboard/pemilih/{{ $pemilih->slug }}" id="formHapus" method="post" class="d-inline">
                                                     @method('delete')
                                                     @csrf
-                                                    <button class="btn btn-sm bg-danger border-0 konfirmasi_hapus" onclick="hapusData()">
+                                                    <button class="btn btn-sm bg-danger border-0 konfirmasi_hapus">
                                                         <i class="fa-solid fa-trash-can"></i>
                                                     </button>
                                                 </form>

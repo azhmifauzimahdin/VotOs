@@ -47,6 +47,16 @@ body {
     border-bottom: 1px solid rgb(236, 236, 236);
 }
 
+.foto-scan-pemilih {
+    width: 50%;
+    aspect-ratio: 3/4;
+}
+
+.foto-kandidat-voting{
+    width: 100%;
+    aspect-ratio: 3/4;
+}
+
 @media (min-width: 320px) and (max-width: 767px) {
     .mainContainer {
         min-height: 93.2vh;
@@ -83,5 +93,9 @@ body {
     }
     .foto-kandidat {
         height: 170px;
+    }
+
+    .foto-scan-pemilih {
+        width: 100%;
     }
 }

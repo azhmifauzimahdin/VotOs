@@ -31,15 +31,8 @@
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     {{-- Highchart --}}
     <script src="https://code.highcharts.com/highcharts.js"></script>
-    <style>
-        label {
-            font-weight: normal !important;
-        }
-
-        trix-toolbar [data-trix-button-group="file-tools"]{
-            display: none;
-        }
-    </style>
+    {{-- Css --}}
+    <link rel="stylesheet" href="/css/dashboard.css">
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
 <div class="wrapper">

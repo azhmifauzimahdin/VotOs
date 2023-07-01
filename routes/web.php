@@ -3,23 +3,24 @@
 use App\Models\Category;
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\LoginUserController;
-use App\Http\Controllers\DashboardController;
-use App\Http\Controllers\DashboardGantiPasswordController;
-use App\Http\Controllers\DashboardKandidatController;
-use App\Http\Controllers\DashboardKelasController;
-use App\Http\Controllers\DashboardPelaksanaanController;
-use App\Http\Controllers\DashboardPemilihController;
-use App\Http\Controllers\DashboardPostController;
-use App\Http\Controllers\DashboardUserController;
-use App\Http\Controllers\DashboardVotingController;
-use App\Http\Controllers\KirimEmailController;
-use App\Http\Controllers\LoginPemilihController;
-use App\Http\Controllers\UserBerandaController;
-use App\Http\Controllers\UserKandidatController;
-use App\Http\Controllers\UserPerolehanSuaraController;
 use App\Http\Controllers\UserScanController;
+use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\LoginUserController;
+use App\Http\Controllers\KirimEmailController;
 use App\Http\Controllers\UserVotingController;
+use App\Http\Controllers\UserBerandaController;
+use App\Http\Controllers\LoginPemilihController;
+use App\Http\Controllers\UserKandidatController;
+use App\Http\Controllers\DashboardPostController;
+use App\Http\Controllers\DashboardScanController;
+use App\Http\Controllers\DashboardUserController;
+use App\Http\Controllers\DashboardKelasController;
+use App\Http\Controllers\DashboardVotingController;
+use App\Http\Controllers\DashboardPemilihController;
+use App\Http\Controllers\DashboardKandidatController;
+use App\Http\Controllers\UserPerolehanSuaraController;
+use App\Http\Controllers\DashboardPelaksanaanController;
+use App\Http\Controllers\DashboardGantiPasswordController;
 
 /*
 |--------------------------------------------------------------------------
@@ -47,7 +48,7 @@ Route::resource('/kandidat', UserKandidatController::class)->names([
 
 Route::get('/voting/print', [UserVotingController::class, 'cetakPdfQrCode'])->name('pemilih.voting.cetak');
 Route::get('/kirim_email', [KirimEmailController::class, 'index'])->name('pemilih.sendemail');
-Route::controller(UserVotingController::class)->group(function(){
+Route::controller(UserVotingController::class)->group(function () {
     Route::get('/voting', 'index')->name('pemilih.voting');
     Route::post('/voting/generate', 'generate')->name('pemilih.voting.generate');
     Route::get('/voting/otp/{slug}', 'otp')->name('pemilih.voting.otp');
@@ -118,6 +119,10 @@ Route::resource('/dashboard/pelaksanaan', DashboardPelaksanaanController::class)
 
 Route::get('/dashboard/rekapitulasi', [DashboardVotingController::class, 'rekapitulasi'])->name('user.rekapitulasi')->middleware(['auth:web', 'pemilih']);
 Route::get('/dashboard/rekapitulasi/print', [DashboardVotingController::class, 'cetakPdfRekapitulasi'])->name('user.rekapitulasi')->middleware(['auth:web', 'pemilih']);
+
+Route::get('/dashboard/scan', [DashboardScanController::class, 'index'])->name('user.scan')->middleware(['auth:web', 'pemilih']);
+Route::post('/dashboard/scan', [DashboardScanController::class, 'validasi'])->name('user.scan.validasi')->middleware(['auth:web', 'pemilih']);
+Route::post('/dashboard/scan/ulang', [DashboardScanController::class, 'ScanUlang'])->name('user.scan.ulang')->middleware(['auth:web', 'pemilih']);
 
 Route::get('/dashboard/ganti_password', [DashboardGantiPasswordController::class, 'index'])->name('user.gantiPassword')->middleware('auth:web');
 Route::put('/dashboard/ganti_password/{user:slug}', [DashboardGantiPasswordController::class, 'update'])->name('user.gantiPassword.update')->middleware('auth:web');

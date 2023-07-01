@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateVotingsTable extends Migration
+class CreateHitungSuarasTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,11 @@ class CreateVotingsTable extends Migration
      */
     public function up()
     {
-        Schema::create('votings', function (Blueprint $table) {
+        Schema::create('hitung_suaras', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('voting_id');
             $table->foreignId('kandidat_id');
-            $table->foreignId('pemilih_id')->unique();
-            $table->string('kode')->unique();
-            $table->string('qr_code')->nullable();
-            $table->boolean('status')->default(false);
+            $table->integer('hitung_suara')->default(0);
             $table->timestamps();
         });
     }
@@ -31,6 +29,6 @@ class CreateVotingsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('votings');
+        Schema::dropIfExists('hitung__suaras');
     }
 }
