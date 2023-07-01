@@ -27,18 +27,27 @@ class DashboardVotingController extends Controller
         ]);
     }
 
-    public function cetakPdf(){
+    public function cetakPdf()
+    {
         return view('dashboard.voting.print', [
             'title' => 'Cetak Data Voting',
             'votings' => Voting::latest()->get()
         ]);
     }
-    
-    public function cetakPdfRekapitulasi(){
+
+    public function cetakPdfSuratSuara()
+    {
+        return view('dashboard.voting.printSuratSuara', [
+            'title' => 'Cetak Data Voting',
+            'votings' => Voting::latest()->get()
+        ]);
+    }
+
+    public function cetakPdfRekapitulasi()
+    {
         return view('dashboard.rekapitulasi.print', [
             'title' => 'Cetak Rekapitulasi Voting',
             'votings' => Voting::latest()->filter(request(['kandidat', 'kelas']))->get()
         ]);
-
     }
 }

@@ -86,6 +86,7 @@ Route::resource('/dashboard/kandidat', DashboardKandidatController::class)->name
 
 Route::get('/dashboard/voting', [DashboardVotingController::class, 'index'])->name('user.voting')->middleware(['auth:web', 'pemilih']);
 Route::get('/dashboard/voting/print', [DashboardVotingController::class, 'cetakPdf'])->name('user.voting.cetakPdf')->middleware(['auth:web', 'pemilih']);
+Route::get('/dashboard/voting/printSuratSuara', [DashboardVotingController::class, 'cetakPdfSuratSuara'])->name('user.voting.cetakPdfSuratSuara')->middleware(['auth:web', 'pemilih']);
 
 Route::get('/dashboard/user/checkSlug', [DashboardUserController::class, 'checkSlug'])->middleware(['auth:web', 'admin']);
 Route::resource('/dashboard/user', DashboardUserController::class)->names([

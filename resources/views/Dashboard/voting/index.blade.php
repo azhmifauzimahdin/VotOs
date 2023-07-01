@@ -7,10 +7,16 @@
                 <h5 class="card-header">{{ $title }}</h5>
                 <div class="card-body">
                     <div class="row d-flex justify-content-between mb-3 mx-1">
-                        <a href="/dashboard/voting/print" target="_blank" class="btn btn-primary">
-                            <i class="fa-solid fa-print"></i>
-                            <span class="ml-1">Print</span>
-                        </a>
+                        <div class="tombol">
+                            <a href="/dashboard/voting/print" target="_blank" class="btn btn-primary">
+                                <i class="fa-solid fa-print"></i>
+                                <span class="ml-1">Print</span>
+                            </a>
+                            <a href="/dashboard/voting/printSuratSuara" target="_blank" class="btn btn-success">
+                                <i class="fa-solid fa-print"></i>
+                                <span class="ml-1">Print Surat Suara</span>
+                            </a>
+                        </div>
                         <ul class="list-inline mb-0 mt-2 mt-md-0">
                             <li class="list-inline-item">
                                 Search :
