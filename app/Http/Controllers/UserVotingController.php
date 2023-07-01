@@ -23,20 +23,15 @@ class UserVotingController extends Controller
         } else {
             $id = 0;
         }
-        $status = Voting::where('pemilih_id', $id)->first();
-        $qrcode = ' ';
-        if ($status) {
-            $qrcode = $status->kode;
-        }
+        $voting = Voting::where('pemilih_id', $id)->first();
 
         return view('voting', [
             'title' => 'Voting',
             'kandidats' => Kandidat::orderBy('nomor', 'ASC')->get(),
             'votings' => Voting::get(),
-            'status' => $status,
+            'status' => $voting,
             'waktu' => Carbon::now(),
             'pemilu' => Pemilu::first(),
-            'qrcode' => QrCode::size(300)->errorCorrection('Q')->generate($qrcode)
         ]);
     }
 
@@ -109,10 +104,12 @@ class UserVotingController extends Controller
             'otp' => 'required'
         ]);
         $kandidat = Kandidat::where('slug', $request->slug)->first();
+        $kode = Crypt::encryptString($this->generateKodeVoting());
         $validateData = [
             'pemilih_id' => auth('pemilih')->user()->id,
             'kandidat_id' => $kandidat->id,
-            'kode' => Crypt::encryptString($this->generateKodeVoting()),
+            'kode' => $kode,
+            'qr_code' => QrCode::size(300)->errorCorrection('Q')->generate($kode)
         ];
 
         $verificationCode = Otp::where('pemilih_id', $validateData['pemilih_id'])->first();
@@ -163,17 +160,11 @@ class UserVotingController extends Controller
             $id = 0;
         }
 
-        $status = Voting::vote($id)->get();
-        $qrcode = ' ';
-        if ($status) {
-            foreach ($status as $data) {
-                $qrcode = $data->kode;
-            }
-        }
+        $voting = Voting::where('pemilih_id', $id)->first();
 
         return view('cetakQrCode', [
             'title' => 'Cetak QR Code',
-            'qrcode' => QrCode::size(400)->errorCorrection('Q')->generate($qrcode)
+            'voting' => $voting
         ]);
     }
 }

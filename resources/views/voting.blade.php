@@ -46,7 +46,7 @@
                     </div>
                     <div class="col-12 col-md-4 bg-light shadow-sm py-3 px-4 px-md-4 mx-md-2" style="border-radius: 1vw;">
                         <div class="row py-md-4 border-bottom">
-                            {!! $qrcode !!}
+                            {!! $status->qr_code !!}
                         </div>
                         <div class="row border-bottom py-2">
                             <div class="col-md-5"><b>Nomor</b></div>

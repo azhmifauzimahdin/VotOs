@@ -17,8 +17,8 @@ class CreateVotingsTable extends Migration
             $table->id();
             $table->foreignId('kandidat_id');
             $table->foreignId('pemilih_id')->unique();
-            $table->string('kode')->unique();
-            $table->string('qr_code')->nullable();
+            $table->text('kode')->unique();
+            $table->text('qr_code')->nullable();
             $table->boolean('status')->default(false);
             $table->timestamps();
         });

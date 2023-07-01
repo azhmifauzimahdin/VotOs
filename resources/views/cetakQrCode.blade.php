@@ -12,7 +12,7 @@
     <p class="text-center">Sistem E-Voting Pemilihan Ketua OSIS</p>
     <div class="row mt-5">
         <div class="col d-flex justify-content-center">
-            {!! $qrcode !!}
+            {!! $voting->qr_code !!}
         </div>
     </div>
     <script>
