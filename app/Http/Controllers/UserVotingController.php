@@ -131,7 +131,7 @@ class UserVotingController extends Controller
         Voting::create($validateData);
         Kandidat::where('id', $validateData['kandidat_id'])->increment('jumlah_suara', 1);
 
-        return redirect('/voting')->with('message', 'Hasil voting berhasil ditambahkan');
+        return redirect('/voting');
     }
 
     public function generateKodeVoting()

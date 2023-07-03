@@ -20,14 +20,14 @@
             width: 100%;
             border-collapse: collapse;
         }
-        .center{
+        .text-center{
             text-align: center;
         }
 
     </style>
 </head>
 <body onload="window.print()">
-    <h3 class="center">REKAPITULASI DATA VOTING</h3>
+    <h3 class="text-center">DATA VOTING</h3>
     <table>
         <thead>
             <tr>
@@ -49,7 +49,7 @@
                 @endforeach
             @else
                 <tr>
-                    <td colspan="4" class="text-center py-2">Tidak ada data yang ditemukan</td>
+                    <td colspan="4" class="text-center">Tidak ada data voting</td>
                 </tr>
             @endif
         </tbody>

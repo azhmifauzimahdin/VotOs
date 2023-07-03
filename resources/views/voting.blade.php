@@ -26,14 +26,6 @@
     @auth('pemilih')
         @if($status)
             <div class="px-5">
-                @if(session()->has('message'))
-                <div class="row">
-                    <div class="alert alert-success alert-dismissible fade show " role="alert">
-                        {{ session('message') }}
-                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                    </div>
-                </div>
-                @endif
                 <div class="row d-flex justify-content-center mx-md-5 mb-5">
                     <div class="col-12 col-md-3 bg-light shadow-sm overflow-hidden px-0 mb-3" style="border-radius: 1vw; height: 100%">
                         <div class="py-3"></div>
