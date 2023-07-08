@@ -46,6 +46,13 @@
                             @enderror
                         </div>
                         <div class="form-group">
+                            <label for="jenis_kelamin">Jenis Kelamin</label>
+                            <select class="form-control" id="jenis_kelamin" name="jenis_kelamin">
+                                <option value="Laki-laki" {{ old('jenis_kelamin', $user->jenis_kelamin) == "Laki-laki" ? "selected" : "" }}>Laki-laki</option>
+                                <option value="Perempuan" {{ old('jenis_kelamin', $user->jenis_kelamin) == "Perempuan" ? "selected" : "" }}>Perempuan</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
                             <label for="level">Level</label>
                             <select class="form-control" id="level" name="level">
                                 <option value="Administrator" {{ old('level', $user->level) == "Administrator" ? "selected" : "" }}>Administrator</option>

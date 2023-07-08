@@ -20,7 +20,7 @@ class PemilihFactory extends Factory
             'nisn' => $this->faker->nik(),
             'nama' => $this->faker->name(),
             'email' => $this->faker->unique()->safeEmail(),
-            'jk' => $this->faker->randomElement(['Laki-laki', 'Perempuan']),
+            'jenis_kelamin' => $this->faker->randomElement(['Laki-laki', 'Perempuan']),
             'username' => $this->faker->unique()->userName(),
             'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi',
             'slug' => $this->faker->slug(),

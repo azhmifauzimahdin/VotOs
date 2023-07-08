@@ -20,7 +20,7 @@ class CreateKandidatsTable extends Migration
             $table->string('foto')->nullable();
             $table->text('visi');
             $table->text('misi');
-            $table->string('jk');
+            $table->string('jenis_kelamin');
             $table->string('slug')->unique();
             $table->integer('jumlah_suara')->default(0);
             $table->integer('hitung_suara')->default(0);

@@ -20,7 +20,7 @@ class CreatePemilihsTable extends Migration
             $table->string('nisn')->unique();
             $table->string('nama');
             $table->string('email')->unique();
-            $table->string('jk');
+            $table->string('jenis_kelamin');
             $table->string('username')->unique();
             $table->string('password');
             $table->string('slug')->unique();

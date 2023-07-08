@@ -7,7 +7,7 @@
                 <h5 class="card-header">{{ $title }}</h5>
                 <div class="card-body">
                     @if(session()->has('success'))
-                        <div class="alert alert-success alert-dismissible fade show" role="alert">
+                        <div class="row alert alert-success alert-dismissible fade show" role="alert">
                             {{ session('success') }}
                             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
@@ -38,6 +38,7 @@
                                     <th scope="col">NAMA</th>
                                     <th scope="col">USERNAME</th>
                                     <th scope="col">EMAIL</th>
+                                    <th scope="col">JENIS KELAMIN</th>
                                     <th scope="col">LEVEL</th>
                                     <th scope="col">FOTO</th>
                                     <th scope="col">Action</th>
@@ -51,6 +52,7 @@
                                             <td class="align-middle">{{ $user->nama }}</td>
                                             <td class="align-middle">{{ $user->username }}</td>
                                             <td class="align-middle">{{ $user->email }}</td>
+                                            <td class="align-middle">{{ $user->jenis_kelamin }}</td>
                                             <td class="align-middle">{{ $user->level }}</td>
                                             <td class="pb-2">
                                                 @if ($user->foto)

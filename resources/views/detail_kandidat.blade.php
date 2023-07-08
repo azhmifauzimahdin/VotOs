@@ -22,7 +22,7 @@
                             @endif
                             <div class="mt-3 w-100">
                                 <h5>{{ $kandidat->nama }}</h5>
-                                <p>{{ $kandidat->jk }}</p>
+                                <p>{{ $kandidat->jenis_kelamin }}</p>
                                 <hr>
                                 <a href="/kandidat" class="text-decoration-none">Daftar Kandidat</a>
                             </div>
@@ -56,7 +56,7 @@
                                 <h6 class="mb-0">Jenis Kelamin</h6>
                             </div>
                             <div class="col-sm-8">
-                                {{ $kandidat->jk }}   
+                                {{ $kandidat->jenis_kelamin }}   
                             </div>
                         </div>
                         <hr class="my-2">

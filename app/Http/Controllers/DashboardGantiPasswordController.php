@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+use Illuminate\Support\Facades\Hash;
 
 class DashboardGantiPasswordController extends Controller
 {
@@ -43,7 +44,7 @@ class DashboardGantiPasswordController extends Controller
             ],
         ]);
 
-        $validateData['password'] = bcrypt($request->password);
+        $validateData['password'] = Hash::make($request->password);
 
         User::where('id', $user->id)->update($validateData);
 

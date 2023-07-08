@@ -45,7 +45,7 @@ class DashboardKandidatController extends Controller
         $validateData = $request->validate([
             'nomor' => 'required|numeric|unique:kandidats',
             'nama' => 'required',
-            'jk' => 'required',
+            'jenis_kelamin' => 'required',
             'foto' => 'image',
             'slug' => 'required|unique:kandidats',
             'visi' => 'required',
@@ -100,7 +100,7 @@ class DashboardKandidatController extends Controller
     {
         $rules = [
             'nama' => 'required',
-            'jk' => 'required',
+            'jenis_kelamin' => 'required',
             'foto' => 'image',
             'visi' => 'required',
             'misi' => 'required'

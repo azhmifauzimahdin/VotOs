@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Jobs\SendAccountJob;
 use App\Mail\SendAccount;
 use App\Models\Pemilih;
 use App\Models\Kelas;
 use Illuminate\Http\Request;
 use \Cviebrock\EloquentSluggable\Services\SlugService;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 
 class DashboardPemilihController extends Controller
@@ -54,7 +56,7 @@ class DashboardPemilihController extends Controller
                 'email' => 'required|email:dns|unique:pemilihs',
                 'slug' => 'required|unique:pemilihs',
                 'kelas_id' => 'required',
-                'jk' => 'required',
+                'jenis_kelamin' => 'required',
                 // 'password' => [
                 //     'required',
                 //     'min:6',
@@ -83,11 +85,11 @@ class DashboardPemilihController extends Controller
         );
 
         $validateData['user_id'] = auth()->user()->id;
-        // $validateData['password'] = bcrypt($request->password);
         $password = Str::random(6);
-        $validateData['password'] = bcrypt($password);
+        $validateData['password'] = Hash::make($password);
 
         $details = [
+            'email' => $request->email,
             'nama' => $request->nama,
             'username' => $request->username,
             'password' => $password
@@ -96,7 +98,8 @@ class DashboardPemilihController extends Controller
 
         Pemilih::create($validateData);
 
-        Mail::to($request->email)->send(new SendAccount($details));
+        dispatch(new SendAccountJob($details));
+        // Mail::to($request->email)->send(new SendAccount($details));
 
         return redirect('/dashboard/pemilih')->with('success', 'Data pemilih berhasil ditambahkan!');
     }
@@ -109,7 +112,6 @@ class DashboardPemilihController extends Controller
      */
     public function show(Pemilih $pemilih)
     {
-        //
     }
 
     /**
@@ -139,7 +141,7 @@ class DashboardPemilihController extends Controller
         $rules = [
             'nama' => 'required',
             'kelas_id' => 'required',
-            'jk' => 'required'
+            'jenis_kelamin' => 'required'
         ];
 
         if ($request->nisn != $pemilih->nisn) {

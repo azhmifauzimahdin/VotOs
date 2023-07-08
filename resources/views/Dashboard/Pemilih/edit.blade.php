@@ -68,10 +68,10 @@
                             @enderror
                         </div>
                         <div class="form-group">
-                            <label for="jk">Jenis Kelamin</label>
-                            <select class="form-control" id="jk" name="jk">
-                                <option value="Laki-laki" {{ old('jk', $pemilih->jk) == "Laki-laki" ? "selected" : "" }}>Laki-laki</option>
-                                <option value="Perempuan" {{ old('jk', $pemilih->jk) == "Perempuan" ? "selected" : "" }}>Perempuan</option>
+                            <label for="jenis_kelamin">Jenis Kelamin</label>
+                            <select class="form-control" id="jenis_kelamin" name="jenis_kelamin">
+                                <option value="Laki-laki" {{ old('jenis_kelamin', $pemilih->jenis_kelamin) == "Laki-laki" ? "selected" : "" }}>Laki-laki</option>
+                                <option value="Perempuan" {{ old('jenis_kelamin', $pemilih->jenis_kelamin) == "Perempuan" ? "selected" : "" }}>Perempuan</option>
                             </select>
                         </div>
                         {{-- <div class="form-group">

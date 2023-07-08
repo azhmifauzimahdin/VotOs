@@ -6,6 +6,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use \Cviebrock\EloquentSluggable\Services\SlugService;
+use Illuminate\Support\Facades\Hash;
 
 class DashboardUserController extends Controller
 {
@@ -47,6 +48,7 @@ class DashboardUserController extends Controller
             'username' => 'required|unique:users',
             'slug' => 'required|unique:users',
             'email' => 'required|email:dns|unique:users',
+            'jenis_kelamin' => 'required',
             'level' => 'required',
             'password' => [
                 'required',
@@ -75,7 +77,7 @@ class DashboardUserController extends Controller
             'foto' => 'image'
         ]);
 
-        $validateData['password'] = bcrypt($request->password);
+        $validateData['password'] = Hash::make($request->password);
 
         if ($request->file('foto')) {
             $validateData['foto'] = $request->file('foto')->store('foto-user');
@@ -122,6 +124,7 @@ class DashboardUserController extends Controller
     {
         $rules = [
             'nama' => 'required',
+            'jenis_kelamin' => 'required',
             'level' => 'required',
             'foto' => 'image',
         ];
@@ -166,7 +169,7 @@ class DashboardUserController extends Controller
         $validateData = $request->validate($rules);
 
         if ($request->password) {
-            $validateData['password'] = bcrypt($request->password);
+            $validateData['password'] = Hash::make($request->password);
         }
 
         if ($request->file('foto')) {

@@ -14,7 +14,7 @@
                         @endif
                         <div class="mt-3 w-100">
                             <h4>{{ $kandidat->nama }}</h4>
-                            <p class="text-secondary mb-1">{{ $kandidat->jk }}</p>
+                            <p class="text-secondary mb-1">{{ $kandidat->jenis_kelamin }}</p>
                             <hr>
                             <a class="text-decoration-none" href="/dashboard/kandidat">Kembali</a>
                         </div>
@@ -48,7 +48,7 @@
                             <h6 class="mb-0">Jenis Kelamin</h6>
                         </div>
                         <div class="col-sm-9 text-secondary">
-                            {{ $kandidat->jk }}   
+                            {{ $kandidat->jenis_kelamin }}   
                         </div>
                     </div>
                     <hr>

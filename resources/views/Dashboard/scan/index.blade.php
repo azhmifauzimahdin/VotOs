@@ -59,8 +59,8 @@
                             <thead>
                                 <tr>
                                     <th scope="col">NOMOR</th>
-                                    <th scope="col">NAMA KELAS</th>
-                                    <th scope="col">Perolehan Suara</th>
+                                    <th scope="col">KANDIDAT</th>
+                                    <th scope="col">PEROLEHAN SUARA</th>
                                 </tr>
                             </thead>
                             <tbody>
