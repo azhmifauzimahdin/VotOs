@@ -6,7 +6,11 @@ Anda telah terdaftar di Votos dengan detail sebagai berikut:
 Username: {{ $details['username'] }}
 Password: {{ $details['password'] }}
 
-Demi keamanan akun Anda, jangan memberitahukan pesan ini ke pihak siapa pun.
+@component('mail::button', ['url' => $details['url']])
+Login
+@endcomponent
+
+Jangan memberitahukan pesan ini ke pihak siapa pun dan segera login untuk mengganti password untuk keamanan akun Anda.
 
 Terimakasih,<br>
 {{ config('app.name') }}

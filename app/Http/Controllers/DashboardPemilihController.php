@@ -92,7 +92,8 @@ class DashboardPemilihController extends Controller
             'email' => $request->email,
             'nama' => $request->nama,
             'username' => $request->username,
-            'password' => $password
+            'password' => $password,
+            'url' => 'http://' . request()->getHttpHost() . '/loginPemilih'
         ];
 
 

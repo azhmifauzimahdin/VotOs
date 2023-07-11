@@ -21,6 +21,8 @@ use App\Http\Controllers\DashboardKandidatController;
 use App\Http\Controllers\UserPerolehanSuaraController;
 use App\Http\Controllers\DashboardPelaksanaanController;
 use App\Http\Controllers\DashboardGantiPasswordController;
+use App\Http\Controllers\ResetPasswordController;
+use App\Http\Controllers\UserGantiPasswordController;
 
 /*
 |--------------------------------------------------------------------------
@@ -53,17 +55,18 @@ Route::controller(UserVotingController::class)->group(function () {
     Route::post('/voting/generate', 'generate')->name('pemilih.voting.generate');
     Route::get('/voting/otp/{slug}', 'otp')->name('pemilih.voting.otp');
     Route::post('/voting/vote', 'voteWithOtp')->name('pemilih.voting.vote');
-    Route::get('/coba/{slug}/{otp}/{id}', 'voteWithOtpEmail')->name('pemilih.voting.otpemail');
 });
 
 Route::get('/scan', [UserScanController::class, 'index'])->name('pemilih.scan');
 Route::post('/scan', [UserScanController::class, 'validasi'])->name('pemilih.scan.validasi');
 
+Route::get('/ganti_password', [UserGantiPasswordController::class, 'index'])->name('pemilih.gantipassword')->middleware('auth:pemilih');
+Route::post('/ganti_password', [UserGantiPasswordController::class, 'gantiPassword'])->name('pemilih.gantipassword.validate')->middleware('auth:pemilih');
 
 // Dashboard
 Route::get('/dashboard', [DashboardController::class, 'index'])->name('user.dashboard')->middleware('auth:web');
 
-Route::get('/dashboard/pemilih/checkSlug', [DashboardPemilihController::class, 'checkSlug'])->middleware(['auth:web', 'pemilih']);
+Route::get('/dashboard/pemilih/checkSlug', [DashboardPemilihController::class, 'checkSlug'])->middleware(['auth:web', 'panitia']);
 Route::resource('/dashboard/pemilih', DashboardPemilihController::class)->names([
     'index' => 'user.pemilih.index',
     'create' => 'user.pemilih.create',
@@ -71,9 +74,9 @@ Route::resource('/dashboard/pemilih', DashboardPemilihController::class)->names(
     'edit' => 'user.pemilih.edit',
     'update' => 'user.pemilih.update',
     'destroy' => 'user.pemilih.destroy'
-])->except('show')->middleware(['auth:web', 'pemilih']);
+])->except('show')->middleware(['auth:web', 'panitia']);
 
-Route::get('/dashboard/kandidat/checkSlug', [DashboardKandidatController::class, 'checkSlug'])->middleware(['auth:web', 'pemilih']);
+Route::get('/dashboard/kandidat/checkSlug', [DashboardKandidatController::class, 'checkSlug'])->middleware(['auth:web', 'panitia']);
 Route::resource('/dashboard/kandidat', DashboardKandidatController::class)->names([
     'index' => 'user.kandidat.index',
     'create' => 'user.kandidat.create',
@@ -82,11 +85,11 @@ Route::resource('/dashboard/kandidat', DashboardKandidatController::class)->name
     'edit' => 'user.kandidat.edit',
     'update' => 'user.kandidat.update',
     'destory' => 'user.kandidat.destroy'
-])->middleware(['auth:web', 'pemilih']);
+])->middleware(['auth:web', 'panitia']);
 
-Route::get('/dashboard/voting', [DashboardVotingController::class, 'index'])->name('user.voting')->middleware(['auth:web', 'pemilih']);
-Route::get('/dashboard/voting/print', [DashboardVotingController::class, 'cetakPdf'])->name('user.voting.cetakPdf')->middleware(['auth:web', 'pemilih']);
-Route::get('/dashboard/voting/printSuratSuara', [DashboardVotingController::class, 'cetakPdfSuratSuara'])->name('user.voting.cetakPdfSuratSuara')->middleware(['auth:web', 'pemilih']);
+Route::get('/dashboard/voting', [DashboardVotingController::class, 'index'])->name('user.voting')->middleware(['auth:web', 'panitia']);
+Route::get('/dashboard/voting/print', [DashboardVotingController::class, 'cetakPdf'])->name('user.voting.cetakPdf')->middleware(['auth:web', 'panitia']);
+Route::get('/dashboard/voting/printSuratSuara', [DashboardVotingController::class, 'cetakPdfSuratSuara'])->name('user.voting.cetakPdfSuratSuara')->middleware(['auth:web', 'panitia']);
 
 Route::get('/dashboard/user/checkSlug', [DashboardUserController::class, 'checkSlug'])->middleware(['auth:web', 'admin']);
 Route::resource('/dashboard/user', DashboardUserController::class)->names([
@@ -98,7 +101,7 @@ Route::resource('/dashboard/user', DashboardUserController::class)->names([
     'destroy' => 'user.users.destroy',
 ])->except('show')->middleware(['auth:web', 'admin']);
 
-Route::get('/dashboard/kelas/checkSlug', [DashboardKelasController::class, 'checkSlug'])->middleware(['auth:web', 'pemilih']);
+Route::get('/dashboard/kelas/checkSlug', [DashboardKelasController::class, 'checkSlug'])->middleware(['auth:web', 'panitia']);
 Route::resource('/dashboard/kelas', DashboardKelasController::class)->names([
     'index' => 'user.kelas.index',
     'create' => 'user.kelas.create',
@@ -106,9 +109,9 @@ Route::resource('/dashboard/kelas', DashboardKelasController::class)->names([
     'edit' => 'user.kelas.edit',
     'update' => 'user.kelas.update',
     'destroy' => 'user.kelas.destroy',
-])->except('show')->middleware(['auth:web', 'pemilih']);
+])->except('show')->middleware(['auth:web', 'panitia']);
 
-Route::post('/dashboard/pelaksanaan/selesai', [DashboardPelaksanaanController::class, 'selesai'])->name('user.pelaksanaan.selesai')->middleware(['auth:web', 'pemilih']);
+Route::post('/dashboard/pelaksanaan/selesai', [DashboardPelaksanaanController::class, 'selesai'])->name('user.pelaksanaan.selesai')->middleware(['auth:web', 'panitia']);
 Route::resource('/dashboard/pelaksanaan', DashboardPelaksanaanController::class)->names([
     'index' => 'user.pelaksanaan.index',
     'create' => 'user.pelaksanaan.create',
@@ -116,14 +119,14 @@ Route::resource('/dashboard/pelaksanaan', DashboardPelaksanaanController::class)
     'edit' => 'user.pelaksanaan.edit',
     'update' => 'user.pelaksanaan.update',
     'destroy' => 'user.pelaksanaan.destroy',
-])->except('show')->middleware(['auth:web', 'pemilih']);
+])->except('show')->middleware(['auth:web', 'panitia']);
 
-Route::get('/dashboard/rekapitulasi', [DashboardVotingController::class, 'rekapitulasi'])->name('user.rekapitulasi')->middleware(['auth:web', 'pemilih']);
-Route::get('/dashboard/rekapitulasi/print', [DashboardVotingController::class, 'cetakPdfRekapitulasi'])->name('user.rekapitulasi')->middleware(['auth:web', 'pemilih']);
+Route::get('/dashboard/rekapitulasi', [DashboardVotingController::class, 'rekapitulasi'])->name('user.rekapitulasi')->middleware(['auth:web', 'panitia']);
+Route::get('/dashboard/rekapitulasi/print', [DashboardVotingController::class, 'cetakPdfRekapitulasi'])->name('user.rekapitulasi')->middleware(['auth:web', 'panitia']);
 
-Route::get('/dashboard/scan', [DashboardScanController::class, 'index'])->name('user.scan')->middleware(['auth:web', 'pemilih']);
-Route::post('/dashboard/scan', [DashboardScanController::class, 'validasi'])->name('user.scan.validasi')->middleware(['auth:web', 'pemilih']);
-Route::post('/dashboard/scan/ulang', [DashboardScanController::class, 'ScanUlang'])->name('user.scan.ulang')->middleware(['auth:web', 'pemilih']);
+Route::get('/dashboard/scan', [DashboardScanController::class, 'index'])->name('user.scan')->middleware(['auth:web', 'panitia']);
+Route::post('/dashboard/scan', [DashboardScanController::class, 'validasi'])->name('user.scan.validasi')->middleware(['auth:web', 'panitia']);
+Route::post('/dashboard/scan/ulang', [DashboardScanController::class, 'ScanUlang'])->name('user.scan.ulang')->middleware(['auth:web', 'panitia']);
 
 Route::get('/dashboard/ganti_password', [DashboardGantiPasswordController::class, 'index'])->name('user.gantiPassword')->middleware('auth:web');
 Route::put('/dashboard/ganti_password/{user:slug}', [DashboardGantiPasswordController::class, 'update'])->name('user.gantiPassword.update')->middleware('auth:web');
@@ -131,3 +134,13 @@ Route::put('/dashboard/ganti_password/{user:slug}', [DashboardGantiPasswordContr
 Route::get('/loginUser', [LoginUserController::class, 'index'])->name('user.login')->middleware('guest');
 Route::post('/loginUser', [LoginUserController::class, 'authenticate'])->name('user.autenticate')->middleware('guest');
 Route::post('/logoutUser', [LoginUserController::class, 'logout'])->name('user.logout');
+
+
+
+
+
+
+Route::get('/lupa-password', [ResetPasswordController::class, 'index'])->name('password.request')->middleware('guest');
+Route::post('/lupa-password', [ResetPasswordController::class, 'gantiPassword'])->name('password.email')->middleware('guest');
+Route::get('/reset-password/{token}', [ResetPasswordController::class, 'resetPassword'])->name('password.reset')->middleware('guest');
+Route::post('/reset-password', [ResetPasswordController::class, 'validasiResetPassword'])->name('password.update')->middleware('guest');

@@ -56,9 +56,6 @@
                                             <td class="text-nowrap">{{ $pemilih->kelas->nama }}</td>
                                             <td>{{ $pemilih->jenis_kelamin }}</td>
                                             <td class="text-nowrap">
-                                                <a href="/dashboard/pemilih/{{ $pemilih->slug }}" class="btn btn-sm bg-success">
-                                                    <i class="fa-solid fa-envelope"></i>
-                                                </a>
                                                 <a href="/dashboard/pemilih/{{ $pemilih->slug }}/edit" class="btn btn-sm bg-warning">
                                                     <i class="fa-solid fa-pen-to-square"></i>
                                                 </a>

@@ -86,7 +86,7 @@ class UserVotingController extends Controller
             $id = 0;
         }
 
-        $status = Voting::vote($id)->first();
+        $status = Voting::where('pemilih_id', $id)->first();
         if ($id === 0 || $status) {
             abort(403);
         }

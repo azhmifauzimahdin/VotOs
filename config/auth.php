@@ -15,7 +15,7 @@ return [
 
     'defaults' => [
         'guard' => 'web',
-        'passwords' => 'users',
+        'passwords' => 'pemilihs',
     ],
 
     /*
@@ -98,6 +98,12 @@ return [
         'users' => [
             'provider' => 'users',
             'table' => 'password_resets',
+            'expire' => 60,
+            'throttle' => 60,
+        ],
+        'pemilihs' => [
+            'provider' => 'pemilihs',
+            'table' => 'reset_passwords',
             'expire' => 60,
             'throttle' => 60,
         ],

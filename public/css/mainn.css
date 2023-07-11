@@ -52,9 +52,12 @@ body {
     aspect-ratio: 3/4;
 }
 
-.foto-kandidat-voting{
+.foto-kandidat-voting {
     width: 100%;
     aspect-ratio: 3/4;
+}
+.kotak-ganti-password {
+    width: 75%;
 }
 
 @media (min-width: 320px) and (max-width: 767px) {
@@ -65,7 +68,8 @@ body {
     .img-ilustration-beranda1,
     .img-ilustration-beranda2,
     .ilustrasi_loginUser,
-    .ilustrasi_loginPemilih {
+    .ilustrasi_loginPemilih,
+    .ilustrasi-ganti-password {
         display: none !important;
     }
 
@@ -84,7 +88,7 @@ body {
         background: transparent;
     }
 
-    .icon-logout {
+    .icon-navbar {
         display: none !important;
     }
 
@@ -96,6 +100,10 @@ body {
     }
 
     .foto-scan-pemilih {
+        width: 100%;
+    }
+
+    .kotak-ganti-password {
         width: 100%;
     }
 }

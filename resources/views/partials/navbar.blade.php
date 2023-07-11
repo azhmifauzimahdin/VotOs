@@ -27,12 +27,18 @@
                         {{ auth('pemilih')->user()->nama }}
                         </a>
                         <ul class="dropdown-menu border-0 py-0 overflow-hidden dropdown-logout">
+                            <li class="mb-2 mb-md-0">
+                                <a href="ganti_password" class="button-logout dropdown-item py-0 py-md-2">
+                                    <i class="icon-navbar nav-icon fa-solid fa-lock"></i>
+                                    <span class="ms-md-1">Ganti Password</span>
+                                </a>
+                            </li>
                             <li>
                                 <form action="/logoutPemilih" method="post">
                                     @csrf
                                     <button type="submit" class="button-logout dropdown-item py-0 py-md-2">
-                                        <i class="icon-logout nav-icon fa-solid fa-arrow-right-from-bracket mr-5"></i>
-                                        Logout
+                                        <i class="icon-navbar nav-icon fa-solid fa-arrow-right-from-bracket"></i>
+                                        <span class="ms-md-1">Logout</span>
                                     </button>
                                 </form>
                             </li>

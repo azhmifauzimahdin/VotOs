@@ -18,7 +18,7 @@ class DashboardPelaksanaanController extends Controller
         $pemilu = Pemilu::first();
         $now = Carbon::now();
         $cek = false;
-        if($pemilu){
+        if ($pemilu) {
             $cek = $now->isAfter($pemilu->selesai);
         }
 
@@ -37,8 +37,8 @@ class DashboardPelaksanaanController extends Controller
     public function create()
     {
         $pemilu = Pemilu::get();
-        if(count($pemilu) > 0){
-            abort(404);
+        if (count($pemilu) > 0) {
+            abort(403);
         }
         return view('dashboard.pelaksanaan.create', [
             'title' => 'Tambah Waktu Pelaksanaan'
@@ -62,7 +62,7 @@ class DashboardPelaksanaanController extends Controller
         Pemilu::create($validateData);
         return redirect('/dashboard/pelaksanaan')->with('success', 'Data waktu pelaksanaan berhasil ditambahkan!');
     }
-    
+
     /**
      * Display the specified resource.
      *
@@ -121,7 +121,8 @@ class DashboardPelaksanaanController extends Controller
         return redirect('/dashboard/pelaksanaan')->with('success', 'Data waktu pelaksanaan berhasil dihapus!');
     }
 
-    public function selesai(){
+    public function selesai()
+    {
         Pemilu::where('id', 1)->update([
             'selesai' => Carbon::now()->format('Y-m-d H:i')
         ]);
