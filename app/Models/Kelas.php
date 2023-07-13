@@ -40,4 +40,9 @@ class Kelas extends Model
     {
         return $this->hasMany(Pemilih::class);
     }
+
+    public function kandidats()
+    {
+        return $this->hasMany(Kandidat::class);
+    }
 }

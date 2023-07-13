@@ -16,12 +16,11 @@ class CreatePemilihsTable extends Migration
         Schema::create('pemilihs', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id');
-            $table->foreignId('kelas_id');
-            $table->string('nisn')->unique();
+            $table->foreignId('kelas_id')->nullable();
+            $table->foreignId('jabatan_id')->nullable();
             $table->string('nama');
-            $table->string('email')->unique();
             $table->string('jenis_kelamin');
-            $table->string('username')->unique();
+            $table->string('email')->unique();
             $table->string('password');
             $table->string('slug')->unique();
             $table->rememberToken();

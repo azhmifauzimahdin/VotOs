@@ -6,9 +6,6 @@
 @endsection
 @section('content2')
     <h4 class="text-center mb-4">Reset Password</h4>
-    {{-- <div class="alert alert-secondary" role="alert">
-        Silakan masukan email dan password baru Anda
-    </div> --}}
     <form action="/reset-password" method="POST">
         @csrf
         <input type="hidden" name="token" value="{{ $token }}">

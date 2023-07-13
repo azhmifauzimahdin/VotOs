@@ -16,11 +16,11 @@ class UserFactory extends Factory
     {
         return [
             'nama' => $this->faker->name(),
-            'username' => $this->faker->unique()->userName(),
-            'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi',
-            'email' => $this->faker->unique()->safeEmail(),
             'jenis_kelamin' => $this->faker->randomElement(['Laki-laki', 'Perempuan']),
+            'email' => $this->faker->unique()->safeEmail(),
             'level' => $this->faker->randomElement(['Administrator', 'Panitia']),
+            'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi',
+            'jenis_kelamin' => $this->faker->randomElement(['Laki-laki', 'Perempuan']),
             'slug' => $this->faker->slug(),
         ];
     }

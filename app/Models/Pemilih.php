@@ -58,6 +58,11 @@ class Pemilih extends Authenticatable
         return $this->belongsTo(Kelas::class);
     }
 
+    public function jabatan()
+    {
+        return $this->belongsTo(Jabatan::class);
+    }
+
     public function votings()
     {
         return $this->hasMany(Voting::class);

@@ -12,10 +12,11 @@ class Kandidat extends Model
 
     protected $guarded = ['id'];
 
-    public function scopeHasil($query){
+    public function scopeHasil($query)
+    {
         $kandidat = Kandidat::all();
         $query = [];
-        foreach($kandidat as $data){
+        foreach ($kandidat as $data) {
             $query[] = $data->jumlah_suara;
         }
         return $query;
@@ -49,5 +50,10 @@ class Kandidat extends Model
     public function votings()
     {
         return $this->hasMany(Voting::class);
+    }
+
+    public function kelas()
+    {
+        return $this->belongsTo(Kelas::class);
     }
 }
