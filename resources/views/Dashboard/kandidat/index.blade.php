@@ -36,6 +36,8 @@
                                 <tr>
                                     <th scope="col">NO</th>
                                     <th scope="col">NAMA</th>
+                                    <th scope="col">JABATAN</th>
+                                    <th scope="col">KELAS</th>
                                     <th scope="col">JENIS KELAMIN</th>
                                     <th scope="col">FOTO</th>
                                     <th scope="col">ACTION</th>
@@ -47,6 +49,8 @@
                                         <tr>
                                             <td class="align-middle">{{ $kandidat->nomor }}</td>
                                             <td class="align-middle">{{ $kandidat->nama }}</td>
+                                            <td class="align-middle">{{ $kandidat->jabatan }}</td>
+                                            <td class="align-middle text-nowrap">{{ $kandidat->kelas->nama }}</td>
                                             <td class="align-middle">{{ $kandidat->jenis_kelamin }}</td>
                                             <td>
                                                 @if ($kandidat->foto)

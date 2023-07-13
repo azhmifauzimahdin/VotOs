@@ -10,11 +10,11 @@
                         @if ($kandidat->foto)
                         <img src="{{ asset('storage/'.$kandidat->foto) }}" alt="Admin" class="rounded-circle" width="150" style="aspect-ratio:1/1">
                         @else
-                        <img src="{{ asset('AdminLTE') }}/dist/img/user2-160x160.jpg" alt="Admin" class="rounded-circle" width="150" style="aspect-ratio:1/1">
+                        <img src="{{ asset('AdminLTE') }}/dist/img/default_user.jpg" alt="Admin" class="rounded-circle" width="150" style="aspect-ratio:1/1">
                         @endif
                         <div class="mt-3 w-100">
                             <h4>{{ $kandidat->nama }}</h4>
-                            <p class="text-secondary mb-1">{{ $kandidat->jenis_kelamin }}</p>
+                            <p class="text-secondary mb-1">{{ $kandidat->kelas->nama }}</p>
                             <hr>
                             <a class="text-decoration-none" href="/dashboard/kandidat">Kembali</a>
                         </div>
@@ -45,10 +45,46 @@
                     <hr>
                     <div class="row">
                         <div class="col-sm-3">
+                            <h6 class="mb-0">Jabatan Sebelumnya</h6>
+                        </div>
+                        <div class="col-sm-9 text-secondary">
+                            {{ $kandidat->jabatan }}
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <h6 class="mb-0">Kelas</h6>
+                        </div>
+                        <div class="col-sm-9 text-secondary">
+                            {{ $kandidat->kelas->nama }}   
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <div class="col-sm-3">
                             <h6 class="mb-0">Jenis Kelamin</h6>
                         </div>
                         <div class="col-sm-9 text-secondary">
                             {{ $kandidat->jenis_kelamin }}   
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <h6 class="mb-0">Tempat, Tanggal Lahir</h6>
+                        </div>
+                        <div class="col-sm-9 text-secondary">
+                            {{ $kandidat->tempat_lahir }}, {{ Carbon\Carbon::parse($kandidat->tanggal_lahir)->translatedFormat('d F Y') }}  
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <h6 class="mb-0">Alamat</h6>
+                        </div>
+                        <div class="col-sm-9 text-secondary">
+                            {{ $kandidat->alamat }} 
                         </div>
                     </div>
                     <hr>

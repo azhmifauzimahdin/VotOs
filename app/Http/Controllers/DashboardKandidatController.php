@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Kelas;
 use App\Models\Kandidat;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -30,7 +31,8 @@ class DashboardKandidatController extends Controller
     public function create()
     {
         return view('dashboard.kandidat.create', [
-            'title' => 'Tambah Data Kandidat'
+            'title' => 'Tambah Data Kandidat',
+            'kelas' => Kelas::orderBy('nama', 'ASC')->get()
         ]);
     }
 
@@ -45,7 +47,12 @@ class DashboardKandidatController extends Controller
         $validateData = $request->validate([
             'nomor' => 'required|numeric|unique:kandidats',
             'nama' => 'required',
+            'jabatan' => 'required',
+            'kelas_id' => 'required',
             'jenis_kelamin' => 'required',
+            'tempat_lahir' => 'required',
+            'tanggal_lahir' => 'required',
+            'alamat' => 'required',
             'foto' => 'image',
             'slug' => 'required|unique:kandidats',
             'visi' => 'required',
@@ -85,7 +92,8 @@ class DashboardKandidatController extends Controller
     {
         return view('dashboard.kandidat.edit', [
             'title' => 'Edit Data Kandidat',
-            'kandidat' => $kandidat
+            'kandidat' => $kandidat,
+            'kelas' => Kelas::orderBy('nama', 'ASC')->get()
         ]);
     }
 
@@ -100,7 +108,12 @@ class DashboardKandidatController extends Controller
     {
         $rules = [
             'nama' => 'required',
+            'jabatan' => 'required',
+            'kelas_id' => 'required',
             'jenis_kelamin' => 'required',
+            'tempat_lahir' => 'required',
+            'tanggal_lahir' => 'required',
+            'alamat' => 'required',
             'foto' => 'image',
             'visi' => 'required',
             'misi' => 'required'

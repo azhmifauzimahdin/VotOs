@@ -46,7 +46,6 @@ class ResetPasswordController extends Controller
             'password' => 'required|min:8|confirmed',
         ]);
 
-        // ddd($request->only('email', 'password', 'password_confirmation', 'token'));
         $status = Password::reset(
             $request->only('email', 'password', 'password_confirmation', 'token'),
             function ($user, $password) {

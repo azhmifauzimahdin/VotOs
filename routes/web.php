@@ -49,7 +49,6 @@ Route::resource('/kandidat', UserKandidatController::class)->names([
 ])->except(['create', 'store', 'edit', 'update', 'destroy']);
 
 Route::get('/voting/print', [UserVotingController::class, 'cetakPdfQrCode'])->name('pemilih.voting.cetak');
-Route::get('/kirim_email', [KirimEmailController::class, 'index'])->name('pemilih.sendemail');
 Route::controller(UserVotingController::class)->group(function () {
     Route::get('/voting', 'index')->name('pemilih.voting');
     Route::post('/voting/generate', 'generate')->name('pemilih.voting.generate');

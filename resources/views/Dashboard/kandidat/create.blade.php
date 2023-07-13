@@ -27,20 +27,66 @@
                             @enderror
                         </div>
                         <div class="form-group">
+                            <label for="jabatan">Jabatan Sebelumnya</label>
+                            <input type="text" class="form-control @error('jabatan') is-invalid @enderror" id="jabatan" name="jabatan" placeholder="Jabatan Sebelumnya" required value="{{ old('jabatan') }}">
+                            @error('jabatan')
+                            <div class="invalid-feedback">
+                                {{ $message }}
+                            </div>
+                            @enderror
+                        </div>
+                        <div class="form-group">
+                            <label for="kelas_id">Kelas</label>
+                            <select class="form-control @error('kelas_id') is-invalid @enderror" name="kelas_id" id="kelas_id">
+                                @foreach ($kelas as $data)
+                                    <option value="{{ $data->id }}" {{ old('kelas_id') == $data->id ? "selected" : "" }}>{{ $data->nama }}</option>
+                                @endforeach
+                            </select>
+                            @error('kelas_id')
+                            <div class="invalid-feedback">
+                                {{ $message }}
+                            </div>
+                            @enderror
+                        </div>
+                        <div class="form-group">
                             <label for="jenis_kelamin">Jenis Kelamin</label>
                             <select class="form-control" id="jenis_kelamin" name="jenis_kelamin">
                                 <option value="Laki-laki" {{ old('jenis_kelamin') == "Laki-laki" ? "selected" : "" }}>Laki-laki</option>
                                 <option value="Perempuan" {{ old('jenis_kelamin') == "Perempuan" ? "selected" : "" }}>Perempuan</option>
                             </select>
                         </div>
-                        <div class="form-group d-none">
-                            <label for="slug">Slug</label>
-                            <input type="text" class="form-control @error('slug') is-invalid @enderror" id="slug" name="slug" placeholder="Slug" required value="{{  old('slug') }}">
-                            @error('slug')
+                        <div class="form-row">
+                            <div class="form-group col-md-8">
+                                <label for="tempat_lahir">Tempat Lahir</label>
+                                <input type="text" class="form-control @error('tempat_lahir') is-invalid @enderror" id="tempat_lahir" name="tempat_lahir" placeholder="Tempat Lahir" required value="{{ old('tempat_lahir') }}">
+                                @error('tempat_lahir')
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                                @enderror
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label for="tanggal_lahir">Tanggal Lahir</label>
+                                <input type="date" class="form-control @error('tanggal_lahir') is-invalid @enderror" id="tanggal_lahir" name="tanggal_lahir" required value="{{ old('tanggal_lahir') }}">
+                                @error('tanggal_lahir')
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                                @enderror
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="alamat">Alamat</label>
+                            <textarea class="form-control @error('alamat') is-invalid @enderror" id="alamat" name="alamat" placeholder="Alamat" required>{{ old('alamat') }}</textarea>
+                            @error('alamat')
                             <div class="invalid-feedback">
                                 {{ $message }}
                             </div>
                             @enderror
+                        </div>
+                        <div class="form-group d-none">
+                            <label for="slug">Slug</label>
+                            <input type="text" class="form-control @error('slug') is-invalid @enderror" id="slug" name="slug" placeholder="Slug" required value="{{  old('slug') }}">
                         </div>
                         <div class="form-group">
                             <label for="foto">Foto</label>
