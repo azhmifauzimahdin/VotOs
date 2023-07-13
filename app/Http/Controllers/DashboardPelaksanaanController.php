@@ -18,8 +18,8 @@ class DashboardPelaksanaanController extends Controller
         $pemilu = Pemilu::first();
         $now = Carbon::now();
         $cek = false;
-        if ($pemilu) {
-            $cek = $now->isAfter($pemilu->selesai);
+        if ($pemilu && $now->isAfter($pemilu->mulai) && $now->isBefore($pemilu->selesai)) {
+            $cek = true;
         }
 
         return view('dashboard.pelaksanaan.index', [

@@ -22,7 +22,7 @@
                             </a>
                         </div>
                     @else
-                        @if(!$cek)
+                        @if($cek)
                             <div class="row d-flex justify-content-between mb-3 mx-1">
                                 <form action="/dashboard/pelaksanaan/selesai" method="post">
                                     @csrf
