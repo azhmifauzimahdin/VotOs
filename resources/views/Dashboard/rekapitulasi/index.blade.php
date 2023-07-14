@@ -17,15 +17,6 @@
                                     @endforeach
                                 </select>
                             </div>
-                            <div class="col-md-4 mb-1">
-                                <label for="kelas">Kelas</label>
-                                <select class="form-control" name="kelas" id="kelas">
-                                    <option value="" {{ request('kelas') == "" ? "selected" : "" }}>Semua Kelas</option>
-                                    @foreach ($kelas as $data)
-                                        <option value="{{ $data->nama }}" {{ request('kelas') == $data->nama ? "selected" : "" }}>{{ $data->nama }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
                             <div class="col-md-2 mb-1 d-flex align-items-end">
                                 <button type="submit" class="btn btn-info mr-2">Tampilkan</button>
                             </div>
@@ -33,7 +24,7 @@
                     </form>
                     <hr>
                     <div class="row d-flex justify-content-between mb-3 mx-1">
-                        <a href="/dashboard/rekapitulasi/print?kandidat={{ request('kandidat') }}&kelas={{ request('kelas') }}" target="_blank" class="btn btn-primary">
+                        <a href="/dashboard/rekapitulasi/print?kandidat={{ request('kandidat') }}" target="_blank" class="btn btn-primary">
                             <i class="fa-solid fa-print"></i>
                             <span class="ml-1">Print</span>
                         </a>
@@ -63,17 +54,6 @@
                                             @endif
                                         </td> 
                                     </tr> 
-                                    <tr> 
-                                        <td>Kelas</td>
-                                        <td>:</td>
-                                        <td>
-                                            @if (request('kelas'))
-                                                {{ request('kelas') }}
-                                            @else
-                                                Semua kelas
-                                            @endif
-                                        </td> 
-                                    </tr> 
                                 </tbody>
                             </table>
                         </div>
@@ -93,7 +73,7 @@
                                     @foreach ($votings as $index => $voting)
                                         <tr>
                                             <td>{{ $index + $votings->firstItem() }}</td>
-                                            <td>{{ $voting->pemilih->nisn }} - {{ $voting->pemilih->kelas->nama }} - {{ $voting->pemilih->nama }}</td>
+                                            <td>{{ $voting->pemilih->nama}}</td>
                                             <td>{{ $voting->kandidat->nomor }} - {{ $voting->kandidat->nama }}</td>
                                             <td>{{ $voting->created_at }}</td>
                                         </tr>

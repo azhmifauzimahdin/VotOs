@@ -43,7 +43,7 @@
                                     @foreach ($votings as $index => $voting)
                                         <tr>
                                             <td>{{ $index + $votings->firstItem() }}</td>
-                                            <td>{{ $voting->pemilih->nisn }} - {{ $voting->pemilih->kelas->nama }} - {{ $voting->pemilih->nama }}</td>
+                                            <td>{{ $voting->pemilih->nama }}</td>
                                             <td>{{ $voting->kandidat->nomor }} - {{ $voting->kandidat->nama }}</td>
                                             <td>{{ $voting->created_at }}</td>
                                         </tr>

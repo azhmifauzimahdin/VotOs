@@ -11,7 +11,8 @@ class Voting extends Model
 
     protected $guarded = ['id'];
 
-    public function scopeVote($query, $id){
+    public function scopeVote($query, $id)
+    {
         $query->when($id ?? false, function ($query, $search) {
             return $query->where('pemilih_id', 'like', '%' . $search . '%');
         });
@@ -25,11 +26,7 @@ class Voting extends Model
                     $query->where('nomor', 'like', '%' . $search . '%')
                         ->orWhere('nama', 'like', '%' . $search . '%');
                 })->orWhereHas('pemilih', function ($query) use ($search) {
-                    $query->where('id', 'like', '%' . $search . '%')
-                        ->orWhere('nama', 'like', '%' . $search . '%')
-                        ->orWhereHas('kelas', function ($query) use ($search) {
-                            $query->where('nama', 'like', '%' . $search . '%');
-                        });
+                    $query->where('nama', 'like', '%' . $search . '%');
                 });
         });
 
@@ -37,14 +34,6 @@ class Voting extends Model
             return $query->whereHas('kandidat', function ($query) use ($search) {
                 $query->where('nomor', 'like', '%' . $search . '%')
                     ->orWhere('nama', 'like', '%' . $search . '%');
-            });
-        });
-
-        $query->when($filters['kelas'] ?? false, function ($query, $search) {
-            return $query->whereHas('pemilih', function ($query) use ($search) {
-                $query->whereHas('kelas', function ($query) use ($search) {
-                    $query->where('nama', 'like', '%' . $search . '%');
-                });
             });
         });
     }

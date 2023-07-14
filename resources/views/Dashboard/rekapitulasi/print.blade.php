@@ -34,8 +34,8 @@
     </style>
 </head>
 <body onload="window.print()">
-    <h3 class="text-center">REKAPITULASI DATA VOTING</h3>
-    @if (request('kandidat') || request('kelas'))  
+    <h3 class="text-center">REKAPITULASI HASIL VOTING</h3>
+    @if (request('kandidat'))  
         <table> 
             <tbody> 
                 <tr> 
@@ -48,18 +48,7 @@
                             Semua kandidat
                         @endif
                     </td> 
-                </tr> 
-                <tr> 
-                    <td class="label">Kelas</td>
-                    <td>:</td>
-                    <td>
-                        @if (request('kelas'))
-                            {{ request('kelas') }}
-                        @else
-                            Semua kelas
-                        @endif
-                    </td> 
-                </tr> 
+                </tr>
             </tbody>
         </table>
     @endif
@@ -77,7 +66,7 @@
                 @foreach ($votings as $index => $voting)
                     <tr>
                         <td>{{ $loop->iteration }}</td>
-                        <td>{{ $voting->pemilih->nisn }} - {{ $voting->pemilih->kelas->nama }} - {{ $voting->pemilih->nama }}</td>
+                        <td>{{ $voting->pemilih->nama }}</td>
                         <td>{{ $voting->kandidat->nomor }} - {{ $voting->kandidat->nama }}</td>
                         <td>{{ $voting->created_at }}</td>
                     </tr>

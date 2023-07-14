@@ -10,7 +10,7 @@
 <body>
     @if (count($votings))
         @foreach ($votings as $voting)  
-            <h5 class="text-center">QR CODE HASIL VOTING</h5>
+            <h5 class="text-center">QR CODE SURAT SUARA</h5>
             <p class="text-center mb-0">Sistem E-Voting Pemilihan Ketua OSIS</p>
             <div class="row d-flex justify-content-center">
                 <div class="col-6 d-flex justify-content-center">

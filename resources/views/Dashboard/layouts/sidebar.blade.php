@@ -60,6 +60,14 @@
             </a>
           </li>
           <li class="nav-item">
+            <a href="/dashboard/pelaksanaan" class="nav-link {{ Request::is('dashboard/pelaksanaan*') ? 'active' : ''}}">
+              <i class="nav-icon fa-solid fa-calendar-days"></i>
+              <p>
+                Waktu Pelaksanaan
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
             <a href="/dashboard/kelas" class="nav-link {{ Request::is('dashboard/kelas*') ? 'active' : ''}}">
               <i class="nav-icon fa-solid fa-school"></i>
               <p>
@@ -76,15 +84,15 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href="/dashboard/pelaksanaan" class="nav-link {{ Request::is('dashboard/pelaksanaan*') ? 'active' : ''}}">
-              <i class="nav-icon fa-solid fa-calendar-days"></i>
+            <a href="/dashboard/rekapitulasi" class="nav-link {{ Request::is('dashboard/rekapitulasi*') ? 'active' : ''}}">
+              <i class="nav-icon fa-solid fa-file"></i>
               <p>
-                Waktu Pelaksanaan
+                Rekapitulasi
               </p>
             </a>
           </li>
         @endcan
-        @can('admin')   
+        @can('admin')
           <li class="nav-item">
             <a href="/dashboard/user" class="nav-link {{ Request::is('dashboard/user*') ? 'active' : ''}}">
               <i class="nav-icon fa-solid fa-users-gear"></i>
@@ -94,15 +102,7 @@
             </a>
           </li>
         @endcan
-        @can('panitia')            
-          <li class="nav-item">
-            <a href="/dashboard/rekapitulasi" class="nav-link {{ Request::is('dashboard/rekapitulasi*') ? 'active' : ''}}">
-              <i class="nav-icon fa-solid fa-file"></i>
-              <p>
-                Rekapitulasi
-              </p>
-            </a>
-          </li>
+        @can('panitia')
           <li class="nav-item">
             <a href="/dashboard/scan" class="nav-link {{ Request::is('dashboard/scan*') ? 'active' : ''}}">
               <i class=" nav-icon fa-solid fa-qrcode"></i>

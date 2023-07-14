@@ -21,7 +21,7 @@ class DashboardVotingController extends Controller
     {
         return view('dashboard.rekapitulasi.index', [
             'title' => 'Rekapitulasi',
-            'votings' => Voting::latest()->filter(request(['search', 'kandidat', 'kelas']))->paginate(10)->withQueryString(),
+            'votings' => Voting::latest()->filter(request(['search', 'kandidat']))->paginate(10)->withQueryString(),
             'kandidats' => Kandidat::orderBy('nomor', 'ASC')->get(),
             'kelas' => Kelas::orderBy('nama', 'ASC')->get()
         ]);
