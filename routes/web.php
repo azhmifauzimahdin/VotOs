@@ -42,10 +42,10 @@ Route::get('/', [UserBerandaController::class, 'index'])->name('pemilih.beranda'
 
 Route::get('/perolehan-suara', [UserPerolehanSuaraController::class, 'index'])->name('pemilih.perolehanSuara');
 
-Route::resource('/kandidat', UserKandidatController::class)->names([
-    'index' => 'pemilih.kandidat.index',
-    'show' => 'pemilih.kandidat.show',
-])->except(['create', 'store', 'edit', 'update', 'destroy']);
+Route::controller(UserKandidatController::class)->group(function () {
+    Route::get('/kandidat', 'index')->name('pemilih.kandidat.index');
+    Route::get('/kandidat/{slug}', 'detail')->name('pemilih.kandidat.detail');
+});
 
 Route::get('/voting/print', [UserVotingController::class, 'cetakPdfQrCode'])->name('pemilih.voting.cetak');
 Route::controller(UserVotingController::class)->group(function () {

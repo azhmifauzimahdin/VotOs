@@ -46,7 +46,7 @@
                             <div class="col-sm-4">
                                 <h6 class="mb-md-0">Nama Lengkap</h6>
                             </div>
-                            <div class="col-sm-8">
+                            <div class="col-sm-8 ps-md-4">
                                 {{ $kandidat->nama }}   
                             </div>
                         </div>
@@ -55,7 +55,7 @@
                             <div class="col-sm-4">
                                 <h6 class="mb-md-0">Jabatan Sebelumnya</h6>
                             </div>
-                            <div class="col-sm-8">
+                            <div class="col-sm-8 ps-md-4">
                                 {{ $kandidat->jabatan }}   
                             </div>
                         </div>
@@ -64,7 +64,7 @@
                             <div class="col-sm-4">
                                 <h6 class="mb-md-0">Kelas</h6>
                             </div>
-                            <div class="col-sm-8">
+                            <div class="col-sm-8 ps-md-4">
                                 {{ $kandidat->kelas->nama }}   
                             </div>
                         </div>
@@ -73,7 +73,7 @@
                             <div class="col-sm-4">
                                 <h6 class="mb-md-0">Jenis Kelamin</h6>
                             </div>
-                            <div class="col-sm-8">
+                            <div class="col-sm-8 ps-md-4">
                                 {{ $kandidat->jenis_kelamin }}   
                             </div>
                         </div>
@@ -82,7 +82,7 @@
                             <div class="col-sm-4">
                                 <h6 class="mb-md-0">Tempat, Tanggal Lahir</h6>
                             </div>
-                            <div class="col-sm-8">
+                            <div class="col-sm-8 ps-md-4">
                                 {{ $kandidat->tempat_lahir }}, {{ Carbon\Carbon::parse($kandidat->tanggal_lahir)->translatedFormat('d F Y') }}  
                             </div>
                         </div>
@@ -91,7 +91,7 @@
                             <div class="col-sm-4">
                                 <h6 class="mb-md-0">Alamat</h6>
                             </div>
-                            <div class="col-sm-8">
+                            <div class="col-sm-8 ps-md-4">
                                 {{ $kandidat->alamat }}
                             </div>
                         </div>
@@ -100,7 +100,7 @@
                             <div class="col-sm-4">
                                 <h6 class="mb-md-0">Visi</h6>
                             </div>
-                            <div class="col-sm-8">
+                            <div class="col-sm-8 ps-md-4">
                                 {!! $kandidat->visi !!}
                             </div>
                         </div>
@@ -109,7 +109,7 @@
                             <div class="col-sm-4">
                                 <h6 class="mb-md-0">Misi</h6>
                             </div>
-                            <div class="col-sm-8">
+                            <div class="col-sm-8 ps-md-4">
                                 {!! $kandidat->misi !!}
                             </div>
                         </div>
