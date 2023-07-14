@@ -2,16 +2,6 @@
 <meta name="csrf-token" content="{{ csrf_token() }}" />
 @section('container')
     <div class="row">
-        @if(session()->has('success'))
-        <div class="col-md-11">
-            <div class="alert alert-success alert-dismissible fade show shadow-sm" role="alert">
-                {{ session('success') }}
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-        </div>
-        @endif
         <div class="col-md-4">
             <div class="card p-3 mb-0" id="card-reader">
                 <div id="reader"></div>
@@ -33,16 +23,24 @@
                     <div class="col-9 text-muted pl-3" id="nama">-</div>
                 </div>
             </div>
-            <div class="card bg-transparent shadow-none">
-                <input type="hidden" id="scanulang" class="btn btn-success" value="Scan Surat Suara" onClick="document.location.reload(true)">
+            <div class="card bg-transparent shadow-none d-none" id="scan-ulang">
+                <input type="button" id="scanulang" class="btn btn-success" value="Scan Surat Suara" onClick="document.location.reload(true)">
             </div>
         </div>
-        <div class="col-md-7">
+        <div class="col-md-8">
             <div class="card">
                 <div class="card-header">
                     Perhitungan Suara
                 </div>
                 <div class="card-body">
+                    @if(session()->has('success'))
+                    <div class="alert alert-success alert-dismissible fade show shadow-sm" role="alert">
+                        {{ session('success') }}
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    @endif
                     @if ($cekScan && count($surat_suara) > 0)
                     <div class="alert alert-success" role="alert">
                         Surat suara sudah terscan semua.
@@ -137,7 +135,7 @@
                             $('#foto-kandidat').css('display', 'block');
                             $("#nomor").append(response.kandidat.nomor);
                             $("#nama").append(response.kandidat.nama);
-                            $('#scanulang').attr('type','button');
+                            $('#scan-ulang').removeClass('d-none');
                             $('#card-reader').css('display', 'none');
                             if(response.kode){
                                 $('#status').removeClass('d-none');

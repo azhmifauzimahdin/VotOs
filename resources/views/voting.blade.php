@@ -26,38 +26,6 @@
     @auth('pemilih')
         @if($status)
             <div class="px-5">
-                {{-- <div class="row d-flex justify-content-center mb-4">
-                    <div class="col-12 col-md-4 bg-light rounded-3 p-4">
-                        <div class="mb-3">
-                            <div>NOMOR</div>
-                            <div><h5>{{ $status->kandidat->nomor }}</h5></div>
-                        </div>
-                        <div class="mb-3">
-                            <div>NAMA</div>
-                            <div><h5>{{ $status->kandidat->nama }}</h5></div>
-                        </div>
-                        <div class="d-flex justify-content-center pb-3" style="border-bottom: 1px dashed">
-                            {!! $status->qr_code !!}
-                        </div>
-                        <div class="d-flex">
-                            <div class="d-flex py-3">
-                                <div>
-                                    @if ($status->kandidat->foto)
-                                    <img src="{{ asset('storage/'.$status->kandidat->foto) }}" alt="Admin" class="rounded-circle" width="40" style="aspect-ratio:1/1">
-                                    @else
-                                    <img src="{{ asset('AdminLTE') }}/dist/img/default_user.jpg" alt="Admin" class="rounded-circle" width="40" style="aspect-ratio:1/1">
-                                    @endif
-                                </div>
-                                <div class="align-self-center">
-                                    <h6 class="mb-0 ps-2">{{ $status->kandidat->nama }}</h6>
-                                </div>
-                            </div>
-                            <div>
-                                {{ $status->created_at }}
-                            </div>
-                        </div>
-                    </div>
-                </div> --}}
                 <div class="row d-flex justify-content-center mx-md-5 mb-5">
                     <div class="col-12 col-md-3 bg-light shadow-sm overflow-hidden px-0 mb-3" style="border-radius: 1vw; height: 100%">
                         <div class="py-3"></div>
@@ -114,9 +82,9 @@
                                     <div class="kotak-profil border bg-white overflow-hidden" style="border-radius: 1vw; min-height: 100%; position:relative" >
                                         <div class="candidate_thumb" style="height: 80%">
                                             @if ($kandidat->foto)
-                                                <img src="{{ asset('storage/'. $kandidat->foto) }}" class="foto-kandidat" alt="Foto Kandidat" width="100%" height="250px">
+                                                <img src="{{ asset('storage/'. $kandidat->foto) }}" class="foto-kandidat" alt="Foto Kandidat" width="100%">
                                             @else
-                                                <img src="{{ asset('AdminLTE') }}/dist/img/default_user.jpg" class="foto-kandidat" alt="Foto Kandidat" width="100%" height="250px">
+                                                <img src="{{ asset('AdminLTE') }}/dist/img/default_user.jpg" class="foto-kandidat" alt="Foto Kandidat" width="100%">
                                             @endif
                                             <div class="px-3" style="position: absolute; z-index: 1; width: 100%; bottom: 0; text-align: right;">
                                                 <h5 class="text-primary">

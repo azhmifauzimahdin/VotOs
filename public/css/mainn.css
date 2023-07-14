@@ -42,11 +42,6 @@ body {
     transform: rotate(-10deg);
 }
 
-.foto_kandidat_voting {
-    border-top: 1px solid rgb(236, 236, 236);
-    border-bottom: 1px solid rgb(236, 236, 236);
-}
-
 .foto-scan-pemilih {
     width: 50%;
     aspect-ratio: 3/4;
@@ -58,6 +53,10 @@ body {
 }
 .kotak-ganti-password {
     width: 75%;
+}
+
+.foto-kandidat{
+    aspect-ratio: 3/4;
 }
 
 @media (min-width: 320px) and (max-width: 767px) {
@@ -94,9 +93,6 @@ body {
 
     .box-otp {
         width: 94% !important;
-    }
-    .foto-kandidat {
-        height: 170px;
     }
 
     .foto-scan-pemilih {
