@@ -15,3 +15,14 @@ trix-toolbar [data-trix-button-group="file-tools"] {
 .info-voting{
     background-color: #ededed;
 }
+
+.input-search{
+    position: relative !important;
+}
+
+.delete-input-search{
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+}

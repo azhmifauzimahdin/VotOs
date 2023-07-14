@@ -24,8 +24,11 @@
                                 Search :
                             </li>
                             <li class="list-inline-item">
-                                <form action="/dashboard/pemilih/{{ $role }}">
+                                <form action="/dashboard/pemilih/{{ $role }}" class="input-search">
                                     <input class="form-control" type="text" name="search" id="search" value="{{  request('search') }}">
+                                    <a class="delete-input-search btn btn-transparent" id="hapus_value">
+                                        <i class="fa-solid fa-xmark" style="color: #a0a0a0;"></i>
+                                    </a>
                                 </form>
                             </li>
                         </ul>
@@ -94,6 +97,12 @@
         </section>
     </div>
     <script>
+        $("#hapus_value").on('click', function(event) {
+            event.preventDefault();
+            $('#search').attr('value', '');
+            $("#search").focus();
+        });
+
         $('.konfirmasi_hapus').click(function(event) {
             var form =  $(this).closest("form");
             event.preventDefault();

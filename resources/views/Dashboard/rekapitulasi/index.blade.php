@@ -19,8 +19,11 @@
                                 Search :
                             </li>
                             <li class="list-inline-item">
-                                <form action="/dashboard/rekapitulasi">
+                                <form action="/dashboard/rekapitulasi" class="input-search">
                                     <input class="form-control" type="text" name="search" id="search" value="{{  request('search') }}">
+                                    <a class="delete-input-search btn btn-transparent" id="hapus_value">
+                                        <i class="fa-solid fa-xmark" style="color: #a0a0a0;"></i>
+                                    </a>
                                 </form>
                             </li>
                         </ul>
@@ -67,4 +70,11 @@
             </div>
         </section>
     </div>
+    <script>
+        $("#hapus_value").on('click', function(event) {
+            event.preventDefault();
+            $('#search').attr('value', '');
+            $("#search").focus();
+        });
+    </script>
 @endsection
