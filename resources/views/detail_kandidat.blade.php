@@ -22,7 +22,7 @@
                             @endif
                             <div class="mt-3 w-100">
                                 <h5>{{ $kandidat->nama }}</h5>
-                                <p>{{ $kandidat->jenis_kelamin }}</p>
+                                <p>{{ $kandidat->kelas->nama }}</p>
                                 <hr>
                                 <a href="/kandidat" class="text-decoration-none">Daftar Kandidat</a>
                             </div>
@@ -35,43 +35,79 @@
                     <div class="card-body">
                         <div class="row">
                             <div class="col-sm-4">
-                                <h6 class="mb-0">Nomor Kandidat</h6>
+                                <h6 class="mb-md-0">Nomor Kandidat</h6>
                             </div>
-                            <div class="col-sm-8">
+                            <div class="col-sm-8 ps-md-4">
                                 {{ $kandidat->nomor }}
                             </div>
                         </div>
-                        <hr class="my-2">
+                        <hr class="my-3">
                         <div class="row">
                             <div class="col-sm-4">
-                                <h6 class="mb-0">Nama Lengkap</h6>
+                                <h6 class="mb-md-0">Nama Lengkap</h6>
                             </div>
                             <div class="col-sm-8">
                                 {{ $kandidat->nama }}   
                             </div>
                         </div>
-                        <hr class="my-2">
+                        <hr class="my-3">
                         <div class="row">
                             <div class="col-sm-4">
-                                <h6 class="mb-0">Jenis Kelamin</h6>
+                                <h6 class="mb-md-0">Jabatan Sebelumnya</h6>
+                            </div>
+                            <div class="col-sm-8">
+                                {{ $kandidat->jabatan }}   
+                            </div>
+                        </div>
+                        <hr class="my-3">
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <h6 class="mb-md-0">Kelas</h6>
+                            </div>
+                            <div class="col-sm-8">
+                                {{ $kandidat->kelas->nama }}   
+                            </div>
+                        </div>
+                        <hr class="my-3">
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <h6 class="mb-md-0">Jenis Kelamin</h6>
                             </div>
                             <div class="col-sm-8">
                                 {{ $kandidat->jenis_kelamin }}   
                             </div>
                         </div>
-                        <hr class="my-2">
+                        <hr class="my-3">
                         <div class="row">
                             <div class="col-sm-4">
-                                <h6 class="mb-0">Visi</h6>
+                                <h6 class="mb-md-0">Tempat, Tanggal Lahir</h6>
+                            </div>
+                            <div class="col-sm-8">
+                                {{ $kandidat->tempat_lahir }}, {{ Carbon\Carbon::parse($kandidat->tanggal_lahir)->translatedFormat('d F Y') }}  
+                            </div>
+                        </div>
+                        <hr class="my-3">
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <h6 class="mb-md-0">Alamat</h6>
+                            </div>
+                            <div class="col-sm-8">
+                                {{ $kandidat->alamat }}
+                            </div>
+                        </div>
+                        <hr class="my-3">
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <h6 class="mb-md-0">Visi</h6>
                             </div>
                             <div class="col-sm-8">
                                 {!! $kandidat->visi !!}
                             </div>
                         </div>
-                        <hr class="my-2">
+                        <hr class="my-3">
                         <div class="row">
                             <div class="col-sm-4">
-                                <h6 class="mb-0">Misi</h6>
+                                <h6 class="mb-md-0">Misi</h6>
                             </div>
                             <div class="col-sm-8">
                                 {!! $kandidat->misi !!}
