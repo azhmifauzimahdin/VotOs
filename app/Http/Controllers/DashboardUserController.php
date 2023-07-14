@@ -45,10 +45,9 @@ class DashboardUserController extends Controller
     {
         $validateData = $request->validate([
             'nama' => 'required',
-            'username' => 'required|unique:users',
             'slug' => 'required|unique:users',
-            'email' => 'required|email:dns|unique:users',
             'jenis_kelamin' => 'required',
+            'email' => 'required|email:dns|unique:users',
             'level' => 'required',
             'password' => [
                 'required',
@@ -200,7 +199,6 @@ class DashboardUserController extends Controller
     public function checkSlug(Request $request)
     {
         $slug = SlugService::createSlug(User::class, 'slug', $request->nama);
-        $username = str_replace(' ', '', $request->nama) . mt_rand(1, 100);
-        return response()->json(['slug' => $slug, 'username' => $username]);
+        return response()->json(['slug' => $slug]);
     }
 }

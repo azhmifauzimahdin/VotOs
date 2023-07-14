@@ -36,9 +36,8 @@
                                 <tr>
                                     <th scope="col">NO</th>
                                     <th scope="col">NAMA</th>
-                                    <th scope="col">USERNAME</th>
-                                    <th scope="col">EMAIL</th>
                                     <th scope="col">JENIS KELAMIN</th>
+                                    <th scope="col">EMAIL</th>
                                     <th scope="col">LEVEL</th>
                                     <th scope="col">FOTO</th>
                                     <th scope="col">Action</th>
@@ -50,9 +49,8 @@
                                         <tr>
                                             <td class="align-middle">{{ $index + $users->firstItem() }}</td>
                                             <td class="align-middle">{{ $user->nama }}</td>
-                                            <td class="align-middle">{{ $user->username }}</td>
-                                            <td class="align-middle">{{ $user->email }}</td>
                                             <td class="align-middle">{{ $user->jenis_kelamin }}</td>
+                                            <td class="align-middle">{{ $user->email }}</td>
                                             <td class="align-middle">{{ $user->level }}</td>
                                             <td class="pb-2">
                                                 @if ($user->foto)

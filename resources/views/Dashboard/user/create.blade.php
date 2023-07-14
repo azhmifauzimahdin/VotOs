@@ -18,27 +18,9 @@
                             @enderror
                         </div>
                         <div class="form-group">
-                            <label for="username">Username</label>
-                            <input type="text" class="form-control @error('username') is-invalid @enderror" id="username" name="username" placeholder="Username" required value="{{  old('username') }}">
-                            @error('username')
-                            <div class="invalid-feedback">
-                                {{ $message }}
-                            </div>
-                            @enderror
-                        </div>
-                        <div class="form-group d-none">
                             <label for="slug">Slug</label>
                             <input type="text" class="form-control @error('slug') is-invalid @enderror" id="slug" name="slug" placeholder="Slug" required value="{{  old('slug') }}">
                             @error('slug')
-                            <div class="invalid-feedback">
-                                {{ $message }}
-                            </div>
-                            @enderror
-                        </div>
-                        <div class="form-group">
-                            <label for="email">Email</label>
-                            <input type="email" class="form-control @error('email') is-invalid @enderror" id="email" name="email" placeholder="email" required value="{{  old('email') }}">
-                            @error('email')
                             <div class="invalid-feedback">
                                 {{ $message }}
                             </div>
@@ -50,6 +32,15 @@
                                 <option value="Laki-laki" {{ old('jenis_kelamin') == "Laki-laki" ? "selected" : "" }}>Laki-laki</option>
                                 <option value="Perempuan" {{ old('jenis_kelamin') == "Perempuan" ? "selected" : "" }}>Perempuan</option>
                             </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email" class="form-control @error('email') is-invalid @enderror" id="email" name="email" placeholder="email" required value="{{  old('email') }}">
+                            @error('email')
+                            <div class="invalid-feedback">
+                                {{ $message }}
+                            </div>
+                            @enderror
                         </div>
                         <div class="form-group">
                             <label for="level">Level</label>
@@ -103,14 +94,12 @@
     <script>
         const nama = document.querySelector('#nama');
         const slug = document.querySelector('#slug');
-        const username = document.querySelector('#username');
 
         nama.addEventListener('change',function(){
             fetch('/dashboard/user/checkSlug?nama=' + nama.value)
             .then(response => response.json())
             .then(data => {
                 slug.value = data.slug;
-                username.value = data.username;
             })
         });
 
