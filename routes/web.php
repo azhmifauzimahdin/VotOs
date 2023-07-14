@@ -16,6 +16,7 @@ use App\Http\Controllers\DashboardKandidatController;
 use App\Http\Controllers\UserPerolehanSuaraController;
 use App\Http\Controllers\DashboardPelaksanaanController;
 use App\Http\Controllers\DashboardGantiPasswordController;
+use App\Http\Controllers\DashboardJabatanController;
 use App\Http\Controllers\DashboardPemilihGuruKaryawanController;
 use App\Http\Controllers\DashboardPemilihSiswaController;
 use App\Http\Controllers\ResetPasswordController;
@@ -142,6 +143,16 @@ Route::resource('/dashboard/kelas', DashboardKelasController::class)->names([
     'edit' => 'user.kelas.edit',
     'update' => 'user.kelas.update',
     'destroy' => 'user.kelas.destroy',
+])->except('show')->middleware(['auth:web', 'panitia']);
+
+Route::get('/dashboard/jabatan/checkSlug', [DashboardJabatanController::class, 'checkSlug'])->middleware(['auth:web', 'panitia']);
+Route::resource('/dashboard/jabatan', DashboardJabatanController::class)->names([
+    'index' => 'user.jabatan.index',
+    'create' => 'user.jabatan.create',
+    'store' => 'user.jabatan.store',
+    'edit' => 'user.jabatan.edit',
+    'update' => 'user.jabatan.update',
+    'destroy' => 'user.jabatan.destroy',
 ])->except('show')->middleware(['auth:web', 'panitia']);
 
 Route::post('/dashboard/pelaksanaan/selesai', [DashboardPelaksanaanController::class, 'selesai'])->name('user.pelaksanaan.selesai')->middleware(['auth:web', 'panitia']);

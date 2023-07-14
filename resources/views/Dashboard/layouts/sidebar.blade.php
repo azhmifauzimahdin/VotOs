@@ -76,6 +76,14 @@
             </a>
           </li>
           <li class="nav-item">
+            <a href="/dashboard/jabatan" class="nav-link {{ Request::is('dashboard/jabatan*') ? 'active' : ''}}">
+              <i class="nav-icon fa-solid fa-user-tie"></i>
+              <p>
+                Data Jabatan
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
             <a href="/dashboard/voting" class="nav-link {{ Request::is('dashboard/voting*') ? 'active' : ''}}">
               <i class="nav-icon fa-solid fa-pen"></i>
               <p>

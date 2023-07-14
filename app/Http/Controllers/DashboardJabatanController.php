@@ -1,0 +1,120 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Models\Jabatan;
+use Illuminate\Http\Request;
+use Cviebrock\EloquentSluggable\Services\SlugService;
+
+class DashboardJabatanController extends Controller
+{
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function index()
+    {
+        return view('dashboard.jabatan.index', [
+            'title' => 'Data Jabatan',
+            'jabatans' => Jabatan::latest()->filter(request(['search']))->paginate(10)->withQueryString()
+        ]);
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create()
+    {
+        return view('dashboard.jabatan.create', [
+            'title' => 'Tambah Data Jabatan'
+        ]);
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(Request $request)
+    {
+        $validateData = $request->validate([
+            'nama' => 'required|unique:jabatans',
+            'slug' => 'required|unique:jabatans'
+        ]);
+
+        Jabatan::create($validateData);
+        return redirect('/dashboard/jabatan')->with('success', 'Data jabatan berhasil ditambahkan!');
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  \App\Models\Jabatan  $jabatan
+     * @return \Illuminate\Http\Response
+     */
+    public function show(Jabatan $jabatan)
+    {
+        //        
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  \App\Models\Jabatan  $jabatan
+     * @return \Illuminate\Http\Response
+     */
+    public function edit(Jabatan $jabatan)
+    {
+        return view('dashboard.jabatan.edit', [
+            'title' => 'Edit Data Jabatan',
+            'jabatan' => $jabatan
+        ]);
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Models\Jabatan  $jabatan
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request, Jabatan $jabatan)
+    {
+        $rules = [
+            'nama' => 'required'
+        ];
+
+        if ($request->slug != $jabatan->slug) {
+            $rules['slug'] = 'required|unique:jabatans';
+        }
+
+        $validateData = $request->validate($rules);
+
+        Jabatan::where('id', $jabatan->id)->update($validateData);
+
+        return redirect('/dashboard/jabatan')->with('success', 'Data jabatan berhasil diupdate!');
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  \App\Models\Jabatan  $jabatan
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy(Jabatan $jabatan)
+    {
+        Jabatan::destroy($jabatan->id);
+
+        return redirect('/dashboard/jabatan')->with('success', 'Data jabatan berhasil dihapus!');
+    }
+
+    public function checkSlug(Request $request)
+    {
+        $slug = SlugService::createSlug(Jabatan::class, 'slug', $request->nama);
+        return response()->json(['slug' => $slug]);
+    }
+}

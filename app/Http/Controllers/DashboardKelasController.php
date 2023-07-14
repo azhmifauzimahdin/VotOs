@@ -89,7 +89,7 @@ class DashboardKelasController extends Controller
         ];
 
         if ($request->slug != $kela->slug) {
-            $rules['slug'] = 'required|unique:kandidats';
+            $rules['slug'] = 'required|unique:kelas';
         }
 
         $validateData = $request->validate($rules);
