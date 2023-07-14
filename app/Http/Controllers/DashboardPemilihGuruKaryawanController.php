@@ -2,15 +2,17 @@
 
 namespace App\Http\Controllers;
 
-use App\Jobs\SendAccountJob;
-use App\Mail\SendAccount;
+use Carbon\Carbon;
+use App\Models\Pemilu;
 use App\Models\Jabatan;
 use App\Models\Pemilih;
-use Illuminate\Http\Request;
-use \Cviebrock\EloquentSluggable\Services\SlugService;
+use App\Mail\SendAccount;
 use Illuminate\Support\Str;
+use App\Jobs\SendAccountJob;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
+use \Cviebrock\EloquentSluggable\Services\SlugService;
 
 class DashboardPemilihGuruKaryawanController extends Controller
 {
@@ -25,7 +27,8 @@ class DashboardPemilihGuruKaryawanController extends Controller
             'title' => 'Data Guru & Karyawan',
             'objek' => 'Guru & Karyawan',
             'role' => 'gurukaryawan',
-            'pemilihs' => Pemilih::latest()->whereNotNull('jabatan_id')->filter(request(['search']))->paginate(10)->withQueryString()
+            'pemilihs' => Pemilih::latest()->whereNotNull('jabatan_id')->filter(request(['search']))->paginate(10)->withQueryString(),
+            'waktupemilu' => $this->cekWaktuPemilu()
         ]);
     }
 
@@ -155,5 +158,14 @@ class DashboardPemilihGuruKaryawanController extends Controller
     {
         $slug = SlugService::createSlug(Pemilih::class, 'slug', $request->nama);
         return response()->json(['slug' => $slug]);
+    }
+
+    public function cekWaktuPemilu()
+    {
+        $pemilu = Pemilu::first();
+        $now = Carbon::now();
+        $cekwaktupemilu = $now->isAfter($pemilu->mulai) && $now->isBefore($pemilu->selesai);
+
+        return $cekwaktupemilu;
     }
 }

@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
 use App\Models\Kelas;
+use App\Models\Pemilu;
 use App\Models\Kandidat;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -19,7 +21,8 @@ class DashboardKandidatController extends Controller
     {
         return view('dashboard.kandidat.index', [
             'title' => 'Data Kandidat',
-            'kandidats' => Kandidat::filter(request(['search']))->orderBy('nomor', 'ASC')->paginate(10)->withQueryString()
+            'kandidats' => Kandidat::filter(request(['search']))->orderBy('nomor', 'ASC')->paginate(10)->withQueryString(),
+            'waktupemilu' => $this->cekWaktuPemilu()
         ]);
     }
 
@@ -162,5 +165,14 @@ class DashboardKandidatController extends Controller
     {
         $slug = SlugService::createSlug(Kandidat::class, 'slug', $request->nama);
         return response()->json(['slug' => $slug]);
+    }
+
+    public function cekWaktuPemilu()
+    {
+        $pemilu = Pemilu::first();
+        $now = Carbon::now();
+        $cekwaktupemilu = $now->isAfter($pemilu->mulai) && $now->isBefore($pemilu->selesai);
+
+        return $cekwaktupemilu;
     }
 }

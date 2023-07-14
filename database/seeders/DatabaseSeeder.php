@@ -21,10 +21,10 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        User::factory(4)->create();
-        Pemilih::factory(2)->create();
-        Kandidat::factory(3)->create();
         Kelas::factory(1)->create();
         Jabatan::factory(1)->create();
+        User::factory(4)->create();
+        Kandidat::factory(3)->create();
+        Pemilih::factory(2)->create();
     }
 }

@@ -22,7 +22,13 @@
                             @endif
                             <div class="mt-3 w-100">
                                 <h5>{{ $kandidat->nama }}</h5>
-                                <p>{{ $kandidat->kelas->nama }}</p>
+                                <p>
+                                    @if ($kandidat->kelas)
+                                        {{ $kandidat->kelas->nama }}   
+                                    @else
+                                        -   
+                                    @endif
+                                </p>
                                 <hr>
                                 <a href="/kandidat" class="text-decoration-none">Daftar Kandidat</a>
                             </div>
@@ -65,7 +71,11 @@
                                 <h6 class="mb-md-0">Kelas</h6>
                             </div>
                             <div class="col-sm-8 ps-md-4">
-                                {{ $kandidat->kelas->nama }}   
+                                @if ($kandidat->kelas)
+                                    {{ $kandidat->kelas->nama }}   
+                                @else
+                                    -   
+                                @endif   
                             </div>
                         </div>
                         <hr class="my-3">

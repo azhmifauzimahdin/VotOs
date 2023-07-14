@@ -53,7 +53,11 @@
                                             <td class="align-middle">{{ $kandidat->nomor }}</td>
                                             <td class="align-middle">{{ $kandidat->nama }}</td>
                                             <td class="align-middle">{{ $kandidat->jabatan }}</td>
+                                            @if ($kandidat->kelas)
                                             <td class="align-middle">{{ $kandidat->kelas->nama }}</td>
+                                            @else
+                                            <td class="align-middle">-</td>    
+                                            @endif
                                             <td class="align-middle">{{ $kandidat->jenis_kelamin }}</td>
                                             <td>
                                                 @if ($kandidat->foto)
@@ -69,6 +73,7 @@
                                                 <a href="/dashboard/kandidat/{{ $kandidat->slug }}/edit" class="btn btn-sm bg-warning">
                                                     <i class="fa-solid fa-pen-to-square"></i>
                                                 </a>
+                                                @if (!$waktupemilu) 
                                                 <form action="/dashboard/kandidat/{{ $kandidat->slug }}" name="formDeletee" method="post" class="d-inline">
                                                     @method('delete')
                                                     @csrf 
@@ -76,6 +81,7 @@
                                                         <i class="fa-solid fa-trash-can"></i>
                                                     </button>
                                                 </form>
+                                                @endif
                                             </td>
                                         </tr>
                                     @endforeach

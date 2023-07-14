@@ -14,7 +14,13 @@
                         @endif
                         <div class="mt-3 w-100">
                             <h4>{{ $kandidat->nama }}</h4>
-                            <p class="text-secondary mb-1">{{ $kandidat->kelas->nama }}</p>
+                            <p class="text-secondary mb-1">
+                                @if ($kandidat->kelas)
+                                {{ $kandidat->kelas->nama }}   
+                                @else
+                                -   
+                                @endif
+                            </p>
                             <hr>
                             <a class="text-decoration-none" href="/dashboard/kandidat">Kembali</a>
                         </div>
@@ -57,7 +63,11 @@
                             <h6 class="mb-0">Kelas</h6>
                         </div>
                         <div class="col-sm-9 text-secondary">
-                            {{ $kandidat->kelas->nama }}   
+                            @if ($kandidat->kelas)
+                                {{ $kandidat->kelas->nama }}   
+                            @else
+                                -   
+                            @endif
                         </div>
                     </div>
                     <hr>

@@ -25,7 +25,8 @@ class DashboardPelaksanaanController extends Controller
         return view('dashboard.pelaksanaan.index', [
             'title' => 'Waktu Pelaksanaan',
             'pemilus' => Pemilu::get(),
-            'cek' => $cek
+            'cek' => $cek,
+            'waktupemilu' => $this->cekWaktuPemilu()
         ]);
     }
 
@@ -126,5 +127,14 @@ class DashboardPelaksanaanController extends Controller
             'selesai' => Carbon::now()->format('Y-m-d H:i')
         ]);
         return redirect('/dashboard/pelaksanaan')->with('success', 'Waktu selesai pelaksanaan berhasil diupdate ke waktu sekarang!');
+    }
+
+    public function cekWaktuPemilu()
+    {
+        $pemilu = Pemilu::first();
+        $now = Carbon::now();
+        $cekwaktupemilu = $now->isAfter($pemilu->mulai) && $now->isBefore($pemilu->selesai);
+
+        return $cekwaktupemilu;
     }
 }

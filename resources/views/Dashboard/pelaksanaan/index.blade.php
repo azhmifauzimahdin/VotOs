@@ -53,6 +53,7 @@
                                                 <a href="/dashboard/pelaksanaan/{{ $pemilu->id }}/edit" class="btn btn-sm bg-warning">
                                                     <i class="fa-solid fa-pen-to-square"></i>
                                                 </a>
+                                                @if (!$waktupemilu)
                                                 <form action="/dashboard/pelaksanaan/{{ $pemilu->id }}" id="formHapus" method="post" class="d-inline">
                                                     @method('delete')
                                                     @csrf
@@ -60,6 +61,7 @@
                                                         <i class="fa-solid fa-trash-can"></i>
                                                     </button>
                                                 </form>
+                                                @endif
                                             </td>
                                         </tr>
                                     @endforeach

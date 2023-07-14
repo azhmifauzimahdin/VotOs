@@ -56,9 +56,17 @@
                                             <td>{{ $index + $pemilihs->firstItem() }}</td>
                                             <td>{{ $pemilih->nama }}</td>
                                             @if ($role === 'siswa')
-                                            <td>{{ $pemilih->kelas->nama }}</td>
+                                                @if ($pemilih->kelas)
+                                                    <td>{{ $pemilih->kelas->nama }}</td>
+                                                @else
+                                                    <td>-</td>
+                                                @endif
                                             @else
-                                            <td>{{ $pemilih->jabatan->nama }}</td>
+                                                @if ($pemilih->jabatan)
+                                                    <td>{{ $pemilih->jabatan->nama }}</td>
+                                                @else
+                                                    <td>-</td>
+                                                @endif
                                             @endif
                                             <td>{{ $pemilih->jenis_kelamin }}</td>
                                             <td>{{ $pemilih->email }}</td>
@@ -66,6 +74,7 @@
                                                 <a href="/dashboard/pemilih/{{ $role }}/{{ $pemilih->slug }}/edit" class="btn btn-sm bg-warning">
                                                     <i class="fa-solid fa-pen-to-square"></i>
                                                 </a>
+                                                @if (!$waktupemilu)
                                                 <form action="/dashboard/pemilih/{{ $role }}/{{ $pemilih->slug }}" id="formHapus" method="post" class="d-inline">
                                                     @method('delete')
                                                     @csrf
@@ -73,6 +82,7 @@
                                                         <i class="fa-solid fa-trash-can"></i>
                                                     </button>
                                                 </form>
+                                                @endif
                                             </td>
                                         </tr>
                                     @endforeach
