@@ -17,7 +17,10 @@ class DashboardScanController extends Controller
         return view('dashboard.scan.index', [
             "title" => "Scan Surat Suara",
             "kandidats" => Kandidat::orderBy('nomor', 'ASC')->get(),
-            "cekScan" => $cekScan
+            "cekScan" => $cekScan,
+            "surat_suara" => Voting::get(),
+            "sudah_scan" => Voting::where('status', true)->get()
+
         ]);
     }
 

@@ -43,7 +43,7 @@
                     Perhitungan Suara
                 </div>
                 <div class="card-body">
-                    @if ($cekScan)
+                    @if ($cekScan && count($surat_suara) > 0)
                     <div class="alert alert-success" role="alert">
                         Surat suara sudah terscan semua.
                     </div>
@@ -54,6 +54,22 @@
                             Hitung Ulang
                         </button>
                     </form>
+                    <div class="table-responsive">
+                        <table class="table table-striped table-sm">
+                            <thead>
+                                <tr>
+                                    <th scope="col">JUMLAH SURAT SUARA</th>
+                                    <th scope="col">SUDAH DI SCAN</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="align-middle">{{ count($surat_suara) }}</td>
+                                    <td class="align-middle" id="sudahscan">{{ count($sudah_scan) }}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
                     <div class="table-responsive">
                         <table class="table table-striped table-sm">
                             <thead>
@@ -128,6 +144,7 @@
                             }else{
                                 $("#hasil"+response.kandidat.id).append(`<span class="text-success"> + 1</span>`);
                             }
+                            $("#sudahscan").append(`<span class="text-success"> + 1</span>`);
                         }
                         
                     }

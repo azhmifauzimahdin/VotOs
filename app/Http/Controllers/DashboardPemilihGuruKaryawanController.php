@@ -77,7 +77,7 @@ class DashboardPemilihGuruKaryawanController extends Controller
 
         Pemilih::create($validateData);
 
-        // dispatch(new SendAccountJob($details));
+        dispatch(new SendAccountJob($details));
 
         return redirect('/dashboard/pemilih/gurukaryawan')->with('success', 'Data pemilih berhasil ditambahkan!');
     }
