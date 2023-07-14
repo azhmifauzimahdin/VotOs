@@ -14,7 +14,7 @@
                             </button>
                         </div>
                     @endif
-                    <div class="row d-flex justify-content-between mb-3">
+                    <div class="row d-flex justify-content-between mb-3 mx-0">
                         <a href="/dashboard/user/create" class="btn btn-primary">
                             <i class="fa-solid fa-plus pr-1"></i>
                             Tambah {{ $title }}

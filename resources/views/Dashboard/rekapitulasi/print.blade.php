@@ -35,40 +35,23 @@
 </head>
 <body onload="window.print()">
     <h3 class="text-center">REKAPITULASI HASIL VOTING</h3>
-    @if (request('kandidat'))  
-        <table> 
-            <tbody> 
-                <tr> 
-                    <td class="label">Kandidat</td> 
-                    <td>:</td> 
-                    <td>
-                        @if (request('kandidat'))
-                            {{ request('kandidat') }}
-                        @else
-                            Semua kandidat
-                        @endif
-                    </td> 
-                </tr>
-            </tbody>
-        </table>
-    @endif
     <table class="tabel-rekapitulasi">
         <thead>
             <tr>
                 <th>No</th>
-                <th>Pemilih</th>
                 <th>Kandidat</th>
-                <th>Waktu Voting</th>
+                <th>Jumlah Suara</th>
+                <th>Keterangan</th>
             </tr>
         </thead>
         <tbody>
-            @if (count($votings))
-                @foreach ($votings as $index => $voting)
+            @if (count($kandidats))
+                @foreach ($kandidats as $index => $kandidat)
                     <tr>
-                        <td>{{ $loop->iteration }}</td>
-                        <td>{{ $voting->pemilih->nama }}</td>
-                        <td>{{ $voting->kandidat->nomor }} - {{ $voting->kandidat->nama }}</td>
-                        <td>{{ $voting->created_at }}</td>
+                        <td>{{ $index + $kandidats->firstItem() }}</td>
+                        <td>{{ $kandidat->nomor}} - {{ $kandidat->nama }}</td>
+                        <td>{{ $kandidat->jumlah_suara }}</td>
+                        <td>{{ $kandidat->keterangan }}</td>
                     </tr>
                 @endforeach
             @else

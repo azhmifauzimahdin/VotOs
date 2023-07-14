@@ -29,6 +29,7 @@ class Kandidat extends Model
                 ->orWhere('nomor', 'like', '%' . $search . '%')
                 ->orWhere('jenis_kelamin', 'like', '%' . $search . '%')
                 ->orWhere('jabatan', 'like', '%' . $search . '%')
+                ->orWhere('jumlah_suara', 'like', '%' . $search . '%')
                 ->orWhereHas('kelas', function ($query) use ($search) {
                     $query->where('nama', 'like', '%' . $search . '%');
                 });

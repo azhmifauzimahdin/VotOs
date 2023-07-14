@@ -9,16 +9,22 @@
         body{
             font-size: 12px;
         }
-        td,th {
+        .label{
+            padding-right: 20px;
+            font-weight: 900;
+        }
+        .tabel-voting{
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 14px;
+        }
+
+        .tabel-voting>thead>tr>th,  .tabel-voting>tbody>tr>td {
             border: 1px solid black;
             padding: 4px;
         }
         th{
             text-align: start;
-        }
-        table{
-            width: 100%;
-            border-collapse: collapse;
         }
         .text-center{
             text-align: center;
@@ -28,7 +34,24 @@
 </head>
 <body onload="window.print()">
     <h3 class="text-center">DATA VOTING</h3>
-    <table>
+    @if (request('kandidat'))  
+        <table> 
+            <tbody> 
+                <tr> 
+                    <td class="label">Kandidat</td> 
+                    <td>:</td> 
+                    <td>
+                        @if (request('kandidat'))
+                            {{ request('kandidat') }}
+                        @else
+                            Semua kandidat
+                        @endif
+                    </td> 
+                </tr>
+            </tbody>
+        </table>
+    @endif
+    <table class="tabel-voting">
         <thead>
             <tr>
                 <th>No</th>

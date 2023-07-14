@@ -15,7 +15,7 @@
                         </div>
                     @endif
                     @if (count($pemilus) == 0)   
-                        <div class="row d-flex justify-content-between mb-3 mx-1">
+                        <div class="row d-flex justify-content-between mb-3 mx-0">
                             <a href="/dashboard/pelaksanaan/create" class="btn btn-primary">
                                 <i class="fa-solid fa-plus pr-1"></i>
                                 Tambah {{ $title }}
@@ -23,7 +23,7 @@
                         </div>
                     @else
                         @if($cek)
-                            <div class="row d-flex justify-content-between mb-3 mx-1">
+                            <div class="row d-flex justify-content-between mb-3 mx-0">
                                 <form action="/dashboard/pelaksanaan/selesai" method="post">
                                     @csrf
                                     <button type="submit" class="btn btn-success">
