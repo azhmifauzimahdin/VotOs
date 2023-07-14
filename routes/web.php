@@ -126,7 +126,7 @@ Route::resource('/dashboard/pelaksanaan', DashboardPelaksanaanController::class)
     'edit' => 'user.pelaksanaan.edit',
     'update' => 'user.pelaksanaan.update',
     'destroy' => 'user.pelaksanaan.destroy',
-])->except('show')->middleware(['auth:web', 'panitia']);
+])->parameters(['pelaksanaan' => 'pemilu'])->except('show')->middleware(['auth:web', 'panitia']);
 
 Route::get('/dashboard/rekapitulasi', [DashboardVotingController::class, 'rekapitulasi'])->name('user.rekapitulasi')->middleware(['auth:web', 'panitia']);
 Route::get('/dashboard/rekapitulasi/print', [DashboardVotingController::class, 'cetakPdfRekapitulasi'])->name('user.rekapitulasi')->middleware(['auth:web', 'panitia']);

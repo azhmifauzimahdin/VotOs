@@ -80,9 +80,8 @@ class DashboardPelaksanaanController extends Controller
      * @param  \App\Models\Pemilu  $pemilu
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Pemilu $pemilu)
     {
-        $pemilu = Pemilu::find($id);
         return view('dashboard.pelaksanaan.edit', [
             'title' => 'Edit Waktu Pelaksanaan',
             'pemilu' => $pemilu
@@ -96,14 +95,14 @@ class DashboardPelaksanaanController extends Controller
      * @param  \App\Models\Pemilu  $pemilu
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Pemilu $pemilu)
     {
         $validateData = $request->validate([
             'mulai' => 'required|date',
             'selesai' => 'required|date|after:mulai',
         ]);
 
-        Pemilu::where('id', $id)->update($validateData);
+        Pemilu::where('id', $pemilu->id)->update($validateData);
 
         return redirect('/dashboard/pelaksanaan')->with('success', 'Data waktu pelaksanaan berhasil diupdate!');
     }
@@ -114,9 +113,9 @@ class DashboardPelaksanaanController extends Controller
      * @param  \App\Models\Pemilu  $pemilu
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Pemilu $pemilu)
     {
-        Pemilu::destroy($id);
+        Pemilu::destroy($pemilu->id);
 
         return redirect('/dashboard/pelaksanaan')->with('success', 'Data waktu pelaksanaan berhasil dihapus!');
     }
