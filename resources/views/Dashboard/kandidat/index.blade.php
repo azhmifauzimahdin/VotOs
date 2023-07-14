@@ -50,7 +50,7 @@
                                             <td class="align-middle">{{ $kandidat->nomor }}</td>
                                             <td class="align-middle">{{ $kandidat->nama }}</td>
                                             <td class="align-middle">{{ $kandidat->jabatan }}</td>
-                                            <td class="align-middle text-nowrap">{{ $kandidat->kelas->nama }}</td>
+                                            <td class="align-middle">{{ $kandidat->kelas->nama }}</td>
                                             <td class="align-middle">{{ $kandidat->jenis_kelamin }}</td>
                                             <td>
                                                 @if ($kandidat->foto)

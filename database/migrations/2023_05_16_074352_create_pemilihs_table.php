@@ -15,7 +15,7 @@ class CreatePemilihsTable extends Migration
     {
         Schema::create('pemilihs', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id');
+            $table->foreignId('user_id')->nullable();
             $table->foreignId('kelas_id')->nullable();
             $table->foreignId('jabatan_id')->nullable();
             $table->string('nama');

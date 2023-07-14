@@ -6,21 +6,20 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserScanController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\LoginUserController;
-use App\Http\Controllers\KirimEmailController;
 use App\Http\Controllers\UserVotingController;
 use App\Http\Controllers\UserBerandaController;
 use App\Http\Controllers\LoginPemilihController;
 use App\Http\Controllers\UserKandidatController;
-use App\Http\Controllers\DashboardPostController;
 use App\Http\Controllers\DashboardScanController;
 use App\Http\Controllers\DashboardUserController;
 use App\Http\Controllers\DashboardKelasController;
 use App\Http\Controllers\DashboardVotingController;
-use App\Http\Controllers\DashboardPemilihController;
 use App\Http\Controllers\DashboardKandidatController;
 use App\Http\Controllers\UserPerolehanSuaraController;
 use App\Http\Controllers\DashboardPelaksanaanController;
 use App\Http\Controllers\DashboardGantiPasswordController;
+use App\Http\Controllers\DashboardPemilihGuruKaryawanController;
+use App\Http\Controllers\DashboardPemilihSiswaController;
 use App\Http\Controllers\ResetPasswordController;
 use App\Http\Controllers\UserGantiPasswordController;
 
@@ -65,15 +64,24 @@ Route::post('/ganti_password', [UserGantiPasswordController::class, 'gantiPasswo
 // Dashboard
 Route::get('/dashboard', [DashboardController::class, 'index'])->name('user.dashboard')->middleware('auth:web');
 
-Route::get('/dashboard/pemilih/checkSlug', [DashboardPemilihController::class, 'checkSlug'])->middleware(['auth:web', 'panitia']);
-Route::resource('/dashboard/pemilih', DashboardPemilihController::class)->names([
-    'index' => 'user.pemilih.index',
-    'create' => 'user.pemilih.create',
-    'store' => 'user.pemilih.store',
-    'edit' => 'user.pemilih.edit',
-    'update' => 'user.pemilih.update',
-    'destroy' => 'user.pemilih.destroy'
-])->except('show')->middleware(['auth:web', 'panitia']);
+Route::get('/dashboard/pemilih/checkSlug', [DashboardPemilihSiswaController::class, 'checkSlug'])->middleware(['auth:web', 'panitia']);
+Route::resource('/dashboard/pemilih/siswa', DashboardPemilihSiswaController::class)->names([
+    'index' => 'user.pemilih.siswa.index',
+    'create' => 'user.pemilih.siswa.create',
+    'store' => 'user.pemilih.siswa.store',
+    'edit' => 'user.pemilih.siswa.edit',
+    'update' => 'user.pemilih.siswa.update',
+    'destroy' => 'user.pemilih.siswa.destroy'
+])->parameters(['siswa' => 'pemilih'])->except('show')->middleware(['auth:web', 'panitia']);
+
+Route::resource('/dashboard/pemilih/gurukaryawan', DashboardPemilihGuruKaryawanController::class)->names([
+    'index' => 'user.pemilih.gurukaryawan.index',
+    'create' => 'user.pemilih.gurukaryawan.create',
+    'store' => 'user.pemilih.gurukaryawan.store',
+    'edit' => 'user.pemilih.gurukaryawan.edit',
+    'update' => 'user.pemilih.gurukaryawan.update',
+    'destroy' => 'user.pemilih.gurukaryawan.destroy'
+])->parameters(['gurukaryawan' => 'pemilih'])->except('show')->middleware(['auth:web', 'panitia']);
 
 Route::get('/dashboard/kandidat/checkSlug', [DashboardKandidatController::class, 'checkSlug'])->middleware(['auth:web', 'panitia']);
 Route::resource('/dashboard/kandidat', DashboardKandidatController::class)->names([

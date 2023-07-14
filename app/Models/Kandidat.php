@@ -26,10 +26,12 @@ class Kandidat extends Model
     {
         $query->when($filters['search'] ?? false, function ($query, $search) {
             return $query->where('nama', 'like', '%' . $search . '%')
-                ->orWhere('jk', 'like', '%' . $search . '%')
-                ->orWhere('visi', 'like', '%' . $search . '%')
-                ->orWhere('misi', 'like', '%' . $search . '%')
-                ->orWhere('nomor', 'like', '%' . $search . '%');
+                ->orWhere('nomor', 'like', '%' . $search . '%')
+                ->orWhere('jenis_kelamin', 'like', '%' . $search . '%')
+                ->orWhere('jabatan', 'like', '%' . $search . '%')
+                ->orWhereHas('kelas', function ($query) use ($search) {
+                    $query->where('nama', 'like', '%' . $search . '%');
+                });
         });
     }
 

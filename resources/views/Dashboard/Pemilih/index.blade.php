@@ -4,7 +4,7 @@
     <div class="row">
         <section class="col-12">
             <div class="card">
-                <h5 class="card-header">Data Pemilih</h5>
+                <h5 class="card-header">Data Pemilih ({{ $objek }})</h5>
                 <div class="card-body">
                     @if(session()->has('success'))
                         <div class="alert alert-success alert-dismissible fade show" role="alert">
@@ -15,7 +15,7 @@
                         </div>
                     @endif
                     <div class="row d-flex justify-content-between mb-3 mx-1">
-                        <a href="/dashboard/pemilih/create" class="btn btn-primary">
+                        <a href="/dashboard/pemilih/{{ $role }}/create" class="btn btn-primary">
                             <i class="fa-solid fa-plus pr-1"></i>
                             Tambah Data Pemilih
                         </a>
@@ -24,7 +24,7 @@
                                 Search :
                             </li>
                             <li class="list-inline-item">
-                                <form action="/dashboard/pemilih">
+                                <form action="/dashboard/pemilih/{{ $role }}">
                                     <input class="form-control" type="text" name="search" id="search" value="{{  request('search') }}">
                                 </form>
                             </li>
@@ -35,12 +35,14 @@
                             <thead>
                                 <tr>
                                     <th scope="col">NO</th>
-                                    <th scope="col">NISN</th>
                                     <th scope="col">NAMA</th>
-                                    <th scope="col">USERNAME</th>
-                                    <th scope="col">EMAIL</th>
-                                    <th scope="col">KELAS</th>
+                                    @if ($role === 'siswa')
+                                    <th scope="col">KELAS</th>                                        
+                                    @else
+                                    <th scope="col">JABATAN</th>                                           
+                                    @endif
                                     <th scope="col">JENIS KELAMIN</th>
+                                    <th scope="col">EMAIL</th>
                                     <th scope="col">ACTION</th>
                                 </tr>
                             </thead>
@@ -49,17 +51,19 @@
                                     @foreach ($pemilihs as $index => $pemilih)
                                         <tr>
                                             <td>{{ $index + $pemilihs->firstItem() }}</td>
-                                            <td>{{ $pemilih->nisn }}</td>
                                             <td>{{ $pemilih->nama }}</td>
-                                            <td>{{ $pemilih->username }}</td>
-                                            <td>{{ $pemilih->email }}</td>
-                                            <td class="text-nowrap">{{ $pemilih->kelas->nama }}</td>
+                                            @if ($role === 'siswa')
+                                            <td>{{ $pemilih->kelas->nama }}</td>
+                                            @else
+                                            <td>{{ $pemilih->jabatan->nama }}</td>
+                                            @endif
                                             <td>{{ $pemilih->jenis_kelamin }}</td>
+                                            <td>{{ $pemilih->email }}</td>
                                             <td class="text-nowrap">
-                                                <a href="/dashboard/pemilih/{{ $pemilih->slug }}/edit" class="btn btn-sm bg-warning">
+                                                <a href="/dashboard/pemilih/{{ $role }}/{{ $pemilih->slug }}/edit" class="btn btn-sm bg-warning">
                                                     <i class="fa-solid fa-pen-to-square"></i>
                                                 </a>
-                                                <form action="/dashboard/pemilih/{{ $pemilih->slug }}" id="formHapus" method="post" class="d-inline">
+                                                <form action="/dashboard/pemilih/{{ $role }}/{{ $pemilih->slug }}" id="formHapus" method="post" class="d-inline">
                                                     @method('delete')
                                                     @csrf
                                                     <button class="btn btn-sm bg-danger border-0 konfirmasi_hapus">

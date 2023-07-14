@@ -28,13 +28,28 @@
           </a>
         </li>
         @can('panitia')
-          <li class="nav-item">
-            <a href="/dashboard/pemilih" class="nav-link {{ Request::is('dashboard/pemilih*') ? 'active' : ''}}">
+          <li class="nav-item menu-open">
+            <a href="#" class="nav-link {{ Request::is('dashboard/pemilih*') ? 'active' : ''}}">
               <i class="nav-icon fa-solid fa-users"></i>
               <p>
                 Data Pemilih
+                <i class="right fas fa-angle-left"></i>
               </p>
             </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="/dashboard/pemilih/siswa" class="nav-link {{ Request::is('dashboard/pemilih/siswa*') ? 'active' : ''}}">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Data Siswa</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="/dashboard/pemilih/gurukaryawan" class="nav-link {{ Request::is('dashboard/pemilih/gurukaryawan*') ? 'active' : ''}}">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Data Guru & Karyawan</p>
+                </a>
+              </li>
+            </ul>
           </li>
           <li class="nav-item">
             <a href="/dashboard/kandidat" class="nav-link {{ Request::is('dashboard/kandidat*') ? 'active' : ''}}">

@@ -23,12 +23,13 @@ class Pemilih extends Authenticatable
     public function scopeFilter($query, array $filters)
     {
         $query->when($filters['search'] ?? false, function ($query, $search) {
-            return $query->where('nisn', 'like', '%' . $search . '%')
-                ->orWhere('nama', 'like', '%' . $search . '%')
-                ->orWhere('username', 'like', '%' . $search . '%')
+            return $query->where('nama', 'like', '%' . $search . '%')
+                ->orWhere('jenis_kelamin', 'like', '%' . $search . '%')
                 ->orWhere('email', 'like', '%' . $search . '%')
-                ->orWhere('jk', 'like', '%' . $search . '%')
                 ->orWhereHas('kelas', function ($query) use ($search) {
+                    $query->where('nama', 'like', '%' . $search . '%');
+                })
+                ->orWhereHas('jabatan', function ($query) use ($search) {
                     $query->where('nama', 'like', '%' . $search . '%');
                 });
         });
