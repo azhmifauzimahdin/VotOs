@@ -77,6 +77,9 @@
             </div>
         </section>
     </div>
+@endsection
+
+@push('script')
     <script>
         $('.konfirmasi_hapus').click(function(event) {
             var form =  $(this).closest("form");
@@ -103,4 +106,4 @@
             })
         });
     </script>
-@endsection
+@endpush

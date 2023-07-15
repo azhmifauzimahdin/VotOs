@@ -1,5 +1,10 @@
 @extends('dashboard.layouts.main')
 
+@push('head')
+    {{-- Trix Editor --}}
+    <link rel="stylesheet" type="text/css" href="https://unpkg.com/trix@2.0.0/dist/trix.css">
+@endpush
+
 @section('container')
     <div class="row">
         <section class="col-md-8">
@@ -127,6 +132,12 @@
             </div>
         </section>
     </div>
+@endsection
+
+@push('script')
+    {{-- Trix editor --}}
+    <script type="text/javascript" src="https://unpkg.com/trix@2.0.0/dist/trix.umd.min.js"></script>
+    
     <script>
         const nama = document.querySelector('#nama');
         const slug = document.querySelector('#slug');
@@ -158,4 +169,4 @@
         }
 
     </script>
-@endsection
+@endpush

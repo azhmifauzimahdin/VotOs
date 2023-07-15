@@ -1,5 +1,10 @@
 @extends('dashboard.layouts.main')
 
+@push('head')
+    <!-- Highchart -->
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+@endpush
+
 @section('container')
   <div class="row">
       <div class="col-lg-3 col-6">

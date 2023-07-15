@@ -26,7 +26,7 @@
                         @csrf
                         <div class="mb-2">
                             <label for="password_lama" class="form-label">Password Lama</label>
-                            <div class="input-group has-validation">
+                            <div class="input-group">
                                 <input type="password" class="form-control @error('password_lama') is-invalid @enderror" id="password_lama" name="password_lama" placeholder="Password Lama" required>
                                 <span class="input-group-text" id="show_hide_password_lama">
                                     <a href=""><i class="fa-regular fa-eye-slash" aria-hidden="true"></i></a>
@@ -40,7 +40,7 @@
                         </div>
                         <div class="mb-2">
                             <label for="password_baru" class="form-label">Password Baru</label>
-                            <div class="input-group has-validation">
+                            <div class="input-group">
                                 <input type="password" class="form-control @error('password_baru') is-invalid @enderror" id="password_baru" name="password_baru" placeholder="Password Baru" required>
                                 <span class="input-group-text" id="show_hide_password_baru">
                                     <a href=""><i class="fa-regular fa-eye-slash" aria-hidden="true"></i></a>
@@ -54,7 +54,7 @@
                         </div>
                         <div class="mb-2">
                             <label for="password_baru_confirmation" class="form-label">Konfirmasi Password</label>
-                            <div class="input-group has-validation">
+                            <div class="input-group">
                                 <input type="password" class="form-control @error('password_baru_confirmation') is-invalid @enderror" id="password_baru_confirmation" name="password_baru_confirmation" placeholder="Konfirmasi Password" required>
                                 <span class="input-group-text" id="show_hide_konfirmasi_password">
                                     <a href=""><i class="fa-regular fa-eye-slash" aria-hidden="true"></i></a>
@@ -72,6 +72,9 @@
             </div>
         </div>
     </div>
+@endsection
+
+@push('script')
     <script>
         $(document).ready(function() {
             $("#show_hide_password_lama a").on('click', function(event) {
@@ -86,30 +89,31 @@
                     $('#show_hide_password_lama i').addClass( "fa-eye" );
                 }
             });
+
             $("#show_hide_password_baru a").on('click', function(event) {
                 event.preventDefault();
-                if($('#password').attr("type") == "text"){
-                    $('#password').attr('type', 'password');
+                if($('#password_baru').attr("type") == "text"){
+                    $('#password_baru').attr('type', 'password');
                     $('#show_hide_password_baru i').addClass( "fa-eye-slash" );
                     $('#show_hide_password_baru i').removeClass( "fa-eye" );
-                }else if($('#password').attr("type") == "password"){
-                    $('#password').attr('type', 'text');
+                }else if($('#password_baru').attr("type") == "password"){
+                    $('#password_baru').attr('type', 'text');
                     $('#show_hide_password_baru i').removeClass( "fa-eye-slash" );
                     $('#show_hide_password_baru i').addClass( "fa-eye" );
                 }
             });
             $("#show_hide_konfirmasi_password a").on('click', function(event) {
                 event.preventDefault();
-                if($('#password_confirmation').attr("type") == "text"){
-                    $('#password_confirmation').attr('type', 'password');
+                if($('#password_baru_confirmation').attr("type") == "text"){
+                    $('#password_baru_confirmation').attr('type', 'password');
                     $('#show_hide_konfirmasi_password i').addClass( "fa-eye-slash" );
                     $('#show_hide_konfirmasi_password i').removeClass( "fa-eye" );
-                }else if($('#password_confirmation').attr("type") == "password"){
-                    $('#password_confirmation').attr('type', 'text');
+                }else if($('#password_baru_confirmation').attr("type") == "password"){
+                    $('#password_baru_confirmation').attr('type', 'text');
                     $('#show_hide_konfirmasi_password i').removeClass( "fa-eye-slash" );
                     $('#show_hide_konfirmasi_password i').addClass( "fa-eye" );
                 }
             });
         });
     </script>
-@endsection
+@endpush

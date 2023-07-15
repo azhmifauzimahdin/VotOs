@@ -34,6 +34,9 @@
             </div>
         </section>
     </div>
+@endsection
+
+@push('script')
     <script>
         const nama = document.querySelector('#nama');
         const slug = document.querySelector('#slug');
@@ -46,4 +49,4 @@
             })
         });
     </script>
-@endsection
+@endpush

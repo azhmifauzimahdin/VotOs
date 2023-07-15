@@ -45,6 +45,9 @@
             </div>
         </section>
     </div>
+@endsection
+
+@push('script')
     <script>
         $(document).ready(function() {
             $("#show_hide_password a").on('click', function(event) {
@@ -61,4 +64,4 @@
             });
         });
     </script>
-@endsection
+@endpush

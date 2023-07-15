@@ -115,12 +115,6 @@
                             {!! $kandidat->misi !!}
                         </div>
                     </div>
-                    {{-- <hr>
-                    <div class="row">
-                        <div class="col-sm-12">
-                            <a class="btn btn-danger" href="/dashboard/kandidat">Kembali</a>
-                        </div>
-                    </div> --}}
                 </div>
             </div>
       </div>

@@ -105,6 +105,9 @@
             </div>
         </section>
     </div>
+@endsection
+
+@push('script')
     <script>
         $("#hapus_value").on('click', function(event) {
             event.preventDefault();
@@ -137,4 +140,4 @@
             })
         });
     </script>
-@endsection
+@endpush

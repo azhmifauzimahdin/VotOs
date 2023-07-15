@@ -33,10 +33,13 @@
             </div>
         </section>
     </div>
+@endsection
+    
+@push('script')    
     <script>
         const nama = document.querySelector('#nama');
         const slug = document.querySelector('#slug');
-
+        
         nama.addEventListener('change',function(){
             fetch('/dashboard/kelas/checkSlug?nama=' + nama.value)
             .then(response => response.json())
@@ -45,4 +48,4 @@
             })
         });
     </script>
-@endsection
+@endpush

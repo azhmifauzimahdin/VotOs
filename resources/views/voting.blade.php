@@ -139,6 +139,9 @@
             @endif
         @endif
     @endauth
+@endsection
+
+@push('script')
     <script>
         $(document).ready(function() {
             $('#submit_voting').attr('disabled', true);
@@ -148,4 +151,4 @@
                 
             });
     </script>
-@endsection
+@endpush

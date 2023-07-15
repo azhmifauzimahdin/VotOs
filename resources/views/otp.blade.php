@@ -41,7 +41,7 @@
                             </label> 
                         </div>
                     </div>
-                    <button type="submit" class="btn btn-success w-100 btn-lg mb-3">Voting</button>
+                    <button type="submit" class="btn btn-success w-100 mb-3">Voting</button>
                 </form>
                 <form action="/voting/generate" method="post">
                     @csrf
@@ -52,6 +52,10 @@
             </div>
         </div>
     </div>
+
+@endsection
+
+@push('script')
     <script>
         $(document).ready(function(){
             $('.form-check-input').click(function(){
@@ -63,4 +67,4 @@
             });
 	    });
     </script>
-@endsection
+@endpush

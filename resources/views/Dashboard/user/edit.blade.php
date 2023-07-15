@@ -100,11 +100,13 @@
             </div>
         </section>
     </div>
+@endsection
+
+@push('script')
     <script>
         const nama = document.querySelector('#nama');
         const slug = document.querySelector('#slug');
         const password = document.querySelector('#password');
-        const passwordRule = document.querySelector('#passwordRule');
         const passwordHelp = document.querySelector('#passwordHelp');
 
         nama.addEventListener('change',function(){
@@ -119,7 +121,7 @@
             passwordHelp.style.display = 'none';
         });
 
-        password.addEventListener('change',function(){
+        password.addEventListener('blur',function(){
             if(password.value == ""){
                 passwordHelp.style.display = 'block';
             }
@@ -158,4 +160,4 @@
             });
         });
     </script>
-@endsection
+@endpush
