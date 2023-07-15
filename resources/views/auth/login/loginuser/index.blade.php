@@ -33,6 +33,12 @@
         </div>
         <button class="w-100 btn btn-primary" type="submit">Login</button>
     </form>
+@endsection
+@section('content3')
+    <a href="/" class="mt-4 text-decoration-none">kembali</a>
+@endsection
+
+@push('script')
     <script>
         $(document).ready(function(){
             $('.form-check-input').click(function(){
@@ -44,4 +50,4 @@
             });
 	    });
     </script>
-@endsection
+@endpush

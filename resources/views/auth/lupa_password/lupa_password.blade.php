@@ -23,3 +23,6 @@
         <button type="submit" class="w-100 btn btn-primary">Kirim Reset Password</button>
     </form>
 @endsection
+@section('content3')
+    <a href="/loginPemilih" class="mt-4 text-decoration-none">kembali</a>
+@endsection

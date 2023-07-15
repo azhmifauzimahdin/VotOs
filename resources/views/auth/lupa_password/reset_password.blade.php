@@ -42,10 +42,14 @@
                         Lihat password
                     </label>
                 </div>
+                <a href="/loginPemilih" class="text-decoration-none">Login?</a>
             </div>
         </div>
         <button type="submit" class="w-100 btn btn-primary">Reset Password</button>
     </form>
+@endsection
+
+@push('script')
     <script>
         $(document).ready(function(){
             $('.form-check-input').click(function(){
@@ -59,4 +63,4 @@
             });
         });
     </script>
-@endsection
+@endpush

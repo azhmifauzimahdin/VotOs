@@ -24,7 +24,7 @@
         <div class="form-floating mb-3">
             <input type="password" class="form-control" name="password" id="password" placeholder="Password" required>
             <label for="password">Password</label>
-            <div id="emailHelp" class="form-text d-flex justify-content-between mt-2">
+            <div class="form-text d-flex justify-content-between mt-2">
                 <div class="form-check mb-0">
                     <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
                     <label class="form-check-label" for="flexCheckDefault">
@@ -36,6 +36,13 @@
         </div>
         <button class="w-100 btn btn-primary" type="submit">Login</button>
     </form>
+@endsection
+
+@section('content3')
+    <a href="/" class="mt-4 text-decoration-none">kembali</a>
+@endsection
+
+@push('script')
     <script>
         $(document).ready(function(){
             $('.form-check-input').click(function(){
@@ -47,4 +54,4 @@
             });
         });
     </script>
-@endsection
+@endpush

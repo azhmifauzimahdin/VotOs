@@ -41,13 +41,15 @@
                             @yield('content2')
                         </div>
                         <div class="mb-2 mt-md-5 text-center">
-                            <a href="/" class="mt-4 text-decoration-none">kembali</a>
+                            @yield('content3')
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+
+    @stack('script')
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
     <script src="https://kit.fontawesome.com/dd7eecbb67.js" crossorigin="anonymous"></script>
 </body>
