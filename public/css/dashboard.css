@@ -26,3 +26,12 @@ trix-toolbar [data-trix-button-group="file-tools"] {
     bottom: 0;
     right: 0;
 }
+
+.show-hide-password{
+    cursor: pointer;
+    color: #4a5057;
+}
+
+.show-hide-password:hover{
+    color: #4a5057;
+}

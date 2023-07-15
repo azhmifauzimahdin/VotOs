@@ -29,7 +29,7 @@
                             <div class="input-group">
                                 <input type="password" class="form-control @error('password_lama') is-invalid @enderror" id="password_lama" name="password_lama" placeholder="Password Lama" required>
                                 <span class="input-group-text" id="show_hide_password_lama">
-                                    <a href=""><i class="fa-regular fa-eye-slash" aria-hidden="true"></i></a>
+                                    <a show-hide-password><i class="fa-regular fa-eye-slash" aria-hidden="true"></i></a>
                                 </span>
                                 @error('password_lama')
                                 <div class="invalid-feedback">
@@ -43,7 +43,7 @@
                             <div class="input-group">
                                 <input type="password" class="form-control @error('password_baru') is-invalid @enderror" id="password_baru" name="password_baru" placeholder="Password Baru" required>
                                 <span class="input-group-text" id="show_hide_password_baru">
-                                    <a href=""><i class="fa-regular fa-eye-slash" aria-hidden="true"></i></a>
+                                    <a show-hide-password><i class="fa-regular fa-eye-slash" aria-hidden="true"></i></a>
                                 </span>
                                 @error('password_baru')
                                 <div class="invalid-feedback">
@@ -57,7 +57,7 @@
                             <div class="input-group">
                                 <input type="password" class="form-control @error('password_baru_confirmation') is-invalid @enderror" id="password_baru_confirmation" name="password_baru_confirmation" placeholder="Konfirmasi Password" required>
                                 <span class="input-group-text" id="show_hide_konfirmasi_password">
-                                    <a href=""><i class="fa-regular fa-eye-slash" aria-hidden="true"></i></a>
+                                    <a show-hide-password><i class="fa-regular fa-eye-slash" aria-hidden="true"></i></a>
                                 </span>
                                 @error('password_baru_confirmation')
                                 <div class="invalid-feedback">
