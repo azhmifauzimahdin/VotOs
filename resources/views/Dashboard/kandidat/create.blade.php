@@ -42,7 +42,7 @@
                         </div>
                         <div class="form-group">
                             <label for="kelas_id">Kelas</label>
-                            <select class="form-control @error('kelas_id') is-invalid @enderror" name="kelas_id" id="kelas_id">
+                            <select class="form-control select-search" name="kelas_id" id="kelas_id">
                                 @foreach ($kelas as $data)
                                     <option value="{{ $data->id }}" {{ old('kelas_id') == $data->id ? "selected" : "" }}>{{ $data->nama }}</option>
                                 @endforeach
@@ -55,7 +55,7 @@
                         </div>
                         <div class="form-group">
                             <label for="jenis_kelamin">Jenis Kelamin</label>
-                            <select class="form-control" id="jenis_kelamin" name="jenis_kelamin">
+                            <select class="form-control select-search" id="jenis_kelamin" name="jenis_kelamin">
                                 <option value="Laki-laki" {{ old('jenis_kelamin') == "Laki-laki" ? "selected" : "" }}>Laki-laki</option>
                                 <option value="Perempuan" {{ old('jenis_kelamin') == "Perempuan" ? "selected" : "" }}>Perempuan</option>
                             </select>
@@ -166,7 +166,11 @@
             oFReader.onload = function(oFREvent) {
                 imgPreview.src = oFREvent.target.result;
             }
-        }
+        };
+
+        $(document).ready(function(){
+            $('.select-search').select2();
+        });
 
     </script>
 @endpush

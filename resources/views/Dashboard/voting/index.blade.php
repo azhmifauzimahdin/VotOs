@@ -13,7 +13,7 @@
                         <div class="form-row">
                             <div class="col-md-4 mb-2 mb-md-0">
                                 <label for="kandidat">Kandidat</label>
-                                <select class="form-control" name="kandidat" id="kandidat">
+                                <select class="form-control select-search" name="kandidat" id="kandidat">
                                     <option value="" {{ request('kandidat') == "" ? "selected" : "" }}>Semua kandidat</option>
                                     @foreach ($kandidats as $kandidat)
                                         <option value="{{ $kandidat->nama }}" {{ request('kandidat') == $kandidat->nama ? "selected" : "" }}>{{ $kandidat->nomor }} - {{ $kandidat->nama }}</option>
@@ -121,5 +121,10 @@
             $('#search').attr('value', '');
             $("#search").focus();
         });
+
+        $(document).ready(function(){
+            $('.select-search').select2();
+        });
+        
     </script>
 @endpush

@@ -17,7 +17,7 @@ class DashboardKelasController extends Controller
     {
         return view('dashboard.kelas.index', [
             'title' => 'Data Kelas',
-            'kelas' => Kelas::latest()->filter(request(['search']))->orderBy('nama', 'ASC')->paginate(10)->withQueryString()
+            'kelas' => Kelas::filter(request(['search']))->orderBy('nama', 'ASC')->paginate(10)->withQueryString()
         ]);
     }
 

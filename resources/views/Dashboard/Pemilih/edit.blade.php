@@ -21,35 +21,25 @@
                         @if ($role === 'siswa')
                         <div class="form-group">
                             <label for="kelas_id">Kelas</label>
-                            <select class="form-control" name="kelas_id" id="kelas_id">
+                            <select class="form-control select-search" name="kelas_id" id="kelas_id">
                                 @foreach ($kelas as $data)
                                     <option value="{{ $data->id }}" {{ old('kelas_id', $pemilih->kelas_id) == $data->id ? "selected" : "" }}>{{ $data->nama }}</option>
                                 @endforeach
                             </select>
-                            @error('kelas_id')
-                            <div class="invalid-feedback">
-                                {{ $message }}
-                            </div>
-                            @enderror
                         </div>
                         @else
                         <div class="form-group">
-                            <label for="jabatan_id">Kelas</label>
-                            <select class="form-control" name="jabatan_id" id="jabatan_id">
+                            <label for="jabatan_id">Jabatan</label>
+                            <select class="form-control select-search" name="jabatan_id" id="jabatan_id">
                                 @foreach ($jabatan as $data)
                                     <option value="{{ $data->id }}" {{ old('jabatan_id', $pemilih->jabatan_id) == $data->id ? "selected" : "" }}>{{ $data->nama }}</option>
                                 @endforeach
                             </select>
-                            @error('jabatan_id')
-                            <div class="invalid-feedback">
-                                {{ $message }}
-                            </div>
-                            @enderror
                         </div>
                         @endif
                         <div class="form-group">
                             <label for="jenis_kelamin">Jenis Kelamin</label>
-                            <select class="form-control" id="jenis_kelamin" name="jenis_kelamin">
+                            <select class="form-control select-search" id="jenis_kelamin" name="jenis_kelamin">
                                 <option value="Laki-laki" {{ old('jenis_kelamin', $pemilih->jenis_kelamin) == "Laki-laki" ? "selected" : "" }}>Laki-laki</option>
                                 <option value="Perempuan" {{ old('jenis_kelamin', $pemilih->jenis_kelamin) == "Perempuan" ? "selected" : "" }}>Perempuan</option>
                             </select>
@@ -92,6 +82,10 @@
             .then(data => {
                 slug.value = data.slug;
             })
+        });
+
+        $(document).ready(function(){
+            $('.select-search').select2();
         });
     </script>
 @endpush
