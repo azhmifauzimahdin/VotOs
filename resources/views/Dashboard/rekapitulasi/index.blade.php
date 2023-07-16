@@ -35,7 +35,7 @@
                                     <th scope="col">NO</th>
                                     <th scope="col">KANDIDAT</th>
                                     <th scope="col">JUMLAH SUARA</th>
-                                    <th scope="col">KETERANGAN</th>
+                                    <th scope="col">JABATAN</th>
                                 </tr>
                             </thead>
                             <tbody>

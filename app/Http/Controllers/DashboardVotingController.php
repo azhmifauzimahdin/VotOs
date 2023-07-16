@@ -49,8 +49,13 @@ class DashboardVotingController extends Controller
         if ($kandidats) {
             $i = 0;
             foreach ($kandidats as $data) {
-                $data->setAttribute('keterangan', $keterangan[$i]);
-                $i === 2 ? $i = 0 : $i++;
+
+                if ($i >= 3) {
+                    $data->setAttribute('keterangan', '-');
+                } else {
+                    $data->setAttribute('keterangan', $keterangan[$i]);
+                }
+                $i++;
             }
         }
 

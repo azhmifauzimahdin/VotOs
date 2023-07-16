@@ -41,7 +41,7 @@
                 <th>No</th>
                 <th>Kandidat</th>
                 <th>Jumlah Suara</th>
-                <th>Keterangan</th>
+                <th>Jabatan</th>
             </tr>
         </thead>
         <tbody>
