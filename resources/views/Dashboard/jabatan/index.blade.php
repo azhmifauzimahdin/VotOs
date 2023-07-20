@@ -52,6 +52,7 @@
                                                 <a href="/dashboard/jabatan/{{ $data->slug }}/edit" class="btn btn-sm bg-warning">
                                                     <i class="fa-solid fa-pen-to-square"></i>
                                                 </a>
+                                                @if (!$waktupemilu) 
                                                 <form action="/dashboard/jabatan/{{ $data->slug }}" name="formDeletee" method="post" class="d-inline">
                                                     @method('delete')
                                                     @csrf 
@@ -59,6 +60,7 @@
                                                         <i class="fa-solid fa-trash-can"></i>
                                                     </button>
                                                 </form>
+                                                @endif
                                             </td>
                                         </tr>
                                     @endforeach

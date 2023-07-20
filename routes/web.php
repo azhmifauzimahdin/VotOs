@@ -14,11 +14,11 @@ use App\Http\Controllers\DashboardKelasController;
 use App\Http\Controllers\DashboardVotingController;
 use App\Http\Controllers\DashboardKandidatController;
 use App\Http\Controllers\UserPerolehanSuaraController;
-use App\Http\Controllers\DashboardPelaksanaanController;
 use App\Http\Controllers\DashboardGantiPasswordController;
 use App\Http\Controllers\DashboardJabatanController;
 use App\Http\Controllers\DashboardPemilihGuruKaryawanController;
 use App\Http\Controllers\DashboardPemilihSiswaController;
+use App\Http\Controllers\DashboardWaktuPemiluController;
 use App\Http\Controllers\ResetPasswordController;
 use App\Http\Controllers\UserGantiPasswordController;
 
@@ -120,6 +120,7 @@ Route::controller(DashboardVotingController::class)->group(function () {
     Route::get('/dashboard/voting', 'index')->name('user.voting')->middleware(['auth:web', 'panitia']);
     Route::get('/dashboard/voting/print', 'cetakPdf')->name('user.voting.cetakPdf')->middleware(['auth:web', 'panitia']);
     Route::get('/dashboard/voting/printSuratSuara', 'cetakPdfSuratSuara')->name('user.voting.cetakPdfSuratSuara')->middleware(['auth:web', 'panitia']);
+    Route::get('/dashboard/voting/ulangvoting', 'ulangVoting')->name('user.voting.ulang')->middleware(['auth:web', 'panitia']);
     Route::get('/dashboard/rekapitulasi', 'rekapitulasi')->name('user.rekapitulasi')->middleware(['auth:web', 'panitia']);
     Route::get('/dashboard/rekapitulasi/print', 'cetakPdfRekapitulasi')->name('user.rekapitulasi')->middleware(['auth:web', 'panitia']);
 });
@@ -155,15 +156,15 @@ Route::resource('/dashboard/jabatan', DashboardJabatanController::class)->names(
     'destroy' => 'user.jabatan.destroy',
 ])->except('show')->middleware(['auth:web', 'panitia']);
 
-Route::post('/dashboard/pelaksanaan/selesai', [DashboardPelaksanaanController::class, 'selesai'])->name('user.pelaksanaan.selesai')->middleware(['auth:web', 'panitia']);
-Route::resource('/dashboard/pelaksanaan', DashboardPelaksanaanController::class)->names([
+Route::post('/dashboard/waktupemilu/selesai', [DashboardWaktuPemiluController::class, 'selesai'])->name('user.pelaksanaan.selesai')->middleware(['auth:web', 'panitia']);
+Route::resource('/dashboard/waktupemilu', DashboardWaktuPemiluController::class)->names([
     'index' => 'user.pelaksanaan.index',
     'create' => 'user.pelaksanaan.create',
     'store' => 'user.pelaksanaan.store',
     'edit' => 'user.pelaksanaan.edit',
     'update' => 'user.pelaksanaan.update',
     'destroy' => 'user.pelaksanaan.destroy',
-])->parameters(['pelaksanaan' => 'pemilu'])->except('show')->middleware(['auth:web', 'panitia']);
+])->parameters(['waktupemilu' => 'pemilu'])->except('show')->middleware(['auth:web', 'panitia']);
 
 
 Route::controller(DashboardScanController::class)->group(function () {

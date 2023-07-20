@@ -6,7 +6,6 @@ use App\Models\Kandidat;
 use App\Models\SuratSuara;
 use App\Models\Voting;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Crypt;
 
 class UserScanController extends Controller
 {

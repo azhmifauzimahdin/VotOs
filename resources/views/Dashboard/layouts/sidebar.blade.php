@@ -60,10 +60,10 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href="/dashboard/pelaksanaan" class="nav-link {{ Request::is('dashboard/pelaksanaan*') ? 'active' : ''}}">
+            <a href="/dashboard/waktupemilu" class="nav-link {{ Request::is('dashboard/waktupemilu*') ? 'active' : ''}}">
               <i class="nav-icon fa-solid fa-calendar-days"></i>
               <p>
-                Waktu Pelaksanaan
+                Waktu Pemilu
               </p>
             </a>
           </li>

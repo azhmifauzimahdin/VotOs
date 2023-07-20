@@ -6,7 +6,7 @@ use App\Models\Pemilu;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 
-class DashboardPelaksanaanController extends Controller
+class DashboardWaktuPemiluController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -22,8 +22,8 @@ class DashboardPelaksanaanController extends Controller
             $cek = true;
         }
 
-        return view('dashboard.pelaksanaan.index', [
-            'title' => 'Waktu Pelaksanaan',
+        return view('dashboard.waktu_pemilu.index', [
+            'title' => 'Waktu Pemilu',
             'pemilus' => Pemilu::get(),
             'cek' => $cek,
             'waktupemilu' => $this->cekWaktuPemilu()
@@ -41,8 +41,8 @@ class DashboardPelaksanaanController extends Controller
         if (count($pemilu) > 0) {
             abort(403);
         }
-        return view('dashboard.pelaksanaan.create', [
-            'title' => 'Tambah Waktu Pelaksanaan'
+        return view('dashboard.waktu_pemilu.create', [
+            'title' => 'Tambah Waktu Pemilu'
         ]);
     }
 
@@ -61,7 +61,7 @@ class DashboardPelaksanaanController extends Controller
         $validateData['id'] = 1;
 
         Pemilu::create($validateData);
-        return redirect('/dashboard/pelaksanaan')->with('success', 'Data waktu pelaksanaan berhasil ditambahkan!');
+        return redirect('/dashboard/waktupemilu')->with('success', 'Data waktu pemilu berhasil ditambahkan!');
     }
 
     /**
@@ -83,8 +83,8 @@ class DashboardPelaksanaanController extends Controller
      */
     public function edit(Pemilu $pemilu)
     {
-        return view('dashboard.pelaksanaan.edit', [
-            'title' => 'Edit Waktu Pelaksanaan',
+        return view('dashboard.waktu_pemilu.edit', [
+            'title' => 'Edit Waktu Pemilu',
             'pemilu' => $pemilu
         ]);
     }
@@ -105,7 +105,7 @@ class DashboardPelaksanaanController extends Controller
 
         Pemilu::where('id', $pemilu->id)->update($validateData);
 
-        return redirect('/dashboard/pelaksanaan')->with('success', 'Data waktu pelaksanaan berhasil diupdate!');
+        return redirect('/dashboard/waktupemilu')->with('success', 'Data waktu pemilu berhasil diupdate!');
     }
 
     /**
@@ -118,7 +118,7 @@ class DashboardPelaksanaanController extends Controller
     {
         Pemilu::destroy($pemilu->id);
 
-        return redirect('/dashboard/pelaksanaan')->with('success', 'Data waktu pelaksanaan berhasil dihapus!');
+        return redirect('/dashboard/waktupemilu')->with('success', 'Data waktu pemilu berhasil dihapus!');
     }
 
     public function selesai()
@@ -126,14 +126,17 @@ class DashboardPelaksanaanController extends Controller
         Pemilu::where('id', 1)->update([
             'selesai' => Carbon::now()->format('Y-m-d H:i')
         ]);
-        return redirect('/dashboard/pelaksanaan')->with('success', 'Waktu selesai pelaksanaan berhasil diupdate ke waktu sekarang!');
+        return redirect('/dashboard/waktupemilu')->with('success', 'Waktu selesai pemilu berhasil diupdate ke waktu sekarang!');
     }
 
     public function cekWaktuPemilu()
     {
         $pemilu = Pemilu::first();
         $now = Carbon::now();
-        $cekwaktupemilu = $now->isAfter($pemilu->mulai) && $now->isBefore($pemilu->selesai);
+        $cekwaktupemilu = false;
+        if ($pemilu) {
+            $cekwaktupemilu = $now->isAfter($pemilu->mulai) && $now->isBefore($pemilu->selesai);
+        }
 
         return $cekwaktupemilu;
     }

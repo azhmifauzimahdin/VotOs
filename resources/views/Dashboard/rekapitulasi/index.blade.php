@@ -20,7 +20,7 @@
                             </li>
                             <li class="list-inline-item">
                                 <form action="/dashboard/rekapitulasi" class="input-search">
-                                    <input class="form-control" type="text" name="search" id="search" value="{{  request('search') }}">
+                                    <input class="form-control" type="text" name="rekapitulasi" id="rekapitulasi" value="{{  request('rekapitulasi') }}">
                                     <a class="delete-input-search btn btn-transparent" id="hapus_value">
                                         <i class="fa-solid fa-xmark" style="color: #a0a0a0;"></i>
                                     </a>

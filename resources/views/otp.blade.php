@@ -11,7 +11,27 @@
     </div>
     <div class="row d-flex align-items-center justify-content-center my-md-5 pb-5 g-5 px-3">
         <div class="col-md-4 d-flex justify-content-center">
-            <img src="/img/otp.svg" alt="ilustrasi" width="70%">
+            <div class="row d-flex justify-content-center">
+                <div class="col-6 col-md-8">
+                    <div class="kotak-profil border bg-white overflow-hidden" style="border-radius: 1vw; min-height: 100%; position:relative" >
+                        <div class="candidate_thumb" style="height: 80%">
+                            @if ($kandidat->foto)
+                                <img src="{{ asset('storage/'. $kandidat->foto) }}" class="foto-kandidat" alt="Foto Kandidat" width="100%">
+                            @else
+                                <img src="{{ asset('AdminLTE') }}/dist/img/default_user.jpg" class="foto-kandidat" alt="Foto Kandidat" width="100%">
+                            @endif
+                            <div class="px-3" style="position: absolute; z-index: 1; width: 100%; bottom: 0; text-align: right;">
+                                <h5 class="text-primary">
+                                    {{ $kandidat->nomor }}
+                                </h5>
+                            </div>
+                        </div>
+                        <div class="px-3 pt-1"> 
+                            <h6 class="card-title text-end mb-4">{{ $kandidat->nama }}</h6>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
         <div class="col-md-5 d-flex justify-content-center">
             <div class="box-otp w-75">

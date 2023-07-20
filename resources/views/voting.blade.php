@@ -58,7 +58,7 @@
             </div>
         @else
             @if($pemilu)
-                @if ($waktu->isAfter($pemilu->selesai))
+                @if ($waktupemiluselesai)
                 <div class="row d-flex align-items-center justify-content-center mb-5 mt-3 g-4 px-3">
                     <div class="col-md-5 d-flex justify-content-center">
                         <img src="/img/waktu.svg" alt="ilustrasi" width="60%">
@@ -72,7 +72,7 @@
                     </div>
                 </div>
                 @endif
-                @if ($waktu->isAfter($pemilu->mulai) && $waktu->isBefore($pemilu->selesai))
+                @if ($waktupemiluberlangsung)
                 <div class="px-5 mx-md-5">
                     <form action="/voting/generate" method="post" enctype="multipart/form-data">
                         @csrf
@@ -115,7 +115,7 @@
                     </form>
                 </div>
                 @endif
-                @if($waktu->isBefore($pemilu->mulai))
+                @if($waktupemilubelumdimulai)
                 <div class="row d-flex align-items-center justify-content-center mb-5 mt-3 g-4 px-3">
                     <div class="col-md-5 d-flex justify-content-center">
                         <img src="/img/waktu.svg" alt="ilustrasi" width="60%">

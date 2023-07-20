@@ -16,7 +16,7 @@
                     @endif
                     @if (count($pemilus) == 0)   
                         <div class="row d-flex justify-content-between mb-3 mx-0">
-                            <a href="/dashboard/pelaksanaan/create" class="btn btn-primary">
+                            <a href="/dashboard/waktupemilu/create" class="btn btn-primary">
                                 <i class="fa-solid fa-plus pr-1"></i>
                                 Tambah {{ $title }}
                             </a>
@@ -24,7 +24,7 @@
                     @else
                         @if($cek)
                             <div class="row d-flex justify-content-between mb-3 mx-0">
-                                <form action="/dashboard/pelaksanaan/selesai" method="post">
+                                <form action="/dashboard/waktupemilu/selesai" method="post">
                                     @csrf
                                     <button type="submit" class="btn btn-success">
                                         <i class="fa-regular fa-clock pr-1"></i>
@@ -50,11 +50,11 @@
                                             <td>{{ $pemilu->mulai }}</td>
                                             <td>{{ $pemilu->selesai }}</td>
                                             <td class="text-nowrap">
-                                                <a href="/dashboard/pelaksanaan/{{ $pemilu->id }}/edit" class="btn btn-sm bg-warning">
+                                                <a href="/dashboard/waktupemilu/{{ $pemilu->id }}/edit" class="btn btn-sm bg-warning">
                                                     <i class="fa-solid fa-pen-to-square"></i>
                                                 </a>
                                                 @if (!$waktupemilu)
-                                                <form action="/dashboard/pelaksanaan/{{ $pemilu->id }}" id="formHapus" method="post" class="d-inline">
+                                                <form action="/dashboard/waktupemilu/{{ $pemilu->id }}" id="formHapus" method="post" class="d-inline">
                                                     @method('delete')
                                                     @csrf
                                                     <button class="btn btn-sm bg-danger border-0 konfirmasi_hapus" onclick="hapusData()">

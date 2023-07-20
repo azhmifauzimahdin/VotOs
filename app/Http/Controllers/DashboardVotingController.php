@@ -22,6 +22,14 @@ class DashboardVotingController extends Controller
         ]);
     }
 
+    public function ulangVoting()
+    {
+        Kandidat::where('jumlah_suara', '>', 0)->update(['jumlah_suara' => 0]);
+        Voting::query()->delete();
+
+        return redirect('/dashboard/voting')->with('success', 'Data voting berhasil dihapus!');
+    }
+
     public function rekapitulasi()
     {
         return view('dashboard.rekapitulasi.index', [
@@ -44,7 +52,7 @@ class DashboardVotingController extends Controller
 
     public function tambahKeterangan()
     {
-        $kandidats = $this->cekAkhirPemilu() ? Kandidat::orderBy('jumlah_suara', 'DESC')->filter(request(['search']))->paginate(10)->withQueryString() : [];
+        $kandidats = $this->cekAkhirPemilu() ? Kandidat::orderBy('jumlah_suara', 'DESC')->filter(request(['rekapitulasi']))->paginate(10)->withQueryString() : [];
         $keterangan = ['Ketua', 'Wakil Ketua', 'Sekretaris'];
         if ($kandidats) {
             $i = 0;
@@ -58,7 +66,6 @@ class DashboardVotingController extends Controller
                 $i++;
             }
         }
-
         return $kandidats;
     }
 

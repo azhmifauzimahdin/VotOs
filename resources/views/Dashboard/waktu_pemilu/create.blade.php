@@ -6,7 +6,7 @@
             <div class="card">
                 <h5 class="card-header ">{{ $title }}</h5>
                 <div class="card-body">
-                    <form action="/dashboard/pelaksanaan" method="post" enctype="multipart/form-data">
+                    <form action="/dashboard/waktupemilu" method="post">
                         @csrf
                         <div class="form-group">
                             <label for="mulai">Waktu Mulai</label>
@@ -27,7 +27,7 @@
                             @enderror
                         </div>
                         <button type="submit" class="btn btn-primary">Simpan</button>
-                        <a href="/dashboard/pelaksanaan" class="btn btn-danger">Batal</a>
+                        <a href="/dashboard/waktupemilu" class="btn btn-danger">Batal</a>
                     </form>
                 </div>
             </div>

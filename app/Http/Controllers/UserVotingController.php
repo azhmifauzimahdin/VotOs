@@ -11,27 +11,31 @@ use SimpleSoftwareIO\QrCode\Facades\QrCode;
 use Carbon\Carbon;
 use App\Mail\SendEmail;
 use Illuminate\Support\Facades\Mail;
-use Illuminate\Support\Facades\Crypt;
-use Illuminate\Contracts\Encryption\DecryptException;
+use Illuminate\Support\Str;
 
 class UserVotingController extends Controller
 {
     public function index()
     {
-        if (auth('pemilih')->check()) {
-            $id = auth('pemilih')->user()->id;
-        } else {
-            $id = 0;
+        $now = Carbon::now();
+        $pemilu = Pemilu::first();
+        $waktupemilubelumdimulai = false;
+        $waktupemiluselesai = false;
+        $waktupemiluberlangsung = false;
+        if ($pemilu) {
+            $waktupemilubelumdimulai = $now->isBefore($pemilu->mulai);
+            $waktupemiluselesai = $now->isAfter($pemilu->selesai);
+            $waktupemiluberlangsung = $now->isAfter($pemilu->mulai) && $now->isBefore($pemilu->selesai);
         }
-        $voting = Voting::where('pemilih_id', $id)->first();
 
         return view('voting', [
             'title' => 'Voting',
             'kandidats' => Kandidat::orderBy('nomor', 'ASC')->get(),
-            'votings' => Voting::get(),
-            'status' => $voting,
-            'waktu' => Carbon::now(),
-            'pemilu' => Pemilu::first(),
+            'status' => Voting::where('pemilih_id', $this->cekIdUser())->first(),
+            'pemilu' => $pemilu,
+            'waktupemilubelumdimulai' => $waktupemilubelumdimulai,
+            'waktupemiluselesai' => $waktupemiluselesai,
+            'waktupemiluberlangsung' => $waktupemiluberlangsung
         ]);
     }
 
@@ -56,7 +60,6 @@ class UserVotingController extends Controller
         $pemilih_id = auth('pemilih')->user()->id;
         $verificationCode = Otp::where('pemilih_id', $pemilih_id)->first();
         $otp = rand(123456, 999999);
-        $encryptOtp = Crypt::encryptString($otp);
         $details = [
             'nama' => auth('pemilih')->user()->nama,
             'kode' => $otp
@@ -66,34 +69,30 @@ class UserVotingController extends Controller
 
         if ($verificationCode) {
             return $verificationCode->update([
-                'otp' => $encryptOtp,
+                'otp' => $otp,
                 'expire_at' => Carbon::now()->addMinutes(2)
             ]);
         }
 
         return Otp::create([
             'pemilih_id' => $pemilih_id,
-            'otp' => $encryptOtp,
+            'otp' => $otp,
             'expire_at' => Carbon::now()->addMinutes(2)
         ]);
     }
 
     public function otp($slug)
     {
-        if (auth('pemilih')->check()) {
-            $id = auth('pemilih')->user()->id;
-        } else {
-            $id = 0;
-        }
-
+        $id = $this->cekIdUser();
         $status = Voting::where('pemilih_id', $id)->first();
-        if ($id === 0 || $status) {
+        if ($status) {
             abort(403);
         }
 
         return view('otp')->with([
             'title' => 'One Time Password',
-            'slug' => $slug
+            'slug' => $slug,
+            'kandidat' => Kandidat::where('slug', $slug)->first()
         ]);
     }
 
@@ -105,25 +104,20 @@ class UserVotingController extends Controller
         ]);
 
         $kandidat = Kandidat::where('slug', $request->slugVote)->first();
-        $kode = Crypt::encryptString($this->generateKodeVoting());
+        $kode = $this->generateKodeVoting();
         $validateData = [
             'pemilih_id' => auth('pemilih')->user()->id,
             'kandidat_id' => $kandidat->id,
             'kode' => $kode,
-            'qr_code' => QrCode::size(300)->errorCorrection('Q')->generate($kode)
+            'qr_code' => QrCode::size(300)->errorCorrection('M')->generate($kode)
         ];
 
         $verificationCode = Otp::where('pemilih_id', $validateData['pemilih_id'])->first();
-        try {
-            $decryptOtp = Crypt::decryptString($verificationCode->otp);
-        } catch (DecryptException $e) {
-            return redirect()->back()->with('errormessage', 'Gagal deskripsi data!');
-        }
 
         $now = Carbon::now();
-        if ($request->otp !== $decryptOtp) {
+        if ($request->otp !== $verificationCode->otp) {
             return redirect()->back()->with('errormessage', 'Kode OTP salah!');
-        } elseif ($request->otp === $decryptOtp && $now->isAfter($verificationCode->expire_at)) {
+        } elseif ($request->otp === $verificationCode->otp && $now->isAfter($verificationCode->expire_at)) {
             return redirect()->back()->with('errormessage', 'Kode OTP telah kadaluarsa!');
         }
 
@@ -136,36 +130,35 @@ class UserVotingController extends Controller
 
     public function generateKodeVoting()
     {
-        $number = mt_rand(1000000000, 9999999999);
-        if (count($this->CekKode($number))) {
-            return $this->generateKodeVoting();
-        }
-        return $number;
-    }
-
-    public function CekKode($number)
-    {
-        $items = Voting::all()->filter(function ($record) use ($number) {
-            if (Crypt::decryptString($record->kode) == $number) {
-                return $record;
+        $kode = Str::random(100);
+        $voting = Voting::get();
+        if ($voting) {
+            foreach ($voting as $data) {
+                if ($data->kode == $kode) {
+                    return $this->generateKodeVoting();
+                }
             }
-        });
-        return $items;
+        }
+        return $kode;
     }
 
     public function cetakPdfQrCode()
     {
-        if (auth('pemilih')->check()) {
-            $id = auth('pemilih')->user()->id;
-        } else {
-            $id = 0;
-        }
-
+        $id = $this->cekIdUser();
         $voting = Voting::where('pemilih_id', $id)->first();
 
         return view('cetakQrCode', [
             'title' => 'Cetak QR Code',
             'voting' => $voting
         ]);
+    }
+
+    public function cekIdUser()
+    {
+        $id = 0;
+        if (auth('pemilih')->check()) {
+            $id = auth('pemilih')->user()->id;
+        }
+        return $id;
     }
 }

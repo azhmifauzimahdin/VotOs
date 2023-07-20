@@ -4,7 +4,13 @@
     <div class="row">
         <div class="col-md-4">
             <div class="card p-3 mb-0" id="card-reader">
+                @if ($waktupemiluselesai)
                 <div id="reader"></div>
+                @else
+                <div class="alert alert-info mb-0 text-center" role="alert">
+                    Tunggu pemilu selesai
+                </div>
+                @endif
             </div>
             <div class="bg-tranparent d-flex mb-3">
                 <img src="" class="foto-scan-pemilih rounded-circle img-thumbnail" id="foto-kandidat" style="display: none;">
@@ -33,6 +39,11 @@
                     Perhitungan Suara
                 </div>
                 <div class="card-body">
+                    @if (!$waktupemiluselesai)
+                    <div class="alert alert-info" role="alert">
+                        Scan surat suara dapat dilakukan ketika waktu pemilu telah selesai.
+                    </div>
+                    @endif
                     @if(session()->has('success'))
                     <div class="alert alert-success alert-dismissible fade show shadow-sm" role="alert">
                         {{ session('success') }}
@@ -144,8 +155,8 @@
                                 $('#status').removeClass('d-none');
                             }else{
                                 $("#hasil"+response.kandidat.id).append(`<span class="text-success"> + 1</span>`);
+                                $("#sudahscan").append(`<span class="text-success"> + 1</span>`);
                             }
-                            $("#sudahscan").append(`<span class="text-success"> + 1</span>`);
                         }
                         
                     }

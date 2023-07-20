@@ -34,6 +34,12 @@ class Kandidat extends Model
                     $query->where('nama', 'like', '%' . $search . '%');
                 });
         });
+
+        $query->when($filters['rekapitulasi'] ?? false, function ($query, $search) {
+            return $query->where('nama', 'like', '%' . $search . '%')
+                ->orWhere('nomor', 'like', '%' . $search . '%')
+                ->orWhere('jumlah_suara', 'like', '%' . $search . '%');
+        });
     }
 
     public function getRouteKeyName()

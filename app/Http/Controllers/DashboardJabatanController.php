@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
+use App\Models\Pemilu;
 use App\Models\Jabatan;
 use Illuminate\Http\Request;
 use Cviebrock\EloquentSluggable\Services\SlugService;
@@ -17,7 +19,8 @@ class DashboardJabatanController extends Controller
     {
         return view('dashboard.jabatan.index', [
             'title' => 'Data Jabatan',
-            'jabatans' => Jabatan::latest()->filter(request(['search']))->paginate(10)->withQueryString()
+            'jabatans' => Jabatan::latest()->filter(request(['search']))->paginate(10)->withQueryString(),
+            'waktupemilu' => $this->cekWaktuPemilu()
         ]);
     }
 
@@ -84,9 +87,11 @@ class DashboardJabatanController extends Controller
      */
     public function update(Request $request, Jabatan $jabatan)
     {
-        $rules = [
-            'nama' => 'required'
-        ];
+        $rules = [];
+
+        if ($request->nama != $jabatan->nama) {
+            $rules['nama'] = 'required|unique:jabatans';
+        }
 
         if ($request->slug != $jabatan->slug) {
             $rules['slug'] = 'required|unique:jabatans';
@@ -116,5 +121,17 @@ class DashboardJabatanController extends Controller
     {
         $slug = SlugService::createSlug(Jabatan::class, 'slug', $request->nama);
         return response()->json(['slug' => $slug]);
+    }
+
+    public function cekWaktuPemilu()
+    {
+        $pemilu = Pemilu::first();
+        $now = Carbon::now();
+        $cekwaktupemilu = false;
+        if ($pemilu) {
+            $cekwaktupemilu = $now->isAfter($pemilu->mulai) && $now->isBefore($pemilu->selesai);
+        }
+
+        return $cekwaktupemilu;
     }
 }

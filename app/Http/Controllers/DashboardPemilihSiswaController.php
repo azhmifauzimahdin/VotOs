@@ -164,7 +164,10 @@ class DashboardPemilihSiswaController extends Controller
     {
         $pemilu = Pemilu::first();
         $now = Carbon::now();
-        $cekwaktupemilu = $now->isAfter($pemilu->mulai) && $now->isBefore($pemilu->selesai);
+        $cekwaktupemilu = false;
+        if ($pemilu) {
+            $cekwaktupemilu = $now->isAfter($pemilu->mulai) && $now->isBefore($pemilu->selesai);
+        }
 
         return $cekwaktupemilu;
     }

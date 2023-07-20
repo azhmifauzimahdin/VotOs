@@ -128,10 +128,6 @@ class DashboardUserController extends Controller
             'foto' => 'image',
         ];
 
-
-        if ($request->username != $user->username) {
-            $rules['username'] = 'required|unique:users';
-        }
         if ($request->slug != $user->slug) {
             $rules['slug'] = 'required|unique:users';
         }

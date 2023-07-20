@@ -39,7 +39,7 @@
                                 <tr>
                                     <th scope="col">NO</th>
                                     <th scope="col">NAMA</th>
-                                    <th scope="col">JABATAN</th>
+                                    <th scope="col">JABATAN SEBELUMNYA</th>
                                     <th scope="col">KELAS</th>
                                     <th scope="col">JENIS KELAMIN</th>
                                     <th scope="col">FOTO</th>

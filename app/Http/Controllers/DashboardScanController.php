@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
+use App\Models\Pemilu;
 use App\Models\Voting;
 use App\Models\Kandidat;
 use Illuminate\Http\Request;
@@ -14,13 +16,14 @@ class DashboardScanController extends Controller
         if (count(Voting::where('status', 1)->get()) == count(Voting::get())) {
             $cekScan = true;
         }
+
         return view('dashboard.scan.index', [
             "title" => "Scan Surat Suara",
             "kandidats" => Kandidat::orderBy('nomor', 'ASC')->get(),
             "cekScan" => $cekScan,
             "surat_suara" => Voting::get(),
-            "sudah_scan" => Voting::where('status', true)->get()
-
+            "sudah_scan" => Voting::where('status', true)->get(),
+            "waktupemiluselesai" => $this->cekWaktuPemiluSelesai()
         ]);
     }
 
@@ -52,5 +55,17 @@ class DashboardScanController extends Controller
         Voting::where('status', '=', 1)->update(['status' => 0]);
 
         return redirect('/dashboard/scan')->with('success', 'Data hasil perhitungan scan surat suara berhasil dihapus!');
+    }
+
+    public function cekWaktuPemiluSelesai()
+    {
+        $pemilu = Pemilu::first();
+        $now = Carbon::now();
+        $cekwaktupemilu = false;
+        if ($pemilu) {
+            $cekwaktupemilu = $now->isAfter($pemilu->selesai);
+        }
+
+        return $cekwaktupemilu;
     }
 }

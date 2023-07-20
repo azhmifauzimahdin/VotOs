@@ -9,6 +9,14 @@
                     <div class="info-voting alert border" role="alert" >
                         Data voting akan muncul ketika waktu pemilihan umum telah selesai atau semua pemilih sudah melakukan voting.
                     </div>
+                    @if(session()->has('success'))
+                        <div class="alert alert-success alert-dismissible fade show" role="alert">
+                            {{ session('success') }}
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                    @endif
                     <form action="/dashboard/voting" class="needs-validation">
                         <div class="form-row">
                             <div class="col-md-4 mb-2 mb-md-0">
@@ -35,6 +43,10 @@
                             <a href="/dashboard/voting/printSuratSuara" target="_blank" class="btn btn-success">
                                 <i class="fa-solid fa-print"></i>
                                 <span class="ml-1">Print Semua Surat Suara</span>
+                            </a>
+                            <a class="btn btn-danger konfirmasi_ulang_voting">
+                                <i class="fa-solid fa-check-to-slot"></i>
+                                <span class="ml-1">Ulang Voting</span>
                             </a>
                         </div>
                         <ul class="list-inline mb-0 mt-2 mt-md-0">
@@ -124,6 +136,30 @@
 
         $(document).ready(function(){
             $('.select-search').select2();
+        });
+
+        $('.konfirmasi_ulang_voting').click(function(event) {
+            event.preventDefault();
+            Swal.fire({
+                title: 'Apakah Anda Yakin?',
+                text: "Semua data hasil voting akan dihapus dan data tidak dapat dikembalikan.",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Hapus',
+                cancelButtonText: 'Batal'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    Swal.fire(
+                    'Sukses!',
+                    'Data berhasil dihapus.',
+                    'success'
+                    ).then(function(){
+                        window.location.href = "/dashboard/voting/ulangvoting";
+                    })
+                }
+            })
         });
         
     </script>
