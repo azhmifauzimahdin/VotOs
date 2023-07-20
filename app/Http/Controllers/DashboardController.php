@@ -18,10 +18,12 @@ class DashboardController extends Controller
         $kandidats = Kandidat::get();
         $pemilu = Pemilu::first();
         $now = Carbon::now();
+        $waktupemilu = $now;
 
         $label = [];
         $hasil = [];
         if ($pemilu) {
+            $waktupemilu = $pemilu->mulai;
             if ($now->isAfter($pemilu->selesai) || count($pemilihs) - count($votings) == 0) {
                 foreach ($kandidats as $data) {
                     $label[] = $data->nama;
@@ -37,6 +39,8 @@ class DashboardController extends Controller
             'kandidats' => $kandidats,
             'label' => $label,
             'hasil' => $hasil,
+            'waktupemilu' => $waktupemilu,
+            'pemilu' => $pemilu
         ]);
     }
 }

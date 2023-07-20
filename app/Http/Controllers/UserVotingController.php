@@ -22,10 +22,17 @@ class UserVotingController extends Controller
         $waktupemilubelumdimulai = false;
         $waktupemiluselesai = false;
         $waktupemiluberlangsung = false;
+        $waktupemilu = $now;
+        $reloadpage = false;
         if ($pemilu) {
             $waktupemilubelumdimulai = $now->isBefore($pemilu->mulai);
             $waktupemiluselesai = $now->isAfter($pemilu->selesai);
             $waktupemiluberlangsung = $now->isAfter($pemilu->mulai) && $now->isBefore($pemilu->selesai);
+            $waktupemilu = $pemilu->mulai;
+            $reloadpage = true;
+            if ($now->isAfter($pemilu->mulai)) {
+                $reloadpage = false;
+            };
         }
 
         return view('voting', [
@@ -35,7 +42,9 @@ class UserVotingController extends Controller
             'pemilu' => $pemilu,
             'waktupemilubelumdimulai' => $waktupemilubelumdimulai,
             'waktupemiluselesai' => $waktupemiluselesai,
-            'waktupemiluberlangsung' => $waktupemiluberlangsung
+            'waktupemiluberlangsung' => $waktupemiluberlangsung,
+            'waktupemilu' => $waktupemilu,
+            'reloadpage' => $reloadpage
         ]);
     }
 

@@ -3,7 +3,16 @@
 @section('container')
     <div class="row pt-md-5 pt-3 pb-5 px-2 text-white d-flex align-items-center justify-content-center" style="background: linear-gradient(to right, #1202f5, #5449fc,#3dabff);">
         <div class="col-md-5 col-11 mb-3">
-            <h3 class="mb-4 lh-base">Sistem E-Voting Pemilihan Ketua OSIS Berbasis Web</h3>
+            <h3 class="mb-3 lh-base">Sistem E-Voting Pemilihan Ketua OSIS Berbasis Web</h3>
+            @if ($pemilu)
+            <h6 class="mb-3 lh-base">Waktu Voting Akan Segera Dimulai</h6>
+            <div class="row mb-4 ms-1">
+                <div id="hari" class="col-2 d-flex flex-column align-items-center rounded-3 me-2" style="aspect-ratio: 1/1; background:#0000001b"><h1 class="my-1">0</h1><span>Hari</span></div>
+                <div id="jam" class="col-2 d-flex flex-column align-items-center rounded-3 me-2" style="aspect-ratio: 1/1; background:#0000001b"><h1 class="my-1">0</h1><span>Jam</span></div>
+                <div id="menit" class="col-2 d-flex flex-column align-items-center rounded-3 me-2" style="aspect-ratio: 1/1; background:#0000001b"><h1 class="my-1">0</h1><span>Menit</span></div>
+                <div id="detik" class="col-2 d-flex flex-column align-items-center rounded-3 me-2" style="aspect-ratio: 1/1; background:#0000001b"><h1 class="my-1">0</h1><span>Detik</span></div>
+            </div>
+            @endif
             <a href="/kandidat" class="btn btn-outline-light px-3 rounded-pill" style="margin-right: 0.5rem">Lihat Kandidat</a>
             <a href="/voting" class="btn text-white px-3 rounded-pill" style="background: #03C988">Voting Sekarang</a>
         </div>
@@ -80,3 +89,36 @@
     </div>
     
 @endsection
+
+@push('script')
+    <script>
+        $(document).ready(function() {
+            var end = new Date('{{$waktupemilu}}');
+            var _second = 1000;
+            var _minute = _second * 60;
+            var _hour = _minute * 60;
+            var _day = _hour * 24;
+            var timer;
+            
+            function showRemaining() {
+                var now = new Date();
+                var distance = end - now;
+                if (distance < 0) {
+                    clearInterval(timer);
+                    return;
+                }
+                var days = Math.floor(distance / _day);
+                var hours = Math.floor((distance % _day) / _hour);
+                var minutes = Math.floor((distance % _hour) / _minute);
+                var seconds = Math.floor((distance % _minute) / _second);
+
+                $("#hari").html("<h1 class='my-1'>" + days + "</h1><span>Hari</span>");
+                $("#jam").html("<h1 class='my-1'>" + hours + "</h1><span>Jam</span>");
+                $("#menit").html("<h1 class='my-1'>" + minutes + "</h1><span>Menit</span>");
+                $("#detik").html("<h1 class='my-1'>" + seconds + "</h1><span>Detik</span>");
+            }
+            
+            timer = setInterval(showRemaining, 1000);
+        });
+    </script>
+@endpush

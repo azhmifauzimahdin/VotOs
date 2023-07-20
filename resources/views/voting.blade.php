@@ -122,7 +122,13 @@
                     </div>  
                     <div class="col-md-5">
                         <h4 class="text-center">WAKTU PEMILU BELUM DIMULAI</h4>
-                        <p class="text-center w-75 mx-auto">Tunggu sampai waktu pemilu dimulai.</p>
+                        <p class="text-center w-75 mx-auto mb-4">Waktu Voting Akan Segera Dimulai</p>
+                        <div class="row mb-4 d-flex justify-content-center ms-1 text-white">
+                            <div id="hari" class="col-2 d-flex flex-column align-items-center rounded-3 me-2" style="aspect-ratio: 1/1; background:#03c988"><h1 class="my-1">0</h1><span>Hari</span></div>
+                            <div id="jam" class="col-2 d-flex flex-column align-items-center rounded-3 me-2" style="aspect-ratio: 1/1; background:#03c988"><h1 class="my-1">0</h1><span>Jam</span></div>
+                            <div id="menit" class="col-2 d-flex flex-column align-items-center rounded-3 me-2" style="aspect-ratio: 1/1; background:#03c988"><h1 class="my-1">0</h1><span>Menit</span></div>
+                            <div id="detik" class="col-2 d-flex flex-column align-items-center rounded-3 me-2" style="aspect-ratio: 1/1; background:#03c988"><h1 class="my-1">0</h1><span>Detik</span></div>
+                        </div>
                     </div>
                 </div>
                 @endif
@@ -145,10 +151,41 @@
     <script>
         $(document).ready(function() {
             $('#submit_voting').attr('disabled', true);
-                $("input[name=slug]:radio").click(function(){
-                    $('#submit_voting').attr('disabled', false);
-                })
-                
-            });
+            $("input[name=slug]:radio").click(function(){
+                $('#submit_voting').attr('disabled', false);
+            })  
+        });
+
+        $(document).ready(function() {
+            var end = new Date('{{$waktupemilu}}');
+            var _second = 1000;
+            var _minute = _second * 60;
+            var _hour = _minute * 60;
+            var _day = _hour * 24;
+            var timer;
+            
+            function showRemaining() {
+                var now = new Date();
+                var distance = end - now;
+                if (distance < 0) {
+                    if({{ $reloadpage}}){
+                        location.reload();
+                    }
+                    clearInterval(timer);
+                    return;
+                }
+                var days = Math.floor(distance / _day);
+                var hours = Math.floor((distance % _day) / _hour);
+                var minutes = Math.floor((distance % _hour) / _minute);
+                var seconds = Math.floor((distance % _minute) / _second);
+
+                $("#hari").html("<h1 class='my-1'>" + days + "</h1><span>Hari</span>");
+                $("#jam").html("<h1 class='my-1'>" + hours + "</h1><span>Jam</span>");
+                $("#menit").html("<h1 class='my-1'>" + minutes + "</h1><span>Menit</span>");
+                $("#detik").html("<h1 class='my-1'>" + seconds + "</h1><span>Detik</span>");
+            }
+            
+            timer = setInterval(showRemaining, 1000);
+        });
     </script>
 @endpush

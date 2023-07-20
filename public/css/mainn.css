@@ -20,7 +20,7 @@ body {
 }
 
 .mainContainer {
-    min-height: 92.2vh;
+    min-height: 96.2vh;
 }
 
 .candidate_thumb {
@@ -55,7 +55,7 @@ body {
     width: 75%;
 }
 
-.foto-kandidat{
+.foto-kandidat {
     aspect-ratio: 3/4;
 }
 
