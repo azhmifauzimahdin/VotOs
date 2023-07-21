@@ -13,8 +13,13 @@ class UserBerandaController extends Controller
     public function index()
     {
         $pemilu = Pemilu::first();
+        $waktupemilubelumdimulai = false;
+        $waktupemiluberlangsung = false;
         $waktupemilu = Carbon::now();
+
         if ($pemilu) {
+            $waktupemilubelumdimulai = $waktupemilu->isBefore($pemilu->mulai);
+            $waktupemiluberlangsung = $waktupemilu->isAfter($pemilu->mulai) && $waktupemilu->isBefore($pemilu->selesai);
             $waktupemilu = $pemilu->mulai;
         }
 
@@ -24,7 +29,9 @@ class UserBerandaController extends Controller
             'kandidats' => Kandidat::get(),
             'votings' => Voting::get(),
             'waktupemilu' => $waktupemilu,
-            'pemilu' => $pemilu
+            'pemilu' => $pemilu,
+            'waktupemilubelumdimulai' => $waktupemilubelumdimulai,
+            'waktupemiluberlangsung' => $waktupemiluberlangsung,
         ]);
     }
 }

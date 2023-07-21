@@ -5,7 +5,13 @@
         <div class="col-md-5 col-11 mb-3">
             <h3 class="mb-3 lh-base">Sistem E-Voting Pemilihan Ketua OSIS Berbasis Web</h3>
             @if ($pemilu)
-            <h6 class="mb-3 lh-base">Waktu Voting Akan Segera Dimulai</h6>
+                @if ($waktupemilubelumdimulai)
+                <h6 class="mb-3 lh-base">Voting Akan Segera Dimulai</h6>
+                @elseif($waktupemiluberlangsung)
+                <h6 class="mb-3 lh-base">Voting Sedang Berlangsung</h6>
+                @else
+                <h6 class="mb-3 lh-base">Voting Telah Berakhir</h6>
+                @endif
             <div class="row mb-4 ms-1">
                 <div id="hari" class="col-2 d-flex flex-column align-items-center rounded-3 me-2" style="aspect-ratio: 1/1; background:#0000001b"><h1 class="my-1">0</h1><span>Hari</span></div>
                 <div id="jam" class="col-2 d-flex flex-column align-items-center rounded-3 me-2" style="aspect-ratio: 1/1; background:#0000001b"><h1 class="my-1">0</h1><span>Jam</span></div>

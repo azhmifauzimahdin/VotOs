@@ -122,7 +122,7 @@
                     </div>  
                     <div class="col-md-5">
                         <h4 class="text-center">WAKTU PEMILU BELUM DIMULAI</h4>
-                        <p class="text-center w-75 mx-auto mb-4">Waktu Voting Akan Segera Dimulai</p>
+                        <p class="text-center w-75 mx-auto mb-4">Voting Akan Segera Dimulai</p>
                         <div class="row mb-4 d-flex justify-content-center ms-1 text-white">
                             <div id="hari" class="col-2 d-flex flex-column align-items-center rounded-3 me-2" style="aspect-ratio: 1/1; background:#03c988"><h1 class="my-1">0</h1><span>Hari</span></div>
                             <div id="jam" class="col-2 d-flex flex-column align-items-center rounded-3 me-2" style="aspect-ratio: 1/1; background:#03c988"><h1 class="my-1">0</h1><span>Jam</span></div>

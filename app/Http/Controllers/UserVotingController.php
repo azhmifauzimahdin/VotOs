@@ -29,10 +29,7 @@ class UserVotingController extends Controller
             $waktupemiluselesai = $now->isAfter($pemilu->selesai);
             $waktupemiluberlangsung = $now->isAfter($pemilu->mulai) && $now->isBefore($pemilu->selesai);
             $waktupemilu = $pemilu->mulai;
-            $reloadpage = true;
-            if ($now->isAfter($pemilu->mulai)) {
-                $reloadpage = false;
-            };
+            $reloadpage = $now->isAfter($pemilu->mulai) ? false : true;
         }
 
         return view('voting', [
