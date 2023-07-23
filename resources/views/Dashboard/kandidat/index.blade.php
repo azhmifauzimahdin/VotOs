@@ -63,7 +63,7 @@
                                                 @if ($kandidat->foto)
                                                     <img src="{{ asset('storage/'.$kandidat->foto) }}" style="width: 80px; aspect-ratio:3/4" alt="Foto kandidat">    
                                                 @else
-                                                    <img src="{{ asset('AdminLTE') }}/dist/img/default_user.jpg" style="width: 80px; aspect-ratio:3/4" alt="Foto kandidat">    
+                                                    <img src="{{ asset('storage/foto-kandidat/defaultKandidat.jpg') }}" style="width: 80px; aspect-ratio:3/4" alt="Foto kandidat">    
                                                 @endif
                                             </td>
                                             <td class="text-nowrap align-middle">

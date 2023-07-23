@@ -9,7 +9,7 @@
         @if (auth()->user()->foto)
           <img src="{{ asset('storage/'. auth()->user()->foto) }}" class="img-circle elevation-2" style="aspect-ratio: 1/1" alt="User Image">
         @else
-          <img src="{{ asset('AdminLTE') }}/dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
+          <img src="{{ asset('storage/foto-user/defaultUser.png')}}" class="img-circle elevation-2" alt="User Image">
         @endif
       </div>
       <div class="info">

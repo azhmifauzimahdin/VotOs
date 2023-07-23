@@ -73,7 +73,7 @@
                             if(response.kandidat.foto){
                                 $('#foto').attr('src', $temp + '/' + response.kandidat.foto);
                             }else{
-                                $('#foto').attr('src', "{{ asset('AdminLTE') }}/dist/img/default_user.jpg");
+                                $('#foto').attr('src', "{{ asset('storage/foto-kandidat/defaultKandidat.jpg') }}");
                             }
                             $('#foto').css('display', 'block');
                             $("#nomor").append(response.kandidat.nomor);

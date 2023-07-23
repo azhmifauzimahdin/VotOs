@@ -32,7 +32,7 @@
                         @if ($status->kandidat->foto)
                             <img src="{{ asset('storage/'. $status->kandidat->foto) }}" alt="Foto Kandidat" class="foto-kandidat-voting">
                         @else
-                            <img src="{{ asset('AdminLTE') }}/dist/img/default_user.jpg" alt="Foto Kandidat" class="foto-kandidat-voting">
+                            <img src="{{ asset('storage/foto-kandidat/defaultKandidat.jpg') }}" alt="Foto Kandidat" class="foto-kandidat-voting">
                         @endif
                         <h6 class="text-center py-2"><b>{{ $status->kandidat->nama }}</b></h6>
                     </div>
@@ -84,7 +84,7 @@
                                             @if ($kandidat->foto)
                                                 <img src="{{ asset('storage/'. $kandidat->foto) }}" class="foto-kandidat" alt="Foto Kandidat" width="100%">
                                             @else
-                                                <img src="{{ asset('AdminLTE') }}/dist/img/default_user.jpg" class="foto-kandidat" alt="Foto Kandidat" width="100%">
+                                                <img src="{{ asset('storage/foto-kandidat/defaultKandidat.jpg') }}" class="foto-kandidat" alt="Foto Kandidat" width="100%">
                                             @endif
                                             <div class="px-3" style="position: absolute; z-index: 1; width: 100%; bottom: 0; text-align: right;">
                                                 <h5 class="text-primary">
@@ -151,13 +151,13 @@
     <script>
         $(document).ready(function() {
             $('#submit_voting').attr('disabled', true);
-            $("input[name=slug]:radio").click(function(){
+                $('input[name=slug]:radio').click(function(){
                 $('#submit_voting').attr('disabled', false);
             })  
         });
 
         $(document).ready(function() {
-            var end = new Date('{{$waktupemilu}}');
+            var end = new Date({{ Js::from($waktupemilu) }});
             var _second = 1000;
             var _minute = _second * 60;
             var _hour = _minute * 60;
@@ -168,7 +168,7 @@
                 var now = new Date();
                 var distance = end - now;
                 if (distance < 0) {
-                    if({{ $reloadpage}}){
+                    if({{ Js::from($reloadpage) }}){
                         location.reload();
                     }
                     clearInterval(timer);

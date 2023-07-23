@@ -18,7 +18,7 @@
                             @if ($kandidat->foto)
                             <img src="{{ asset('storage/'.$kandidat->foto) }}" alt="Admin" class="rounded-circle" width="120" style="aspect-ratio:1/1">
                             @else
-                            <img src="{{ asset('AdminLTE') }}/dist/img/default_user.jpg" alt="Admin" class="rounded-circle" width="120" style="aspect-ratio:1/1">
+                            <img src="{{ asset('storage/foto-kandidat/defaultKandidat.jpg') }}" alt="Admin" class="rounded-circle" width="120" style="aspect-ratio:1/1">
                             @endif
                             <div class="mt-3 w-100">
                                 <h5>{{ $kandidat->nama }}</h5>
