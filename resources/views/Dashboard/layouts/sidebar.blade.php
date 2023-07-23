@@ -105,7 +105,7 @@
             <a href="/dashboard/user" class="nav-link {{ Request::is('dashboard/user*') ? 'active' : ''}}">
               <i class="nav-icon fa-solid fa-users-gear"></i>
               <p>
-                Data User
+                Data Admin & Panitia
               </p>
             </a>
           </li>

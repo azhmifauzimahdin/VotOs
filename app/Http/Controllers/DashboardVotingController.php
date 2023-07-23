@@ -45,7 +45,10 @@ class DashboardVotingController extends Controller
         $votings = Voting::get();
         $pemilu = Pemilu::first();
         $now = Carbon::now();
-        $cekpemilu = $now->isAfter($pemilu->selesai) || count($pemilihs) - count($votings) == 0;
+        $cekpemilu = false;
+        if ($pemilu) {
+            $cekpemilu = $now->isAfter($pemilu->selesai) || count($pemilihs) - count($votings) == 0;
+        }
 
         return $cekpemilu;
     }

@@ -6,12 +6,14 @@ use Carbon\Carbon;
 use App\Models\Kelas;
 use App\Models\Pemilu;
 use App\Models\Pemilih;
-use App\Mail\SendAccount;
 use Illuminate\Support\Str;
+use App\Exports\SiswaExport;
+use App\Imports\SiswaImport;
 use App\Jobs\SendAccountJob;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Mail;
+use Maatwebsite\Excel\Facades\Excel;
+use Illuminate\Support\Facades\Storage;
 use \Cviebrock\EloquentSluggable\Services\SlugService;
 
 class DashboardPemilihSiswaController extends Controller
@@ -72,7 +74,6 @@ class DashboardPemilihSiswaController extends Controller
         $details = [
             'email' => $request->email,
             'nama' => $request->nama,
-            'username' => $request->username,
             'password' => $password,
             'url' => 'http://' . request()->getHttpHost() . '/loginPemilih'
         ];
@@ -170,5 +171,30 @@ class DashboardPemilihSiswaController extends Controller
         }
 
         return $cekwaktupemilu;
+    }
+
+    public function importSiswa()
+    {
+        return view('dashboard.pemilih.import', [
+            'title' => 'Data Siswa',
+            'objek' => 'Siswa',
+            'role' => 'siswa'
+        ]);
+    }
+
+    public function fileImport(Request $request)
+    {
+        Excel::import(new SiswaImport, $request->file('file'));
+        return redirect('/dashboard/pemilih/siswa')->with('success', 'Data pemilih berhasil ditambahkan!');
+    }
+
+    public function fileExport()
+    {
+        return Excel::download(new SiswaExport, 'DataSiswa.xlsx');
+    }
+
+    public function downloadTemplate()
+    {
+        return Storage::download('template/TemplateDataSiswa.xlsx');
     }
 }

@@ -18,7 +18,7 @@ class DashboardUserController extends Controller
     public function index()
     {
         return view('dashboard.user.index', [
-            'title' => 'Data User',
+            'title' => 'Data Admin & Panitia',
             'users' => User::latest()->filter(request(['search']))->paginate(10)->withQueryString()
         ]);
     }
@@ -31,7 +31,7 @@ class DashboardUserController extends Controller
     public function create()
     {
         return view('dashboard.user.create', [
-            'title' => 'Tambah Data User'
+            'title' => 'Tambah Data Admin & Panitia'
         ]);
     }
 
@@ -107,7 +107,7 @@ class DashboardUserController extends Controller
     public function edit(User $user)
     {
         return view('dashboard.user.edit', [
-            'title' => 'Edit Data User',
+            'title' => 'Edit Data Admin & Panitia',
             'user' => $user
         ]);
     }

@@ -15,10 +15,20 @@
                         </div>
                     @endif
                     <div class="row d-flex justify-content-between mb-3 mx-0">
-                        <a href="/dashboard/pemilih/{{ $role }}/create" class="btn btn-primary">
-                            <i class="fa-solid fa-plus pr-1"></i>
-                            Tambah Data Pemilih
-                        </a>
+                        <div>
+                            <a href="/dashboard/pemilih/{{ $role }}/create" class="btn btn-primary">
+                                <i class="fa-solid fa-plus pr-1"></i>
+                                Tambah Data Pemilih
+                            </a>
+                            <a href="/dashboard/pemilih/{{ $role }}/import" class="btn btn-success">
+                                <i class="fa-solid fa-file-arrow-up pr-1"></i>
+                                Import Data {{ $objek }}
+                            </a>
+                            <a href="/dashboard/pemilih/{{ $role }}/export" class="btn btn-info">
+                                <i class="fa-solid fa-file-export pr-1"></i>
+                                Export Data
+                            </a>
+                        </div>
                         <ul class="list-inline mb-0 mt-2 mt-md-0">
                             <li class="list-inline-item">
                                 Search :
