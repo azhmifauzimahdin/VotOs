@@ -10,7 +10,7 @@
                         Data rekapitulasi akan muncul ketika waktu pemilihan umum telah selesai atau semua pemilih sudah melakukan voting.
                     </div>
                     <div class="row d-flex justify-content-between mb-3 mx-0">
-                        <a href="/dashboard/rekapitulasi/print?kandidat={{ request('kandidat') }}" target="_blank" class="btn btn-primary">
+                        <a href="/dashboard/rekapitulasi/print?kandidat={{ request('kandidat') }}" target="_blank" class="btn btn-info">
                             <i class="fa-solid fa-print"></i>
                             <span class="ml-1">Print</span>
                         </a>

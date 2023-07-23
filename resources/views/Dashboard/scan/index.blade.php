@@ -59,7 +59,7 @@
                     @endif
                     <form action="/dashboard/scan/ulang" method="post" class="row px-2 mb-3">
                         @csrf
-                        <button class="btn bg-primary konfirmasi_hitung_ulang">
+                        <button class="btn bg-danger konfirmasi_hitung_ulang">
                             Hitung Ulang
                         </button>
                     </form>

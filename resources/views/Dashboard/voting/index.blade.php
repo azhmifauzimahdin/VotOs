@@ -29,18 +29,18 @@
                                 </select>
                             </div>
                             <div class="col-md-2 d-flex align-items-end">
-                                <button type="submit" class="btn btn-primary mr-2">Tampilkan</button>
+                                <button type="submit" class="btn btn-success mr-2">Tampilkan</button>
                             </div>
                         </div>
                     </form>
                     <hr>
                     <div class="row d-flex justify-content-between mb-3 mx-0">
                         <div class="tombol">
-                            <a href="/dashboard/voting/print?kandidat={{ request('kandidat') }}" target="_blank" class="btn btn-primary mb-2 mb-md-0">
+                            <a href="/dashboard/voting/print?kandidat={{ request('kandidat') }}" target="_blank" class="btn btn-info mb-2 mb-md-0">
                                 <i class="fa-solid fa-print"></i>
                                 <span class="ml-1">Print Data Voting</span>
                             </a>
-                            <a href="/dashboard/voting/printSuratSuara" target="_blank" class="btn btn-success">
+                            <a href="/dashboard/voting/printSuratSuara" target="_blank" class="btn btn-info mb-2 mb-md-0">
                                 <i class="fa-solid fa-print"></i>
                                 <span class="ml-1">Print Semua Surat Suara</span>
                             </a>
@@ -104,7 +104,11 @@
                                     @endforeach
                                 @else
                                     <tr>
+                                        @if (request('kandidat'))
+                                        <td colspan="4" class="text-center py-2">Tidak ada data voting untuk kandidat {{ request('kandidat') }}.</td>
+                                        @else
                                         <td colspan="4" class="text-center py-2">Tidak ada data yang ditemukan</td>
+                                        @endif
                                     </tr>
                                 @endif
                             </tbody>
