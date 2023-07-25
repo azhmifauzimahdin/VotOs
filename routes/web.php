@@ -86,7 +86,6 @@ Route::controller(LoginUserController::class)->group(function () {
 Route::get('/dashboard', [DashboardController::class, 'index'])->name('user.dashboard')->middleware('auth:web');
 
 Route::controller(DashboardPemilihSiswaController::class)->group(function () {
-    Route::get('/dashboard/pemilih/checkSlug', 'checkSlug')->name('user.pemilih.siswa.checkslug')->middleware(['auth:web', 'panitia']);
     Route::get('/dashboard/pemilih/siswa/import', 'importSiswa')->name('user.pemilih.siswa.import')->middleware(['auth:web', 'panitia']);
     Route::post('/dashboard/pemilih/siswa/import', 'fileImport')->name('user.pemilih.siswa.fileimport')->middleware(['auth:web', 'panitia']);
     Route::get('/dashboard/pemilih/siswa/export', 'fileExport')->name('user.pemilih.siswa.import')->middleware(['auth:web', 'panitia']);
@@ -116,7 +115,6 @@ Route::resource('/dashboard/pemilih/gurukaryawan', DashboardPemilihGuruKaryawanC
     'destroy' => 'user.pemilih.gurukaryawan.destroy'
 ])->parameters(['gurukaryawan' => 'pemilih'])->except('show')->middleware(['auth:web', 'panitia']);
 
-Route::get('/dashboard/kandidat/checkSlug', [DashboardKandidatController::class, 'checkSlug'])->middleware(['auth:web', 'panitia']);
 Route::resource('/dashboard/kandidat', DashboardKandidatController::class)->names([
     'index' => 'user.kandidat.index',
     'create' => 'user.kandidat.create',
@@ -138,7 +136,6 @@ Route::controller(DashboardVotingController::class)->group(function () {
     Route::get('/dashboard/hasilPemilu/print', 'cetakPdfHasilPemilu')->name('user.hasilPemilu.print')->middleware(['auth:web', 'panitia']);
 });
 
-Route::get('/dashboard/user/checkSlug', [DashboardUserController::class, 'checkSlug'])->middleware(['auth:web', 'admin']);
 Route::resource('/dashboard/user', DashboardUserController::class)->names([
     'index' => 'user.users.index',
     'create' => 'user.users.create',
@@ -148,7 +145,6 @@ Route::resource('/dashboard/user', DashboardUserController::class)->names([
     'destroy' => 'user.users.destroy',
 ])->except('show')->middleware(['auth:web', 'admin']);
 
-Route::get('/dashboard/pemilih/kelas/checkSlug', [DashboardKelasController::class, 'checkSlug'])->middleware(['auth:web', 'panitia']);
 Route::resource('/dashboard/pemilih/kelas', DashboardKelasController::class)->names([
     'index' => 'user.kelas.index',
     'create' => 'user.kelas.create',
@@ -158,7 +154,6 @@ Route::resource('/dashboard/pemilih/kelas', DashboardKelasController::class)->na
     'destroy' => 'user.kelas.destroy',
 ])->except('show')->middleware(['auth:web', 'panitia']);
 
-Route::get('/dashboard/pemilih/jabatan/checkSlug', [DashboardJabatanController::class, 'checkSlug'])->middleware(['auth:web', 'panitia']);
 Route::resource('/dashboard/pemilih/jabatan', DashboardJabatanController::class)->names([
     'index' => 'user.jabatan.index',
     'create' => 'user.jabatan.create',

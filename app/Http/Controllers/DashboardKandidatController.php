@@ -57,10 +57,11 @@ class DashboardKandidatController extends Controller
             'tanggal_lahir' => 'required',
             'alamat' => 'required',
             'foto' => 'image',
-            'slug' => 'required|unique:kandidats',
             'visi' => 'required',
             'misi' => 'required'
         ]);
+
+        $validateData['slug'] = SlugService::createSlug(Kandidat::class, 'slug', $validateData['nama']);
 
         if ($request->file('foto')) {
             $validateData['foto'] = $request->file('foto')->store('foto-kandidat');
@@ -127,11 +128,8 @@ class DashboardKandidatController extends Controller
             $rules['nomor'] = 'required|numeric|unique:kandidats';
         }
 
-        if ($request->slug != $kandidat->slug) {
-            $rules['slug'] = 'required|unique:kandidats';
-        }
-
         $validateData = $request->validate($rules);
+        $validateData['slug'] = SlugService::createSlug(Kandidat::class, 'slug', $validateData['nama']);
 
         if ($request->file('foto')) {
             if ($request->fotoLama) {
@@ -159,12 +157,6 @@ class DashboardKandidatController extends Controller
         Kandidat::destroy($kandidat->id);
 
         return redirect('/dashboard/kandidat')->with('success', 'Data kandidat berhasil dihapus!');
-    }
-
-    public function checkSlug(Request $request)
-    {
-        $slug = SlugService::createSlug(Kandidat::class, 'slug', $request->nama);
-        return response()->json(['slug' => $slug]);
     }
 
     public function cekWaktuPemilu()

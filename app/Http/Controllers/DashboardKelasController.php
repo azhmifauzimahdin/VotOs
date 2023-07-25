@@ -45,9 +45,10 @@ class DashboardKelasController extends Controller
     public function store(Request $request)
     {
         $validateData = $request->validate([
-            'nama' => 'required|unique:kelas',
-            'slug' => 'required|unique:kelas'
+            'nama' => 'required|unique:kelas'
         ]);
+
+        $validateData['slug'] = SlugService::createSlug(Kelas::class, 'slug', $validateData['nama']);
 
         Kelas::create($validateData);
         return redirect('/dashboard/pemilih/kelas')->with('success', 'Data kelas berhasil ditambahkan!');
@@ -87,17 +88,13 @@ class DashboardKelasController extends Controller
      */
     public function update(Request $request, Kelas $kela)
     {
-        $rules = [];
+        $validateData = [];
 
         if ($request->nama != $kela->nama) {
             $rules['nama'] = 'required|unique:kelas';
+            $validateData = $request->validate($rules);
+            $validateData['slug'] = SlugService::createSlug(Kelas::class, 'slug', $validateData['nama']);
         }
-
-        if ($request->slug != $kela->slug) {
-            $rules['slug'] = 'required|unique:kelas';
-        }
-
-        $validateData = $request->validate($rules);
 
         Kelas::where('id', $kela->id)->update($validateData);
 

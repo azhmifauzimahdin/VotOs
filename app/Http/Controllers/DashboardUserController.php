@@ -45,7 +45,6 @@ class DashboardUserController extends Controller
     {
         $validateData = $request->validate([
             'nama' => 'required',
-            'slug' => 'required|unique:users',
             'jenis_kelamin' => 'required',
             'email' => 'required|email:dns|unique:users',
             'level' => 'required',
@@ -76,6 +75,7 @@ class DashboardUserController extends Controller
             'foto' => 'image'
         ]);
 
+        $validateData['slug'] = SlugService::createSlug(User::class, 'slug', $validateData['nama']);
         $validateData['password'] = Hash::make($request->password);
 
         if ($request->file('foto')) {
@@ -128,9 +128,6 @@ class DashboardUserController extends Controller
             'foto' => 'image',
         ];
 
-        if ($request->slug != $user->slug) {
-            $rules['slug'] = 'required|unique:users';
-        }
         if ($request->email != $user->email) {
             $rules['email'] = 'required|email:dns|unique:users';
         }
@@ -162,6 +159,7 @@ class DashboardUserController extends Controller
         }
 
         $validateData = $request->validate($rules);
+        $validateData['slug'] = SlugService::createSlug(User::class, 'slug', $validateData['nama']);
 
         if ($request->password) {
             $validateData['password'] = Hash::make($request->password);

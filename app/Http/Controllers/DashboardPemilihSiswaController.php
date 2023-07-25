@@ -57,16 +57,14 @@ class DashboardPemilihSiswaController extends Controller
      */
     public function store(Request $request)
     {
-        $validateData = $request->validate(
-            [
-                'nama' => 'required',
-                'kelas_id' => 'required',
-                'jenis_kelamin' => 'required',
-                'email' => 'required|email:dns|unique:pemilihs',
-                'slug' => 'required|unique:pemilihs'
-            ]
-        );
+        $validateData = $request->validate([
+            'nama' => 'required',
+            'kelas_id' => 'required',
+            'jenis_kelamin' => 'required',
+            'email' => 'required|email:dns|unique:pemilihs'
+        ]);
 
+        $validateData['slug'] = SlugService::createSlug(Pemilih::class, 'slug', $validateData['nama']);
         $validateData['user_id'] = auth()->user()->id;
         $password = Str::random(6);
         $validateData['password'] = Hash::make($password);
@@ -128,14 +126,12 @@ class DashboardPemilihSiswaController extends Controller
             'jenis_kelamin' => 'required'
         ];
 
-        if ($request->slug != $pemilih->slug) {
-            $rules['slug'] = 'required|unique:pemilihs';
-        }
         if ($request->email != $pemilih->email) {
             $rules['email'] = 'required|email:dns|unique:pemilihs';
         }
 
         $validateData = $request->validate($rules);
+        $validateData['slug'] = SlugService::createSlug(Pemilih::class, 'slug', $validateData['nama']);
 
         Pemilih::where('id', $pemilih->id)->update($validateData);
 
@@ -153,12 +149,6 @@ class DashboardPemilihSiswaController extends Controller
         Pemilih::destroy($pemilih->id);
 
         return redirect('/dashboard/pemilih/siswa')->with('success', 'Data pemilih berhasil dihapus!');
-    }
-
-    public function checkSlug(Request $request)
-    {
-        $slug = SlugService::createSlug(Pemilih::class, 'slug', $request->nama);
-        return response()->json(['slug' => $slug]);
     }
 
     public function cekWaktuPemilu()

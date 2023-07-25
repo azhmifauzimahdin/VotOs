@@ -18,15 +18,6 @@
                             </div>
                             @enderror
                         </div>
-                        <div class="form-group d-none">
-                            <label for="slug">Slug</label>
-                            <input type="text" class="form-control @error('slug') is-invalid @enderror" id="slug" name="slug" placeholder="Slug" required value="{{  old('slug', $user->slug) }}">
-                            @error('slug')
-                            <div class="invalid-feedback">
-                                {{ $message }}
-                            </div>
-                            @enderror
-                        </div>
                         <div class="form-group">
                             <label for="jenis_kelamin">Jenis Kelamin</label>
                             <select class="form-control select-search" id="jenis_kelamin" name="jenis_kelamin">
@@ -104,18 +95,8 @@
 
 @push('script')
     <script>
-        const nama = document.querySelector('#nama');
-        const slug = document.querySelector('#slug');
         const password = document.querySelector('#password');
         const passwordHelp = document.querySelector('#passwordHelp');
-
-        nama.addEventListener('change',function(){
-            fetch('/dashboard/user/checkSlug?nama=' + nama.value)
-            .then(response => response.json())
-            .then(data => {
-                slug.value = data.slug;
-            })
-        });
 
         password.addEventListener('click',function(){
             passwordHelp.style.display = 'none';

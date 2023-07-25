@@ -46,8 +46,8 @@ class DashboardJabatanController extends Controller
     {
         $validateData = $request->validate([
             'nama' => 'required|unique:jabatans',
-            'slug' => 'required|unique:jabatans'
         ]);
+        $validateData['slug'] = SlugService::createSlug(Jabatan::class, 'slug', $validateData['nama']);
 
         Jabatan::create($validateData);
         return redirect('/dashboard/pemilih/jabatan')->with('success', 'Data jabatan berhasil ditambahkan!');
@@ -87,17 +87,14 @@ class DashboardJabatanController extends Controller
      */
     public function update(Request $request, Jabatan $jabatan)
     {
-        $rules = [];
+        $validateData = [];
 
         if ($request->nama != $jabatan->nama) {
             $rules['nama'] = 'required|unique:jabatans';
+            $validateData = $request->validate($rules);
+            $validateData['slug'] = SlugService::createSlug(Jabatan::class, 'slug', $validateData['nama']);
         }
 
-        if ($request->slug != $jabatan->slug) {
-            $rules['slug'] = 'required|unique:jabatans';
-        }
-
-        $validateData = $request->validate($rules);
 
         Jabatan::where('id', $jabatan->id)->update($validateData);
 
@@ -115,12 +112,6 @@ class DashboardJabatanController extends Controller
         Jabatan::destroy($jabatan->id);
 
         return redirect('/dashboard/pemilih/jabatan')->with('success', 'Data jabatan berhasil dihapus!');
-    }
-
-    public function checkSlug(Request $request)
-    {
-        $slug = SlugService::createSlug(Jabatan::class, 'slug', $request->nama);
-        return response()->json(['slug' => $slug]);
     }
 
     public function cekWaktuPemilu()

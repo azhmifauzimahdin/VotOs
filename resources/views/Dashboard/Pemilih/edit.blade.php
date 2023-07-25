@@ -53,15 +53,6 @@
                             </div>
                             @enderror
                         </div>
-                        <div class="form-group d-none">
-                            <label for="slug">Slug</label>
-                            <input type="text" class="form-control @error('slug') is-invalid @enderror" id="slug" name="slug" placeholder="Slug" required value="{{  old('slug', $pemilih->slug) }}">
-                            @error('slug')
-                            <div class="invalid-feedback">
-                                {{ $message }}
-                            </div>
-                            @enderror
-                        </div>
                         <button type="submit" class="btn btn-primary">Update</button>
                         <a href="/dashboard/pemilih/{{ $role }}" class="btn btn-danger">Batal</a>
                     </form>
@@ -73,17 +64,6 @@
 
 @push('script')
     <script>
-        const nama = document.querySelector('#nama');
-        const slug = document.querySelector('#slug');
-        
-        nama.addEventListener('change',function(){
-            fetch('/dashboard/pemilih/checkSlug?nama=' + nama.value)
-            .then(response => response.json())
-            .then(data => {
-                slug.value = data.slug;
-            })
-        });
-
         $(document).ready(function(){
             $('.select-search').select2();
         });

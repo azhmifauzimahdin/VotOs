@@ -90,10 +90,6 @@
                             </div>
                             @enderror
                         </div>
-                        <div class="form-group d-none">
-                            <label for="slug">Slug</label>
-                            <input type="text" class="form-control @error('slug') is-invalid @enderror" id="slug" name="slug" placeholder="Slug" required value="{{  old('slug', $kandidat->slug) }}">
-                        </div>
                         <div class="form-group">
                             <label for="foto">Foto</label>
                             <input type="hidden" name="fotoLama" value="{{ $kandidat->foto }}">
@@ -145,17 +141,6 @@
     <script type="text/javascript" src="https://unpkg.com/trix@2.0.0/dist/trix.umd.min.js"></script>
     
     <script>
-        const nama = document.querySelector('#nama');
-        const slug = document.querySelector('#slug');
-
-        nama.addEventListener('change',function(){
-            fetch('/dashboard/kandidat/checkSlug?nama=' + nama.value)
-            .then(response => response.json())
-            .then(data => {
-                slug.value = data.slug;
-            })
-        });
-
         document.addEventListener('trix-file-accept', function(e){
             e.preventDefault();
         });
