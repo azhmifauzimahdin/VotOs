@@ -92,10 +92,10 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href="/dashboard/rekapitulasi" class="nav-link {{ Request::is('dashboard/rekapitulasi*') ? 'active' : ''}}">
+            <a href="/dashboard/hasilPemilu" class="nav-link {{ Request::is('dashboard/hasilPemilu*') ? 'active' : ''}}">
               <i class="nav-icon fa-solid fa-file"></i>
               <p>
-                Rekapitulasi
+                Hasil Pemilu
               </p>
             </a>
           </li>

@@ -132,10 +132,10 @@ Route::controller(DashboardVotingController::class)->group(function () {
     Route::get('/dashboard/voting/print', 'cetakPdf')->name('user.voting.cetakPdf')->middleware(['auth:web', 'panitia']);
     Route::get('/dashboard/voting/printSuratSuara', 'cetakPdfSuratSuara')->name('user.voting.cetakPdfSuratSuara')->middleware(['auth:web', 'panitia']);
     Route::get('/dashboard/voting/ulangvoting', 'ulangVoting')->name('user.voting.ulang')->middleware(['auth:web', 'panitia']);
-    Route::get('/dashboard/rekapitulasi', 'rekapitulasi')->name('user.rekapitulasi')->middleware(['auth:web', 'panitia']);
-    Route::get('/dashboard/rekapitulasi/laporan', 'laporan')->name('user.rekapitulasi.laporan')->middleware(['auth:web', 'panitia']);
-    Route::post('/dashboard/rekapitulasi/laporan', 'validasiLaporan')->name('user.rekapitulasi.validasiLaporan')->middleware(['auth:web', 'panitia']);
-    Route::get('/dashboard/rekapitulasi/print', 'cetakPdfRekapitulasi')->name('user.rekapitulasi.print')->middleware(['auth:web', 'panitia']);
+    Route::get('/dashboard/hasilPemilu', 'hasilPemilu')->name('user.hasilPemilu')->middleware(['auth:web', 'panitia']);
+    Route::get('/dashboard/hasilPemilu/laporan', 'laporan')->name('user.hasilPemilu.laporan')->middleware(['auth:web', 'panitia']);
+    Route::post('/dashboard/hasilPemilu/laporan', 'validasiLaporan')->name('user.hasilPemilu.validasiLaporan')->middleware(['auth:web', 'panitia']);
+    Route::get('/dashboard/hasilPemilu/print', 'cetakPdfHasilPemilu')->name('user.hasilPemilu.print')->middleware(['auth:web', 'panitia']);
 });
 
 Route::get('/dashboard/user/checkSlug', [DashboardUserController::class, 'checkSlug'])->middleware(['auth:web', 'admin']);

@@ -9,7 +9,7 @@
                     <div class="info-voting alert border" role="alert" >
                         Masukan beberapa nama pihak terkait yang akan digunakan di lembar pengesahan hasil pemilu.
                     </div>
-                    <form action="/dashboard/rekapitulasi/laporan" method="post">
+                    <form action="/dashboard/hasilPemilu/laporan" method="post">
                         @csrf
                         <div class="form-group">
                             <label for="ketua">Ketua Umum</label>
@@ -32,7 +32,7 @@
                             <input type="text" class="form-control" id="kepala_sekolah" name="kepala_sekolah" placeholder="Nama Kepala Sekolah" required value="{{  old('kepala_sekolah') }}">
                         </div>
                         <button type="submit" class="btn btn-primary">Simpan</button>
-                        <a href="/dashboard/rekapitulasi" class="btn btn-danger">Batal</a>
+                        <a href="/dashboard/hasilPemilu" class="btn btn-danger">Batal</a>
                     </form>
                 </div>
             </div>

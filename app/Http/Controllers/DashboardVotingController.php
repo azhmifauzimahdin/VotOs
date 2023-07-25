@@ -34,10 +34,10 @@ class DashboardVotingController extends Controller
         return redirect('/dashboard/voting')->with('success', 'Data voting berhasil dihapus!');
     }
 
-    public function rekapitulasi()
+    public function hasilPemilu()
     {
-        return view('dashboard.rekapitulasi.index', [
-            'title' => 'Rekapitulasi',
+        return view('dashboard.hasil_pemilu.index', [
+            'title' => 'Hasil Pemilu',
             'kandidats' => $this->tambahKeterangan(),
             'cekAkhirPemilu' => $this->cekAkhirPemilu(),
             'laporan' => Laporan::first()
@@ -60,7 +60,7 @@ class DashboardVotingController extends Controller
 
     public function tambahKeterangan()
     {
-        $kandidats = $this->cekAkhirPemilu() ? Kandidat::orderBy('jumlah_suara', 'DESC')->filter(request(['rekapitulasi']))->paginate(10)->withQueryString() : [];
+        $kandidats = $this->cekAkhirPemilu() ? Kandidat::orderBy('jumlah_suara', 'DESC')->paginate(10)->withQueryString() : [];
         $keterangan = ['Ketua', 'Wakil Ketua', 'Sekretaris'];
         if ($kandidats) {
             $i = 0;
@@ -118,14 +118,14 @@ class DashboardVotingController extends Controller
         return $pdf->stream('Cetak-Surat-Suara.pdf');
     }
 
-    public function cetakPdfRekapitulasi()
+    public function cetakPdfHasilPemilu()
     {
         $waktu = Voting::oldest()->first();
         $pemilih = Pemilih::get();
         $voting = Voting::get();
         $laporan = Laporan::first();
 
-        $pdf = Pdf::loadView('dashboard.rekapitulasi.print', [
+        $pdf = Pdf::loadView('dashboard.hasil_pemilu.print', [
             'title' => 'Cetak Hasil Pemilu',
             'kandidats' => $this->tambahKeterangan(),
             'tahunSekarang' => $waktu ? Carbon::createFromFormat('Y-m-d H:i:s', $waktu->created_at)->year : 'XXXX',
@@ -140,7 +140,7 @@ class DashboardVotingController extends Controller
         ])->setPaper('A4', 'potrait');
         return $pdf->stream('Cetak-Data-Voting.pdf');
 
-        // return view('dashboard.rekapitulasi.print', [
+        // return view('dashboard.hasil_pemilu.print', [
         //     'title' => 'Cetak Hasil Pemilu',
         //     'kandidats' => $this->tambahKeterangan(),
         //     'tahunSekarang' => $waktu ? Carbon::createFromFormat('Y-m-d H:i:s', $waktu->created_at)->year : 'XXXX',
@@ -161,7 +161,7 @@ class DashboardVotingController extends Controller
         if (count($laporan) > 0) {
             abort(403);
         }
-        return view('dashboard.rekapitulasi.laporan', [
+        return view('dashboard.hasil_pemilu.laporan', [
             'title' => 'Data Laporan'
         ]);
     }
@@ -181,6 +181,6 @@ class DashboardVotingController extends Controller
 
 
         Laporan::create($validateData);
-        return redirect('/dashboard/rekapitulasi')->with('success', 'Data Laporan berhasil ditambahkan!');
+        return redirect('/dashboard/hasilPemilu')->with('success', 'Data Laporan berhasil ditambahkan!');
     }
 }
