@@ -9,11 +9,30 @@
                     <div class="info-voting alert border" role="alert" >
                         Data rekapitulasi akan muncul ketika waktu pemilihan umum telah selesai atau semua pemilih sudah melakukan voting.
                     </div>
+                    @if(session()->has('success'))
+                        <div class="alert alert-success alert-dismissible fade show" role="alert">
+                            {{ session('success') }}
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                    @endif
                     <div class="row d-flex justify-content-between mb-3 mx-0">
-                        <a href="/dashboard/rekapitulasi/print?kandidat={{ request('kandidat') }}" target="_blank" class="btn btn-info">
-                            <i class="fa-solid fa-print"></i>
-                            <span class="ml-1">Print</span>
-                        </a>
+                        @if ($cekAkhirPemilu)   
+                            @if ($laporan)
+                            <a href="/dashboard/rekapitulasi/print" class="btn btn-info" target="_blank">
+                                <i class="fa-solid fa-print"></i>
+                                <span class="ml-1">Cetak Hasil Pemilu</span>
+                            </a>
+                            @else
+                            <a href="/dashboard/rekapitulasi/laporan" class="btn btn-info">
+                                <i class="fa-solid fa-print"></i>
+                                <span class="ml-1">Cetak Hasil Pemilu</span>
+                            </a>
+                            @endif
+                        @else
+                        <div></div>
+                        @endif
                         <ul class="list-inline mb-0 mt-2 mt-md-0">
                             <li class="list-inline-item">
                                 Search :
@@ -56,16 +75,6 @@
                             </tbody>
                         </table>
                     </div>
-                    @if ($cekAkhirPemilu)
-                    <div class="row d-flex justify-content-between mx-1">
-                        <div>
-                            Showing {{ $kandidats->firstItem() }} to {{ $kandidats->lastItem() }} of {{$kandidats->total()}} entries
-                        </div>
-                        <div class="mt-2 mt-md-0">
-                            {{ $kandidats->onEachSide(0)->links() }}
-                        </div>
-                    </div>
-                    @endif
                 </div>
             </div>
         </section>

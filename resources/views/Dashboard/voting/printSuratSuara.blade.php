@@ -1,27 +1,26 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <title>Votos | {{ $title }}</title>
-</head>
-<body>
-    @if (count($votings))
-        @foreach ($votings as $voting)  
-            <h5 class="text-center mt-3">QR CODE SURAT SUARA</h5>
-            <p class="text-center mb-3">Sistem E-Voting Pemilihan Ketua OSIS</p>
-            <div class="row d-flex justify-content-center mb-5 pb-4">
-                <div class="col-6 d-flex justify-content-center mb-5 pb-5">
-                    {!! $voting->qr_code  !!}
-                </div>
-            </div>
-        @endforeach
+@extends('layouts.print')
+
+@push('head')
+    <style>
+        @page { margin: 0;}  
+    </style>
+@endpush
+
+@section('container')
+    @if (count($votings) > 0)
+    @foreach ($votings as $voting)  
+    <div class="row bg-primary text-white text-center pt-5 pb-4 mb-4">
+        <h3 class="mb-2">SURAT SUARA PEMILIHAN UMUM</h3>
+        <h6>KETUA UMUM IPM PIMPINAN RANTING IKATAN PELAJAR MUHAMMADIYAH SMA MUHAMMADIYAH 4 YOGYAKARTA </h6>
+    </div>
+    <div class="row text-center mb-4 py-2">
+        <div class="d-block">
+            <img src="data:image/svg+xml;base64,{{ base64_encode($voting->qr_code)}}" width="300" alt="QR Code"/>
+        </div>
+    </div>
+    <div class="bg-primary text-white text-center mb-2 py-2">
+        PERIODE {{ $tahunSekarang }}/{{ $tahunDepan }}
+    </div>
+    @endforeach
     @endif
-    <script>
-        window.print();
-    </script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
-</body>
-</html>
+@endsection

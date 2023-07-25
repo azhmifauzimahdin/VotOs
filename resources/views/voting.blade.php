@@ -46,12 +46,9 @@
                                 {{ $status->kandidat->nomor }}
                             </div>
                         </div>
-                        <div class="row border-bottom py-2">
+                        <div class="row py-2">
                             <div class="col-md-5"><b>Nama</b></div>
                             <div class="col-md-7">{{ $status->kandidat->nama }}</div>
-                        </div>
-                        <div class="d-flex justify-content-center">
-                            <a href="/voting/print" target="_blank" class="btn btn-success rounded-pill mt-3 px-3" style="margin-right: 4%;"><i class="fa-solid fa-print"></i> Print</a>
                         </div>
                     </div>
                 </div>

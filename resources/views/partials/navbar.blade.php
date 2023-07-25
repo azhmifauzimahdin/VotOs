@@ -26,7 +26,7 @@
                         <a class="nav-link dropdown-toggle {{ Request::is('*') ? 'active' : ''}}" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         {{ auth('pemilih')->user()->nama }}
                         </a>
-                        <ul class="dropdown-menu border-0 py-0 overflow-hidden dropdown-logout">
+                        <ul class="dropdown-menu dropdown-menu-end border-0 py-0 overflow-hidden dropdown-logout">
                             <li class="mb-2 mb-md-0">
                                 <a href="ganti_password" class="button-logout dropdown-item py-0 py-md-2">
                                     <i class="icon-navbar nav-icon fa-solid fa-lock"></i>

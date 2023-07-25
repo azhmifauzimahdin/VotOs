@@ -1,41 +1,59 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Votos | {{ $title }}</title>
-    <style>
-        body{
-            font-size: 12px;
-        }
+@extends('layouts.print')
 
-        .label{
-            padding-right: 20px;
-            font-weight: 900;
-        }
-        .tabel-rekapitulasi{
+@push('head')
+    <style>
+        @page { 
+            margin: 90px;
+        }  
+        .tabel-voting{
             width: 100%;
             border-collapse: collapse;
             margin-top: 14px;
         }
-
-        .tabel-rekapitulasi>thead>tr>th,  .tabel-rekapitulasi>tbody>tr>td {
+        .tabel-voting>thead>tr>th, .tabel-voting>tbody>tr>td {
             border: 1px solid black;
-            padding: 4px;
+            padding-left: 4px;
         }
-        th{
-            text-align: start;
+        .page-break {
+            page-break-before: always;
         }
-        .text-center{
-            text-align: center;
-        }
-
+        
     </style>
-</head>
-<body onload="window.print()">
-    <h3 class="text-center">REKAPITULASI HASIL VOTING</h3>
-    <table class="tabel-rekapitulasi">
+@endpush
+
+@section('container') 
+    @include('partials.kop')
+    <p class="text-center mb-0">HASIL PERHITUNGAN SUARA PEMILU</p>
+    <p class="text-center">KETUA UMUM IPM PIMPINAN RANTING IKATAN PELAJAR MUHAMMADIYAH SMA MUHAMMADIYAH 4 YOGYAKARTA PERIODE {{ $tahunSekarang }}/{{ $tahunDepan }}</p>
+    <table>
+        <tr>
+            <td>Jumlah Pemilih</td>
+            <td>: {{ $jumlahPemilih }} orang</td>
+        </tr>
+        <tr>
+            <td>Jumlah Kandidat</td>
+            <td>: {{ $jumlahKandidat }} orang</td>
+        </tr>
+        <tr>
+            <td class="pe-5">Jumlah Sudah Memilih</td>
+            <td>: {{ $jumlahSudahMemilih }} orang</td>
+        </tr>
+        <tr>
+            <td class="pe-5">Jumlah Tidak Memilih</td>
+            <td>: {{ $jumlahTidakMemilih }} orang</td>
+        </tr>
+        <tr>
+            <td class="pe-5">Kandidat</td>
+            <td>:
+                @if (request('kandidat'))
+                    {{ request('kandidat') }}
+                @else
+                    Semua kandidat
+                @endif
+            </td>
+        </tr>
+    </table>
+    <table class="tabel-voting">
         <thead>
             <tr>
                 <th>No</th>
@@ -61,5 +79,41 @@
             @endif
         </tbody>
     </table>
-</body>
-</html>
+    <div class="page-break"></div>
+    @include('partials.kop')
+    <p class="text-center">LEMBAR PENGESAHAN</p>
+    <table class="w-100 text-center">
+        <tr class="text-end">
+            <td colspan="3" class="pb-3">Yogyakarta, {{ $waktuSekarang }}</td>
+        </tr>
+        <tr class="fw-bold align-top">
+            <td style="width:42%; height: 120px">Ketua Umum</td>
+            <td></td>
+            <td style="width:42%">Sekretaris</td>
+        </tr>
+        <tr class="text-decoration-underline align-top">
+            <td style="width:42%; height: 60px">{{ $pihak->ketua }}</td>
+            <td></td>
+            <td style="width:42%">{{ $pihak->sekretaris }}</td>
+        </tr>
+        <tr class="fw-bold align-top">
+            <td style="width:42%; height: 120px">Waka Kesiswaan</td>
+            <td></td>
+            <td style="width:42%">Pembina IPM</td>
+        </tr>
+        <tr class="text-decoration-underline align-top">
+            <td style="width:42%; height: 60px">{{ $pihak->kesiswaan }}</td>
+            <td></td>
+            <td style="width:42%">{{ $pihak->pembina }}</td>
+        </tr>
+        <tr class="fw-bold">
+            <td colspan="3" style="height: 40px">Mengetahui,</td>
+        </tr>
+        <tr class="fw-bold align-top">
+            <td colspan="3"  style="height: 120px">Kepala Sekolah</td>
+        </tr>
+        <tr class="text-decoration-underline">
+            <td colspan="3">{{ $pihak->kepala_sekolah }}</td>
+        </tr>
+    </table>
+@endsection

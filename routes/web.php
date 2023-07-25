@@ -1,7 +1,6 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\PemilihController;
 use App\Http\Controllers\UserScanController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\LoginUserController;
@@ -61,7 +60,6 @@ Route::controller(UserVotingController::class)->group(function () {
     Route::post('/voting/generate', 'generate')->name('pemilih.voting.generate')->middleware('auth:pemilih');
     Route::get('/voting/otp/{slug}', 'otp')->name('pemilih.voting.otp')->middleware('auth:pemilih');
     Route::post('/voting/vote', 'voteWithOtp')->name('pemilih.voting.vote')->middleware('auth:pemilih');
-    Route::get('/voting/print', 'cetakPdfQrCode')->name('pemilih.voting.cetak')->middleware('auth:pemilih');
 });
 
 Route::controller(UserScanController::class)->group(function () {
@@ -135,9 +133,10 @@ Route::controller(DashboardVotingController::class)->group(function () {
     Route::get('/dashboard/voting/printSuratSuara', 'cetakPdfSuratSuara')->name('user.voting.cetakPdfSuratSuara')->middleware(['auth:web', 'panitia']);
     Route::get('/dashboard/voting/ulangvoting', 'ulangVoting')->name('user.voting.ulang')->middleware(['auth:web', 'panitia']);
     Route::get('/dashboard/rekapitulasi', 'rekapitulasi')->name('user.rekapitulasi')->middleware(['auth:web', 'panitia']);
-    Route::get('/dashboard/rekapitulasi/print', 'cetakPdfRekapitulasi')->name('user.rekapitulasi')->middleware(['auth:web', 'panitia']);
+    Route::get('/dashboard/rekapitulasi/laporan', 'laporan')->name('user.rekapitulasi.laporan')->middleware(['auth:web', 'panitia']);
+    Route::post('/dashboard/rekapitulasi/laporan', 'validasiLaporan')->name('user.rekapitulasi.validasiLaporan')->middleware(['auth:web', 'panitia']);
+    Route::get('/dashboard/rekapitulasi/print', 'cetakPdfRekapitulasi')->name('user.rekapitulasi.print')->middleware(['auth:web', 'panitia']);
 });
-
 
 Route::get('/dashboard/user/checkSlug', [DashboardUserController::class, 'checkSlug'])->middleware(['auth:web', 'admin']);
 Route::resource('/dashboard/user', DashboardUserController::class)->names([

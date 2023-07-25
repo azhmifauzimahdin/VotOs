@@ -36,6 +36,7 @@
                     <hr>
                     <div class="row d-flex justify-content-between mb-3 mx-0">
                         <div class="tombol">
+                            @if ($cekAkhirPemilu) 
                             <a href="/dashboard/voting/print?kandidat={{ request('kandidat') }}" target="_blank" class="btn btn-info mb-2 mb-md-0">
                                 <i class="fa-solid fa-print"></i>
                                 <span class="ml-1">Print Data Voting</span>
@@ -48,6 +49,7 @@
                                 <i class="fa-solid fa-check-to-slot"></i>
                                 <span class="ml-1">Ulang Voting</span>
                             </a>
+                            @endif
                         </div>
                         <ul class="list-inline mb-0 mt-2 mt-md-0">
                             <li class="list-inline-item">

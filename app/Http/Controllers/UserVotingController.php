@@ -2,16 +2,18 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Voting;
-use App\Models\Kandidat;
-use App\Models\Pemilu;
-use App\Models\Otp;
-use Illuminate\Http\Request;
-use SimpleSoftwareIO\QrCode\Facades\QrCode;
 use Carbon\Carbon;
+use App\Models\Otp;
+use App\Models\Pemilu;
+use App\Models\Voting;
 use App\Mail\SendEmail;
-use Illuminate\Support\Facades\Mail;
+use App\Models\Pemilih;
+use App\Models\Kandidat;
 use Illuminate\Support\Str;
+use Illuminate\Http\Request;
+use Barryvdh\DomPDF\Facade\Pdf;
+use Illuminate\Support\Facades\Mail;
+use SimpleSoftwareIO\QrCode\Facades\QrCode;
 
 class UserVotingController extends Controller
 {
@@ -146,17 +148,6 @@ class UserVotingController extends Controller
             }
         }
         return $kode;
-    }
-
-    public function cetakPdfQrCode()
-    {
-        $id = $this->cekIdUser();
-        $voting = Voting::where('pemilih_id', $id)->first();
-
-        return view('cetakQrCode', [
-            'title' => 'Cetak QR Code',
-            'voting' => $voting
-        ]);
     }
 
     public function cekIdUser()
