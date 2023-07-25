@@ -50,7 +50,7 @@ class DashboardKelasController extends Controller
         ]);
 
         Kelas::create($validateData);
-        return redirect('/dashboard/kelas')->with('success', 'Data kelas berhasil ditambahkan!');
+        return redirect('/dashboard/pemilih/kelas')->with('success', 'Data kelas berhasil ditambahkan!');
     }
 
     /**
@@ -101,7 +101,7 @@ class DashboardKelasController extends Controller
 
         Kelas::where('id', $kela->id)->update($validateData);
 
-        return redirect('/dashboard/kelas')->with('success', 'Data kelas berhasil diupdate!');
+        return redirect('/dashboard/pemilih/kelas')->with('success', 'Data kelas berhasil diupdate!');
     }
 
     /**
@@ -114,7 +114,7 @@ class DashboardKelasController extends Controller
     {
         Kelas::destroy($kela->id);
 
-        return redirect('/dashboard/kelas')->with('success', 'Data kelas berhasil dihapus!');
+        return redirect('/dashboard/pemilih/kelas')->with('success', 'Data kelas berhasil dihapus!');
     }
 
     public function checkSlug(Request $request)

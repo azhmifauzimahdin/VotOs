@@ -6,7 +6,7 @@
             <div class="card">
                 <h5 class="card-header ">{{ $title }}</h5>
                 <div class="card-body">
-                    <form action="/dashboard/kelas" method="post" enctype="multipart/form-data">
+                    <form action="/dashboard/pemilih/kelas" method="post" enctype="multipart/form-data">
                         @csrf
                         <div class="form-group">
                             <label for="nama">Nama Kelas</label>
@@ -27,7 +27,7 @@
                             @enderror
                         </div>
                         <button type="submit" class="btn btn-primary">Simpan</button>
-                        <a href="/dashboard/kelas" class="btn btn-danger">Batal</a>
+                        <a href="/dashboard/pemilih/kelas" class="btn btn-danger">Batal</a>
                     </form>
                 </div>
             </div>
@@ -41,7 +41,7 @@
         const slug = document.querySelector('#slug');
         
         nama.addEventListener('change',function(){
-            fetch('/dashboard/kelas/checkSlug?nama=' + nama.value)
+            fetch('/dashboard/pemilih/kelas/checkSlug?nama=' + nama.value)
             .then(response => response.json())
             .then(data => {
                 slug.value = data.slug;

@@ -50,7 +50,7 @@ class DashboardJabatanController extends Controller
         ]);
 
         Jabatan::create($validateData);
-        return redirect('/dashboard/jabatan')->with('success', 'Data jabatan berhasil ditambahkan!');
+        return redirect('/dashboard/pemilih/jabatan')->with('success', 'Data jabatan berhasil ditambahkan!');
     }
 
     /**
@@ -101,7 +101,7 @@ class DashboardJabatanController extends Controller
 
         Jabatan::where('id', $jabatan->id)->update($validateData);
 
-        return redirect('/dashboard/jabatan')->with('success', 'Data jabatan berhasil diupdate!');
+        return redirect('/dashboard/pemilih/jabatan')->with('success', 'Data jabatan berhasil diupdate!');
     }
 
     /**
@@ -114,7 +114,7 @@ class DashboardJabatanController extends Controller
     {
         Jabatan::destroy($jabatan->id);
 
-        return redirect('/dashboard/jabatan')->with('success', 'Data jabatan berhasil dihapus!');
+        return redirect('/dashboard/pemilih/jabatan')->with('success', 'Data jabatan berhasil dihapus!');
     }
 
     public function checkSlug(Request $request)

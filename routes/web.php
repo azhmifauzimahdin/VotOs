@@ -148,8 +148,8 @@ Route::resource('/dashboard/user', DashboardUserController::class)->names([
     'destroy' => 'user.users.destroy',
 ])->except('show')->middleware(['auth:web', 'admin']);
 
-Route::get('/dashboard/kelas/checkSlug', [DashboardKelasController::class, 'checkSlug'])->middleware(['auth:web', 'panitia']);
-Route::resource('/dashboard/kelas', DashboardKelasController::class)->names([
+Route::get('/dashboard/pemilih/kelas/checkSlug', [DashboardKelasController::class, 'checkSlug'])->middleware(['auth:web', 'panitia']);
+Route::resource('/dashboard/pemilih/kelas', DashboardKelasController::class)->names([
     'index' => 'user.kelas.index',
     'create' => 'user.kelas.create',
     'store' => 'user.kelas.store',
@@ -158,8 +158,8 @@ Route::resource('/dashboard/kelas', DashboardKelasController::class)->names([
     'destroy' => 'user.kelas.destroy',
 ])->except('show')->middleware(['auth:web', 'panitia']);
 
-Route::get('/dashboard/jabatan/checkSlug', [DashboardJabatanController::class, 'checkSlug'])->middleware(['auth:web', 'panitia']);
-Route::resource('/dashboard/jabatan', DashboardJabatanController::class)->names([
+Route::get('/dashboard/pemilih/jabatan/checkSlug', [DashboardJabatanController::class, 'checkSlug'])->middleware(['auth:web', 'panitia']);
+Route::resource('/dashboard/pemilih/jabatan', DashboardJabatanController::class)->names([
     'index' => 'user.jabatan.index',
     'create' => 'user.jabatan.create',
     'store' => 'user.jabatan.store',

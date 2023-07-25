@@ -49,6 +49,20 @@
                   <p>Data Guru & Karyawan</p>
                 </a>
               </li>
+              <li class="nav-item">
+                <a href="/dashboard/pemilih/kelas" class="nav-link {{ Request::is('dashboard/pemilih/kelas*') ? 'active' : ''}}">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Data Kelas</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="/dashboard/pemilih/jabatan" class="nav-link {{ Request::is('dashboard/pemilih/jabatan*') ? 'active' : ''}}">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>
+                    Data Jabatan
+                  </p>
+                </a>
+              </li>
             </ul>
           </li>
           <li class="nav-item">
@@ -64,22 +78,6 @@
               <i class="nav-icon fa-solid fa-calendar-days"></i>
               <p>
                 Waktu Pemilu
-              </p>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="/dashboard/kelas" class="nav-link {{ Request::is('dashboard/kelas*') ? 'active' : ''}}">
-              <i class="nav-icon fa-solid fa-school"></i>
-              <p>
-                Data Kelas
-              </p>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="/dashboard/jabatan" class="nav-link {{ Request::is('dashboard/jabatan*') ? 'active' : ''}}">
-              <i class="nav-icon fa-solid fa-user-tie"></i>
-              <p>
-                Data Jabatan
               </p>
             </a>
           </li>

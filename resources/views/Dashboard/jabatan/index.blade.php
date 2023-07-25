@@ -15,7 +15,7 @@
                         </div>
                     @endif
                     <div class="row d-flex justify-content-between mb-3 mx-0">
-                        <a href="/dashboard/jabatan/create" class="btn btn-primary">
+                        <a href="/dashboard/pemilih/jabatan/create" class="btn btn-primary">
                             <i class="fa-solid fa-plus pr-1"></i>
                             Tambah {{ $title }}
                         </a>
@@ -24,7 +24,7 @@
                                 Search :
                             </li>
                             <li class="list-inline-item">
-                                <form action="/dashboard/jabatan" class="input-search">
+                                <form action="/dashboard/pemilih/jabatan" class="input-search">
                                     <input class="form-control" type="text" name="search" id="search" value="{{  request('search') }}" style="position: relative">
                                     <a class="delete-input-search btn btn-transparent" id="hapus_value">
                                         <i class="fa-solid fa-xmark" style="color: #a0a0a0;"></i>
@@ -49,11 +49,11 @@
                                             <td style="width: 10%">{{ $index + $jabatans->firstItem() }}</td>
                                             <td style="width: 90%">{{ $data->nama }}</td>
                                             <td class="text-nowrap" style="width: auto">
-                                                <a href="/dashboard/jabatan/{{ $data->slug }}/edit" class="btn btn-sm bg-warning">
+                                                <a href="/dashboard/pemilih/jabatan/{{ $data->slug }}/edit" class="btn btn-sm bg-warning">
                                                     <i class="fa-solid fa-pen-to-square"></i>
                                                 </a>
                                                 @if (!$waktupemilu) 
-                                                <form action="/dashboard/jabatan/{{ $data->slug }}" name="formDeletee" method="post" class="d-inline">
+                                                <form action="/dashboard/pemilih/jabatan/{{ $data->slug }}" name="formDeletee" method="post" class="d-inline">
                                                     @method('delete')
                                                     @csrf 
                                                     <button class="btn btn-sm bg-danger border-0 konfirmasi_hapus" type="submit">
