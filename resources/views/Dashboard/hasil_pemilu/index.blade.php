@@ -7,7 +7,7 @@
                 <h5 class="card-header">{{ $title }}</h5>
                 <div class="card-body">
                     <div class="info-voting alert border" role="alert" >
-                        Data hasil pemilu akan muncul ketika waktu pemilihan umum telah selesai atau semua pemilih sudah melakukan voting.
+                        Data hasil pemilu akan muncul ketika waktu pemilihan umum telah selesai atau semua pemilih sudah melakukan voting. Lengkapi data laporan sebelum melakukan cetak hasil pemilu.
                     </div>
                     @if(session()->has('success'))
                         <div class="alert alert-success alert-dismissible fade show" role="alert">
@@ -17,19 +17,23 @@
                             </button>
                         </div>
                     @endif
-                    <div class="row d-flex justify-content-between mb-3 mx-0">
+                    <div class="mb-3">
                         @if ($cekAkhirPemilu)   
                             @if ($laporan)
-                            <a href="/dashboard/hasilPemilu/print" class="btn btn-info" target="_blank">
+                            <a href="/dashboard/hasilPemilu/print" class="btn btn-info mr-1" target="_blank">
                                 <i class="fa-solid fa-print"></i>
                                 <span class="ml-1">Cetak Hasil Pemilu</span>
                             </a>
                             @else
-                            <a href="/dashboard/hasilPemilu/laporan" class="btn btn-info">
+                            <a href="/dashboard/hasilPemilu/laporan" class="btn btn-info mr-1">
                                 <i class="fa-solid fa-print"></i>
                                 <span class="ml-1">Cetak Hasil Pemilu</span>
                             </a>
                             @endif
+                            <a href="/dashboard/hasilPemilu/laporan" class="btn btn-success">
+                                <i class="fa-solid fa-database"></i>
+                                <span class="ml-1">Kelola Data Laporan</span>
+                            </a>
                         @endif
                     </div>
                     <div class="table-responsive">

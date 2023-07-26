@@ -43,7 +43,7 @@
                                     <th scope="col">EMAIL</th>
                                     <th scope="col">LEVEL</th>
                                     <th scope="col">FOTO</th>
-                                    <th scope="col">Action</th>
+                                    <th scope="col">AKSI</th>
                                 </tr>
                             </thead>
                             <tbody>

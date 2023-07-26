@@ -39,7 +39,7 @@
                                 <tr>
                                     <th scope="col">NO</th>
                                     <th scope="col">NAMA KELAS</th>
-                                    <th scope="col">ACTION</th>
+                                    <th scope="col">AKSI</th>
                                 </tr>
                             </thead>
                             <tbody>

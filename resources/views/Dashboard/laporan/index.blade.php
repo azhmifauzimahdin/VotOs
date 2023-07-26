@@ -2,7 +2,7 @@
 
 @section('container')
     <div class="row">
-        <section class="col-sm-7">
+        <section class="col-12">
             <div class="card">
                 <h5 class="card-header">{{ $title }}</h5>
                 <div class="card-body">
@@ -14,54 +14,53 @@
                             </button>
                         </div>
                     @endif
-                    @if (count($pemilus) == 0)   
-                        <div class="row d-flex justify-content-between mb-3 mx-0">
-                            <a href="/dashboard/waktupemilu/create" class="btn btn-primary">
-                                <i class="fa-solid fa-plus pr-1"></i>
-                                Tambah {{ $title }}
-                            </a>
-                        </div>
-                    @else
-                        @if($cek)
-                            <div class="row d-flex justify-content-between mb-3 mx-0">
-                                <form action="/dashboard/waktupemilu/selesai" method="post">
-                                    @csrf
-                                    <button type="submit" class="btn btn-success">
-                                        <i class="fa-regular fa-clock pr-1"></i>
-                                        Waktu Pemilu Selesai
-                                    </button>
-                                </form>
-                            </div>
-                        @endif
+                    <div class="info-voting alert border" role="alert" >
+                        Lengkapi data laporan sebelum melakukan cetak hasil pemilu.
+                    </div>
+                    <div class="mb-3">
+                    @if (count($laporans) == 0)   
+                    <a href="/dashboard/hasilPemilu/laporan/create" class="btn btn-primary">
+                        <i class="fa-solid fa-plus pr-1"></i>
+                        Lengkapi {{ $title }}
+                    </a>
                     @endif
+                    <a href="/dashboard/hasilPemilu" class="btn btn-success">
+                        <i class="fa-solid fa-database"></i>
+                        <span class="ml-1">Hasil Laporan</span>
+                    </a>
+                    </div>
                     <div class="table-responsive">
                         <table class="table table-striped table-sm">
                             <thead>
                                 <tr>
-                                    <th scope="col">WAKTU MULAI</th>
-                                    <th scope="col">WAKTU SELESAI</th>
+                                    <th scope="col">KETUA</th>
+                                    <th scope="col">SEKRETARIS</th>
+                                    <th scope="col">WAKA KESISWAAN</th>
+                                    <th scope="col">PEMBINA IPM</th>
+                                    <th scope="col">KEPALA SEKOLAH</th>
                                     <th scope="col">AKSI</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @if (count($pemilus))
-                                    @foreach ($pemilus as $pemilu)
+                                @if (count($laporans))
+                                    @foreach ($laporans as $laporan)
                                         <tr>
-                                            <td>{{ $pemilu->mulai }}</td>
-                                            <td>{{ $pemilu->selesai }}</td>
+                                            <td>{{ $laporan->ketua }}</td>
+                                            <td>{{ $laporan->sekretaris }}</td>
+                                            <td>{{ $laporan->kesiswaan }}</td>
+                                            <td>{{ $laporan->pembina }}</td>
+                                            <td>{{ $laporan->kepala_sekolah }}</td>
                                             <td class="text-nowrap">
-                                                <a href="/dashboard/waktupemilu/{{ $pemilu->id }}/edit" class="btn btn-sm bg-warning">
+                                                <a href="/dashboard/hasilPemilu/laporan/{{ $laporan->id }}/edit" class="btn btn-sm bg-warning">
                                                     <i class="fa-solid fa-pen-to-square"></i>
                                                 </a>
-                                                @if (!$waktupemilu)
-                                                <form action="/dashboard/waktupemilu/{{ $pemilu->id }}" id="formHapus" method="post" class="d-inline">
+                                                <form action="/dashboard/hasilPemilu/laporan/{{ $laporan->id }}" id="formHapus" method="post" class="d-inline">
                                                     @method('delete')
                                                     @csrf
-                                                    <button class="btn btn-sm bg-danger border-0 konfirmasi_hapus" onclick="hapusData()">
+                                                    <button class="btn btn-sm bg-danger border-0 konfirmasi_hapus">
                                                         <i class="fa-solid fa-trash-can"></i>
                                                     </button>
                                                 </form>
-                                                @endif
                                             </td>
                                         </tr>
                                     @endforeach
@@ -81,6 +80,12 @@
 
 @push('script')
     <script>
+        $("#hapus_value").on('click', function(event) {
+            event.preventDefault();
+            $('#search').attr('value', '');
+            $("#search").focus();
+        });
+
         $('.konfirmasi_hapus').click(function(event) {
             var form =  $(this).closest("form");
             event.preventDefault();

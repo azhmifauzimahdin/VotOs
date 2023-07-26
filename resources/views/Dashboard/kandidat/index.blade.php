@@ -43,7 +43,7 @@
                                     <th scope="col">KELAS</th>
                                     <th scope="col">JENIS KELAMIN</th>
                                     <th scope="col">FOTO</th>
-                                    <th scope="col">ACTION</th>
+                                    <th scope="col">AKSI</th>
                                 </tr>
                             </thead>
                             <tbody>

@@ -2,7 +2,7 @@
 
 @section('container')
     <div class="row">
-        <section class="col-md-7">
+        <section class="col-md-8">
             <div class="card">
                 <h5 class="card-header ">{{ $title }}</h5>
                 <div class="card-body">
@@ -25,7 +25,7 @@
                         </div>
                         <div class="form-group">
                             <label for="pembina">Pembina IPM</label>
-                            <input type="text" class="form-control" id="pembina" name="pembina" placeholder="pembina" required value="{{  old('pembina') }}">
+                            <input type="text" class="form-control" id="pembina" name="pembina" placeholder="Nama Pembina IPM" required value="{{  old('pembina') }}">
                         </div>
                         <div class="form-group">
                             <label for="kepala_sekolah">Kepala Sekolah</label>

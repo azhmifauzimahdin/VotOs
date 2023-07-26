@@ -154,33 +154,4 @@ class DashboardVotingController extends Controller
         //     'qrCode' => $laporan ? base64_encode($laporan->qr_code) : ''
         // ]);
     }
-
-    public function laporan()
-    {
-        $laporan = Laporan::get();
-        if (count($laporan) > 0) {
-            abort(403);
-        }
-        return view('dashboard.hasil_pemilu.laporan', [
-            'title' => 'Data Laporan'
-        ]);
-    }
-
-    public function validasiLaporan(Request $request)
-    {
-        $validateData = $request->validate([
-            'ketua' => 'required',
-            'sekretaris' => 'required',
-            'kesiswaan' => 'required',
-            'pembina' => 'required',
-            'kepala_sekolah' => 'required',
-        ]);
-        $validateData['id'] = 1;
-        $validateData['kode'] = Str::random(100);
-        $validateData['qr_code'] = QrCode::size(300)->errorCorrection('M')->generate($validateData['kode']);
-
-
-        Laporan::create($validateData);
-        return redirect('/dashboard/hasilPemilu')->with('success', 'Data Laporan berhasil ditambahkan!');
-    }
 }

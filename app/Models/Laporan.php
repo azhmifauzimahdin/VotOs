@@ -8,6 +8,5 @@ use Illuminate\Database\Eloquent\Model;
 class Laporan extends Model
 {
     use HasFactory;
-
-    protected $guarded = ['id'];
+    protected $fillable = ['id', 'ketua', 'sekretaris', 'kesiswaan', 'pembina', 'kepala_sekolah', 'kode', 'qr_code'];
 }

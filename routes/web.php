@@ -20,6 +20,7 @@ use App\Http\Controllers\UserPerolehanSuaraController;
 use App\Http\Controllers\DashboardWaktuPemiluController;
 use App\Http\Controllers\DashboardPemilihSiswaController;
 use App\Http\Controllers\DashboardGantiPasswordController;
+use App\Http\Controllers\DashboardLaporanController;
 use App\Http\Controllers\DashboardPemilihGuruKaryawanController;
 
 /*
@@ -131,10 +132,17 @@ Route::controller(DashboardVotingController::class)->group(function () {
     Route::get('/dashboard/voting/printSuratSuara', 'cetakPdfSuratSuara')->name('user.voting.cetakPdfSuratSuara')->middleware(['auth:web', 'panitia']);
     Route::get('/dashboard/voting/ulangvoting', 'ulangVoting')->name('user.voting.ulang')->middleware(['auth:web', 'panitia']);
     Route::get('/dashboard/hasilPemilu', 'hasilPemilu')->name('user.hasilPemilu')->middleware(['auth:web', 'panitia']);
-    Route::get('/dashboard/hasilPemilu/laporan', 'laporan')->name('user.hasilPemilu.laporan')->middleware(['auth:web', 'panitia']);
-    Route::post('/dashboard/hasilPemilu/laporan', 'validasiLaporan')->name('user.hasilPemilu.validasiLaporan')->middleware(['auth:web', 'panitia']);
     Route::get('/dashboard/hasilPemilu/print', 'cetakPdfHasilPemilu')->name('user.hasilPemilu.print')->middleware(['auth:web', 'panitia']);
 });
+
+Route::resource('/dashboard/hasilPemilu/laporan', DashboardLaporanController::class)->names([
+    'index' => 'user.laporan.index',
+    'create' => 'user.laporan.create',
+    'store' => 'user.laporan.store',
+    'edit' => 'user.laporan.edit',
+    'update' => 'user.laporan.update',
+    'destroy' => 'user.laporan.destroy',
+])->except('show')->middleware(['auth:web', 'panitia']);
 
 Route::resource('/dashboard/user', DashboardUserController::class)->names([
     'index' => 'user.users.index',
