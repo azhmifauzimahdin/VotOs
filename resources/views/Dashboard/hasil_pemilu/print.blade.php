@@ -42,16 +42,6 @@
             <td class="pe-5">Jumlah Tidak Memilih</td>
             <td>: {{ $jumlahTidakMemilih }} orang</td>
         </tr>
-        <tr>
-            <td class="pe-5">Kandidat</td>
-            <td>:
-                @if (request('kandidat'))
-                    {{ request('kandidat') }}
-                @else
-                    Semua kandidat
-                @endif
-            </td>
-        </tr>
     </table>
     <table class="tabel-voting">
         <thead>

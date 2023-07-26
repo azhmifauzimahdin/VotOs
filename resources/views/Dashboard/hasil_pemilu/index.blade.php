@@ -20,12 +20,12 @@
                     <div class="mb-3">
                         @if ($cekAkhirPemilu)   
                             @if ($laporan)
-                            <a href="/dashboard/hasilPemilu/print" class="btn btn-info mr-1" target="_blank">
+                            <button class="btn btn-info" data-toggle="modal" data-target="#passwordModal">
                                 <i class="fa-solid fa-print"></i>
                                 <span class="ml-1">Cetak Hasil Pemilu</span>
-                            </a>
+                            </button>
                             @else
-                            <a href="/dashboard/hasilPemilu/laporan" class="btn btn-info mr-1">
+                            <a href="/dashboard/hasilPemilu/laporan" class="btn btn-info">
                                 <i class="fa-solid fa-print"></i>
                                 <span class="ml-1">Cetak Hasil Pemilu</span>
                             </a>
@@ -68,4 +68,70 @@
             </div>
         </section>
     </div>
+
+    <div class="modal fade" id="passwordModal" tabindex="-1" role="dialog" aria-labelledby="passwordModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="passwordModalLabel">Cetak Hasil Pemilu</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form action="/dashboard/hasilPemilu/print" method="post">
+                    @csrf
+                    <div class="modal-body">
+                        <div class="info-voting alert border" role="alert" >
+                            Buat password untuk mengamankan file hasil pemilu.
+                        </div>
+                        <div class="form-group">
+                            <label for="password">Password</label>
+                            <div class="input-group" id="show_hide_password">
+                                <input type="password" class="form-control @error('password') is-invalid @enderror" id="password" name="password" placeholder="Password" required autofocus>
+                                <div class="input-group-append">
+                                    <span class="input-group-text" id="basic-addon2">
+                                        <a class="show-hide-password"><i class="fa-regular fa-eye-slash" aria-hidden="true"></i></a>
+                                    </span>
+                                </div>
+                            </div> 
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger mr-0" id="modal-close" data-dismiss="modal">Batal</button>
+                        <button type="submit" class="btn btn-info">Cetak</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 @endsection
+
+@push('script')
+    <script>
+        $("#show_hide_password a").on('click', function(event) {
+            event.preventDefault();
+            if($('#show_hide_password input').attr("type") == "text"){
+                $('#show_hide_password input').attr('type', 'password');
+                $('#show_hide_password i').addClass( "fa-eye-slash" );
+                $('#show_hide_password i').removeClass( "fa-eye" );
+            }else if($('#show_hide_password input').attr("type") == "password"){
+                $('#show_hide_password input').attr('type', 'text');
+                $('#show_hide_password i').removeClass( "fa-eye-slash" );
+                $('#show_hide_password i').addClass( "fa-eye" );
+            }
+        });
+
+        $('#passwordModal').on('shown.bs.modal', function() {
+            $('#password').focus();
+        })
+
+        $('#passwordModal').on('hidden.bs.modal', function() {
+            $("#password").val("");
+            if($('#show_hide_password input').attr("type") == "text"){
+                $('#show_hide_password input').attr('type', 'password');
+                $('#show_hide_password i').addClass( "fa-eye-slash" );
+                $('#show_hide_password i').removeClass( "fa-eye" );
+            }
+        })
+    </script>
+@endpush

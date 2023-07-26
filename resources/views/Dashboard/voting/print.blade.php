@@ -18,26 +18,8 @@
 @endpush
 
 @section('container')
-    <table class="w-100">
-        <tr>
-            <td style="width: 10%">
-                <img src="{{ public_path() . '/img/logo_IPM.png' }}" alt="logo IMP" width="100%">
-                {{-- <img src="/img/logo_IPM.png" alt="logo IMP" width="100%"> --}}
-            </td>
-            <td class="text-center px-3">
-                <h6 class="mb-1">PANITIA PEMILU</h6>
-                <h6>KETUA UMUM IPM PIMPINAN RANTING IKATAN PELAJAR MUHAMMADIYAH SMA MUHAMMADIYAH 4 YOGYAKARTA</h6>
-                <p class="mb-0">Jl. Mondorakan No. 51 Kotagede Yogyakarta. 55172</p> 
-                <p>Telp: 0274371185 / 2840268</p>
-            </td>
-            <td style="width: 16%;">
-                <img src="{{ public_path() . '/img/qrcode.png' }}" alt="QR Code" width="100%">
-                {{-- <img src="/img/qrcode.png" alt="QR Code" width="100%"> --}}
-            </td>
-        </tr>
-    </table>
-    <hr class="mt-0" style="border-top: 2px solid black;">
-    <p class="text-center mb-0">REKAPITULASI HASIL PEMILU</p>
+    @include('partials.kop')
+    <p class="text-center mb-0">REKAPITULASI DATA VOTING</p>
     <p class="text-center">KETUA UMUM IPM PIMPINAN RANTING IKATAN PELAJAR MUHAMMADIYAH SMA MUHAMMADIYAH 4 YOGYAKARTA PERIODE {{ $tahunSekarang }}/{{ $tahunDepan }}</p>
     <table>
         <tr>
@@ -55,6 +37,16 @@
         <tr>
             <td class="pe-5">Jumlah Tidak Memilih</td>
             <td>: {{ $jumlahTidakMemilih }} orang</td>
+        </tr>
+        <tr>
+            <td class="pe-5">Kandidat</td>
+            <td>: 
+                @if ($filterKandidat)
+                    {{ $filterKandidat }} 
+                @else   
+                    Semua kandidat
+                @endif
+            </td>
         </tr>
     </table>
     <table class="tabel-voting">

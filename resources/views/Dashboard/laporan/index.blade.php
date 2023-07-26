@@ -24,9 +24,13 @@
                         Lengkapi {{ $title }}
                     </a>
                     @endif
+                    <a href="/dashboard/voting" class="btn btn-success">
+                        <i class="fa-solid fa-database"></i>
+                        <span class="ml-1">Data Voting</span>
+                    </a>
                     <a href="/dashboard/hasilPemilu" class="btn btn-success">
                         <i class="fa-solid fa-database"></i>
-                        <span class="ml-1">Hasil Laporan</span>
+                        <span class="ml-1">Hasil Pemilu</span>
                     </a>
                     </div>
                     <div class="table-responsive">

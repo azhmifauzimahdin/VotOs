@@ -128,11 +128,11 @@ Route::resource('/dashboard/kandidat', DashboardKandidatController::class)->name
 
 Route::controller(DashboardVotingController::class)->group(function () {
     Route::get('/dashboard/voting', 'index')->name('user.voting')->middleware(['auth:web', 'panitia']);
-    Route::get('/dashboard/voting/print', 'cetakPdf')->name('user.voting.cetakPdf')->middleware(['auth:web', 'panitia']);
+    Route::post('/dashboard/voting/print', 'cetakDataVoting')->name('user.voting.cetakDataVoting')->middleware(['auth:web', 'panitia']);
     Route::get('/dashboard/voting/printSuratSuara', 'cetakPdfSuratSuara')->name('user.voting.cetakPdfSuratSuara')->middleware(['auth:web', 'panitia']);
     Route::get('/dashboard/voting/ulangvoting', 'ulangVoting')->name('user.voting.ulang')->middleware(['auth:web', 'panitia']);
     Route::get('/dashboard/hasilPemilu', 'hasilPemilu')->name('user.hasilPemilu')->middleware(['auth:web', 'panitia']);
-    Route::get('/dashboard/hasilPemilu/print', 'cetakPdfHasilPemilu')->name('user.hasilPemilu.print')->middleware(['auth:web', 'panitia']);
+    Route::post('/dashboard/hasilPemilu/print', 'cetakPdfHasilPemilu')->name('user.hasilPemilu.print')->middleware(['auth:web', 'panitia']);
 });
 
 Route::resource('/dashboard/hasilPemilu/laporan', DashboardLaporanController::class)->names([

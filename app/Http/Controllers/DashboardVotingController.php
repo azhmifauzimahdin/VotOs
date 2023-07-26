@@ -21,7 +21,8 @@ class DashboardVotingController extends Controller
             'title' => 'Data Voting',
             'kandidats' => Kandidat::orderBy('nomor', 'ASC')->get(),
             'votings' => $this->cekAkhirPemilu() ? Voting::latest()->filter(request(['search', 'kandidat']))->paginate(10)->withQueryString() : [],
-            'cekAkhirPemilu' => $this->cekAkhirPemilu()
+            'cekAkhirPemilu' => $this->cekAkhirPemilu(),
+            'laporan' => Laporan::first()
         ]);
     }
 
@@ -77,34 +78,33 @@ class DashboardVotingController extends Controller
         return $kandidats;
     }
 
-    public function cetakPdf()
+    public function cetakDataVoting(Request $request)
     {
+        $request->validate([
+            'password' => 'required'
+        ]);
+        $passwordFile = $request->password;
+        $kandidat = $request->kandidat;
+
         $waktu = Voting::oldest()->first();
         $pemilih = Pemilih::get();
         $voting = Voting::get();
+        $laporan = Laporan::first();
 
         $pdf = Pdf::loadView('dashboard.voting.print', [
             'title' => 'Cetak Data Voting',
-            'votings' => $this->cekAkhirPemilu() ? Voting::latest()->filter(request(['kandidat']))->get() : [],
+            'votings' => $this->cekAkhirPemilu() ? ($kandidat ? Voting::latest()->filter(['kandidat' => $kandidat])->get() : Voting::latest()->get()) : [],
             'tahunSekarang' => $waktu ? Carbon::createFromFormat('Y-m-d H:i:s', $waktu->created_at)->year : 'XXXX',
             'tahunDepan' => $waktu ? Carbon::createFromFormat('Y-m-d H:i:s', $waktu->created_at)->addYear()->year : 'XXXX',
             'jumlahPemilih' => count($pemilih),
             'jumlahKandidat' => count(Kandidat::get()),
             'jumlahSudahMemilih' => count($voting),
-            'jumlahTidakMemilih' => count($pemilih) - count($voting)
+            'jumlahTidakMemilih' => count($pemilih) - count($voting),
+            'filterKandidat' => $kandidat,
+            'qrCode' => $laporan ? base64_encode($laporan->qr_code) : ''
         ])->setPaper('A4', 'potrait');
+        $pdf->setEncryption($passwordFile, '', ['print']);
         return $pdf->stream('Cetak-Data-Voting.pdf');
-
-        // return view('dashboard.voting.print', [
-        //     'title' => 'Cetak Data Voting',
-        //     'votings' => $this->cekAkhirPemilu() ? Voting::orderBy('kandidat_id', 'ASC')->filter(request(['kandidat']))->get() : [],
-        //     'tahunSekarang' => $waktu ? Carbon::createFromFormat('Y-m-d H:i:s', $waktu->created_at)->year : 'XXXX',
-        //     'tahunDepan' => $waktu ? Carbon::createFromFormat('Y-m-d H:i:s', $waktu->created_at)->addYear()->year : 'XXXX',
-        //     'jumlahPemilih' => count($pemilih),
-        //     'jumlahKandidat' => count(Kandidat::get()),
-        //     'jumlahSudahMemilih' => count($voting),
-        //     'jumlahTidakMemilih' => count($pemilih) - count($voting)
-        // ]);
     }
 
     public function cetakPdfSuratSuara()
@@ -118,8 +118,13 @@ class DashboardVotingController extends Controller
         return $pdf->stream('Cetak-Surat-Suara.pdf');
     }
 
-    public function cetakPdfHasilPemilu()
+    public function cetakPdfHasilPemilu(Request $request)
     {
+        $request->validate([
+            'password' => 'required'
+        ]);
+        $passwordFile = $request->password;
+
         $waktu = Voting::oldest()->first();
         $pemilih = Pemilih::get();
         $voting = Voting::get();
@@ -138,20 +143,7 @@ class DashboardVotingController extends Controller
             'pihak' => $laporan,
             'qrCode' => $laporan ? base64_encode($laporan->qr_code) : ''
         ])->setPaper('A4', 'potrait');
+        $pdf->setEncryption($passwordFile, '', ['print']);
         return $pdf->stream('Cetak-Data-Voting.pdf');
-
-        // return view('dashboard.hasil_pemilu.print', [
-        //     'title' => 'Cetak Hasil Pemilu',
-        //     'kandidats' => $this->tambahKeterangan(),
-        //     'tahunSekarang' => $waktu ? Carbon::createFromFormat('Y-m-d H:i:s', $waktu->created_at)->year : 'XXXX',
-        //     'tahunDepan' => $waktu ? Carbon::createFromFormat('Y-m-d H:i:s', $waktu->created_at)->addYear()->year : 'XXXX',
-        //     'jumlahPemilih' => count($pemilih),
-        //     'jumlahKandidat' => count(Kandidat::get()),
-        //     'jumlahSudahMemilih' => count($voting),
-        //     'jumlahTidakMemilih' => count($pemilih) - count($voting),
-        //     'waktuSekarang' =>  $waktu ? Carbon::parse($waktu->created_at)->isoFormat('D MMMM Y') : 'XXXX',
-        //     'pihak' => $laporan,
-        //     'qrCode' => $laporan ? base64_encode($laporan->qr_code) : ''
-        // ]);
     }
 }
