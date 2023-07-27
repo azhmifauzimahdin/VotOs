@@ -22,6 +22,7 @@ use App\Http\Controllers\DashboardPemilihSiswaController;
 use App\Http\Controllers\DashboardGantiPasswordController;
 use App\Http\Controllers\DashboardLaporanController;
 use App\Http\Controllers\DashboardPemilihGuruKaryawanController;
+use App\Http\Controllers\VerifikasiLaporanController;
 
 /*
 |--------------------------------------------------------------------------
@@ -71,6 +72,10 @@ Route::controller(UserScanController::class)->group(function () {
 Route::controller(UserGantiPasswordController::class)->group(function () {
     Route::get('/ganti_password', 'index')->name('pemilih.gantipassword')->middleware('auth:pemilih');
     Route::post('/ganti_password', 'gantiPassword')->name('pemilih.gantipassword.validate')->middleware('auth:pemilih');
+});
+
+Route::controller(VerifikasiLaporanController::class)->group(function () {
+    route::get('/verifikasi/{kode}', 'index')->name('verifikasi');
 });
 
 

@@ -2,7 +2,6 @@
     <tr>
         <td style="width: 10%">
             <img src="{{ public_path() . '/img/logo_IPM.png' }}" alt="logo IMP" width="100%">
-            {{-- <img src="/img/logo_IPM.png" alt="logo IMP" width="100%"> --}}
         </td>
         <td class="text-center px-3">
             <h6 class="mb-1">PANITIA PEMILU</h6>
@@ -11,9 +10,7 @@
             <p>Telp: 0274371185 / 2840268</p>
         </td>
         <td style="width: 16%;">
-            {{-- <img src="{{ public_path() . '/img/qrcode.png' }}" alt="QR Code" width="100%"> --}}
             <img src="data:image/svg+xml;base64,{{ $qrCode }}" width="100%" alt="QR Code"/>
-            {{-- <img src="/img/qrcode.png" alt="QR Code" width="100%"> --}}
         </td>
     </tr>
 </table>

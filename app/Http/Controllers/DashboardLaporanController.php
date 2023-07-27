@@ -55,7 +55,8 @@ class DashboardLaporanController extends Controller
         ]);
         $validateData['id'] = 1;
         $validateData['kode'] = Str::random(100);
-        $validateData['qr_code'] = QrCode::size(300)->errorCorrection('M')->generate($validateData['kode']);
+        $generateKode = 'http://' . request()->getHttpHost() . '/verifikasi/' . $validateData['kode'];
+        $validateData['qr_code'] = QrCode::size(300)->errorCorrection('M')->generate($generateKode);
 
         Laporan::create($validateData);
         return redirect('/dashboard/hasilPemilu/laporan')->with('success', 'Data Laporan berhasil ditambahkan!');
@@ -95,6 +96,7 @@ class DashboardLaporanController extends Controller
      */
     public function update(Request $request, Laporan $laporan)
     {
+
         $validateData = $request->validate([
             'ketua' => 'required',
             'sekretaris' => 'required',
@@ -104,7 +106,8 @@ class DashboardLaporanController extends Controller
         ]);
 
         $validateData['kode'] = Str::random(100);
-        $validateData['qr_code'] = QrCode::size(300)->errorCorrection('M')->generate($validateData['kode']);
+        $generateKode = 'http://' . request()->getHttpHost() . '/verifikasi/' . $validateData['kode'];
+        $validateData['qr_code'] = QrCode::size(300)->errorCorrection('M')->generate($generateKode);
 
         Laporan::where('id', $laporan->id)->update($validateData);
 
