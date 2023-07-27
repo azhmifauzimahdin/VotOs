@@ -5,9 +5,9 @@
 @endpush
 
 @section('container')
-    <div class="row bg-primary mb-0 mb-md-4 text-light" style="background: linear-gradient(to right, #1202f5, #5449fc,#3dabff);">
+    <div class="row bg-primary mb-0 mb-md-4 text-light bg-votos">
         <div class="col-12 mt-5 text-center pb-2">
-            <h3 class="d-inline pb-2 px-3" style="border-bottom-style: solid; border-width: 2px; border-radius: 50% ; border-image: linear-gradient(to right, #2dcddf, #2ddfbb,#2ddf8f) 1">Scan Surat Suara</h3>
+            <h3 class="d-inline pb-2 px-3 garis-bawah-gradient">Scan Surat Suara</h3>
         </div>
         <div class="col-12 text-center mb-4 mt-2">
             <p>Scan QR Code untuk mengetahui hasil vote dan keaslian surat</p>
@@ -15,10 +15,10 @@
     </div>
     <div class="px-4 px-md-5">
         <div class="row d-flex justify-content-center my-4 my-md-5">
-            <div class="col-12 col-md-4 bg-light shadow py-md-2 pt-5 pb-2 mx-2 mb-5 mb-md-0" style="border-radius: 0.5vw;">
+            <div class="col-12 col-md-4 bg-light shadow py-md-2 pt-5 pb-2 mx-2 mb-5 mb-md-0 border-radius-05" >
                 <div class="row py-md-4 mb-3 mb-md-0 d-flex justify-content-center">
                     <div id="reader" width="100%"></div>
-                    <img src="" class="foto-scan-pemilih px-0" id="foto" style="display: none;">
+                    <img src="" class="foto-scan-pemilih px-0 d-none" id="foto">
                 </div>
                 <div class="row border-bottom pb-2 mx-1">
                     <div class="col-md-4"><b>Nomor</b></div>
@@ -75,7 +75,7 @@
                             }else{
                                 $('#foto').attr('src', "{{ asset('storage/foto-kandidat/defaultKandidat.jpg') }}");
                             }
-                            $('#foto').css('display', 'block');
+                            $('#foto').removeClass('d-none');
                             $("#nomor").append(response.kandidat.nomor);
                             $("#nama").append(response.kandidat.nama);
                             $('#scanulang').attr('type','button')

@@ -25,9 +25,9 @@
                             </li>
                             <li class="list-inline-item">
                                 <form action="/dashboard/pemilih/jabatan" class="input-search">
-                                    <input class="form-control" type="text" name="search" id="search" value="{{  request('search') }}" style="position: relative">
+                                    <input class="form-control" type="text" name="search" id="search" value="{{  request('search') }}">
                                     <a class="delete-input-search btn btn-transparent" id="hapus_value">
-                                        <i class="fa-solid fa-xmark" style="color: #a0a0a0;"></i>
+                                        <i class="fa-solid fa-xmark clr-gray"></i>
                                     </a>
                                 </form>
                             </li>
@@ -46,9 +46,9 @@
                                 @if (count($jabatans))
                                     @foreach ($jabatans as $index => $data)
                                         <tr>
-                                            <td style="width: 10%">{{ $index + $jabatans->firstItem() }}</td>
-                                            <td style="width: 90%">{{ $data->nama }}</td>
-                                            <td class="text-nowrap" style="width: auto">
+                                            <td class="w-10">{{ $index + $jabatans->firstItem() }}</td>
+                                            <td class="w-90">{{ $data->nama }}</td>
+                                            <td class="text-nowrap">
                                                 <a href="/dashboard/pemilih/jabatan/{{ $data->slug }}/edit" class="btn btn-sm bg-warning">
                                                     <i class="fa-solid fa-pen-to-square"></i>
                                                 </a>

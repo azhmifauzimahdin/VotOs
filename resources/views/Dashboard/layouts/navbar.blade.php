@@ -10,7 +10,7 @@
         <form action="/logoutUser" method="post">
           @csrf
           <button type="submit" class="dropdown-item rounded-pill">
-            <i class="fa-solid fa-arrow-right-from-bracket" style="color: #000000;"></i> Logout
+            <i class="fa-solid fa-arrow-right-from-bracket"></i> Logout
           </button>
         </form>
       </li>

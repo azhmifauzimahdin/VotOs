@@ -27,7 +27,7 @@
                                 <form action="/dashboard/kandidat" class="input-search">
                                     <input class="form-control" type="text" name="search" id="search" value="{{  request('search') }}">
                                     <a class="delete-input-search btn btn-transparent" id="hapus_value">
-                                        <i class="fa-solid fa-xmark" style="color: #a0a0a0;"></i>
+                                        <i class="fa-solid fa-xmark clr-gray"></i>
                                     </a>
                                 </form>
                             </li>
@@ -61,9 +61,9 @@
                                             <td class="align-middle">{{ $kandidat->jenis_kelamin }}</td>
                                             <td>
                                                 @if ($kandidat->foto)
-                                                    <img src="{{ asset('storage/'.$kandidat->foto) }}" style="width: 80px; aspect-ratio:3/4" alt="Foto kandidat">    
+                                                    <img src="{{ asset('storage/'.$kandidat->foto) }}" class="w-80x aspect-ratio-3-4" alt="Foto kandidat">    
                                                 @else
-                                                    <img src="{{ asset('storage/foto-kandidat/defaultKandidat.jpg') }}" style="width: 80px; aspect-ratio:3/4" alt="Foto kandidat">    
+                                                    <img src="{{ asset('storage/foto-kandidat/defaultKandidat.jpg') }}" class="w-80x aspect-ratio-3-4" alt="Foto kandidat">    
                                                 @endif
                                             </td>
                                             <td class="text-nowrap align-middle">

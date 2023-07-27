@@ -8,9 +8,9 @@
                 <div class="card-body">
                     <div class="d-flex flex-column align-items-center text-center">
                         @if ($kandidat->foto)
-                        <img src="{{ asset('storage/'.$kandidat->foto) }}" alt="Admin" class="rounded-circle" width="150" style="aspect-ratio:1/1">
+                        <img src="{{ asset('storage/'.$kandidat->foto) }}" alt="Admin" class="rounded-circle aspect-ratio-1-1" width="150">
                         @else
-                        <img src="{{ asset('storage/foto-kandidat/defaultKandidat.jpg') }}" alt="Admin" class="rounded-circle" width="150" style="aspect-ratio:1/1">
+                        <img src="{{ asset('storage/foto-kandidat/defaultKandidat.jpg') }}" alt="Admin" class="rounded-circle aspect-ratio-1-1" width="150">
                         @endif
                         <div class="mt-3 w-100">
                             <h4>{{ $kandidat->nama }}</h4>

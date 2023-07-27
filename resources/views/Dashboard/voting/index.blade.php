@@ -66,7 +66,7 @@
                                 <form action="/dashboard/voting" class="input-search">
                                     <input class="form-control" type="text" name="search" id="search" value="{{  request('search') }}">
                                     <a class="delete-input-search btn btn-transparent" id="hapus_value">
-                                        <i class="fa-solid fa-xmark" style="color: #a0a0a0;"></i>
+                                        <i class="fa-solid fa-xmark clr-gray"></i>
                                     </a>
                                 </form>
                             </li>

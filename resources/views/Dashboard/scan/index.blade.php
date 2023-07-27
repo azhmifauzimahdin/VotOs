@@ -13,7 +13,7 @@
                 @endif
             </div>
             <div class="bg-tranparent d-flex mb-3">
-                <img src="" class="foto-scan-pemilih rounded-circle img-thumbnail" id="foto-kandidat" style="display: none;">
+                <img src="" class="foto-scan-pemilih rounded-circle img-thumbnail d-none" id="foto-kandidat">
             </div>
             <div class="alert alert-warning d-none" id="status" role="alert">
                 Surat suara sudah pernah discan!
@@ -146,7 +146,7 @@
                             }else{
                                 $('#foto-kandidat').attr('src', "{{ asset('storage/foto-kandidat/defaultKandidat.jpg') }}");
                             }
-                            $('#foto-kandidat').css('display', 'block');
+                            $('#foto-kandidat').removeClass('d-none');
                             $("#nomor").append(response.kandidat.nomor);
                             $("#nama").append(response.kandidat.nama);
                             $('#scan-ulang').removeClass('d-none');

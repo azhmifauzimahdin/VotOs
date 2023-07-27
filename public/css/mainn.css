@@ -58,7 +58,74 @@ body {
 .foto-kandidat {
     aspect-ratio: 3/4;
 }
+.kotak-profil{
+    border-radius: 1vw;
+    min-height: 100%;
+    position:relative
+}
+.thumbnail-foto-kandidat{
+    position: absolute;
+    z-index: 1;
+    width: 100%;
+    bottom:0;
+    text-align: right;
+}
+.lihat-detail{
+    position: absolute;
+    bottom:0;
+    right: 0
+}
 
+.garis-bawah-gradient{
+    border-bottom-style: solid;
+    border-width: 2px;
+    border-radius: 50% ;
+    border-image: linear-gradient(to right, #2dcddf, #2ddfbb,#2ddf8f) 1
+}
+
+.w-20 {
+    width: 20%;
+}
+
+.bg-votos {
+    background: linear-gradient(to right, #1202f5, #5449fc, #3dabff);
+}
+.bg-v-success {
+    background: #03c988;
+}
+.bg-v-black-1b{
+    background: #0000001b;
+}
+.clr-success {
+    color: #03c988;
+}
+.clr-v-aqua {
+    color: #3dabff;
+}
+.clr-v-blue {
+    color: #0d6efd;
+}
+.clr-v-purple {
+    color: #6c63ff;
+}
+.clr-v-red {
+    color: #eb455f;
+}
+.aspect-ratio-1-1{
+    aspect-ratio: 1/1;
+}
+.border-radius-05{
+    border-radius: 0.5vw
+}
+.border-radius-1{
+    border-radius: 1vw
+}
+.border-bottom-dashed{
+    border-bottom: 1px dashed #d1d1d1
+}
+.csr-pointer{
+    cursor: pointer;
+}
 @media (min-width: 320px) and (max-width: 767px) {
     .mainContainer {
         min-height: 93.2vh;

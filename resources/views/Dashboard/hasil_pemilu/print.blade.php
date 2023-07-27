@@ -17,6 +17,18 @@
         .page-break {
             page-break-before: always;
         }
+        .w-42{
+            width: 42%;
+        }
+        .h-40{
+            height: 40px;
+        }
+        .h-60{
+            height: 60px;
+        }
+        .h-120{
+            height: 120px
+        }
         
     </style>
 @endpush
@@ -77,30 +89,30 @@
             <td colspan="3" class="pb-3">Yogyakarta, {{ $waktuSekarang }}</td>
         </tr>
         <tr class="fw-bold align-top">
-            <td style="width:42%; height: 120px">Ketua Umum</td>
+            <td class="w-42 h-120">Ketua Umum</td>
             <td></td>
-            <td style="width:42%">Sekretaris</td>
+            <td class="w-42">Sekretaris</td>
         </tr>
         <tr class="text-decoration-underline align-top">
-            <td style="width:42%; height: 60px">{{ $pihak->ketua }}</td>
+            <td class="h-60">{{ $pihak->ketua }}</td>
             <td></td>
-            <td style="width:42%">{{ $pihak->sekretaris }}</td>
+            <td>{{ $pihak->sekretaris }}</td>
         </tr>
         <tr class="fw-bold align-top">
-            <td style="width:42%; height: 120px">Waka Kesiswaan</td>
+            <td class="h-120">Waka Kesiswaan</td>
             <td></td>
-            <td style="width:42%">Pembina IPM</td>
+            <td>Pembina IPM</td>
         </tr>
         <tr class="text-decoration-underline align-top">
-            <td style="width:42%; height: 60px">{{ $pihak->kesiswaan }}</td>
+            <td class="h-60">{{ $pihak->kesiswaan }}</td>
             <td></td>
-            <td style="width:42%">{{ $pihak->pembina }}</td>
+            <td>{{ $pihak->pembina }}</td>
         </tr>
         <tr class="fw-bold">
-            <td colspan="3" style="height: 40px">Mengetahui,</td>
+            <td colspan="3" class="h-40">Mengetahui,</td>
         </tr>
         <tr class="fw-bold align-top">
-            <td colspan="3"  style="height: 120px">Kepala Sekolah</td>
+            <td colspan="3" class="h-120">Kepala Sekolah</td>
         </tr>
         <tr class="text-decoration-underline">
             <td colspan="3">{{ $pihak->kepala_sekolah }}</td>

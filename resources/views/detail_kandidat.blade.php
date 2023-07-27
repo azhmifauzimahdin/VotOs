@@ -1,9 +1,9 @@
 @extends('layouts.main')
 
 @section('container')
-    <div class="row bg-primary mb-4 px-3 text-light" style="background: linear-gradient(to right, #1202f5, #5449fc,#3dabff);">
+    <div class="row bg-primary mb-4 px-3 text-light bg-votos">
         <div class="col-12 mt-5 text-center pb-2">
-            <h3 class="d-inline pb-2 px-3" style="border-bottom-style: solid; border-width: 2px; border-radius: 50% ; border-image: linear-gradient(to right, #2dcddf, #2ddfbb,#2ddf8f) 1">Detail Kandidat</h3>
+            <h3 class="d-inline pb-2 px-3 garis-bawah-gradient">Detail Kandidat</h3>
         </div>
         <div class="col-12 text-center mb-4 mt-2">
             <p>Pelajari visi misi kandidat sebelum memilih</p>
@@ -16,9 +16,9 @@
                     <div class="card-body">
                         <div class="d-flex flex-column align-items-center text-center">
                             @if ($kandidat->foto)
-                            <img src="{{ asset('storage/'.$kandidat->foto) }}" alt="Admin" class="rounded-circle" width="120" style="aspect-ratio:1/1">
+                            <img src="{{ asset('storage/'.$kandidat->foto) }}" alt="Admin" class="rounded-circle aspect-ratio-1-1" width="120">
                             @else
-                            <img src="{{ asset('storage/foto-kandidat/defaultKandidat.jpg') }}" alt="Admin" class="rounded-circle" width="120" style="aspect-ratio:1/1">
+                            <img src="{{ asset('storage/foto-kandidat/defaultKandidat.jpg') }}" alt="Admin" class="rounded-circle aspect-ratio-1-1" width="120">
                             @endif
                             <div class="mt-3 w-100">
                                 <h5>{{ $kandidat->nama }}</h5>

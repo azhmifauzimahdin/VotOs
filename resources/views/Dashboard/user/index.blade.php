@@ -27,7 +27,7 @@
                                 <form action="/dashboard/user" class="input-search">
                                     <input class="form-control" type="text" name="search" id="search" value="{{  request('search') }}">
                                     <a class="delete-input-search btn btn-transparent" id="hapus_value">
-                                        <i class="fa-solid fa-xmark" style="color: #a0a0a0;"></i>
+                                        <i class="fa-solid fa-xmark clr-gray"></i>
                                     </a>
                                 </form>
                             </li>
@@ -57,9 +57,9 @@
                                             <td class="align-middle">{{ $user->level }}</td>
                                             <td class="pb-2">
                                                 @if ($user->foto)
-                                                    <img src="{{ asset('storage/'.$user->foto) }}" style="width: 80px; aspect-ratio:3/4" alt="Foto kandidat">    
+                                                    <img src="{{ asset('storage/'.$user->foto) }}" class="w-80x aspect-ratio-3-4" alt="Foto kandidat">    
                                                 @else
-                                                    <img src="{{ asset('storage/foto-user/defaultUser.png')}}" style="width: 80px; aspect-ratio:3/4" alt="Foto kandidat">    
+                                                    <img src="{{ asset('storage/foto-user/defaultUser.png')}}" class="w-80x aspect-ratio-3-4" alt="Foto kandidat">    
                                                 @endif
                                             </td>
                                             <td class="text-nowrap align-middle">

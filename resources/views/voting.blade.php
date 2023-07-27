@@ -1,9 +1,9 @@
 @extends('layouts.main')
 
 @section('container')
-    <div class="row bg-primary mb-4 text-light" style="background: linear-gradient(to right, #1202f5, #5449fc,#3dabff);">
+    <div class="row bg-primary mb-4 text-light bg-votos">
         <div class="col-12 mt-5 text-center pb-2">
-            <h3 class="d-inline pb-2 px-3" style="border-bottom-style: solid; border-width: 2px; border-radius: 50% ; border-image: linear-gradient(to right, #2dcddf, #2ddfbb,#2ddf8f) 1">Voting</h3>
+            <h3 class="d-inline pb-2 px-3 garis-bawah-gradient">Voting</h3>
         </div>
         <div class="col-12 text-center mb-4 mt-2">
             <p>Voting kandidat pilihan kamu</p>
@@ -27,7 +27,7 @@
         @if($status)
             <div class="px-5">
                 <div class="row d-flex justify-content-center mx-md-5 mb-5">
-                    <div class="col-12 col-md-3 bg-light shadow-sm overflow-hidden px-0 mb-3" style="border-radius: 1vw; height: 100%">
+                    <div class="col-12 col-md-3 bg-light shadow-sm overflow-hidden border-radius-1 px-0 mb-3">
                         <div class="py-3"></div>
                         @if ($status->kandidat->foto)
                             <img src="{{ asset('storage/'. $status->kandidat->foto) }}" alt="Foto Kandidat" class="foto-kandidat-voting">
@@ -36,8 +36,8 @@
                         @endif
                         <h6 class="text-center py-2"><b>{{ $status->kandidat->nama }}</b></h6>
                     </div>
-                    <div class="col-12 col-md-4 bg-light shadow-sm py-3 px-4 px-md-4 mx-md-2" style="border-radius: 1vw;">
-                        <div class="row py-md-4" style="border-bottom: 1px dashed #e4e8eb">
+                    <div class="col-12 col-md-4 bg-light shadow-sm border-radius-1 py-3 px-4 px-md-4 mx-md-2">
+                        <div class="row border-bottom-dashed py-md-4">
                             {!! $status->qr_code !!}
                         </div>
                         <div class="row border-bottom py-2">
@@ -76,14 +76,14 @@
                         <div class="row row-cols-2 row-cols-md-4 g-2 g-md-4 mb-4 d-flex justify-content-center px-md-5 mx-md-3">
                             @foreach ($kandidats as $kandidat)
                                 <div class="col">
-                                    <div class="kotak-profil border bg-white overflow-hidden" style="border-radius: 1vw; min-height: 100%; position:relative" >
-                                        <div class="candidate_thumb" style="height: 80%">
+                                    <div class="kotak-profil border bg-white overflow-hidden">
+                                        <div class="candidate_thumb">
                                             @if ($kandidat->foto)
                                                 <img src="{{ asset('storage/'. $kandidat->foto) }}" class="foto-kandidat" alt="Foto Kandidat" width="100%">
                                             @else
                                                 <img src="{{ asset('storage/foto-kandidat/defaultKandidat.jpg') }}" class="foto-kandidat" alt="Foto Kandidat" width="100%">
                                             @endif
-                                            <div class="px-3" style="position: absolute; z-index: 1; width: 100%; bottom: 0; text-align: right;">
+                                            <div class="thumbnail-foto-kandidat px-3">
                                                 <h5 class="text-primary">
                                                     {{ $kandidat->nomor }}
                                                 </h5>
@@ -91,10 +91,10 @@
                                         </div>
                                         <div class="px-3 pt-1 pb-3"> 
                                             <h6 class="card-title text-end mb-4">{{ $kandidat->nama }}</h6>
-                                            <div class="px-3 mb-2 w-100 d-flex justify-content-center" style="position: absolute; bottom:0; left: 0"> 
+                                            <div class="px-3 mb-2 w-100 d-flex justify-content-center lihat-detail"> 
                                                 <div class="form-check">
-                                                    <input class="form-check-input" type="radio" name="slug" id="slug{{ $kandidat->id }}" value="{{ $kandidat->slug }}" style="cursor: pointer">
-                                                    <label class="form-check-label" for="slug{{ $kandidat->id }}">
+                                                    <input class="form-check-input csr-pointer" type="radio" name="slug" id="slug{{ $kandidat->id }}" value="{{ $kandidat->slug }}">
+                                                    <label class="form-check-label csr-pointer" for="slug{{ $kandidat->id }}">
                                                         <b class="text-primary">Vote</b>
                                                     </label>
                                                 </div>
@@ -121,10 +121,10 @@
                         <h4 class="text-center">WAKTU PEMILU BELUM DIMULAI</h4>
                         <p class="text-center w-75 mx-auto mb-4">Voting Akan Segera Dimulai</p>
                         <div class="row mb-4 d-flex justify-content-center ms-1 text-white">
-                            <div id="hari" class="col-2 d-flex flex-column align-items-center rounded-3 me-2" style="aspect-ratio: 1/1; background:#03c988"><h1 class="my-1">0</h1><span>Hari</span></div>
-                            <div id="jam" class="col-2 d-flex flex-column align-items-center rounded-3 me-2" style="aspect-ratio: 1/1; background:#03c988"><h1 class="my-1">0</h1><span>Jam</span></div>
-                            <div id="menit" class="col-2 d-flex flex-column align-items-center rounded-3 me-2" style="aspect-ratio: 1/1; background:#03c988"><h1 class="my-1">0</h1><span>Menit</span></div>
-                            <div id="detik" class="col-2 d-flex flex-column align-items-center rounded-3 me-2" style="aspect-ratio: 1/1; background:#03c988"><h1 class="my-1">0</h1><span>Detik</span></div>
+                            <div id="hari" class="col-2 d-flex flex-column align-items-center rounded-3 aspect-ratio-1-1 bg-v-success me-2"><h1 class="my-1">0</h1><span>Hari</span></div>
+                            <div id="jam" class="col-2 d-flex flex-column align-items-center rounded-3 aspect-ratio-1-1 bg-v-success me-2"><h1 class="my-1">0</h1><span>Jam</span></div>
+                            <div id="menit" class="col-2 d-flex flex-column align-items-center rounded-3 aspect-ratio-1-1 bg-v-success me-2"><h1 class="my-1">0</h1><span>Menit</span></div>
+                            <div id="detik" class="col-2 d-flex flex-column align-items-center rounded-3 aspect-ratio-1-1 bg-v-success me-2"><h1 class="my-1">0</h1><span>Detik</span></div>
                         </div>
                     </div>
                 </div>

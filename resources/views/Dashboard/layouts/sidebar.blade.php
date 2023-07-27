@@ -7,13 +7,13 @@
     <div class="user-panel mt-3 pb-3 mb-3 d-flex">
       <div class="image d-flex align-items-center">
         @if (auth()->user()->foto)
-          <img src="{{ asset('storage/'. auth()->user()->foto) }}" class="img-circle elevation-2" style="aspect-ratio: 1/1" alt="User Image">
+          <img src="{{ asset('storage/'. auth()->user()->foto) }}" class="img-circle elevation-2 aspect-ratio-1-1" alt="User Image">
         @else
           <img src="{{ asset('storage/foto-user/defaultUser.png')}}" class="img-circle elevation-2" alt="User Image">
         @endif
       </div>
       <div class="info">
-        <a href="#" class="d-inline" style="white-space: initial;">{{ auth()->user()->nama }}</a>
+        <a href="#" class="d-inline white-space-initial">{{ auth()->user()->nama }}</a>
       </div>
     </div>
 
@@ -126,7 +126,7 @@
             </p>
           </a>
         </li>
-        <form action="/logoutUser" method="POST" id="logoutform" class="nav-item" style="cursor: pointer">
+        <form action="/logoutUser" method="POST" id="logoutform" class="nav-item csr-pointer">
           @csrf
           <a onclick="document.getElementById('logoutform').submit()" class="nav-link">
             <i class="nav-icon fa-solid fa-arrow-right-from-bracket"></i>

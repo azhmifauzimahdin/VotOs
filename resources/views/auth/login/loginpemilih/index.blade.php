@@ -6,7 +6,7 @@
     </div>
 @endsection
 @section('content2')
-    <img src="/img/icon_vote.png" class="mx-auto d-block mb-2" style="width: 20%" alt="Vote">
+    <img src="/img/icon_vote.png" class="mx-auto d-block w-20 mb-2" alt="Vote">
     <h4 class="text-center">Login Pemilih</h4>
     <p class="text-center mb-0">Sistem E-Voting Pemilihan</p>
     <p class="text-center mb-3">Ketua OSIS</p>

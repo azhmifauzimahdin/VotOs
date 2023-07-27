@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg navbar-dark fixed-top" style="background: linear-gradient(to right, #1202f5, #5449fc,#3dabff);">
+<nav class="navbar navbar-expand-lg navbar-dark fixed-top bg-votos">
     <div class="container px-3 px-md-0">
         <a class="navbar-brand" href="/">Votos</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -49,7 +49,7 @@
                         <a href="/loginPemilih" class="btn btn-outline-light py-1 px-3 rounded-pill my-2 my-md-0{{ Request::is('dashboard') ? 'active' : ''}}">Login Pemilih</a>
                     </li>
                     <li class="nav-item mx-2 d-flex align-items-center">
-                        <a href="/loginUser" class="btn btn-success py-1 px-3 rounded-pill border-0 my-2 my-md-0{{ Request::is('dashboard') ? 'active' : ''}}" style="background: #03C988">Login Admin/Panitia</a>
+                        <a href="/loginUser" class="btn btn-success py-1 px-3 rounded-pill bg-v-success border-0 my-2 my-md-0{{ Request::is('dashboard') ? 'active' : ''}}">Login Admin/Panitia</a>
                     </li>
                 @endauth
             </ul>

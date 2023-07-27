@@ -67,10 +67,10 @@
         <h5 class="card-header">Waktu Voting Dimulai</h5>
         <div class="card-body">
           <div class="row">
-              <div id="hari" class="col-3 d-flex flex-column align-items-center" style="aspect-ratio: 1/1;"><h1 class="my-1">0</h1><span>Hari</span></div>
-              <div id="jam" class="col-3 d-flex flex-column align-items-center" style="aspect-ratio: 1/1;"><h1 class="my-1">0</h1><span>Jam</span></div>
-              <div id="menit" class="col-3 d-flex flex-column align-items-center" style="aspect-ratio: 1/1;"><h1 class="my-1">0</h1><span>Menit</span></div>
-              <div id="detik" class="col-3 d-flex flex-column align-items-center" style="aspect-ratio: 1/1;"><h1 class="my-1">0</h1><span>Detik</span></div>
+              <div id="hari" class="col-3 d-flex flex-column align-items-center"><h1 class="my-1">0</h1><span>Hari</span></div>
+              <div id="jam" class="col-3 d-flex flex-column align-items-center"><h1 class="my-1">0</h1><span>Jam</span></div>
+              <div id="menit" class="col-3 d-flex flex-column align-items-center"><h1 class="my-1">0</h1><span>Menit</span></div>
+              <div id="detik" class="col-3 d-flex flex-column align-items-center"><h1 class="my-1">0</h1><span>Detik</span></div>
           </div>
         </div>
       </div>
@@ -132,7 +132,7 @@
     },
     tooltip: {
       headerFormat: '<table>',
-      pointFormat: '<tr><td style="padding:0">{point.y:.0f} Suara</td></tr>',
+      pointFormat: '<tr><td>{point.y:.0f} Suara</td></tr>',
       footerFormat: '</table>',
       shared: true,
       useHTML: true
