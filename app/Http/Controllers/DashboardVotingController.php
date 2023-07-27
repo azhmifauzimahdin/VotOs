@@ -31,6 +31,7 @@ class DashboardVotingController extends Controller
         Kandidat::where('jumlah_suara', '>', 0)->update(['jumlah_suara' => 0]);
         Voting::query()->delete();
         Laporan::query()->delete();
+        Pemilu::query()->delete();
 
         return redirect('/dashboard/voting')->with('success', 'Data voting berhasil dihapus!');
     }

@@ -7,7 +7,7 @@
                 <h5 class="card-header">{{ $title }}</h5>
                 <div class="card-body">
                     <div class="info-voting alert border" role="alert" >
-                        Data voting akan muncul ketika waktu pemilihan umum telah selesai atau semua pemilih sudah melakukan voting. Lengkapi data laporan sebelum melakukan cetak Data Voting. Untuk kelola data laporan terdapat di menu hasil pemilu.
+                        Data voting akan muncul ketika waktu pemilihan umum telah selesai atau semua pemilih sudah melakukan voting. Lengkapi data laporan sebelum melakukan cetak Data Voting. Untuk kelola data laporan terdapat di menu hasil pemilu. Tombol 'Reset Voting' digunakan ketika ulang pemilu atau pemilu periode baru.
                     </div>
                     @if(session()->has('success'))
                         <div class="alert alert-success alert-dismissible fade show" role="alert">
@@ -54,7 +54,7 @@
                                 </a>
                                 <a class="btn btn-danger konfirmasi_ulang_voting">
                                     <i class="fa-solid fa-check-to-slot"></i>
-                                    <span class="ml-1">Ulang Voting</span>
+                                    <span class="ml-1">Reset Voting</span>
                                 </a>
                             @endif
                         </div>

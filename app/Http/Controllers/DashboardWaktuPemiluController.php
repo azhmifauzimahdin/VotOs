@@ -25,8 +25,7 @@ class DashboardWaktuPemiluController extends Controller
         return view('dashboard.waktu_pemilu.index', [
             'title' => 'Waktu Pemilu',
             'pemilus' => Pemilu::get(),
-            'cek' => $cek,
-            'waktupemilu' => $this->cekWaktuPemilu()
+            'cek' => $cek
         ]);
     }
 
@@ -116,9 +115,7 @@ class DashboardWaktuPemiluController extends Controller
      */
     public function destroy(Pemilu $pemilu)
     {
-        Pemilu::destroy($pemilu->id);
-
-        return redirect('/dashboard/waktupemilu')->with('success', 'Data waktu pemilu berhasil dihapus!');
+        //    
     }
 
     public function selesai()
@@ -127,17 +124,5 @@ class DashboardWaktuPemiluController extends Controller
             'selesai' => Carbon::now()->format('Y-m-d H:i')
         ]);
         return redirect('/dashboard/waktupemilu')->with('success', 'Waktu selesai pemilu berhasil diupdate ke waktu sekarang!');
-    }
-
-    public function cekWaktuPemilu()
-    {
-        $pemilu = Pemilu::first();
-        $now = Carbon::now();
-        $cekwaktupemilu = false;
-        if ($pemilu) {
-            $cekwaktupemilu = $now->isAfter($pemilu->mulai) && $now->isBefore($pemilu->selesai);
-        }
-
-        return $cekwaktupemilu;
     }
 }

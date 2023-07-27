@@ -6,6 +6,9 @@
             <div class="card">
                 <h5 class="card-header">{{ $title }}</h5>
                 <div class="card-body">
+                    <div class="info-voting alert border" role="alert">
+                        Waktu pemilu otomatis terhapus jika melakukan reset voting di menu data voting.
+                    </div>
                     @if(session()->has('success'))
                         <div class="alert alert-success alert-dismissible fade show" role="alert">
                             {{ session('success') }}
@@ -53,15 +56,6 @@
                                                 <a href="/dashboard/waktupemilu/{{ $pemilu->id }}/edit" class="btn btn-sm bg-warning">
                                                     <i class="fa-solid fa-pen-to-square"></i>
                                                 </a>
-                                                @if (!$waktupemilu)
-                                                <form action="/dashboard/waktupemilu/{{ $pemilu->id }}" id="formHapus" method="post" class="d-inline">
-                                                    @method('delete')
-                                                    @csrf
-                                                    <button class="btn btn-sm bg-danger border-0 konfirmasi_hapus" onclick="hapusData()">
-                                                        <i class="fa-solid fa-trash-can"></i>
-                                                    </button>
-                                                </form>
-                                                @endif
                                             </td>
                                         </tr>
                                     @endforeach

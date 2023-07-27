@@ -182,9 +182,8 @@ Route::resource('/dashboard/waktupemilu', DashboardWaktuPemiluController::class)
     'create' => 'user.pelaksanaan.create',
     'store' => 'user.pelaksanaan.store',
     'edit' => 'user.pelaksanaan.edit',
-    'update' => 'user.pelaksanaan.update',
-    'destroy' => 'user.pelaksanaan.destroy',
-])->parameters(['waktupemilu' => 'pemilu'])->except('show')->middleware(['auth:web', 'panitia']);
+    'update' => 'user.pelaksanaan.update'
+])->parameters(['waktupemilu' => 'pemilu'])->except(['show', 'destroy'])->middleware(['auth:web', 'panitia']);
 
 Route::controller(DashboardScanController::class)->group(function () {
     Route::get('/dashboard/scan', 'index')->name('user.scan')->middleware(['auth:web', 'panitia']);
