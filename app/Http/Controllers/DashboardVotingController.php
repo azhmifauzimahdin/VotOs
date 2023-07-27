@@ -129,6 +129,15 @@ class DashboardVotingController extends Controller
         $pemilih = Pemilih::get();
         $voting = Voting::get();
         $laporan = Laporan::first();
+        $pemilu = Pemilu::first();
+        $waktuMulaiPemilu = '00.00';
+        if ($waktu && $pemilu) {
+            if ($waktu->created_at->isBefore($pemilu->mulai)) {
+                $waktuMulaiPemilu = Carbon::parse($waktu->create_at)->format('H.i');
+            } else {
+                $waktuMulaiPemilu = Carbon::parse($pemilu->mulai)->format('H.i');
+            }
+        }
 
         $pdf = Pdf::loadView('dashboard.hasil_pemilu.print', [
             'title' => 'Cetak Hasil Pemilu',
@@ -136,10 +145,14 @@ class DashboardVotingController extends Controller
             'tahunSekarang' => $waktu ? Carbon::createFromFormat('Y-m-d H:i:s', $waktu->created_at)->year : 'XXXX',
             'tahunDepan' => $waktu ? Carbon::createFromFormat('Y-m-d H:i:s', $waktu->created_at)->addYear()->year : 'XXXX',
             'jumlahPemilih' => count($pemilih),
+            'hariPemilu' => $pemilu ? Carbon::parse($pemilu->selesai)->isoFormat('dddd') : 'XXXX',
+            'tanggalPemilu' => $pemilu ? Carbon::parse($pemilu->selesai)->isoFormat('D MMMM Y') : 'XXXX',
+            'waktuMulaiPemilu' => $waktuMulaiPemilu,
+            'waktuSelesaiPemilu' => $pemilu ? Carbon::parse($pemilu->selesai)->format('H.i') : '00.00',
             'jumlahKandidat' => count(Kandidat::get()),
             'jumlahSudahMemilih' => count($voting),
             'jumlahTidakMemilih' => count($pemilih) - count($voting),
-            'waktuSekarang' => $waktu ? Carbon::parse($waktu->created_at)->isoFormat('D MMMM Y') : 'XXXX',
+            'waktuSekarang' => $waktu ? Carbon::now()->isoFormat('D MMMM Y') : 'XXXX',
             'pihak' => $laporan,
             'qrCode' => $laporan ? base64_encode($laporan->qr_code) : ''
         ])->setPaper('A4', 'potrait');
