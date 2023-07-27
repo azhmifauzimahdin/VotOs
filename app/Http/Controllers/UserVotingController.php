@@ -93,7 +93,17 @@ class UserVotingController extends Controller
     {
         $id = $this->cekIdUser();
         $status = Voting::where('pemilih_id', $id)->first();
-        if ($status) {
+        $pemilu = Pemilu::first();
+        $waktupemilubelumdimulai = false;
+        $waktupemiluselesai = false;
+        $now = Carbon::now();
+
+        if ($pemilu) {
+            $waktupemilubelumdimulai = $now->isBefore($pemilu->mulai);
+            $waktupemiluselesai = $now->isAfter($pemilu->selesai);
+        }
+
+        if ($status || !$pemilu || $waktupemilubelumdimulai || $waktupemiluselesai) {
             abort(403);
         }
 
