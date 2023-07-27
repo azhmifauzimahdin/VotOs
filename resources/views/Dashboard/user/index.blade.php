@@ -102,7 +102,7 @@
     <script>
         $("#hapus_value").on('click', function(event) {
             event.preventDefault();
-            $('#search').attr('value', '');
+            $('#search').val('');
             $("#search").focus();
         });
 
