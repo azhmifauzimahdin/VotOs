@@ -123,7 +123,6 @@ class DashboardKandidatController extends Controller
             'misi' => 'required'
         ];
 
-
         if ($request->nomor != $kandidat->nomor) {
             $rules['nomor'] = 'required|numeric|unique:kandidats';
         }

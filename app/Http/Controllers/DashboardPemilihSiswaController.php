@@ -75,11 +75,9 @@ class DashboardPemilihSiswaController extends Controller
             'password' => $password,
             'url' => 'http://' . request()->getHttpHost() . '/loginPemilih'
         ];
-
+        dispatch(new SendAccountJob($details));
 
         Pemilih::create($validateData);
-
-        dispatch(new SendAccountJob($details));
 
         return redirect('/dashboard/pemilih/siswa')->with('success', 'Data pemilih berhasil ditambahkan!');
     }

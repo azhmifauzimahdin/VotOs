@@ -79,13 +79,7 @@
                                     <tr> 
                                         <td width="20%">Kandidat</td> 
                                         <td width="1%">:</td> 
-                                        <td>
-                                            @if (request('kandidat'))
-                                                {{ request('kandidat') }}
-                                            @else
-                                                Semua kandidat
-                                            @endif
-                                        </td> 
+                                        <td>{{ request('kandidat') }}</td> 
                                     </tr> 
                                 </tbody>
                             </table>
@@ -188,7 +182,7 @@
         });
 
         $(document).ready(function(){
-            $('.select-search').select2();
+            $('.select-search').sel ect2();
         });
 
         $("#show_hide_password a").on('click', function(event) {

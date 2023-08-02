@@ -6,6 +6,9 @@
             <div class="card">
                 <h5 class="card-header">{{ $title }}</h5>
                 <div class="card-body">
+                    <div class="info-voting alert border" role="alert" >
+                        Lengkapi data laporan sebelum melakukan cetak hasil pemilu.
+                    </div>
                     @if(session()->has('success'))
                         <div class="alert alert-success alert-dismissible fade show" role="alert">
                             {{ session('success') }}
@@ -14,24 +17,21 @@
                             </button>
                         </div>
                     @endif
-                    <div class="info-voting alert border" role="alert" >
-                        Lengkapi data laporan sebelum melakukan cetak hasil pemilu.
-                    </div>
                     <div class="mb-3">
-                    @if (count($laporans) == 0)   
-                    <a href="/dashboard/hasilPemilu/laporan/create" class="btn btn-primary">
-                        <i class="fa-solid fa-plus pr-1"></i>
-                        Lengkapi {{ $title }}
-                    </a>
-                    @endif
-                    <a href="/dashboard/voting" class="btn btn-success">
-                        <i class="fa-solid fa-database"></i>
-                        <span class="ml-1">Data Voting</span>
-                    </a>
-                    <a href="/dashboard/hasilPemilu" class="btn btn-success">
-                        <i class="fa-solid fa-database"></i>
-                        <span class="ml-1">Hasil Pemilu</span>
-                    </a>
+                        @if (count($laporans) == 0)   
+                            <a href="/dashboard/hasilPemilu/laporan/create" class="btn btn-primary">
+                                <i class="fa-solid fa-plus pr-1"></i>
+                                Lengkapi {{ $title }}
+                            </a>
+                        @endif
+                        <a href="/dashboard/voting" class="btn btn-success">
+                            <i class="fa-solid fa-database"></i>
+                            <span class="ml-1">Data Voting</span>
+                        </a>
+                        <a href="/dashboard/hasilPemilu" class="btn btn-success">
+                            <i class="fa-solid fa-database"></i>
+                            <span class="ml-1">Hasil Pemilu</span>
+                        </a>
                     </div>
                     <div class="table-responsive">
                         <table class="table table-striped table-sm">

@@ -34,9 +34,10 @@ class DashboardController extends Controller
 
         return view('dashboard.index', [
             'title' => 'Dashboard',
-            'pemilihs' => $pemilihs,
-            'votings' => $votings,
-            'kandidats' => $kandidats,
+            'jumlahPemilih' => count($pemilihs),
+            'jumlahKandidat' => count($kandidats),
+            'jumlahSudahMemilih' => count($votings),
+            'jumlahBelumMemilih' => count($pemilihs) - count($votings),
             'label' => $label,
             'hasil' => $hasil,
             'waktupemilu' => $waktupemilu,

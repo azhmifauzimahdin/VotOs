@@ -1,7 +1,8 @@
 @extends('auth.layout.main')
+
 @section('content1')
     <div class="col-md-6 d-flex justify-content-center box_loginPemilih">
-    <img src="/img/email.svg" alt="ilustrasi" width="64%" class="ilustrasi_loginPemilih">
+        <img src="/img/email.svg" alt="ilustrasi" width="64%" class="ilustrasi_loginPemilih">
     </div>
 @endsection
 @section('content2')

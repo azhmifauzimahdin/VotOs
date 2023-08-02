@@ -59,6 +59,7 @@ class DashboardLaporanController extends Controller
         $validateData['qr_code'] = QrCode::size(300)->errorCorrection('M')->generate($generateKode);
 
         Laporan::create($validateData);
+
         return redirect('/dashboard/hasilPemilu/laporan')->with('success', 'Data Laporan berhasil ditambahkan!');
     }
 
@@ -96,7 +97,6 @@ class DashboardLaporanController extends Controller
      */
     public function update(Request $request, Laporan $laporan)
     {
-
         $validateData = $request->validate([
             'ketua' => 'required',
             'sekretaris' => 'required',

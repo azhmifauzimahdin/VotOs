@@ -16,16 +16,18 @@ class DashboardWaktuPemiluController extends Controller
     public function index()
     {
         $pemilu = Pemilu::first();
+        $pemilus = Pemilu::get();
         $now = Carbon::now();
-        $cek = false;
+        $waktuPemiluBerlangsung  = false;
         if ($pemilu && $now->isAfter($pemilu->mulai) && $now->isBefore($pemilu->selesai)) {
-            $cek = true;
+            $waktuPemiluBerlangsung = true;
         }
 
         return view('dashboard.waktu_pemilu.index', [
             'title' => 'Waktu Pemilu',
             'pemilus' => Pemilu::get(),
-            'cek' => $cek
+            'WaktuPemiluMasihKosong' => count($pemilus) == 0 ? true : false,
+            'waktuPemiluBerlangsung' => $waktuPemiluBerlangsung
         ]);
     }
 

@@ -45,7 +45,6 @@ class DashboardGantiPasswordController extends Controller
         ]);
 
         $validateData['password'] = Hash::make($request->password);
-
         User::where('id', $user->id)->update($validateData);
 
         return redirect('/dashboard/ganti_password')->with('success', 'Password berhasil diganti!');

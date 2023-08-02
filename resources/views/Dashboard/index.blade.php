@@ -7,50 +7,50 @@
 
 @section('container')
   <div class="row">
-      <div class="col-lg-3 col-6">
-        <div class="small-box bg-info">
-            <div class="inner">
-                <h3>{{ count($pemilihs) }}</h3>
-                <p>Jumlah Pemilih</p>
-            </div>
-            <div class="icon">
-              <i class="ion ion-person-stalker"></i>
-            </div>
-        </div>
-      </div>
-      <div class="col-lg-3 col-6">
-        <div class="small-box bg-success">
-            <div class="inner">
-              <h3>{{ count($kandidats) }}</h3>
-              <p>Jumlah Kandidat</p>
-            </div>
-            <div class="icon">
-              <i class="ion ion-person"></i>
-            </div>
-        </div>
-      </div>
-      <div class="col-lg-3 col-6">
-        <div class="small-box bg-warning">
+    <div class="col-lg-3 col-6">
+      <div class="small-box bg-info">
           <div class="inner">
-            <h3>{{ count($votings) }}</h3>
-            <p>Pemilih Sudah Memilih</p>
+              <h3>{{ $jumlahPemilih }}</h3>
+              <p>Jumlah Pemilih</p>
           </div>
           <div class="icon">
-            <i class="ion ion-document-text"></i>
+            <i class="ion ion-person-stalker"></i>
           </div>
-        </div>
       </div>
-      <div class="col-lg-3 col-6">
-        <div class="small-box bg-danger">
+    </div>
+    <div class="col-lg-3 col-6">
+      <div class="small-box bg-success">
           <div class="inner">
-            <h3>{{ count($pemilihs) - count($votings) }}</h3>
-            <p>Pemilih Belum Memilih</p>
+            <h3>{{ $jumlahKandidat }}</h3>
+            <p>Jumlah Kandidat</p>
           </div>
           <div class="icon">
-            <i class="ion ion-document"></i>
+            <i class="ion ion-person"></i>
           </div>
+      </div>
+    </div>
+    <div class="col-lg-3 col-6">
+      <div class="small-box bg-warning">
+        <div class="inner">
+          <h3>{{ $jumlahSudahMemilih }}</h3>
+          <p>Pemilih Sudah Memilih</p>
+        </div>
+        <div class="icon">
+          <i class="ion ion-document-text"></i>
         </div>
       </div>
+    </div>
+    <div class="col-lg-3 col-6">
+      <div class="small-box bg-danger">
+        <div class="inner">
+          <h3>{{ $jumlahBelumMemilih }}</h3>
+          <p>Pemilih Belum Memilih</p>
+        </div>
+        <div class="icon">
+          <i class="ion ion-document"></i>
+        </div>
+      </div>
+    </div>
   </div>
   <div class="row">
     <section class="col-lg-7">

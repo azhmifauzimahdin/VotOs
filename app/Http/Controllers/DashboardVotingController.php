@@ -38,11 +38,18 @@ class DashboardVotingController extends Controller
 
     public function hasilPemilu()
     {
+        $pemilihs = Pemilih::get();
+        $votings = Voting::get();
+
         return view('dashboard.hasil_pemilu.index', [
             'title' => 'Hasil Pemilu',
             'kandidats' => $this->tambahKeterangan(),
             'cekAkhirPemilu' => $this->cekAkhirPemilu(),
-            'laporan' => Laporan::first()
+            'laporan' => Laporan::first(),
+            'jumlahPemilih' => count($pemilihs),
+            'jumlahKandidat' => count(Kandidat::get()),
+            'jumlahSudahMemilih' => count($votings),
+            'jumlahBelumMemilih' => count($pemilihs) - count($votings)
         ]);
     }
 

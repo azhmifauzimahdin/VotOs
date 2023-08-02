@@ -17,7 +17,7 @@
                             </button>
                         </div>
                     @endif
-                    @if (count($pemilus) == 0)   
+                    @if ($WaktuPemiluMasihKosong)   
                         <div class="row d-flex justify-content-between mb-3 mx-0">
                             <a href="/dashboard/waktupemilu/create" class="btn btn-primary">
                                 <i class="fa-solid fa-plus pr-1"></i>
@@ -25,7 +25,7 @@
                             </a>
                         </div>
                     @else
-                        @if($cek)
+                        @if($waktuPemiluBerlangsung)
                             <div class="row d-flex justify-content-between mb-3 mx-0">
                                 <form action="/dashboard/waktupemilu/selesai" method="post">
                                     @csrf
@@ -72,32 +72,3 @@
         </section>
     </div>
 @endsection
-
-@push('script')
-    <script>
-        $('.konfirmasi_hapus').click(function(event) {
-            var form =  $(this).closest("form");
-            event.preventDefault();
-            Swal.fire({
-                title: 'Apakah Anda Yakin?',
-                text: "Data Anda tidak dapat dikembalikan.",
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33',
-                confirmButtonText: 'Hapus',
-                cancelButtonText: 'Batal'
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    Swal.fire(
-                    'Sukses!',
-                    'Data berhasil dihapus.',
-                    'success'
-                    ).then(function(){
-                        form.submit();
-                    })
-                }
-            })
-        });
-    </script>
-@endpush

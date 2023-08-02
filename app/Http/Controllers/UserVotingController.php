@@ -66,7 +66,6 @@ class UserVotingController extends Controller
     public function generateOtp()
     {
         $pemilih_id = auth('pemilih')->user()->id;
-        $verificationCode = Otp::where('pemilih_id', $pemilih_id)->first();
         $otp = rand(123456, 999999);
         $details = [
             'nama' => auth('pemilih')->user()->nama,
@@ -75,6 +74,7 @@ class UserVotingController extends Controller
 
         Mail::to(auth('pemilih')->user()->email)->send(new SendEmail($details));
 
+        $verificationCode = Otp::where('pemilih_id', $pemilih_id)->first();
         if ($verificationCode) {
             return $verificationCode->update([
                 'otp' => $otp,

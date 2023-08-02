@@ -16,7 +16,7 @@
         }
     </style>
 </head>
-<body onload="window.print()">
+<body>
     @yield('container')
 </body>
 </html>

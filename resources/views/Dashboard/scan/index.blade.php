@@ -1,5 +1,9 @@
 @extends('dashboard.layouts.main')
-<meta name="csrf-token" content="{{ csrf_token() }}" />
+
+@push('head')
+    <meta name="csrf-token" content="{{ csrf_token() }}" />
+@endpush
+
 @section('container')
     <div class="row">
         <div class="col-md-4">
@@ -68,7 +72,7 @@
                             <thead>
                                 <tr>
                                     <th scope="col">JUMLAH SURAT SUARA</th>
-                                    <th scope="col">SUDAH DI SCAN</th>
+                                    <th scope="col">SUDAH DISCAN</th>
                                 </tr>
                             </thead>
                             <tbody>

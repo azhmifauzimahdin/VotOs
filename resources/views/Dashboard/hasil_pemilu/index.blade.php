@@ -30,11 +30,31 @@
                                 <span class="ml-1">Cetak Hasil Pemilu</span>
                             </a>
                             @endif
-                            <a href="/dashboard/hasilPemilu/laporan" class="btn btn-success">
-                                <i class="fa-solid fa-database"></i>
-                                <span class="ml-1">Kelola Data Laporan</span>
-                            </a>
                         @endif
+                        <a href="/dashboard/hasilPemilu/laporan" class="btn btn-success">
+                            <i class="fa-solid fa-database"></i>
+                            <span class="ml-1">Kelola Data Laporan</span>
+                        </a>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table table-striped table-sm">
+                            <thead>
+                                <tr>
+                                    <th scope="col" class="col-3">JUMLAH PEMILIH</th>
+                                    <th scope="col" class="col-3">JUMLAH KANDIDAT</th>
+                                    <th scope="col" class="col-3">JUMLAH SUDAH MEMILIH</th>
+                                    <th scope="col" class="col-3">JUMLAH BELUM MEMILIH</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>{{ $jumlahPemilih }} orang</td>
+                                    <td>{{ $jumlahKandidat }} orang</td>
+                                    <td>{{ $jumlahSudahMemilih }} orang</td>
+                                    <td>{{ $jumlahBelumMemilih }} orang</td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
                     <div class="table-responsive">
                         <table class="table table-striped table-sm">

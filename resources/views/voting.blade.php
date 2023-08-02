@@ -71,7 +71,7 @@
                 @endif
                 @if ($waktupemiluberlangsung)
                 <div class="px-5 mx-md-5">
-                    <form action="/voting/generate" method="post" enctype="multipart/form-data">
+                    <form action="/voting/generate" method="post">
                         @csrf
                         <div class="row row-cols-2 row-cols-md-4 g-2 g-md-4 mb-4 d-flex justify-content-center px-md-5 mx-md-3">
                             @foreach ($kandidats as $kandidat)
@@ -148,12 +148,10 @@
     <script>
         $(document).ready(function() {
             $('#submit_voting').attr('disabled', true);
-                $('input[name=slug]:radio').click(function(){
+            $('input[name=slug]:radio').click(function(){
                 $('#submit_voting').attr('disabled', false);
-            })  
-        });
-
-        $(document).ready(function() {
+            });
+        
             var end = new Date({{ Js::from($waktupemilu) }});
             var _second = 1000;
             var _minute = _second * 60;
