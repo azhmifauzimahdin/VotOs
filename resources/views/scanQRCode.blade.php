@@ -5,7 +5,7 @@
 @endpush
 
 @section('container')
-    <div class="row bg-primary mb-0 mb-md-4 text-light bg-votos">
+    <div class="row bg-primary mb-0 mb-md-4 px-3 text-light bg-votos">
         <div class="col-12 mt-5 text-center pb-2">
             <h3 class="d-inline pb-2 px-3 garis-bawah-gradient">Scan Surat Suara</h3>
         </div>
@@ -96,7 +96,7 @@
 
         let html5QrcodeScanner = new Html5QrcodeScanner(
         "reader",
-        { fps: 10, qrbox: {width: 250, height: 250} },
+        { fps: 10, qrbox: {width: 250, height: 250}, supportedScanTypes: [Html5QrcodeScanType.SCAN_TYPE_CAMERA] },
         /* verbose= */ false);
         html5QrcodeScanner.render(onScanSuccess, onScanFailure);
     </script>  

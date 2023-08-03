@@ -11,7 +11,8 @@ use Carbon\Carbon;
 
 class UserPerolehanSuaraController extends Controller
 {
-    public function index(){
+    public function index()
+    {
         $pemilihs = Pemilih::get();
         $votings = Voting::get();
         $kandidats = Kandidat::all();
@@ -21,12 +22,12 @@ class UserPerolehanSuaraController extends Controller
         $label = [];
         $hasil = [];
         $cekPerolehan = null;
-        if($pemilu){
+        if ($pemilu) {
             $cekPerolehan = $now->isAfter($pemilu->selesai) || count($pemilihs) - count($votings) == 0;
-            if ($cekPerolehan){
-                foreach($kandidats as $data){
+            if ($cekPerolehan) {
+                foreach ($kandidats as $data) {
                     $label[] = $data->nama;
-                    $hasil[] = $data->jumlah_suara;
+                    $hasil[] = intval($data->jumlah_suara);
                 }
             }
         }

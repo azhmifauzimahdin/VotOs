@@ -7,6 +7,7 @@ use App\Models\Pemilu;
 use App\Models\Jabatan;
 use Illuminate\Http\Request;
 use Cviebrock\EloquentSluggable\Services\SlugService;
+use Illuminate\Support\Str;
 
 class DashboardJabatanController extends Controller
 {
@@ -90,7 +91,12 @@ class DashboardJabatanController extends Controller
         $validateData = [];
 
         if ($request->nama != $jabatan->nama) {
-            $rules['nama'] = 'required|unique:jabatans';
+            $rules['nama'] = '';
+            if (Str::upper($request->nama) == Str::upper($jabatan->nama)) {
+                $rules['nama'] = 'required';
+            } else {
+                $rules['nama'] = 'required|unique:jabatans';
+            }
             $validateData = $request->validate($rules);
             $validateData['slug'] = SlugService::createSlug(Jabatan::class, 'slug', $validateData['nama']);
         }

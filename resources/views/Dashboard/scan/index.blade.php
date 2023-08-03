@@ -90,6 +90,7 @@
                                     <th scope="col">NOMOR</th>
                                     <th scope="col">KANDIDAT</th>
                                     <th scope="col">PEROLEHAN SUARA</th>
+                                    <th scope="col">PERHITUNGAN SUARA</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -98,7 +99,17 @@
                                         <tr>
                                             <td class="align-middle">{{ $kandidat->nomor }}</td>
                                             <td class="align-middle">{{ $kandidat->nama }}</td>
-                                            <td class="align-middle" id="hasil{{ $kandidat->id }}">{{ $kandidat->hitung_suara }}</td>
+                                            <td class="align-middle">{{ $kandidat->jumlah_suara }}</td>
+                                            <td class="align-middle" id="hasil{{ $kandidat->id }}">
+                                                {{ $kandidat->hitung_suara }}
+                                                @if($cekScan && count($surat_suara) > 0)
+                                                    @if($kandidat->jumlah_suara == $kandidat->hitung_suara)
+                                                        <span class="bg-success px-2 rounded">Valid</span>
+                                                    @else
+                                                        <span class="bg-danger px-2 rounded">Invalid</span>
+                                                    @endif
+                                                @endif
+                                            </td>
                                         </tr>
                                     @endforeach
                                 @else

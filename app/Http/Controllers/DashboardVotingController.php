@@ -73,10 +73,18 @@ class DashboardVotingController extends Controller
         $keterangan = ['Ketua', 'Wakil Ketua', 'Sekretaris'];
         if ($kandidats) {
             $i = 0;
-            foreach ($kandidats as $data) {
-
-                if ($i >= 3) {
-                    $data->setAttribute('keterangan', '-');
+            foreach ($kandidats as $key => $data) {
+                if ($key > 0) {
+                    if ($data->jumlah_suara === $kandidats[$key - 1]->jumlah_suara) {
+                        $i--;
+                        $data->setAttribute('keterangan', $keterangan[$i]);
+                    } else {
+                        if ($i >= 3) {
+                            $data->setAttribute('keterangan', '-');
+                        } else {
+                            $data->setAttribute('keterangan', $keterangan[$i]);
+                        }
+                    }
                 } else {
                     $data->setAttribute('keterangan', $keterangan[$i]);
                 }

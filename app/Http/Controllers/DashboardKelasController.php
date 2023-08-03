@@ -7,6 +7,7 @@ use App\Models\Kelas;
 use App\Models\Pemilu;
 use Illuminate\Http\Request;
 use \Cviebrock\EloquentSluggable\Services\SlugService;
+use Illuminate\Support\Str;
 
 class DashboardKelasController extends Controller
 {
@@ -91,6 +92,12 @@ class DashboardKelasController extends Controller
         $validateData = [];
 
         if ($request->nama != $kela->nama) {
+            $rules['nama'] = '';
+            if (Str::upper($request->nama) == Str::upper($kela->nama)) {
+                $rules['nama'] = 'required';
+            } else {
+                $rules['nama'] = 'required|unique:kelas';
+            }
             $rules['nama'] = 'required|unique:kelas';
             $validateData = $request->validate($rules);
             $validateData['slug'] = SlugService::createSlug(Kelas::class, 'slug', $validateData['nama']);

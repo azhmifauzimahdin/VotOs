@@ -19,15 +19,25 @@ class DashboardWaktuPemiluController extends Controller
         $pemilus = Pemilu::get();
         $now = Carbon::now();
         $waktuPemiluBerlangsung  = false;
-        if ($pemilu && $now->isAfter($pemilu->mulai) && $now->isBefore($pemilu->selesai)) {
-            $waktuPemiluBerlangsung = true;
+        $status = '';
+
+        if ($pemilu) {
+            if ($now->isBefore($pemilu->mulai)) {
+                $status = '<td class="text-danger">Belum Dimulai</td>';
+            } elseif ($now->isAfter($pemilu->mulai) && $now->isBefore($pemilu->selesai)) {
+                $waktuPemiluBerlangsung = true;
+                $status = '<td class="text-primary">Berlangsung</td>';
+            } elseif ($now->isAfter($pemilu->selesai)) {
+                $status = '<td class="text-success">Selesai</td>';
+            }
         }
 
         return view('dashboard.waktu_pemilu.index', [
             'title' => 'Waktu Pemilu',
             'pemilus' => Pemilu::get(),
             'WaktuPemiluMasihKosong' => count($pemilus) == 0 ? true : false,
-            'waktuPemiluBerlangsung' => $waktuPemiluBerlangsung
+            'waktuPemiluBerlangsung' => $waktuPemiluBerlangsung,
+            'status' => $status
         ]);
     }
 

@@ -27,7 +27,7 @@ class DashboardController extends Controller
             if ($now->isAfter($pemilu->selesai) || count($pemilihs) - count($votings) == 0) {
                 foreach ($kandidats as $data) {
                     $label[] = $data->nama;
-                    $hasil[] = $data->jumlah_suara;
+                    $hasil[] = intval($data->jumlah_suara);
                 }
             }
         }
