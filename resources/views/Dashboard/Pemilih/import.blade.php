@@ -13,7 +13,7 @@
                         @else
                             jabatan,
                         @endif
-                        jenis kelamin, dan email. Jika email sudah digunakan, maka data dalam sistem akan diupdate sesuai dengan file data {{ $role }}. Pastikan judul tabel berada di baris pertama supaya data dapat terbaca oleh sistem. Untuk lebih jelas bisa lihat di <a href="/dashboard/pemilih/{{ $role }}/download" class="text-primary">template</a> data {{ $role }}. 
+                        jenis kelamin, dan email. Jika email sudah digunakan, maka data dalam sistem akan diupdate sesuai dengan file data {{ $role }}. Pastikan judul tabel berada di baris pertama supaya data dapat terbaca oleh sistem. Untuk lebih jelas bisa lihat di <a href="/dashboard/pemilih/{{ $role }}/download" class="text-primary">template</a> data {{ $role }}. Jika terjadi error, pindahkan tabel data {{ Str::lower($objek) }} ke file excel yang baru.
                     </div>
                     <div class="alert alert-warning d-none alert-format" role="alert" >
                         Pilih format file yang valid (xlsx, xls, atau csv).

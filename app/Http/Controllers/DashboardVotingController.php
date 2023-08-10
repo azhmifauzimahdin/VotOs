@@ -100,7 +100,7 @@ class DashboardVotingController extends Controller
             'password' => 'required'
         ]);
         $passwordFile = $request->password;
-        $kandidat = $request->kandidat;
+        $kandidat = $request->filter_kandidat;
 
         $waktu = Voting::oldest()->first();
         $pemilih = Pemilih::get();

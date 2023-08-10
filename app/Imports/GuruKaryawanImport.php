@@ -21,7 +21,7 @@ class GuruKaryawanImport implements ToModel, WithHeadingRow, WithUpserts
             $row['jabatan'] = $jabatan->id;
         } else {
             $validateData['nama'] = $row['jabatan'];
-            $validateData['slug'] = SlugService::createSlug(Jabatan::class, 'slug', $validateData['nama']);
+            $validateData['slug'] = SlugService::createSlug(Jabatan::class, 'slug', $row['jabatan']);
             $jabatanID = Jabatan::create($validateData);
             $row['jabatan'] = $jabatanID->id;
         }

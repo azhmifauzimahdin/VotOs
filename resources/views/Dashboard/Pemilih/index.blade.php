@@ -98,7 +98,7 @@
                                     @endforeach
                                 @else
                                     <tr>
-                                        <td colspan="8" class="text-center py-2">Tidak ada data yang ditemukan</td>
+                                        <td colspan="6" class="text-center py-2">Tidak ada data yang ditemukan</td>
                                     </tr>
                                 @endif
                             </tbody>

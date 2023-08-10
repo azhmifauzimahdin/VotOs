@@ -21,7 +21,7 @@ class SiswaImport implements ToModel, WithHeadingRow, WithUpserts
             $row['kelas'] = $kelas->id;
         } else {
             $validateData['nama'] = $row['kelas'];
-            $validateData['slug'] = SlugService::createSlug(Kelas::class, 'slug', $validateData['nama']);
+            $validateData['slug'] = SlugService::createSlug(Kelas::class, 'slug', $row['kelas']);
             $kelasID = Kelas::create($validateData);
             $row['kelas'] = $kelasID->id;
         }
@@ -33,7 +33,7 @@ class SiswaImport implements ToModel, WithHeadingRow, WithUpserts
             'password' => $password,
             'url' => 'http://' . request()->getHttpHost() . '/loginPemilih'
         ];
-        dispatch(new SendAccountJob($details));
+        // dispatch(new SendAccountJob($details));
 
         return new Pemilih([
             'user_id' => auth()->user()->id,

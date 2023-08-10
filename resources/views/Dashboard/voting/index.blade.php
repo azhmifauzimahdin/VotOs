@@ -20,8 +20,8 @@
                     <form action="/dashboard/voting" class="needs-validation">
                         <div class="form-row">
                             <div class="col-md-4 mb-2 mb-md-0">
-                                <label for="filter-kandidat">Kandidat</label>
-                                <select class="form-control select-search" name="filter-kandidat" id="filter-kandidat">
+                                <label for="kandidat">Kandidat</label>
+                                <select class="form-control select-search" name="kandidat" id="kandidat">
                                     <option value="" {{ request('kandidat') == "" ? "selected" : "" }}>Semua kandidat</option>
                                     @foreach ($kandidats as $kandidat)
                                         <option value="{{ $kandidat->nama }}" {{ request('kandidat') == $kandidat->nama ? "selected" : "" }}>{{ $kandidat->nomor }} - {{ $kandidat->nama }}</option>
@@ -159,7 +159,7 @@
                         </div>
                         @if (request('kandidat'))
                         <div class="form-group">
-                            <input type="hidden" class="form-control" id="kandidat" name="kandidat" value="{{ request('kandidat') }}">
+                            <input type="hidden" class="form-control" id="filter_kandidat" name="filter_kandidat" value="{{ request('kandidat') }}">
                         </div>
                         @endif
                     </div>

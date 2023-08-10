@@ -108,10 +108,6 @@
             }
         });
 
-        document.addEventListener('trix-file-accept', function(e){
-            e.preventDefault();
-        });
-
         function previewImage(){
             const image = document.querySelector('#foto');
             const imgPreview = document.querySelector('.img-preview');
