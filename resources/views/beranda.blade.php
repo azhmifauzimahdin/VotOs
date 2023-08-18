@@ -36,7 +36,7 @@
                         <i class="on-beranda fa-solid fa-person-booth fa-4x clr-success"></i>
                     </div>
                     <div class="flex-grow-1 ms-3">
-                        <h1>{{ count($pemilihs) }}</h1>
+                        <h1>{{ $laporan ? $laporan->jumlah_pemilih : 0 }}</h1>
                         <h6>Jumlah Pemilih</h6>
                     </div>
                 </div>
@@ -47,7 +47,7 @@
                         <i class="on-beranda fa-solid fa-user-tie fa-4x clr-v-aqua"></i>
                     </div>
                     <div class="flex-grow-1 ms-3">
-                        <h1>{{ count($kandidats) }}</h1>
+                        <h1>{{ $laporan ? $laporan->jumlah_kandidat : 0 }}</h1>
                         <h6>Jumlah Kandidat</h6>
                     </div>
                 </div>
@@ -58,7 +58,7 @@
                         <i class="on-beranda fa-solid fa-file-shield fa-4x clr-v-purple"></i>
                     </div>
                     <div class="flex-grow-1 ms-3">
-                        <h1>{{ count($votings) }}</h1>
+                        <h1>{{ $laporan ? $laporan->jumlah_sudah_memilih : 0}}</h1>
                         <h6>Pemilih Sudah Memilih</h6>
                     </div>
                 </div>
@@ -69,7 +69,7 @@
                         <i class="on-beranda fa-solid fa-file-circle-question fa-4x clr-v-red"></i>
                     </div>
                     <div class="flex-grow-1 ms-3">
-                        <h1>{{ count($pemilihs) - count($votings) }}</h1>
+                        <h1>{{ $laporan ? $laporan->jumlah_belum_memilih : 0}}</h1>
                         <h6>Pemilih Belum Memilih</h6>
                     </div>
                 </div>

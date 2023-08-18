@@ -4,8 +4,9 @@ namespace App\Http\Controllers;
 
 use Carbon\Carbon;
 use App\Models\Pemilu;
-use App\Models\Voting;
+use App\Models\Laporan;
 use App\Models\Kandidat;
+use App\Models\SuratSuara;
 use Illuminate\Http\Request;
 
 class DashboardScanController extends Controller
@@ -13,34 +14,33 @@ class DashboardScanController extends Controller
     public function index()
     {
         $cekScan = false;
-        if (count(Voting::where('status', 1)->get()) == count(Voting::get())) {
+        if (count(SuratSuara::where('status', 1)->get()) == count(SuratSuara::whereNotNull('kode')->get())) {
             $cekScan = true;
         }
 
         return view('dashboard.scan.index', [
-            "title" => "Scan Surat Suara",
-            "kandidats" => Kandidat::orderBy('nomor', 'ASC')->get(),
-            "cekScan" => $cekScan,
-            "surat_suara" => Voting::get(),
-            "sudah_scan" => Voting::where('status', true)->get(),
-            "waktupemiluselesai" => $this->cekWaktuPemiluSelesai()
+            'title' => 'Scan Surat Suara',
+            'kandidats' => Kandidat::orderBy('nomor', 'ASC')->get(),
+            'cekScan' => $cekScan,
+            'surat_suara' => SuratSuara::whereNotNull('kode')->get(),
+            'sudah_scan' => SuratSuara::whereNotNull('kode')->where('status', true)->get(),
+            'waktupemiluselesai' => $this->cekWaktuPemiluSelesai()
         ]);
     }
 
     public function validasi(Request $request)
     {
-        $voting = Voting::where('kode', $request->qr_code)->first();
-        if ($voting) {
-            $kandidat = Kandidat::where('id', $voting->kandidat_id)->first();
-            if (!$voting->status) {
-                $validateData['status'] = true;
-                Voting::where('id', $voting->id)->update($validateData);
-                Kandidat::where('id', $voting->kandidat_id)->increment('hitung_suara', 1);
+        $suratSuara = SuratSuara::where('kode', $request->qr_code)->first();
+        if ($suratSuara) {
+            if (!$suratSuara->status) {
+                SuratSuara::where('id', $suratSuara->id)->update(['status' => true]);
+                SuratSuara::where('kandidat_id', $suratSuara->kandidat_id)->increment('perhitungan_suara');
             }
             return response()->json([
                 'status' => 200,
-                'kandidat' => $kandidat,
-                'kode' => $voting->status
+                'suratSuara' => $suratSuara,
+                'kode' => $suratSuara->status,
+                'kandidat' => Kandidat::where('nomor', $suratSuara->kandidat_id)->first()
             ]);
         } else {
             return response()->json([
@@ -51,8 +51,8 @@ class DashboardScanController extends Controller
 
     public function scanUlang()
     {
-        Kandidat::where('hitung_suara', '>', 0)->update(['hitung_suara' => 0]);
-        Voting::where('status', '=', 1)->update(['status' => 0]);
+        SuratSuara::whereNotNull('kode')->where('status', '=', 1)->update(['status' => 0]);
+        SuratSuara::whereNotNull('kode')->where('perhitungan_suara', '>', 0)->update(['perhitungan_suara' => 0]);
 
         return redirect('/dashboard/scan')->with('success', 'Data hasil perhitungan scan surat suara berhasil dihapus!');
     }

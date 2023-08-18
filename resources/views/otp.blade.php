@@ -15,19 +15,19 @@
                 <div class="col-6 col-md-8">
                     <div class="kotak-profil border bg-white overflow-hidden">
                         <div class="candidate_thumb">
-                            @if ($kandidat->foto)
-                                <img src="{{ asset('storage/'. $kandidat->foto) }}" class="foto-kandidat" alt="Foto Kandidat" width="100%">
+                            @if ($suratSuara->kandidat->foto)
+                                <img src="{{ asset('storage/'. $suratSuara->kandidat->foto) }}" class="foto-kandidat" alt="Foto Kandidat" width="100%">
                             @else
                                 <img src="{{ asset('storage/foto-kandidat/defaultKandidat.jpg') }}" class="foto-kandidat" alt="Foto Kandidat" width="100%">
                             @endif
                             <div class="thumbnail-foto-kandidat px-3">
                                 <h5 class="text-primary">
-                                    {{ $kandidat->nomor }}
+                                    {{ $suratSuara->kandidat->nomor }}
                                 </h5>
                             </div>
                         </div>
                         <div class="px-3 pt-1"> 
-                            <h6 class="card-title text-end mb-4">{{ $kandidat->nama }}</h6>
+                            <h6 class="card-title text-end mb-4">{{ $suratSuara->kandidat   ->nama }}</h6>
                         </div>
                     </div>
                 </div>
@@ -50,7 +50,6 @@
                 @endif
                 <form action="/voting/vote" method="post">
                     @csrf
-                    <input type="hidden" name="slugVote" id="slugVote" value="{{ $slug }}">
                     <div class="form-floating input-group-sm mb-3">
                         <input type="password" class="form-control input-sm" name="otp" id="otp" placeholder="One Time Password (OTP)" required>
                         <label for="otp">One Time Password (OTP)</label>
@@ -65,8 +64,8 @@
                 </form>
                 <form action="/voting/generate" method="post">
                     @csrf
-                    <input type="hidden" name="slug" id="slug" value="{{ $slug }}">
-                    <input type="hidden" name="update" id="update" value="{{ $slug }}">
+                    <input type="hidden" name="nomor" id="nomor" value="{{ $suratSuara->kandidat->nomor }}">
+                    <input type="hidden" name="update" id="update" value="{{ $suratSuara->kandidat->nomor }}">
                     <button type="submit" class="btn btn-sm btn-link px-0">Kirim ulang kode OTP</button>
                 </form>
             </div>

@@ -8,5 +8,16 @@ use Illuminate\Database\Eloquent\Model;
 class Laporan extends Model
 {
     use HasFactory;
-    protected $fillable = ['id', 'ketua', 'sekretaris', 'kesiswaan', 'pembina', 'kepala_sekolah', 'kode', 'qr_code'];
+    protected $guarded = [];
+    public $timestamps = false;
+
+    public function pemilu()
+    {
+        return $this->belongsTo(Pemilu::class);
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

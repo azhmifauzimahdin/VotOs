@@ -3,6 +3,7 @@
 namespace App\Imports;
 
 use App\Models\Jabatan;
+use App\Models\Laporan;
 use App\Models\Pemilih;
 use Illuminate\Support\Str;
 use App\Jobs\SendAccountJob;
@@ -12,20 +13,10 @@ use Maatwebsite\Excel\Concerns\WithUpserts;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
 use Cviebrock\EloquentSluggable\Services\SlugService;
 
-class GuruKaryawanImport implements ToModel, WithHeadingRow, WithUpserts
+class PemilihImport implements ToModel, WithHeadingRow, WithUpserts
 {
     public function model(array $row)
     {
-        $jabatan = Jabatan::where('nama', $row['jabatan'])->first();
-        if ($jabatan) {
-            $row['jabatan'] = $jabatan->id;
-        } else {
-            $validateData['nama'] = $row['jabatan'];
-            $validateData['slug'] = SlugService::createSlug(Jabatan::class, 'slug', $row['jabatan']);
-            $jabatanID = Jabatan::create($validateData);
-            $row['jabatan'] = $jabatanID->id;
-        }
-
         $password = Str::random(6);
         $details = [
             'email' => $row['email'],
@@ -35,9 +26,17 @@ class GuruKaryawanImport implements ToModel, WithHeadingRow, WithUpserts
         ];
         dispatch(new SendAccountJob($details));
 
+        $laporan = Laporan::where('id', 1)->first();
+        if ($laporan) {
+            $laporan->increment('jumlah_pemilih', 1);
+            $laporan->increment('jumlah_belum_memilih', 1);
+        } else {
+            Laporan::create(['id' => 1, 'user_id' => auth()->user()->id, 'jumlah_pemilih' => 1, 'jumlah_belum_memilih' => 1]);
+        }
+
         return new Pemilih([
             'user_id' => auth()->user()->id,
-            'jabatan_id' => $row['jabatan'],
+            'kelas_jabatan' => $temp = $row['kelasjabatan'] ?? $row['jabatankelas'] ?? $row['jabatan'] ?? $row['kelas'],
             'nama' => $row['nama'],
             'jenis_kelamin' => str_replace(' ', '', Str::ucfirst($row['jenis_kelamin'])),
             'email' => $row['email'],

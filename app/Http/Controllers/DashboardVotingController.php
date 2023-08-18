@@ -4,14 +4,12 @@ namespace App\Http\Controllers;
 
 use Carbon\Carbon;
 use App\Models\Pemilu;
-use App\Models\Voting;
 use App\Models\Laporan;
-use App\Models\Pemilih;
 use App\Models\Kandidat;
-use Illuminate\Support\Str;
+use App\Models\SuratSuara;
 use Illuminate\Http\Request;
 use Barryvdh\DomPDF\Facade\Pdf;
-use SimpleSoftwareIO\QrCode\Facades\QrCode;
+use Illuminate\Support\Facades\Storage;
 
 class DashboardVotingController extends Controller
 {
@@ -20,17 +18,39 @@ class DashboardVotingController extends Controller
         return view('dashboard.voting.index', [
             'title' => 'Data Voting',
             'kandidats' => Kandidat::orderBy('nomor', 'ASC')->get(),
-            'votings' => $this->cekAkhirPemilu() ? Voting::latest()->filter(request(['search', 'kandidat']))->paginate(10)->withQueryString() : [],
+            'votings' => $this->cekAkhirPemilu() ? SuratSuara::whereNotNull('kode')->orderBy('waktu', 'DESC')->filter(request(['search', 'kandidat']))->paginate(10)->withQueryString() : [],
             'cekAkhirPemilu' => $this->cekAkhirPemilu(),
-            'laporan' => Laporan::first()
+            'laporan' => Laporan::whereNotNull('kode')->first()
         ]);
     }
 
     public function ulangVoting()
     {
-        Kandidat::where('jumlah_suara', '>', 0)->update(['jumlah_suara' => 0]);
-        Voting::query()->delete();
-        Laporan::query()->delete();
+        $kandidats = Kandidat::get();
+        if ($kandidats) {
+            foreach ($kandidats as $kandidat) {
+                if ($kandidat->foto) {
+                    Storage::delete($kandidat->foto);
+                }
+            }
+        }
+        Kandidat::query()->delete();
+        SuratSuara::query()->delete();
+        $laporan = Laporan::where('id', 1)->first();
+        $laporan->update([
+            'user_id' => 0,
+            'surat_suara_id' => 0,
+            'ketua' => null,
+            'sekretaris' => null,
+            'kesiswaan' => null,
+            'pembina' => null,
+            'kepala_sekolah' => null,
+            'jumlah_kandidat' => 0,
+            'jumlah_sudah_memilih' => 0,
+            'jumlah_belum_memilih' => $laporan->jumlah_pemilih,
+            'kode' => null,
+            'qr_code' => null
+        ]);
         Pemilu::query()->delete();
 
         return redirect('/dashboard/voting')->with('success', 'Data voting berhasil dihapus!');
@@ -38,60 +58,30 @@ class DashboardVotingController extends Controller
 
     public function hasilPemilu()
     {
-        $pemilihs = Pemilih::get();
-        $votings = Voting::get();
+        $kandidat = $this->cekAkhirPemilu() ? Kandidat::get()->sortByDesc(function ($query) {
+            return $query->suratSuara;
+        })->all() : [];
 
         return view('dashboard.hasil_pemilu.index', [
             'title' => 'Hasil Pemilu',
-            'kandidats' => $this->tambahKeterangan(),
+            'kandidats' => $kandidat,
             'cekAkhirPemilu' => $this->cekAkhirPemilu(),
+            'cekLaporan' => Laporan::whereNotNull('kode')->first(),
             'laporan' => Laporan::first(),
-            'jumlahPemilih' => count($pemilihs),
-            'jumlahKandidat' => count(Kandidat::get()),
-            'jumlahSudahMemilih' => count($votings),
-            'jumlahBelumMemilih' => count($pemilihs) - count($votings)
+            'keterangan' => ['Ketua', 'Wakil Ketua', 'Sekretaris']
         ]);
     }
 
     public function cekAkhirPemilu()
     {
-        $pemilihs = Pemilih::get();
-        $votings = Voting::get();
         $pemilu = Pemilu::first();
+        $laporan = Laporan::first();
         $now = Carbon::now();
         $cekpemilu = false;
         if ($pemilu) {
-            $cekpemilu = $now->isAfter($pemilu->selesai) || count($pemilihs) - count($votings) == 0;
+            $cekpemilu = $now->isAfter($pemilu->selesai) || $laporan->jumlah_belum_memilih == 0;
         }
-
         return $cekpemilu;
-    }
-
-    public function tambahKeterangan()
-    {
-        $kandidats = $this->cekAkhirPemilu() ? Kandidat::orderBy('jumlah_suara', 'DESC')->paginate(10)->withQueryString() : [];
-        $keterangan = ['Ketua', 'Wakil Ketua', 'Sekretaris'];
-        if ($kandidats) {
-            $i = 0;
-            foreach ($kandidats as $key => $data) {
-                if ($key > 0) {
-                    if ($data->jumlah_suara === $kandidats[$key - 1]->jumlah_suara) {
-                        $i--;
-                        $data->setAttribute('keterangan', $keterangan[$i]);
-                    } else {
-                        if ($i >= 3) {
-                            $data->setAttribute('keterangan', '-');
-                        } else {
-                            $data->setAttribute('keterangan', $keterangan[$i]);
-                        }
-                    }
-                } else {
-                    $data->setAttribute('keterangan', $keterangan[$i]);
-                }
-                $i++;
-            }
-        }
-        return $kandidats;
     }
 
     public function cetakDataVoting(Request $request)
@@ -102,20 +92,15 @@ class DashboardVotingController extends Controller
         $passwordFile = $request->password;
         $kandidat = $request->filter_kandidat;
 
-        $waktu = Voting::oldest()->first();
-        $pemilih = Pemilih::get();
-        $voting = Voting::get();
+        $periode = SuratSuara::whereNotNull('kode')->orderBy('waktu', 'ASC')->first();
         $laporan = Laporan::first();
 
         $pdf = Pdf::loadView('dashboard.voting.print', [
             'title' => 'Cetak Data Voting',
-            'votings' => $this->cekAkhirPemilu() ? ($kandidat ? Voting::latest()->filter(['kandidat' => $kandidat])->get() : Voting::latest()->get()) : [],
-            'tahunSekarang' => $waktu ? Carbon::createFromFormat('Y-m-d H:i:s', $waktu->created_at)->year : 'XXXX',
-            'tahunDepan' => $waktu ? Carbon::createFromFormat('Y-m-d H:i:s', $waktu->created_at)->addYear()->year : 'XXXX',
-            'jumlahPemilih' => count($pemilih),
-            'jumlahKandidat' => count(Kandidat::get()),
-            'jumlahSudahMemilih' => count($voting),
-            'jumlahTidakMemilih' => count($pemilih) - count($voting),
+            'votings' => $this->cekAkhirPemilu() ? ($kandidat ? SuratSuara::whereNotNull('kode')->orderBy('waktu', 'DESC')->filter(['kandidat' => $kandidat])->get() : SuratSuara::whereNotNull('kode')->orderBy('waktu', 'DESC')->get()) : [],
+            'tahunSekarang' => $periode ? Carbon::createFromFormat('Y-m-d H:i:s', $periode->waktu)->year : 'XXXX',
+            'tahunDepan' => $periode ? Carbon::createFromFormat('Y-m-d H:i:s', $periode->waktu)->addYear()->year : 'XXXX',
+            'laporan' => $laporan,
             'filterKandidat' => $kandidat,
             'qrCode' => $laporan ? base64_encode($laporan->qr_code) : ''
         ])->setPaper('A4', 'potrait');
@@ -125,11 +110,12 @@ class DashboardVotingController extends Controller
 
     public function cetakPdfSuratSuara()
     {
+        $periode = SuratSuara::whereNotNull('kode')->orderBy('waktu', 'ASC')->first();
         $pdf = Pdf::loadView('dashboard.voting.printSuratSuara', [
             'title' => 'Cetak Surat Suara',
-            'votings' => $this->cekAkhirPemilu() ? Voting::latest()->get() : [],
-            'tahunSekarang' => Carbon::now()->format('Y'),
-            'tahunDepan' => Carbon::now()->addYear()->format('Y')
+            'votings' => $this->cekAkhirPemilu() ? SuratSuara::whereNotNull('kode')->orderBy('waktu', 'DESC')->get() : [],
+            'tahunSekarang' => $periode ? Carbon::createFromFormat('Y-m-d H:i:s', $periode->waktu)->year : 'XXXX',
+            'tahunDepan' => $periode ? Carbon::createFromFormat('Y-m-d H:i:s', $periode->waktu)->addYear()->year : 'XXXX',
         ])->setPaper('A4', 'potrait');
         return $pdf->stream('Cetak-Surat-Suara.pdf');
     }
@@ -141,35 +127,44 @@ class DashboardVotingController extends Controller
         ]);
         $passwordFile = $request->password;
 
-        $waktu = Voting::oldest()->first();
-        $pemilih = Pemilih::get();
-        $voting = Voting::get();
+
+        $waktu = SuratSuara::whereNotNull('kode')->orderBy('waktu', 'ASC')->first();
         $laporan = Laporan::first();
         $pemilu = Pemilu::first();
+
+        $hariMulaiPemilu = $pemilu ? Carbon::parse($pemilu->mulai)->isoFormat('dddd') : 'XXXX';
+        $hariSelesaiPemilu = $pemilu ? Carbon::parse($pemilu->selesai)->isoFormat('dddd') : 'XXXX';
+
+        $tanggalMulaiPemilu = $pemilu ? Carbon::parse($pemilu->mulai)->isoFormat('D MMMM Y') : 'XXXX';
+        $tanggalSelesaiPemilu = $pemilu ? Carbon::parse($pemilu->selesai)->isoFormat('D MMMM Y') : 'XXXX';
+        $kandidat = $this->cekAkhirPemilu() ? Kandidat::get()->sortByDesc(function ($query) {
+            return $query->suratSuara;
+        })->all() : [];
+
         $waktuMulaiPemilu = '00.00';
         if ($waktu && $pemilu) {
-            if ($waktu->created_at->isBefore($pemilu->mulai)) {
-                $waktuMulaiPemilu = Carbon::parse($waktu->create_at)->format('H.i');
+            if ($waktu->waktu->isBefore($pemilu->mulai)) {
+                $waktuMulaiPemilu = Carbon::parse($waktu->waktu)->format('H.i');
             } else {
                 $waktuMulaiPemilu = Carbon::parse($pemilu->mulai)->format('H.i');
             }
         }
 
+
         $pdf = Pdf::loadView('dashboard.hasil_pemilu.print', [
             'title' => 'Cetak Hasil Pemilu',
-            'kandidats' => $this->tambahKeterangan(),
-            'tahunSekarang' => $waktu ? Carbon::createFromFormat('Y-m-d H:i:s', $waktu->created_at)->year : 'XXXX',
-            'tahunDepan' => $waktu ? Carbon::createFromFormat('Y-m-d H:i:s', $waktu->created_at)->addYear()->year : 'XXXX',
-            'jumlahPemilih' => count($pemilih),
-            'hariPemilu' => $pemilu ? Carbon::parse($pemilu->selesai)->isoFormat('dddd') : 'XXXX',
-            'tanggalPemilu' => $pemilu ? Carbon::parse($pemilu->selesai)->isoFormat('D MMMM Y') : 'XXXX',
+            'tahunSekarang' => $waktu ? Carbon::createFromFormat('Y-m-d H:i:s', $waktu->waktu)->year : 'XXXX',
+            'tahunDepan' => $waktu ? Carbon::createFromFormat('Y-m-d H:i:s', $waktu->waktu)->addYear()->year : 'XXXX',
+            'hariMulaiPemilu' => $hariMulaiPemilu,
+            'hariSelesaiPemilu' => $hariMulaiPemilu != $hariSelesaiPemilu ? $hariSelesaiPemilu : '',
+            'tanggalMulaiPemilu' => $tanggalMulaiPemilu,
+            'tanggalSelesaiPemilu' => $tanggalMulaiPemilu != $tanggalSelesaiPemilu ? $tanggalSelesaiPemilu : '',
             'waktuMulaiPemilu' => $waktuMulaiPemilu,
             'waktuSelesaiPemilu' => $pemilu ? Carbon::parse($pemilu->selesai)->format('H.i') : '00.00',
-            'jumlahKandidat' => count(Kandidat::get()),
-            'jumlahSudahMemilih' => count($voting),
-            'jumlahTidakMemilih' => count($pemilih) - count($voting),
             'waktuSekarang' => $waktu ? Carbon::now()->isoFormat('D MMMM Y') : 'XXXX',
-            'pihak' => $laporan,
+            'kandidats' => $kandidat,
+            'keterangan' => ['Ketua', 'Wakil Ketua', 'Sekretaris'],
+            'laporan' => $laporan,
             'qrCode' => $laporan ? base64_encode($laporan->qr_code) : ''
         ])->setPaper('A4', 'potrait');
         $pdf->setEncryption($passwordFile, '', ['print']);

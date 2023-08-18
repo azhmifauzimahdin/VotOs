@@ -43,6 +43,7 @@
                                 <tr>
                                     <th scope="col">WAKTU MULAI</th>
                                     <th scope="col">WAKTU SELESAI</th>
+                                    <th scope="col">STATUS</th>
                                     <th scope="col">AKSI</th>
                                 </tr>
                             </thead>
@@ -52,6 +53,7 @@
                                         <tr>
                                             <td>{{ $pemilu->mulai }}</td>
                                             <td>{{ $pemilu->selesai }}</td>
+                                            {!! $status !!}
                                             <td class="text-nowrap">
                                                 <a href="/dashboard/waktupemilu/{{ $pemilu->id }}/edit" class="btn btn-sm bg-warning">
                                                     <i class="fa-solid fa-pen-to-square"></i>

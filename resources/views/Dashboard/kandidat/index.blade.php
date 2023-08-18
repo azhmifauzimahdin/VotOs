@@ -21,7 +21,7 @@
                         </a>
                         <ul class="list-inline mb-0 mt-2 mt-md-0">
                             <li class="list-inline-item">
-                                Search :
+                                Cari :
                             </li>
                             <li class="list-inline-item">
                                 <form action="/dashboard/kandidat" class="input-search">
@@ -39,8 +39,8 @@
                                 <tr>
                                     <th scope="col">NO</th>
                                     <th scope="col">NAMA</th>
-                                    <th scope="col">JABATAN SEBELUMNYA</th>
                                     <th scope="col">KELAS</th>
+                                    <th scope="col">JABATAN SEBELUMNYA</th>
                                     <th scope="col">JENIS KELAMIN</th>
                                     <th scope="col">FOTO</th>
                                     <th scope="col">AKSI</th>
@@ -52,12 +52,8 @@
                                         <tr>
                                             <td class="align-middle">{{ $kandidat->nomor }}</td>
                                             <td class="align-middle">{{ $kandidat->nama }}</td>
-                                            <td class="align-middle">{{ $kandidat->jabatan }}</td>
-                                            @if ($kandidat->kelas)
-                                            <td class="align-middle">{{ $kandidat->kelas->nama }}</td>
-                                            @else
-                                            <td class="align-middle">-</td>    
-                                            @endif
+                                            <td class="align-middle">{{ $kandidat->kelas }}</td>
+                                            <td class="align-middle">{{ $kandidat->jabatan_sebelumnya }}</td>
                                             <td class="align-middle">{{ $kandidat->jenis_kelamin }}</td>
                                             <td>
                                                 @if ($kandidat->foto)
@@ -95,7 +91,7 @@
                     </div>
                     <div class="row d-flex justify-content-between mx-1">
                         <div>
-                            Showing {{ $kandidats->firstItem() }} to {{ $kandidats->lastItem() }} of {{$kandidats->total()}} entries
+                            Menampilkan {{ $kandidats->firstItem() }} sampai {{ $kandidats->lastItem() }} dari {{$kandidats->total()}} entri
                         </div>
                         <div class="mt-2 mt-md-0">
                             {{ $kandidats->onEachSide(0)->links() }}

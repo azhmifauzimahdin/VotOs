@@ -14,10 +14,9 @@ class CreatePemilusTable extends Migration
     public function up()
     {
         Schema::create('pemilus', function (Blueprint $table) {
-            $table->id();
+            $table->smallIncrements('id');
             $table->timestamp('mulai')->nullable();
             $table->timestamp('selesai')->nullable();
-            $table->timestamps();
         });
     }
 

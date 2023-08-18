@@ -8,12 +8,16 @@
     <div class="row">
         <div class="col-md-4">
             <div class="card p-3 mb-0" id="card-reader">
-                @if ($waktupemiluselesai)
-                <div id="reader"></div>
+                @if($cekScan && count($surat_suara) > 0)
+                    <div class="alert alert-success mb-0 text-center" role="alert">
+                        Surat suara sudah terscan semua
+                    </div>
+                @elseif ($waktupemiluselesai)
+                    <div id="reader"></div>
                 @else
-                <div class="alert alert-info mb-0 text-center" role="alert">
-                    Tunggu pemilu selesai
-                </div>
+                    <div class="alert alert-info mb-0 text-center" role="alert">
+                        Tunggu pemilu selesai
+                    </div>
                 @endif
             </div>
             <div class="bg-tranparent d-flex mb-3">
@@ -71,7 +75,7 @@
                         <table class="table table-striped table-sm">
                             <thead>
                                 <tr>
-                                    <th scope="col">JUMLAH SURAT SUARA</th>
+                                    <th scope="col">JUMLAH SURAT SUARA {{ $cekScan }}</th>
                                     <th scope="col">SUDAH DISCAN</th>
                                 </tr>
                             </thead>
@@ -99,17 +103,24 @@
                                         <tr>
                                             <td class="align-middle">{{ $kandidat->nomor }}</td>
                                             <td class="align-middle">{{ $kandidat->nama }}</td>
-                                            <td class="align-middle">{{ $kandidat->jumlah_suara }}</td>
-                                            <td class="align-middle" id="hasil{{ $kandidat->id }}">
-                                                {{ $kandidat->hitung_suara }}
-                                                @if($cekScan && count($surat_suara) > 0)
-                                                    @if($kandidat->jumlah_suara == $kandidat->hitung_suara)
+                                            @if($waktupemiluselesai)
+                                                <td class="align-middle">{{ count($kandidat->suratSuara) ? $kandidat->suratSuara[0]->perolehan_suara : 0 }}</td>
+                                                <td class="align-middle" id="hasil{{ $kandidat->nomor }}">
+                                                    {{ count($kandidat->suratSuara) ? $kandidat->suratSuara[0]->perhitungan_suara : 0 }}
+                                                    @if($cekScan && count($surat_suara) > 0 && count($kandidat->suratSuara))
+                                                        @if($kandidat->suratSuara[0]->perolehan_suara == $kandidat->suratSuara[0]->perhitungan_suara)
+                                                            <span class="bg-success px-2 rounded">Valid</span>
+                                                        @else
+                                                            <span class="bg-danger px-2 rounded">Invalid</span>
+                                                        @endif
+                                                    @elseif($cekScan && count($surat_suara) > 0)
                                                         <span class="bg-success px-2 rounded">Valid</span>
-                                                    @else
-                                                        <span class="bg-danger px-2 rounded">Invalid</span>
                                                     @endif
-                                                @endif
-                                            </td>
+                                                </td>
+                                            @else
+                                                <td class="align-middle">-</td>
+                                                <td class="align-middle">-</td>
+                                            @endif
                                         </tr>
                                     @endforeach
                                 @else
@@ -131,6 +142,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script>
         function onScanSuccess(decodedText, decodedResult) {
+            console.log(decodedText);
             html5QrcodeScanner.clear().then(_ => {
                 var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
                 $.ajax({
@@ -142,7 +154,6 @@
                         qr_code : decodedText
                     },            
                     success: function (response) {
-                        console.log(response); 
                         if(response.status == 404){
                             Swal.fire({
                                 icon: 'error',
@@ -169,11 +180,10 @@
                             if(response.kode){
                                 $('#status').removeClass('d-none');
                             }else{
-                                $("#hasil"+response.kandidat.id).append(`<span class="text-success"> + 1</span>`);
+                                $("#hasil"+response.kandidat.nomor).append(`<span class="text-success"> + 1</span>`);
                                 $("#sudahscan").append(`<span class="text-success"> + 1</span>`);
                             }
                         }
-                        
                     }
                 });   
             }).catch(error => {
@@ -181,17 +191,11 @@
             });
         }
 
-        function onScanFailure(error) {
-        // handle scan failure, usually better to ignore and keep scanning.
-        // for example:
-        // console.warn(`Code scan error = ${error}`);
-        }
-
         let html5QrcodeScanner = new Html5QrcodeScanner(
         "reader",
-        { fps: 10, qrbox: {width: 600, height: 600} },
+        { fps: 10, qrbox: {width: 600, height: 600}, supportedScanTypes: [Html5QrcodeScanType.SCAN_TYPE_CAMERA] },
         false);
-        html5QrcodeScanner.render(onScanSuccess, onScanFailure);
+        html5QrcodeScanner.render(onScanSuccess);
 
         $('.konfirmasi_hitung_ulang').click(function(event) {
             var form =  $(this).closest("form");

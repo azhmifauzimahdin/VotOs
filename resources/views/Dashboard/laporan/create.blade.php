@@ -32,7 +32,7 @@
                             <input type="text" class="form-control" id="kepala_sekolah" name="kepala_sekolah" placeholder="Nama Kepala Sekolah" required value="{{  old('kepala_sekolah') }}">
                         </div>
                         <button type="submit" class="btn btn-primary">Simpan</button>
-                        <a href="/dashboard/hasilPemilu" class="btn btn-danger">Batal</a>
+                        <a href="/dashboard/hasilPemilu/laporan" class="btn btn-danger">Batal</a>
                     </form>
                 </div>
             </div>

@@ -2,32 +2,34 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use App\Models\Kandidat;
-use App\Models\Pemilu;
-use App\Models\Pemilih;
-use App\Models\Voting;
 use Carbon\Carbon;
+use App\Models\Pemilu;
+use App\Models\Laporan;
+use App\Models\Pemilih;
+use App\Models\Kandidat;
+use App\Models\SuratSuara;
+use Illuminate\Http\Request;
+use App\Models\PerolehanSuara;
+use App\Models\PemungutanSuara;
 
 class UserPerolehanSuaraController extends Controller
 {
     public function index()
     {
-        $pemilihs = Pemilih::get();
-        $votings = Voting::get();
-        $kandidats = Kandidat::all();
         $pemilu = Pemilu::first();
+        $laporan = Laporan::first();
+        $kandidats = Kandidat::get();
         $now = Carbon::now();
+        $pemiluSelesai = false;
 
         $label = [];
         $hasil = [];
-        $cekPerolehan = null;
         if ($pemilu) {
-            $cekPerolehan = $now->isAfter($pemilu->selesai) || count($pemilihs) - count($votings) == 0;
-            if ($cekPerolehan) {
+            if ($now->isAfter($pemilu->selesai) || $laporan->jumlah_belum_memilih == 0) {
+                $pemiluSelesai = true;
                 foreach ($kandidats as $data) {
                     $label[] = $data->nama;
-                    $hasil[] = intval($data->jumlah_suara);
+                    $hasil[] = count($data->suratSuara) ? intval($data->suratSuara[0]->perolehan_suara) : 0;
                 }
             }
         }
@@ -39,7 +41,7 @@ class UserPerolehanSuaraController extends Controller
             'hasil' => $hasil,
             'waktu' => $now,
             'pemilu' => $pemilu,
-            'cekPerolehan' => $cekPerolehan
+            'pemiluSelesai' => $pemiluSelesai
         ]);
     }
 }

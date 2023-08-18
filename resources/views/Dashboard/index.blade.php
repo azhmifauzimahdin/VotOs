@@ -10,7 +10,7 @@
     <div class="col-lg-3 col-6">
       <div class="small-box bg-info">
           <div class="inner">
-              <h3>{{ $jumlahPemilih }}</h3>
+              <h3>{{ $laporan ? $laporan->jumlah_pemilih : 0 }}</h3>
               <p>Jumlah Pemilih</p>
           </div>
           <div class="icon">
@@ -21,7 +21,7 @@
     <div class="col-lg-3 col-6">
       <div class="small-box bg-success">
           <div class="inner">
-            <h3>{{ $jumlahKandidat }}</h3>
+            <h3>{{ $laporan ? $laporan->jumlah_kandidat : 0 }}</h3>
             <p>Jumlah Kandidat</p>
           </div>
           <div class="icon">
@@ -32,7 +32,7 @@
     <div class="col-lg-3 col-6">
       <div class="small-box bg-warning">
         <div class="inner">
-          <h3>{{ $jumlahSudahMemilih }}</h3>
+          <h3>{{ $laporan ? $laporan->jumlah_sudah_memilih : 0}}</h3>
           <p>Pemilih Sudah Memilih</p>
         </div>
         <div class="icon">
@@ -43,7 +43,7 @@
     <div class="col-lg-3 col-6">
       <div class="small-box bg-danger">
         <div class="inner">
-          <h3>{{ $jumlahBelumMemilih }}</h3>
+          <h3>{{ $laporan ? $laporan->jumlah_belum_memilih : 0 }}</h3>
           <p>Pemilih Belum Memilih</p>
         </div>
         <div class="icon">

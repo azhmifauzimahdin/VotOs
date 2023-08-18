@@ -5,23 +5,17 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Voting extends Model
+class SuratSuara extends Model
 {
     use HasFactory;
-
     protected $guarded = ['id'];
-
-    public function scopeVote($query, $id)
-    {
-        $query->when($id ?? false, function ($query, $search) {
-            return $query->where('pemilih_id', 'like', '%' . $search . '%');
-        });
-    }
+    public $timestamps = false;
+    protected $dates = ['waktu'];
 
     public function scopeFilter($query, array $filters)
     {
         $query->when($filters['search'] ?? false, function ($query, $search) {
-            return $query->where('created_at', 'like', '%' . $search . '%')
+            return $query->where('waktu', 'like', '%' . $search . '%')
                 ->orWhereHas('kandidat', function ($query) use ($search) {
                     $query->where('nomor', 'like', '%' . $search . '%')
                         ->orWhere('nama', 'like', '%' . $search . '%');
@@ -32,8 +26,7 @@ class Voting extends Model
 
         $query->when($filters['kandidat'] ?? false, function ($query, $search) {
             return $query->whereHas('kandidat', function ($query) use ($search) {
-                $query->where('nomor', 'like', '%' . $search . '%')
-                    ->orWhere('nama', 'like', '%' . $search . '%');
+                $query->where('nama', 'like', '%' . $search . '%');
             });
         });
     }
@@ -45,6 +38,6 @@ class Voting extends Model
 
     public function kandidat()
     {
-        return $this->belongsTo(Kandidat::class);
+        return $this->belongsTo(Kandidat::class, 'kandidat_id');
     }
 }

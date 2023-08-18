@@ -19,7 +19,7 @@ class DashboardUserController extends Controller
     {
         return view('dashboard.user.index', [
             'title' => 'Data Admin & Panitia',
-            'users' => User::latest()->filter(request(['search']))->paginate(10)->withQueryString()
+            'users' => User::orderBy('updated_at', 'DESC')->filter(request(['search']))->paginate(10)->withQueryString()
         ]);
     }
 

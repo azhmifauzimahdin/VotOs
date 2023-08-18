@@ -19,7 +19,7 @@
                     @endif
                     <div class="mb-3">
                         @if ($cekAkhirPemilu)   
-                            @if ($laporan)
+                            @if ($cekLaporan)
                             <button class="btn btn-info" data-toggle="modal" data-target="#passwordModal">
                                 <i class="fa-solid fa-print"></i>
                                 <span class="ml-1">Cetak Hasil Pemilu</span>
@@ -48,10 +48,10 @@
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td>{{ $jumlahPemilih }} orang</td>
-                                    <td>{{ $jumlahKandidat }} orang</td>
-                                    <td>{{ $jumlahSudahMemilih }} orang</td>
-                                    <td>{{ $jumlahBelumMemilih }} orang</td>
+                                    <td>{{ $laporan ? $laporan->jumlah_pemilih : 0 }} orang</td>
+                                    <td>{{ $laporan ? $laporan->jumlah_kandidat : 0 }} orang</td>
+                                    <td>{{ $laporan ? $laporan->jumlah_sudah_memilih : 0 }} orang</td>
+                                    <td>{{ $laporan ? $laporan->jumlah_belum_memilih : 0 }} orang</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -70,10 +70,16 @@
                                 @if(count($kandidats) > 0)
                                     @foreach ($kandidats as $index => $kandidat)
                                         <tr>
-                                            <td>{{ $index + $kandidats->firstItem() }}</td>
+                                            <td>{{ $loop->iteration }}</td>
                                             <td>{{ $kandidat->nomor}} - {{ $kandidat->nama }}</td>
-                                            <td>{{ $kandidat->jumlah_suara }}</td>
-                                            <td>{{ $kandidat->keterangan }}</td>
+                                            <td>{{ count($kandidat->suratSuara) ? $kandidat->suratSuara[0]->perolehan_suara : 0 }}</td>
+                                            <td>
+                                                @if($loop->iteration < 4)
+                                                    {{ $keterangan[$loop->iteration - 1] }}
+                                                @else
+                                                    -
+                                                @endif
+                                            </td>
                                         </tr>
                                     @endforeach
                                 @else

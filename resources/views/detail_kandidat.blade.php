@@ -23,11 +23,7 @@
                             <div class="mt-3 w-100">
                                 <h5>{{ $kandidat->nama }}</h5>
                                 <p>
-                                    @if ($kandidat->kelas)
-                                        {{ $kandidat->kelas->nama }}   
-                                    @else
-                                        -   
-                                    @endif
+                                    {{ $kandidat->kelas}}
                                 </p>
                                 <hr>
                                 <a href="/kandidat" class="text-decoration-none">Daftar Kandidat</a>
@@ -62,7 +58,7 @@
                                 <h6 class="mb-md-0">Jabatan Sebelumnya</h6>
                             </div>
                             <div class="col-sm-8 ps-md-4">
-                                {{ $kandidat->jabatan }}   
+                                {{ $kandidat->jabatan_sebelumnya }}   
                             </div>
                         </div>
                         <hr class="my-3">
@@ -71,11 +67,7 @@
                                 <h6 class="mb-md-0">Kelas</h6>
                             </div>
                             <div class="col-sm-8 ps-md-4">
-                                @if ($kandidat->kelas)
-                                    {{ $kandidat->kelas->nama }}   
-                                @else
-                                    -   
-                                @endif   
+                                {{ $kandidat->kelas }}
                             </div>
                         </div>
                         <hr class="my-3">

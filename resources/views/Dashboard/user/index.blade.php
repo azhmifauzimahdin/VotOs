@@ -7,7 +7,7 @@
                 <h5 class="card-header">{{ $title }}</h5>
                 <div class="card-body">
                     @if(session()->has('success'))
-                        <div class="row alert alert-success alert-dismissible fade show" role="alert">
+                        <div class="alert alert-success alert-dismissible fade show" role="alert">
                             {{ session('success') }}
                             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
@@ -21,7 +21,7 @@
                         </a>
                         <ul class="list-inline mb-0 mt-2 mt-md-0">
                             <li class="list-inline-item">
-                                Search :
+                                Cari :
                             </li>
                             <li class="list-inline-item">
                                 <form action="/dashboard/user" class="input-search">
@@ -86,7 +86,7 @@
                     </div>
                     <div class="row d-flex justify-content-between mx-1">
                         <div>
-                            Showing {{ $users->firstItem() }} to {{ $users->lastItem() }} of {{$users->total()}} entries
+                            Menampilkan {{ $users->firstItem() }} sampai {{ $users->lastItem() }} dari {{$users->total()}} entri
                         </div>
                         <div class="mt-2 mt-md-0">
                             {{ $users->onEachSide(0)->links() }}

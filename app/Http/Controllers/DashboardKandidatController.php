@@ -6,6 +6,10 @@ use Carbon\Carbon;
 use App\Models\Kelas;
 use App\Models\Pemilu;
 use App\Models\Kandidat;
+use App\Models\Laporan;
+use App\Models\PerhitunganSuara;
+use App\Models\PerolehanSuara;
+use App\Models\SuratSuara;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use \Cviebrock\EloquentSluggable\Services\SlugService;
@@ -34,8 +38,7 @@ class DashboardKandidatController extends Controller
     public function create()
     {
         return view('dashboard.kandidat.create', [
-            'title' => 'Tambah Data Kandidat',
-            'kelas' => Kelas::orderBy('nama', 'ASC')->get()
+            'title' => 'Tambah Data Kandidat'
         ]);
     }
 
@@ -50,8 +53,8 @@ class DashboardKandidatController extends Controller
         $validateData = $request->validate([
             'nomor' => 'required|numeric|unique:kandidats',
             'nama' => 'required',
-            'jabatan' => 'required',
-            'kelas_id' => 'required',
+            'kelas' => 'required',
+            'jabatan_sebelumnya' => 'required',
             'jenis_kelamin' => 'required',
             'tempat_lahir' => 'required',
             'tanggal_lahir' => 'required',
@@ -68,6 +71,8 @@ class DashboardKandidatController extends Controller
         }
 
         Kandidat::create($validateData);
+        $laporan = Laporan::where('id', 1)->first();
+        $laporan ? $laporan->increment('jumlah_kandidat') : Laporan::create(['id' => 1, 'user_id' => auth()->user()->id, 'jumlah_kandidat' => 1]);
 
         return redirect('/dashboard/kandidat')->with('success', 'Data kandidat berhasil ditambahkan!');
     }
@@ -96,8 +101,7 @@ class DashboardKandidatController extends Controller
     {
         return view('dashboard.kandidat.edit', [
             'title' => 'Edit Data Kandidat',
-            'kandidat' => $kandidat,
-            'kelas' => Kelas::orderBy('nama', 'ASC')->get()
+            'kandidat' => $kandidat
         ]);
     }
 
@@ -112,8 +116,8 @@ class DashboardKandidatController extends Controller
     {
         $rules = [
             'nama' => 'required',
-            'jabatan' => 'required',
-            'kelas_id' => 'required',
+            'kelas' => 'required',
+            'jabatan_sebelumnya' => 'required',
             'jenis_kelamin' => 'required',
             'tempat_lahir' => 'required',
             'tanggal_lahir' => 'required',
@@ -137,7 +141,7 @@ class DashboardKandidatController extends Controller
             $validateData['foto'] = $request->file('foto')->store('foto-kandidat');
         }
 
-        Kandidat::where('id', $kandidat->id)->update($validateData);
+        Kandidat::where('nomor', $kandidat->nomor)->update($validateData);
 
         return redirect('/dashboard/kandidat')->with('success', 'Data kandidat berhasil diupdate!');
     }
@@ -153,7 +157,8 @@ class DashboardKandidatController extends Controller
         if ($kandidat->foto) {
             Storage::delete($kandidat->foto);
         }
-        Kandidat::destroy($kandidat->id);
+        Kandidat::destroy($kandidat->nomor);
+        Laporan::where('id', 1)->increment('jumlah_kandidat', -1);
 
         return redirect('/dashboard/kandidat')->with('success', 'Data kandidat berhasil dihapus!');
     }

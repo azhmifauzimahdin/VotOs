@@ -15,14 +15,12 @@ class PemilihFactory extends Factory
     public function definition()
     {
         return [
-            'user_id' => mt_rand(1, 10000),
-            'kelas_id' => 1,
+            'kelas_jabatan' => '10 IPA 1',
             'nama' => $this->faker->name(),
             'jenis_kelamin' => $this->faker->randomElement(['Laki-laki', 'Perempuan']),
             'email' => $this->faker->unique()->safeEmail(),
             'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi',
-            'slug' => $this->faker->slug(),
-            'remember_token' => Str::random(10)
+            'slug' => Str::random(10)
         ];
     }
 }

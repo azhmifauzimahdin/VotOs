@@ -3,20 +3,20 @@
 namespace App\Http\Controllers;
 
 use Carbon\Carbon;
-use App\Models\Kelas;
 use App\Models\Pemilu;
+use App\Models\Laporan;
 use App\Models\Pemilih;
 use Illuminate\Support\Str;
-use App\Exports\SiswaExport;
-use App\Imports\SiswaImport;
 use App\Jobs\SendAccountJob;
 use Illuminate\Http\Request;
+use App\Exports\PemilihExport;
+use App\Imports\PemilihImport;
 use Illuminate\Support\Facades\Hash;
 use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\Storage;
-use \Cviebrock\EloquentSluggable\Services\SlugService;
+use Cviebrock\EloquentSluggable\Services\SlugService;
 
-class DashboardPemilihSiswaController extends Controller
+class DashboardPemilihController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -26,10 +26,8 @@ class DashboardPemilihSiswaController extends Controller
     public function index()
     {
         return view('dashboard.pemilih.index', [
-            'title' => 'Data Siswa',
-            'objek' => 'Siswa',
-            'role' => 'siswa',
-            'pemilihs' => Pemilih::latest()->whereNotNull('kelas_id')->filter(request(['search']))->paginate(10)->withQueryString(),
+            'title' => 'Data Pemilih',
+            'pemilihs' => Pemilih::orderBy('updated_at', 'DESC')->filter(request(['search']))->paginate(10)->withQueryString(),
             'waktupemilu' => $this->cekWaktuPemilu()
         ]);
     }
@@ -42,10 +40,7 @@ class DashboardPemilihSiswaController extends Controller
     public function create()
     {
         return view('dashboard.pemilih.create', [
-            'title' => 'Tambah Data Siswa',
-            'objek' => 'Siswa',
-            'role' => 'siswa',
-            'kelas' => Kelas::orderBy('nama', 'ASC')->get()
+            'title' => 'Tambah Pemilih'
         ]);
     }
 
@@ -59,13 +54,12 @@ class DashboardPemilihSiswaController extends Controller
     {
         $validateData = $request->validate([
             'nama' => 'required',
-            'kelas_id' => 'required',
+            'kelas_jabatan' => 'required',
             'jenis_kelamin' => 'required',
             'email' => 'required|email:dns|unique:pemilihs'
         ]);
 
         $validateData['slug'] = SlugService::createSlug(Pemilih::class, 'slug', $validateData['nama']);
-        $validateData['user_id'] = auth()->user()->id;
         $password = Str::random(6);
         $validateData['password'] = Hash::make($password);
 
@@ -75,11 +69,19 @@ class DashboardPemilihSiswaController extends Controller
             'password' => $password,
             'url' => 'http://' . request()->getHttpHost() . '/loginPemilih'
         ];
-        dispatch(new SendAccountJob($details));
 
         Pemilih::create($validateData);
+        $laporan = Laporan::where('id', 1)->first();
+        if ($laporan) {
+            $laporan->increment('jumlah_pemilih');
+            $laporan->increment('jumlah_belum_memilih');
+        } else {
+            Laporan::create(['id' => 1, 'user_id' => auth()->user()->id, 'jumlah_pemilih' => 1, 'jumlah_belum_memilih' => 1]);
+        }
 
-        return redirect('/dashboard/pemilih/siswa')->with('success', 'Data pemilih berhasil ditambahkan!');
+        dispatch(new SendAccountJob($details));
+
+        return redirect('/dashboard/pemilih')->with('success', 'Data pemilih berhasil ditambahkan!');
     }
 
     /**
@@ -90,6 +92,7 @@ class DashboardPemilihSiswaController extends Controller
      */
     public function show(Pemilih $pemilih)
     {
+        //
     }
 
     /**
@@ -101,11 +104,8 @@ class DashboardPemilihSiswaController extends Controller
     public function edit(Pemilih $pemilih)
     {
         return view('dashboard.pemilih.edit', [
-            'title' => 'Edit Data Siswa',
-            'objek' => 'Siswa',
-            'role' => 'siswa',
-            'pemilih' => $pemilih,
-            'kelas' => Kelas::orderBy('nama', 'ASC')->get()
+            'title' => 'Edit Data Pemilih',
+            'pemilih' => $pemilih
         ]);
     }
 
@@ -120,12 +120,12 @@ class DashboardPemilihSiswaController extends Controller
     {
         $rules = [
             'nama' => 'required',
-            'kelas_id' => 'required',
+            'kelas_jabatan' => 'required',
             'jenis_kelamin' => 'required'
         ];
 
         if ($request->email != $pemilih->email) {
-            $rules['email'] = 'required|email:dns|unique:pemilihs';
+            $rules['email'] = 'required|unique:pemilihs';
         }
 
         $validateData = $request->validate($rules);
@@ -133,7 +133,7 @@ class DashboardPemilihSiswaController extends Controller
 
         Pemilih::where('id', $pemilih->id)->update($validateData);
 
-        return redirect('/dashboard/pemilih/siswa')->with('success', 'Data pemilih berhasil diupdate!');
+        return redirect('/dashboard/pemilih')->with('success', 'Data pemilih berhasil diupdate!');
     }
 
     /**
@@ -145,8 +145,11 @@ class DashboardPemilihSiswaController extends Controller
     public function destroy(Pemilih $pemilih)
     {
         Pemilih::destroy($pemilih->id);
+        $laporan = Laporan::where('id', 1)->first();
+        $laporan->increment('jumlah_pemilih', -1);
+        $laporan->increment('jumlah_belum_memilih', -1);
 
-        return redirect('/dashboard/pemilih/siswa')->with('success', 'Data pemilih berhasil dihapus!');
+        return redirect('/dashboard/pemilih')->with('success', 'Data pemilih berhasil dihapus!');
     }
 
     public function cekWaktuPemilu()
@@ -161,28 +164,25 @@ class DashboardPemilihSiswaController extends Controller
         return $cekwaktupemilu;
     }
 
-    public function importSiswa()
+    public function importPemilih()
     {
         return view('dashboard.pemilih.import', [
-            'title' => 'Data Siswa',
-            'objek' => 'Siswa',
-            'role' => 'siswa'
+            'title' => 'Import Data Pemilih'
         ]);
-    }
-
-    public function fileImport(Request $request)
-    {
-        Excel::import(new SiswaImport, $request->file('file'));
-        return redirect('/dashboard/pemilih/siswa')->with('success', 'Data pemilih berhasil ditambahkan!');
-    }
-
-    public function fileExport()
-    {
-        return Excel::download(new SiswaExport, 'DataSiswa.xlsx');
     }
 
     public function downloadTemplate()
     {
-        return Storage::download('template/TemplateDataSiswa.xlsx');
+        return Storage::download('template/TemplateDataPemilih.xlsx');
+    }
+
+    public function fileImport(Request $request)
+    {
+        Excel::import(new PemilihImport, $request->file('file'));
+        return redirect('/dashboard/pemilih')->with('success', 'Data pemilih berhasil ditambahkan!');
+    }
+    public function fileExport()
+    {
+        return Excel::download(new PemilihExport, 'DataPemilih.xlsx');
     }
 }

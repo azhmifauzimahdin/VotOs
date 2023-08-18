@@ -56,7 +56,7 @@
         </tr>
         <tr>
             <td></td>
-            <td colspan="2" class="paragraf">Seluruh peserta didik, guru, dan staff SMA Muhammadiyah 4 Yogyakarta dengan jumlah pemilih sebanyak {{ $jumlahPemilih }} pemilih.</td>
+            <td colspan="2" class="paragraf">Seluruh peserta didik, guru, dan staff SMA Muhammadiyah 4 Yogyakarta dengan jumlah pemilih sebanyak {{ $laporan->jumlah_pemilih }} pemilih.</td>
         </tr>
         <tr class="fw-bold">
             <td class="pt-3">B.</td>
@@ -69,12 +69,22 @@
         <tr>
             <td></td>
             <td class="w-14">Hari</td>
-            <td>: {{ $hariPemilu }}</td>
+            <td>
+                : {{ $hariMulaiPemilu }}
+                @if($hariSelesaiPemilu)
+                    - {{ $hariSelesaiPemilu }}
+                @endif
+            </td>
         </tr>
         <tr>
             <td></td>
             <td>Tanggal</td>
-            <td>: {{ $tanggalPemilu }}</td>
+            <td>
+                : {{ $tanggalMulaiPemilu }}
+                @if( $tanggalSelesaiPemilu)
+                    - {{ $tanggalSelesaiPemilu }}
+                @endif
+            </td>
         </tr>
         <tr>
             <td></td>
@@ -99,17 +109,26 @@
         <tr>
             <td></td>
             <td class="w-29-4">Jumlah Kandidat</td>
-            <td>: {{ $jumlahKandidat }} orang</td>
+            <td>: {{ $laporan->jumlah_kandidat }} orang</td>
+        </tr>
+        <tr>
+            <td></td>
+            <td class="w-29-4">Jumlah Pemilih</td>
+            <td>: {{ $laporan->jumlah_pemilih }} orang</td>
         </tr>
         <tr>
             <td></td>
             <td class="pe-5">Jumlah Sudah Memilih</td>
-            <td>: {{ $jumlahSudahMemilih }} orang</td>
+            <td>: {{ $laporan->jumlah_sudah_memilih }} orang</td>
         </tr>
         <tr>
             <td></td>
             <td class="pe-5">Jumlah Tidak Memilih</td>
-            <td>: {{ $jumlahTidakMemilih }} orang</td>
+            <td>: {{ $laporan->jumlah_belum_memilih }} orang</td>
+        </tr>
+        <tr>
+            <td></td>
+            <td class="text-center pt-3" colspan="2">Tabel 1. Perolehan Suara</td>
         </tr>
         <tr>
             <td></td>
@@ -126,9 +145,9 @@
                         @if (count($kandidats))
                             @foreach ($kandidats as $index => $kandidat)
                                 <tr>
-                                    <td>{{ $index + $kandidats->firstItem() }}</td>
+                                    <td>{{ $loop->iteration }}</td>
                                     <td>{{ $kandidat->nomor}} - {{ $kandidat->nama }}</td>
-                                    <td>{{ $kandidat->jumlah_suara }}</td>
+                                    <td>{{ count($kandidat->suratSuara) ? $kandidat->suratSuara[0]->perolehan_suara : 0  }}</td>
                                 </tr>
                             @endforeach
                         @else
@@ -142,7 +161,11 @@
         </tr>
         <tr>
             <td></td>
-            <td colspan="2" class="paragraf pt-2">Sesuai dengan pemilihan umum yang telah diikuti oleh seluruh peserta didik, guru, dan staff SMA Muhammadiyah 4 Yogyakarta. Maka susunan IPM pimpinan ranting Ikatan Pelajar Muhammadiyah SMA Muhammadiyah 4 Yogyakarta periode {{ $tahunSekarang }}/{{ $tahunDepan }} adalah sebagai berikut.</td>
+            <td colspan="2" class="paragraf pt-2 pb-5">Sesuai dengan pemilihan umum yang telah diikuti oleh seluruh peserta didik, guru, dan staff SMA Muhammadiyah 4 Yogyakarta. Maka susunan IPM pimpinan ranting Ikatan Pelajar Muhammadiyah SMA Muhammadiyah 4 Yogyakarta periode {{ $tahunSekarang }}/{{ $tahunDepan }} adalah sebagai berikut.</td>
+        </tr>
+        <tr>
+            <td></td>
+            <td class="text-center pt-4" colspan="2">Tabel 2. Susunan Pengurus IPM Baru</td>
         </tr>
         <tr>
             <td></td>
@@ -159,9 +182,15 @@
                         @if (count($kandidats))
                             @foreach ($kandidats as $index => $kandidat)
                                 <tr>
-                                    <td>{{ $index + $kandidats->firstItem() }}</td>
+                                    <td>{{ $loop->iteration }}</td>
                                     <td>{{ $kandidat->nomor}} - {{ $kandidat->nama }}</td>
-                                    <td>{{  $kandidat->keterangan }}</td>
+                                    <td>
+                                        @if($loop->iteration < 4)
+                                            {{ $keterangan[$loop->iteration - 1] }}
+                                        @else
+                                            -
+                                        @endif
+                                    </td>
                                 </tr>
                             @endforeach
                         @else
@@ -187,9 +216,9 @@
             <td class="w-42">Sekretaris</td>
         </tr>
         <tr class="text-decoration-underline align-top">
-            <td class="h-60">{{ $pihak->ketua }}</td>
+            <td class="h-60">{{ $laporan->ketua }}</td>
             <td></td>
-            <td>{{ $pihak->sekretaris }}</td>
+            <td>{{ $laporan->sekretaris }}</td>
         </tr>
         <tr class="fw-bold align-top">
             <td class="h-120">Waka Kesiswaan</td>
@@ -197,9 +226,9 @@
             <td>Pembina IPM</td>
         </tr>
         <tr class="text-decoration-underline align-top">
-            <td class="h-60">{{ $pihak->kesiswaan }}</td>
+            <td class="h-60">{{ $laporan->kesiswaan }}</td>
             <td></td>
-            <td>{{ $pihak->pembina }}</td>
+            <td>{{ $laporan->pembina }}</td>
         </tr>
         <tr class="fw-bold">
             <td colspan="3" class="h-40">Mengetahui,</td>
@@ -208,7 +237,7 @@
             <td colspan="3" class="h-120">Kepala Sekolah</td>
         </tr>
         <tr class="text-decoration-underline">
-            <td colspan="3">{{ $pihak->kepala_sekolah }}</td>
+            <td colspan="3">{{ $laporan->kepala_sekolah }}</td>
         </tr>
     </table>
 @endsection

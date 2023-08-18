@@ -10,7 +10,8 @@ class Kandidat extends Model
 {
     use HasFactory, Sluggable;
 
-    protected $guarded = ['id'];
+    protected $guarded = [];
+    protected $primaryKey = 'nomor';
 
     public function scopeHasil($query)
     {
@@ -25,21 +26,18 @@ class Kandidat extends Model
     public function scopeFilter($query, array $filters)
     {
         $query->when($filters['search'] ?? false, function ($query, $search) {
-            return $query->where('nama', 'like', '%' . $search . '%')
-                ->orWhere('nomor', 'like', '%' . $search . '%')
-                ->orWhere('jenis_kelamin', 'like', '%' . $search . '%')
-                ->orWhere('jabatan', 'like', '%' . $search . '%')
-                ->orWhere('jumlah_suara', 'like', '%' . $search . '%')
-                ->orWhereHas('kelas', function ($query) use ($search) {
-                    $query->where('nama', 'like', '%' . $search . '%');
-                });
+            return $query->where('nomor', 'like', '%' . $search . '%')
+                ->orWhere('nama', 'like', '%' . $search . '%')
+                ->orWhere('kelas', 'like', '%' . $search . '%')
+                ->orWhere('jabatan_sebelumnya', 'like', '%' . $search . '%')
+                ->orWhere('jenis_kelamin', 'like', '%' . $search . '%');
         });
 
-        $query->when($filters['hasilPemilu'] ?? false, function ($query, $search) {
-            return $query->where('nama', 'like', '%' . $search . '%')
-                ->orWhere('nomor', 'like', '%' . $search . '%')
-                ->orWhere('jumlah_suara', 'like', '%' . $search . '%');
-        });
+        // $query->when($filters['hasilPemilu'] ?? false, function ($query, $search) {
+        //     return $query->where('nama', 'like', '%' . $search . '%')
+        //         ->orWhere('nomor', 'like', '%' . $search . '%')
+        //         ->orWhere('jumlah_suara', 'like', '%' . $search . '%');
+        // });
     }
 
     public function getRouteKeyName()
@@ -56,13 +54,8 @@ class Kandidat extends Model
         ];
     }
 
-    public function votings()
+    public function suratSuara()
     {
-        return $this->hasMany(Voting::class);
-    }
-
-    public function kelas()
-    {
-        return $this->belongsTo(Kelas::class);
+        return $this->hasMany(SuratSuara::class, 'kandidat_id');
     }
 }

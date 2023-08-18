@@ -43,17 +43,17 @@
         <tr>
             <td></td>
             <td class="w-29-6 px-0">Jumlah Pemilih</td>
-            <td>: {{ $jumlahPemilih }} orang</td>
+            <td>: {{ $laporan->jumlah_pemilih }} orang</td>
         </tr>
         <tr>
             <td></td>
             <td class="pe-5">Jumlah Sudah Memilih</td>
-            <td>: {{ $jumlahSudahMemilih }} orang</td>
+            <td>: {{ $laporan->jumlah_sudah_memilih }} orang</td>
         </tr>
         <tr>
             <td></td>
             <td class="pe-5">Jumlah Tidak Memilih</td>
-            <td>: {{ $jumlahTidakMemilih }} orang</td>
+            <td>: {{ $laporan->jumlah_belum_memilih }} orang</td>
         </tr>
         <tr class="fw-bold">
             <td class="pt-3">B.</td>
@@ -61,19 +61,19 @@
         </tr>
         <tr>
             <td></td>
-            <td colspan="2" class="paragraf">Data voting pemilihan ketua umum IPM pimpinan ranting Ikatan Pelajar Muhammadiyah SMA Muhammadiyah 4 Yogyakarta.</td>
+            <td colspan="2" class="paragraf">Data pemilihan ketua umum IPM pimpinan ranting Ikatan Pelajar Muhammadiyah SMA Muhammadiyah 4 Yogyakarta.</td>
         </tr>
         <tr>
             <td></td>
             <td>Jumlah Kandidat</td>
-            <td>: {{ $jumlahKandidat }} orang</td>
+            <td>: {{ $laporan->jumlah_kandidat }} orang</td>
         </tr>
         <tr>
             <td></td>
-            <td class="pe-5">Data Voting Kandidat</td>
-            <td>: 
+            <td class="text-center pt-3" colspan="2">
+                Tabel 1. Data Voting 
                 @if ($filterKandidat)
-                    {{ $filterKandidat }} 
+                    Kandidat {{ $filterKandidat }} 
                 @else   
                     Semua kandidat
                 @endif
@@ -98,7 +98,7 @@
                                     <td>{{ $loop->iteration }}</td>
                                     <td>{{ $voting->pemilih->nama }}</td>
                                     <td>{{ $voting->kandidat->nomor }} - {{ $voting->kandidat->nama }}</td>
-                                    <td>{{ $voting->created_at }}</td>
+                                    <td>{{ $voting->waktu }}</td>
                                 </tr>
                             @endforeach
                         @else

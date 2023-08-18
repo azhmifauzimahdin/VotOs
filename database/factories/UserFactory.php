@@ -21,7 +21,7 @@ class UserFactory extends Factory
             'level' => $this->faker->randomElement(['Administrator', 'Panitia']),
             'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi',
             'jenis_kelamin' => $this->faker->randomElement(['Laki-laki', 'Perempuan']),
-            'slug' => $this->faker->slug(),
+            'slug' => Str::random(10),
         ];
     }
 

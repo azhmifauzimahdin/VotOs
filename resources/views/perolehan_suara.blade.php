@@ -27,7 +27,7 @@
                             @endif
                             <div class="thumbnail-foto-kandidat px-3">
                                 <h5 class="text-primary">
-                                    {{ $kandidat->nomor }}
+                                    {{ $kandidat->nomor}}
                                 </h5>
                             </div>
                         </div>
@@ -36,10 +36,10 @@
                             <div class="lihat-detail px-3 mb-2"> 
                                 <div class="pb-1">
                                     <b class="text-primary">
-                                        @if ($cekPerolehan)
-                                            {{ $kandidat->jumlah_suara }}
+                                        @if ($pemiluSelesai)
+                                            {{ count($kandidat->suratSuara) ? $kandidat->suratSuara[0]->perolehan_suara : 0}}
                                         @else
-                                            0
+                                            -
                                         @endif
                                     </b>
                                     Suara

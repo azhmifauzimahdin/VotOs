@@ -14,21 +14,18 @@ class CreateKandidatsTable extends Migration
     public function up()
     {
         Schema::create('kandidats', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('kelas_id');
-            $table->integer('nomor')->unique();
-            $table->string('nama');
-            $table->string('jenis_kelamin');
-            $table->string('tempat_lahir');
+            $table->smallIncrements('nomor');
+            $table->string('nama', 40);
+            $table->string('kelas', 30);
+            $table->string('jenis_kelamin', 10);
+            $table->string('tempat_lahir', 30);
             $table->date('tanggal_lahir');
-            $table->string('jabatan');
+            $table->string('jabatan_sebelumnya', 30);
             $table->text('alamat');
-            $table->string('foto')->nullable();
+            $table->string('foto', 80)->nullable();
             $table->text('visi');
             $table->text('misi');
-            $table->string('slug')->unique();
-            $table->integer('jumlah_suara')->default(0);
-            $table->integer('hitung_suara')->default(0);
+            $table->string('slug', 50)->unique();
             $table->timestamps();
         });
     }

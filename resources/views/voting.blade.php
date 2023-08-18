@@ -24,31 +24,31 @@
         </div>
     @endguest
     @auth('pemilih')
-        @if($status)
+        @if($suratSuara && $suratSuara->kode)
             <div class="px-5">
                 <div class="row d-flex justify-content-center mx-md-5 mb-5">
-                    <div class="col-12 col-md-3 bg-light shadow-sm overflow-hidden border-radius-1 px-0 mb-3">
+                    <div class="col-12 col-md-3 bg-light shadow-sm overflow-hidden border-radius-1 px-0 mb-3 h-100">
                         <div class="py-3"></div>
-                        @if ($status->kandidat->foto)
-                            <img src="{{ asset('storage/'. $status->kandidat->foto) }}" alt="Foto Kandidat" class="foto-kandidat-voting">
+                        @if ($suratSuara->kandidat->foto)
+                            <img src="{{ asset('storage/'. $suratSuara->kandidat->foto) }}" alt="Foto Kandidat" class="foto-kandidat-voting">
                         @else
                             <img src="{{ asset('storage/foto-kandidat/defaultKandidat.jpg') }}" alt="Foto Kandidat" class="foto-kandidat-voting">
                         @endif
-                        <h6 class="text-center py-2"><b>{{ $status->kandidat->nama }}</b></h6>
+                        <h6 class="text-center py-2"><b>{{ $suratSuara->kandidat->nama }}</b></h6>
                     </div>
                     <div class="col-12 col-md-4 bg-light shadow-sm border-radius-1 py-3 px-4 px-md-4 mx-md-2">
                         <div class="row border-bottom-dashed py-md-4">
-                            {!! $status->qr_code !!}
+                            {!! $suratSuara->qr_code !!}
                         </div>
                         <div class="row border-bottom py-2">
                             <div class="col-md-5"><b>Nomor</b></div>
                             <div class="col-md-7">
-                                {{ $status->kandidat->nomor }}
+                                {{ $suratSuara->kandidat->nomor }}
                             </div>
                         </div>
                         <div class="row py-2">
                             <div class="col-md-5"><b>Nama</b></div>
-                            <div class="col-md-7">{{ $status->kandidat->nama }}</div>
+                            <div class="col-md-7">{{ $suratSuara->kandidat->nama }}</div>
                         </div>
                     </div>
                 </div>
@@ -93,8 +93,8 @@
                                             <h6 class="card-title text-end mb-4">{{ $kandidat->nama }}</h6>
                                             <div class="px-3 mb-2 w-100 d-flex justify-content-center lihat-detail"> 
                                                 <div class="form-check">
-                                                    <input class="form-check-input csr-pointer" type="radio" name="slug" id="slug{{ $kandidat->id }}" value="{{ $kandidat->slug }}">
-                                                    <label class="form-check-label csr-pointer" for="slug{{ $kandidat->id }}">
+                                                    <input class="form-check-input csr-pointer" type="radio" name="nomor" id="nomor{{ $kandidat->nomor }}" value="{{ $kandidat->nomor }}">
+                                                    <label class="form-check-label csr-pointer" for="id{{ $kandidat->nomor }}">
                                                         <b class="text-primary">Vote</b>
                                                     </label>
                                                 </div>
@@ -148,7 +148,7 @@
     <script>
         $(document).ready(function() {
             $('#submit_voting').attr('disabled', true);
-            $('input[name=slug]:radio').click(function(){
+            $('input[name=nomor]:radio').click(function(){
                 $('#submit_voting').attr('disabled', false);
             });
         

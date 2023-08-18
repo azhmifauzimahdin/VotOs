@@ -4,16 +4,10 @@
     <div class="row">
         <section class="col-md-12">
             <div class="card">
-                <h5 class="card-header ">Upload Data {{ $objek }}</h5>
+                <h5 class="card-header ">Import Data Pemilih</h5>
                 <div class="card-body">
                     <div class="info-voting alert border" role="alert">
-                        Pilih file berisi data {{ Str::lower($objek) }} dalam format xlsx, xls, ata csv. Data dari file yang akan disimpan ke dalam sistem hanya berupa nama,
-                        @if ($role == 'siswa')
-                            kelas,
-                        @else
-                            jabatan,
-                        @endif
-                        jenis kelamin, dan email. Jika email sudah digunakan, maka data dalam sistem akan diupdate sesuai dengan file data {{ $role }}. Pastikan judul tabel berada di baris pertama supaya data dapat terbaca oleh sistem. Untuk lebih jelas bisa lihat di <a href="/dashboard/pemilih/{{ $role }}/download" class="text-primary">template</a> data {{ $role }}. Jika terjadi error, pindahkan tabel data {{ Str::lower($objek) }} ke file excel yang baru.
+                        Pilih file berisi data pemilih dalam format xlsx, xls, ata csv. Data dari file yang akan disimpan ke dalam sistem hanya berupa nama, kelas/jabatan, jenis kelamin, dan email. Jika email sudah digunakan, maka data dalam sistem akan diupdate sesuai dengan file data pemilih. Pastikan judul tabel berada di baris pertama supaya data dapat terbaca oleh sistem. Untuk lebih jelas bisa lihat di <a href="/dashboard/pemilih/download" class="text-primary">template</a> data pemilih. Jika terjadi error, pindahkan tabel data pemilih ke file excel yang baru.
                     </div>
                     <div class="alert alert-warning d-none alert-format" role="alert" >
                         Pilih format file yang valid (xlsx, xls, atau csv).
@@ -24,7 +18,7 @@
                     <div class="alert alert-warning d-none alert-header" role="alert" id="alert-header">
                         Data <b id="header-nama"></b> tidak ada.
                     </div>
-                    <form action="/dashboard/pemilih/{{ $role }}/import" method="post" enctype="multipart/form-data">
+                    <form action="/dashboard/pemilih/import" method="post" enctype="multipart/form-data">
                         @csrf
                         <div class="form-group">
                             <label for="file">File</label>
@@ -36,7 +30,7 @@
                             @enderror
                         </div>
                         <button type="submit" class="btn btn-primary" id="simpan" disabled>Simpan</button>
-                        <a href="/dashboard/pemilih/{{ $role }}" class="btn btn-danger">Batal</a>
+                        <a href="/dashboard/pemilih" class="btn btn-danger">Batal</a>
                     </form>
                     <div class="table-responsive" id="tabel-data">
                         <table class="table table-striped table-sm">
@@ -105,7 +99,7 @@
                 var header = Object.keys(jsonData[0]);
                 var nama = header.includes('nama') || header.includes('Nama') || header.includes('NAMA');
                 var kelas = header.includes('kelas') || header.includes('Kelas') || header.includes('KELAS');
-                var jabatan = header.includes('jabatan') || header.includes('Jabatan') || header.includes('JABATAN');
+                var kelas_jabatan = header.includes('Kelas/Jabatan') || header.includes('Kelas/jabatan') || header.includes('kelas/jabatan') || header.includes('KELAS/JABATAN') || header.includes('Jabatan/Kelas') || header.includes('Jabatan/kelas') || header.includes('jabatan/kelas') || header.includes('JABATAN/KELAS') || header.includes('Kelas') || header.includes('kelas') || header.includes('KELAS') || header.includes('Jabatan') || header.includes('jabatan') || header.includes('JABATAN');
                 var jenis_kelamin = header.includes('jenis kelamin') || header.includes('Jenis kelamin') || header.includes('Jenis Kelamin') || header.includes('JENIS KELAMIN');
                 var email = header.includes('email') || header.includes('Email') || header.includes('EMAIL');
                 namaheader.innerHTML = '';
@@ -114,17 +108,9 @@
                     alertheader.classList.remove('d-none');
                     namaheader.append('[NAMA] ');
                 }
-                if('{{ $role }}' == 'siswa'){
-                    if(!kelas){
-                        alertheader.classList.remove('d-none');
-                        namaheader.append('[KELAS] ')
-                    }
-                }
-                else{
-                    if(!jabatan){
-                        alertheader.classList.remove('d-none');
-                        namaheader.append('[JABATAN] ')
-                    }
+                if(!kelas_jabatan){
+                    alertheader.classList.remove('d-none');
+                    namaheader.append('[KELAS/JABATAN] ')
                 }
                 if(!jenis_kelamin){
                     alertheader.classList.remove('d-none');
@@ -134,15 +120,8 @@
                     alertheader.classList.remove('d-none');
                     namaheader.append('[EMAIL] ')
                 }
-                if('{{ $role }}' == 'siswa'){
-                    if(nama && kelas && jenis_kelamin && email){
-                        simpan.removeAttribute('disabled');
-                    }
-                }
-                else{
-                    if(nama && jabatan && jenis_kelamin && email){
-                        simpan.removeAttribute('disabled');
-                    }
+                if(nama && kelas_jabatan && jenis_kelamin && email){
+                    simpan.removeAttribute('disabled');
                 }
             }else{
                 alertheader.classList.add('d-none');
@@ -155,22 +134,11 @@
             var tablebody = document.querySelector("#tabel-body");
             tabeldata.classList.add('mt-3');
             if(jsonData.length > 0){
-                var htmlDataHead = '';
-                if('{{ $role }}' == 'siswa'){
-                    htmlDataHead += '<tr><th>NO</th><th>NAMA</th><th>KELAS</th><th>JENIS KELAMIN</th><th>EMAIL</th></tr>';
-                }
-                else{
-                    htmlDataHead += '<tr><th>NO</th><th>NAMA</th><th>JABATAN</th><th>JENIS KELAMIN</th><th>EMAIL</th></tr>';
-                }
+                var htmlDataHead = '<tr><th>NO</th><th>NAMA</th><th>KELAS/JABATAN</th><th>JENIS KELAMIN</th><th>EMAIL</th></tr>';
                 tablehead.innerHTML = htmlDataHead;
                 var htmlData = ' ';
                 jsonData.forEach((row, i) => {
-                    if('{{ $role }}' == 'siswa'){
-                        htmlData += '<tr><td>'+(i+1)+'</td><td>'+ (row['nama'] || row['Nama'] || row['NAMA']) +'</td><td>'+(row['kelas'] || row['Kelas'] || row['KELAS'])+'</td><td>'+(row['jenis kelamin'] || row['Jenis kelamin'] || row['Jenis Kelamin'] || row['JENIS KELAMIN'])+'</td><td>'+(row['email'] || row['Email'] || row['EMAIL'])+'</td></tr>';
-                    }
-                    else{
-                        htmlData += '<tr><td>'+(i+1)+'</td><td>'+ (row['nama'] || row['Nama'] || row['NAMA']) +'</td><td>'+(row['jabatan'] || row['Jabatan'] || row['JABATAN'])+'</td><td>'+(row['jenis kelamin'] || row['Jenis kelamin'] || row['Jenis Kelamin'] || row['JENIS KELAMIN'])+'</td><td>'+(row['email'] || row['Email'] || row['EMAIL'])+'</td></tr>';
-                    }
+                    htmlData += '<tr><td>'+(i+1)+'</td><td>'+ (row['nama'] || row['Nama'] || row['NAMA']) +'</td><td>'+(row['Kelas/Jabatan'] || row['Kelas/jabatan'] || row['kelas/jabatan'] || row['KELAS/JABATAN'] || row['Jabatan/Kelas'] || row['Jabatan/kelas'] || row['jabatan/kelas'] || row['JABATAN/KELAS'] || row['Kelas'] || row['kelas'] || row['KELAS'] || row['Jabatan'] || row['jabatan'] || row['JABATAN'] )+'</td><td>'+(row['jenis kelamin'] || row['Jenis kelamin'] || row['Jenis Kelamin'] || row['JENIS KELAMIN'])+'</td><td>'+(row['email'] || row['Email'] || row['EMAIL'])+'</td></tr>';
                 });
                 tablebody.innerHTML=htmlData;
             }else{

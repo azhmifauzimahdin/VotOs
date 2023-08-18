@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
 use App\Models\Pemilu;
-use App\Models\Voting;
 use App\Models\Pemilih;
 use App\Models\Kandidat;
-use Carbon\Carbon;
+use App\Models\Laporan;
+use App\Models\PemungutanSuara;
+use App\Models\SuratSuara;
 
 class UserBerandaController extends Controller
 {
@@ -25,9 +27,7 @@ class UserBerandaController extends Controller
 
         return view('beranda', [
             'title' => "Beranda",
-            'pemilihs' => Pemilih::get(),
-            'kandidats' => Kandidat::get(),
-            'votings' => Voting::get(),
+            'laporan' => Laporan::first(),
             'waktupemilu' => $waktupemilu,
             'pemilu' => $pemilu,
             'waktupemilubelumdimulai' => $waktupemilubelumdimulai,

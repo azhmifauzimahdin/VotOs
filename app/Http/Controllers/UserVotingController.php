@@ -3,15 +3,13 @@
 namespace App\Http\Controllers;
 
 use Carbon\Carbon;
-use App\Models\Otp;
 use App\Models\Pemilu;
-use App\Models\Voting;
 use App\Mail\SendEmail;
-use App\Models\Pemilih;
+use App\Models\Laporan;
 use App\Models\Kandidat;
+use App\Models\SuratSuara;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
-use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Facades\Mail;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
 
@@ -37,7 +35,7 @@ class UserVotingController extends Controller
         return view('voting', [
             'title' => 'Voting',
             'kandidats' => Kandidat::orderBy('nomor', 'ASC')->get(),
-            'status' => Voting::where('pemilih_id', $this->cekIdUser())->first(),
+            'suratSuara' => SuratSuara::where('pemilih_id', $this->cekIdUser())->first(),
             'pemilu' => $pemilu,
             'waktupemilubelumdimulai' => $waktupemilubelumdimulai,
             'waktupemiluselesai' => $waktupemiluselesai,
@@ -51,19 +49,19 @@ class UserVotingController extends Controller
     {
         $validateData = $request->validate(
             [
-                'slug' => 'required',
+                'nomor' => 'required',
             ]
         );
         $update = $request->update;
-        $this->generateOtp();
+        $this->generateOtp($validateData['nomor']);
 
         if ($update) {
-            return redirect()->route('pemilih.voting.otp', ['slug' => $validateData['slug']])->with('message', 'Kode OTP telah dikirim ulang');
+            return redirect()->route('pemilih.voting.otp')->with('message', 'Kode OTP telah dikirim ulang');
         }
-        return redirect()->route('pemilih.voting.otp', ['slug' => $validateData['slug']]);
+        return redirect()->route('pemilih.voting.otp');
     }
 
-    public function generateOtp()
+    public function generateOtp($kandidat_id)
     {
         $pemilih_id = auth('pemilih')->user()->id;
         $otp = rand(123456, 999999);
@@ -72,27 +70,32 @@ class UserVotingController extends Controller
             'kode' => $otp
         ];
 
-        Mail::to(auth('pemilih')->user()->email)->send(new SendEmail($details));
+        // Mail::to(auth('pemilih')->user()->email)->send(new SendEmail($details));
 
-        $verificationCode = Otp::where('pemilih_id', $pemilih_id)->first();
+        $perolehanSuara = SuratSuara::where('kandidat_id', $kandidat_id)->first();
+        $verificationCode = SuratSuara::where('pemilih_id', $pemilih_id)->first();
         if ($verificationCode) {
             return $verificationCode->update([
+                'kandidat_id' => $kandidat_id,
+                'perolehan_suara' => $perolehanSuara ? $perolehanSuara->perolehan_suara : 0,
                 'otp' => $otp,
-                'expire_at' => Carbon::now()->addMinutes(2)
+                'waktu_kadaluarsa' => Carbon::now()->addMinutes(2)
             ]);
         }
 
-        return Otp::create([
+        return SuratSuara::create([
             'pemilih_id' => $pemilih_id,
+            'kandidat_id' => $kandidat_id,
+            'perolehan_suara' => $perolehanSuara ? $perolehanSuara->perolehan_suara : 0,
             'otp' => $otp,
-            'expire_at' => Carbon::now()->addMinutes(2)
+            'waktu_kadaluarsa' => Carbon::now()->addMinutes(2)
         ]);
     }
 
-    public function otp($slug)
+    public function otp()
     {
         $id = $this->cekIdUser();
-        $status = Voting::where('pemilih_id', $id)->first();
+        $suratSuara = SuratSuara::where('pemilih_id', $id)->first();
         $pemilu = Pemilu::first();
         $waktupemilubelumdimulai = false;
         $waktupemiluselesai = false;
@@ -103,45 +106,46 @@ class UserVotingController extends Controller
             $waktupemiluselesai = $now->isAfter($pemilu->selesai);
         }
 
-        if ($status || !$pemilu || $waktupemilubelumdimulai || $waktupemiluselesai) {
+        if (!$suratSuara || $suratSuara->kode || !$pemilu || $waktupemilubelumdimulai || $waktupemiluselesai) {
             abort(403);
         }
 
         return view('otp')->with([
             'title' => 'One Time Password',
-            'slug' => $slug,
-            'kandidat' => Kandidat::where('slug', $slug)->first()
+            'suratSuara' => $suratSuara
         ]);
     }
 
     public function VoteWithOtp(Request $request)
     {
         $request->validate([
-            'slugVote' => 'required',
             'otp' => 'required'
         ]);
 
-        $kandidat = Kandidat::where('slug', $request->slugVote)->first();
         $kode = $this->generateKodeVoting();
         $validateData = [
-            'pemilih_id' => auth('pemilih')->user()->id,
-            'kandidat_id' => $kandidat->id,
+            'otp' => 0,
             'kode' => $kode,
-            'qr_code' => QrCode::size(300)->errorCorrection('M')->generate($kode)
+            'qr_code' => QrCode::size(300)->errorCorrection('M')->generate($kode),
+            'waktu' => Carbon::now()
         ];
 
-        $verificationCode = Otp::where('pemilih_id', $validateData['pemilih_id'])->first();
+        $pemilih_id = auth('pemilih')->user()->id;
+        $suratSuara = SuratSuara::where('pemilih_id', $pemilih_id)->first();
 
         $now = Carbon::now();
-        if ($request->otp !== $verificationCode->otp) {
+        if (intval($request->otp) !== $suratSuara->otp) {
             return redirect()->back()->with('errormessage', 'Kode OTP salah!');
-        } elseif ($request->otp === $verificationCode->otp && $now->isAfter($verificationCode->expire_at)) {
+        } elseif (intval($request->otp) === $suratSuara->otp && $now->isAfter($suratSuara->waktu_kadaluarsa)) {
             return redirect()->back()->with('errormessage', 'Kode OTP telah kadaluarsa!');
         }
 
-        Otp::destroy($verificationCode->id);
-        Voting::create($validateData);
-        Kandidat::where('id', $validateData['kandidat_id'])->increment('jumlah_suara', 1);
+        $suratSuara->update($validateData);
+        SuratSuara::where('kandidat_id', $suratSuara->kandidat_id)->increment('perolehan_suara');
+
+        $laporan = Laporan::where('id', 1)->first();
+        $laporan->increment('jumlah_belum_memilih', -1);
+        $laporan->increment('jumlah_sudah_memilih');
 
         return redirect('/voting');
     }
@@ -149,7 +153,7 @@ class UserVotingController extends Controller
     public function generateKodeVoting()
     {
         $kode = Str::random(100);
-        $voting = Voting::get();
+        $voting = SuratSuara::get();
         if ($voting) {
             foreach ($voting as $data) {
                 if ($data->kode == $kode) {

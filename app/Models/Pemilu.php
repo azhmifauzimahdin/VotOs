@@ -9,5 +9,6 @@ class Pemilu extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['id', 'mulai', 'selesai'];
+    protected $guarded = [];
+    public $timestamps = false;
 }

@@ -11,9 +11,7 @@ use App\Http\Controllers\UserKandidatController;
 use App\Http\Controllers\DashboardScanController;
 use App\Http\Controllers\DashboardUserController;
 use App\Http\Controllers\ResetPasswordController;
-use App\Http\Controllers\DashboardKelasController;
 use App\Http\Controllers\DashboardVotingController;
-use App\Http\Controllers\DashboardJabatanController;
 use App\Http\Controllers\DashboardKandidatController;
 use App\Http\Controllers\UserGantiPasswordController;
 use App\Http\Controllers\UserPerolehanSuaraController;
@@ -21,6 +19,7 @@ use App\Http\Controllers\DashboardWaktuPemiluController;
 use App\Http\Controllers\DashboardPemilihSiswaController;
 use App\Http\Controllers\DashboardGantiPasswordController;
 use App\Http\Controllers\DashboardLaporanController;
+use App\Http\Controllers\DashboardPemilihController;
 use App\Http\Controllers\DashboardPemilihGuruKaryawanController;
 use App\Http\Controllers\VerifikasiLaporanController;
 
@@ -60,7 +59,7 @@ Route::controller(UserKandidatController::class)->group(function () {
 Route::controller(UserVotingController::class)->group(function () {
     Route::get('/voting', 'index')->name('pemilih.voting');
     Route::post('/voting/generate', 'generate')->name('pemilih.voting.generate')->middleware('auth:pemilih');
-    Route::get('/voting/otp/{slug}', 'otp')->name('pemilih.voting.otp')->middleware('auth:pemilih');
+    Route::get('/voting/otp', 'otp')->name('pemilih.voting.otp')->middleware('auth:pemilih');
     Route::post('/voting/vote', 'voteWithOtp')->name('pemilih.voting.vote')->middleware('auth:pemilih');
 });
 
@@ -97,29 +96,22 @@ Route::controller(DashboardPemilihSiswaController::class)->group(function () {
     Route::get('/dashboard/pemilih/siswa/export', 'fileExport')->name('user.pemilih.siswa.import')->middleware(['auth:web', 'panitia']);
     Route::get('/dashboard/pemilih/siswa/download', 'downloadTemplate')->name('user.pemilih.siswa.download')->middleware(['auth:web', 'panitia']);
 });
-Route::resource('/dashboard/pemilih/siswa', DashboardPemilihSiswaController::class)->names([
-    'index' => 'user.pemilih.siswa.index',
-    'create' => 'user.pemilih.siswa.create',
-    'store' => 'user.pemilih.siswa.store',
-    'edit' => 'user.pemilih.siswa.edit',
-    'update' => 'user.pemilih.siswa.update',
-    'destroy' => 'user.pemilih.siswa.destroy'
-])->parameters(['siswa' => 'pemilih'])->except('show')->middleware(['auth:web', 'panitia']);
 
-Route::controller(DashboardPemilihGuruKaryawanController::class)->group(function () {
-    Route::get('/dashboard/pemilih/gurukaryawan/import', 'importGuruKaryawan')->name('user.pemilih.gurukaryawan.import')->middleware(['auth:web', 'panitia']);
-    Route::post('/dashboard/pemilih/gurukaryawan/import', 'fileImport')->name('user.pemilih.gurukaryawan.fileimport')->middleware(['auth:web', 'panitia']);
-    Route::get('/dashboard/pemilih/gurukaryawan/export', 'fileExport')->name('user.pemilih.gurukaryawan.import')->middleware(['auth:web', 'panitia']);
-    Route::get('/dashboard/pemilih/gurukaryawan/download', 'downloadTemplate')->name('user.pemilih.gurukaryawan.download')->middleware(['auth:web', 'panitia']);
+Route::resource('/dashboard/pemilih', DashboardPemilihController::class)->names([
+    'index' => 'user.pemilih.index',
+    'create' => 'user.pemilih.create',
+    'store' => 'user.pemilih.store',
+    'edit' => 'user.pemilih.edit',
+    'update' => 'user.pemilih.update',
+    'destroy' => 'user.pemilih.destroy'
+])->except('show')->middleware(['auth:web', 'panitia']);
+
+Route::controller(DashboardPemilihController::class)->group(function () {
+    Route::get('/dashboard/pemilih/import', 'importPemilih')->name('user.pemilih.import')->middleware(['auth:web', 'panitia']);
+    Route::get('/dashboard/pemilih/download', 'downloadTemplate')->name('user.pemilih.download')->middleware(['auth:web', 'panitia']);
+    Route::post('/dashboard/pemilih/import', 'fileImport')->name('user.pemilih.fileimport')->middleware(['auth:web', 'panitia']);
+    Route::get('/dashboard/pemilih/export', 'fileExport')->name('user.pemilih.import')->middleware(['auth:web', 'panitia']);
 });
-Route::resource('/dashboard/pemilih/gurukaryawan', DashboardPemilihGuruKaryawanController::class)->names([
-    'index' => 'user.pemilih.gurukaryawan.index',
-    'create' => 'user.pemilih.gurukaryawan.create',
-    'store' => 'user.pemilih.gurukaryawan.store',
-    'edit' => 'user.pemilih.gurukaryawan.edit',
-    'update' => 'user.pemilih.gurukaryawan.update',
-    'destroy' => 'user.pemilih.gurukaryawan.destroy'
-])->parameters(['gurukaryawan' => 'pemilih'])->except('show')->middleware(['auth:web', 'panitia']);
 
 Route::resource('/dashboard/kandidat', DashboardKandidatController::class)->names([
     'index' => 'user.kandidat.index',
@@ -157,24 +149,6 @@ Route::resource('/dashboard/user', DashboardUserController::class)->names([
     'update' => 'user.users.update',
     'destroy' => 'user.users.destroy',
 ])->except('show')->middleware(['auth:web', 'admin']);
-
-Route::resource('/dashboard/pemilih/kelas', DashboardKelasController::class)->names([
-    'index' => 'user.kelas.index',
-    'create' => 'user.kelas.create',
-    'store' => 'user.kelas.store',
-    'edit' => 'user.kelas.edit',
-    'update' => 'user.kelas.update',
-    'destroy' => 'user.kelas.destroy',
-])->except('show')->middleware(['auth:web', 'panitia']);
-
-Route::resource('/dashboard/pemilih/jabatan', DashboardJabatanController::class)->names([
-    'index' => 'user.jabatan.index',
-    'create' => 'user.jabatan.create',
-    'store' => 'user.jabatan.store',
-    'edit' => 'user.jabatan.edit',
-    'update' => 'user.jabatan.update',
-    'destroy' => 'user.jabatan.destroy',
-])->except('show')->middleware(['auth:web', 'panitia']);
 
 Route::post('/dashboard/waktupemilu/selesai', [DashboardWaktuPemiluController::class, 'selesai'])->name('user.pelaksanaan.selesai')->middleware(['auth:web', 'panitia']);
 Route::resource('/dashboard/waktupemilu', DashboardWaktuPemiluController::class)->names([

@@ -4,9 +4,9 @@
     <div class="row">
         <section class="col-md-8">
             <div class="card">
-                <h5 class="card-header ">Tambah Data {{ $objek }}</h5>
+                <h5 class="card-header ">Tambah Data Pemilih</h5>
                 <div class="card-body">
-                    <form action="/dashboard/pemilih/{{ $role }}" method="post" enctype="multipart/form-data">
+                    <form action="/dashboard/pemilih" method="post">
                         @csrf
                         <div class="form-group">
                             <label for="nama">Nama</label>
@@ -17,25 +17,15 @@
                             </div>
                             @enderror
                         </div>
-                        @if ($role === 'siswa')
                         <div class="form-group">
-                            <label for="kelas_id">Kelas</label>
-                            <select class="form-control select-search" name="kelas_id" id="kelas_id">
-                                @foreach ($kelas as $data)
-                                    <option value="{{ $data->id }}" {{ old('kelas_id') == $data->id ? "selected" : "" }}>{{ $data->nama }}</option>
-                                @endforeach
-                            </select>
+                            <label for="kelas_jabatan">Kelas/Jabatan</label>
+                            <input type="text" class="form-control @error('kelas_jabatan') is-invalid @enderror" id="kelas_jabatan" name="kelas_jabatan" placeholder="Kelas/Jabatan" required value="{{  old('kelas_jabatan') }}">
+                            @error('kelas_jabatan')
+                            <div class="invalid-feedback">
+                                {{ $message }}
+                            </div>
+                            @enderror
                         </div>
-                        @else
-                        <div class="form-group">
-                            <label for="jabatan_id">Jabatan</label>
-                            <select class="form-control select-search" name="jabatan_id" id="jabatan_id">
-                                @foreach ($jabatan as $data)
-                                    <option value="{{ $data->id }}" {{ old('jabatan_id') == $data->id ? "selected" : "" }}>{{ $data->nama }}</option>
-                                @endforeach
-                            </select>
-                        </div>
-                        @endif
                         <div class="form-group">
                             <label for="jenis_kelamin">Jenis Kelamin</label>
                             <select class="form-control select-search" id="jenis_kelamin" name="jenis_kelamin">
@@ -53,7 +43,7 @@
                             @enderror
                         </div>
                         <button type="submit" class="btn btn-primary">Simpan</button>
-                        <a href="/dashboard/pemilih/{{ $role }}" class="btn btn-danger">Batal</a>
+                        <a href="/dashboard/pemilih" class="btn btn-danger">Batal</a>
                     </form>
                 </div>
             </div>

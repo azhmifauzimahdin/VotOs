@@ -23,8 +23,8 @@ class User extends Authenticatable
     {
         $query->when($filters['search'] ?? false, function ($query, $search) {
             return $query->where('nama', 'like', '%' . $search . '%')
-                ->orWhere('email', 'like', '%' . $search . '%')
                 ->orWhere('jenis_kelamin', 'like', '%' . $search . '%')
+                ->orWhere('email', 'like', '%' . $search . '%')
                 ->orWhere('level', 'like', '%' . $search . '%');
         });
     }
@@ -43,8 +43,8 @@ class User extends Authenticatable
         ];
     }
 
-    public function pemilihs()
+    public function laporan()
     {
-        return $this->hasMany(Pemilih::class);
+        return $this->hasOne(Laporan::class);
     }
 }

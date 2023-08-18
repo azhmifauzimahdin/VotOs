@@ -7,7 +7,7 @@
                 <h5 class="card-header">{{ $title }}</h5>
                 <div class="card-body">
                     <div class="info-voting alert border" role="alert" >
-                        Data voting akan muncul ketika waktu pemilihan umum telah selesai atau semua pemilih sudah melakukan voting. Lengkapi data laporan sebelum melakukan cetak Data Voting. Untuk kelola data laporan terdapat di menu hasil pemilu. Tombol 'Reset Voting' digunakan ketika ulang pemilu atau pemilu periode baru.
+                        Data voting akan muncul ketika waktu pemilu telah selesai atau semua pemilih sudah melakukan voting. Lengkapi data laporan sebelum melakukan cetak Data Voting. Untuk kelola data laporan terdapat di menu hasil pemilu. Tombol 'Reset Voting' digunakan ketika ulang pemilu atau pemilu periode baru.
                     </div>
                     @if(session()->has('success'))
                         <div class="alert alert-success alert-dismissible fade show" role="alert">
@@ -60,7 +60,7 @@
                         </div>
                         <ul class="list-inline mb-0 mt-2 mt-md-0">
                             <li class="list-inline-item">
-                                Search :
+                                Cari :
                             </li>
                             <li class="list-inline-item">
                                 <form action="/dashboard/voting" class="input-search">
@@ -101,8 +101,8 @@
                                         <tr>
                                             <td>{{ $index + $votings->firstItem() }}</td>
                                             <td>{{ $voting->pemilih->nama }}</td>
-                                            <td>{{ $voting->kandidat->nomor }} - {{ $voting->kandidat->nama }}</td>
-                                            <td>{{ $voting->created_at }}</td>
+                                            <td>{{ $voting->kandidat_id }} - {{ $voting->kandidat->nama }}</td>
+                                            <td>{{ $voting->waktu }}</td>
                                         </tr>
                                     @endforeach
                                 @else
@@ -120,7 +120,7 @@
                     @if ($cekAkhirPemilu) 
                     <div class="row d-flex justify-content-between mx-1">
                         <div>
-                            Showing {{ $votings->firstItem() }} to {{ $votings->lastItem() }} of {{$votings->total()}} entries
+                            Menampilkan {{ $votings->firstItem() }} sampai {{ $votings->lastItem() }} dari {{$votings->total()}} entri
                         </div>
                         <div class="mt-2 mt-md-0">
                             {{ $votings->onEachSide(0)->links() }}

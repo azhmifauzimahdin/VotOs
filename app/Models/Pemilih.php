@@ -24,14 +24,9 @@ class Pemilih extends Authenticatable
     {
         $query->when($filters['search'] ?? false, function ($query, $search) {
             return $query->where('nama', 'like', '%' . $search . '%')
+                ->orWhere('kelas_jabatan', 'like', '%' . $search . '%')
                 ->orWhere('jenis_kelamin', 'like', '%' . $search . '%')
-                ->orWhere('email', 'like', '%' . $search . '%')
-                ->orWhereHas('kelas', function ($query) use ($search) {
-                    $query->where('nama', 'like', '%' . $search . '%');
-                })
-                ->orWhereHas('jabatan', function ($query) use ($search) {
-                    $query->where('nama', 'like', '%' . $search . '%');
-                });
+                ->orWhere('email', 'like', '%' . $search . '%');
         });
     }
 
@@ -51,26 +46,11 @@ class Pemilih extends Authenticatable
 
     public function user()
     {
-        return $this->belongsTo(User::class, 'user_id');
+        return $this->belongsTo(User::class);
     }
 
-    public function kelas()
+    public function suratSuara()
     {
-        return $this->belongsTo(Kelas::class);
-    }
-
-    public function jabatan()
-    {
-        return $this->belongsTo(Jabatan::class);
-    }
-
-    public function votings()
-    {
-        return $this->hasMany(Voting::class);
-    }
-
-    public function otp()
-    {
-        return $this->belongsTo(Otp::class);
+        return $this->belongsTo(SuratSuara::class);
     }
 }

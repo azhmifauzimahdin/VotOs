@@ -14,15 +14,20 @@ class CreateLaporansTable extends Migration
     public function up()
     {
         Schema::create('laporans', function (Blueprint $table) {
-            $table->id();
-            $table->string('ketua');
-            $table->string('sekretaris');
-            $table->string('kesiswaan');
-            $table->string('pembina');
-            $table->string('kepala_sekolah');
-            $table->text('kode');
+            $table->smallIncrements('id');
+            $table->unsignedSmallInteger('user_id');
+            $table->unsignedSmallInteger('surat_suara_id')->default(0);
+            $table->string('ketua')->nullable();
+            $table->string('sekretaris')->nullable();
+            $table->string('kesiswaan')->nullable();
+            $table->string('pembina')->nullable();
+            $table->string('kepala_sekolah')->nullable();
+            $table->smallInteger('jumlah_pemilih')->default(0);
+            $table->smallInteger('jumlah_kandidat')->default(0);
+            $table->smallInteger('jumlah_belum_memilih')->default(0);
+            $table->smallInteger('jumlah_sudah_memilih')->default(0);
+            $table->text('kode')->nullable();
             $table->text('qr_code')->nullable();
-            $table->timestamps();
         });
     }
 
