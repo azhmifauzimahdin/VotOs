@@ -3,13 +3,9 @@
 namespace App\Http\Controllers;
 
 use Carbon\Carbon;
-use App\Models\Kelas;
 use App\Models\Pemilu;
 use App\Models\Kandidat;
 use App\Models\Laporan;
-use App\Models\PerhitunganSuara;
-use App\Models\PerolehanSuara;
-use App\Models\SuratSuara;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use \Cviebrock\EloquentSluggable\Services\SlugService;

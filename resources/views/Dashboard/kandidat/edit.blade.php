@@ -1,7 +1,6 @@
 @extends('dashboard.layouts.main')
 
 @push('head')
-    {{-- Trix Editor --}}
     <link rel="stylesheet" type="text/css" href="https://unpkg.com/trix@2.0.0/dist/trix.css">
 @endpush
 
@@ -90,7 +89,7 @@
                             <label for="foto">Foto</label>
                             <input type="hidden" name="fotoLama" value="{{ $kandidat->foto }}">
                             @if ($kandidat->foto)
-                                <img src="{{ asset('storage/' . $kandidat->foto) }}" class="img-preview img-fluid mb-3 d-block" width="220">
+                                <img src="{{ asset('storage/public/' . $kandidat->foto) }}" class="img-preview img-fluid mb-3 d-block" width="220">
                             @else
                                 <img class="img-preview img-fluid mb-3" width="220">
                             @endif

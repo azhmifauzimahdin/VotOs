@@ -45,7 +45,7 @@
                             <label for="foto">Foto</label>
                             <input type="hidden" name="fotoLama" value="{{ $user->foto }}">
                             @if ($user->foto)
-                                <img src="{{ asset('storage/' . $user->foto) }}" class="img-preview img-fluid mb-3 d-block" width="220">
+                                <img src="{{ asset('storage/public/' . $user->foto) }}" class="img-preview img-fluid mb-3 d-block" width="220">
                             @else
                                 <img class="img-preview img-fluid mb-3" width="220">
                             @endif

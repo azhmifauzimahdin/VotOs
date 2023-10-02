@@ -57,9 +57,9 @@
                                             <td class="align-middle">{{ $kandidat->jenis_kelamin }}</td>
                                             <td>
                                                 @if ($kandidat->foto)
-                                                    <img src="{{ asset('storage/'.$kandidat->foto) }}" class="w-80x aspect-ratio-3-4" alt="Foto kandidat">    
+                                                    <img src="{{ asset('storage/public/'.$kandidat->foto) }}" class="w-80x aspect-ratio-3-4" alt="Foto kandidat">    
                                                 @else
-                                                    <img src="{{ asset('storage/foto-kandidat/defaultKandidat.jpg') }}" class="w-80x aspect-ratio-3-4" alt="Foto kandidat">    
+                                                    <img src="{{ asset('storage/public/foto-kandidat/defaultKandidat.jpg') }}" class="w-80x aspect-ratio-3-4" alt="Foto kandidat">    
                                                 @endif
                                             </td>
                                             <td class="text-nowrap align-middle">

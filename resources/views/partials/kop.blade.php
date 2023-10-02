@@ -1,7 +1,7 @@
 <table class="w-100 mb-3" style="border-bottom: 2px solid #000">
     <tr>
         <td style="width: 10%">
-            <img src="{{ public_path() . '/img/logo_IPM.png' }}" alt="logo IMP" width="100%">
+            <img src="{{ asset('storage/public/Logo_IPM.png') }}" alt="logo IMP" width="100%">
         </td>
         <td class="text-center px-3">
             <h6 class="mb-1">PANITIA PEMILU</h6>

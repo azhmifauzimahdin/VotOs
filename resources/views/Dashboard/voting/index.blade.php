@@ -37,17 +37,10 @@
                     <div class="row d-flex justify-content-between mb-3 mx-0">
                         <div class="tombol">
                             @if ($cekAkhirPemilu) 
-                                @if ($laporan)
-                                <button class="btn btn-info mb-2 mb-md-0" data-toggle="modal" data-target="#passwordModal">
+                                <button class="btn btn-info mb-2 mb-md-0" data-toggle="modal" data-target="#passwordModal" {{ $laporan ? null : "disabled" }}>
                                     <i class="fa-solid fa-print"></i>
                                     <span class="ml-1">Cetak Data Voting</span>
                                 </button>
-                                @else
-                                <a href="/dashboard/hasilPemilu/laporan" class="btn btn-info">
-                                    <i class="fa-solid fa-print"></i>
-                                    <span class="ml-1">Cetak Data Voting</span>
-                                </a>
-                                @endif
                                 <a href="/dashboard/voting/printSuratSuara" target="_blank" class="btn btn-info mb-2 mb-md-0">
                                     <i class="fa-solid fa-print"></i>
                                     <span class="ml-1">Cetak Surat Suara</span>

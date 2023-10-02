@@ -7,9 +7,9 @@
     <div class="user-panel mt-3 pb-3 mb-3 d-flex">
       <div class="image d-flex align-items-center">
         @if (auth()->user()->foto)
-          <img src="{{ asset('storage/'. auth()->user()->foto) }}" class="img-circle elevation-2 aspect-ratio-1-1" alt="User Image">
+          <img src="{{ asset('storage/public/'. auth()->user()->foto) }}" class="img-circle elevation-2 aspect-ratio-1-1" alt="User Image">
         @else
-          <img src="{{ asset('storage/foto-user/defaultUser.png')}}" class="img-circle elevation-2" alt="User Image">
+          <img src="{{ asset('storage/public/foto-user/defaultUser.png')}}" class="img-circle elevation-2" alt="User Image">
         @endif
       </div>
       <div class="info">

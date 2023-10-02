@@ -16,9 +16,9 @@
                     <div class="kotak-profil border bg-white overflow-hidden">
                         <div class="candidate_thumb">
                             @if ($suratSuara->kandidat->foto)
-                                <img src="{{ asset('storage/'. $suratSuara->kandidat->foto) }}" class="foto-kandidat" alt="Foto Kandidat" width="100%">
+                                <img src="{{ asset('storage/public/'. $suratSuara->kandidat->foto) }}" class="foto-kandidat" alt="Foto Kandidat" width="100%">
                             @else
-                                <img src="{{ asset('storage/foto-kandidat/defaultKandidat.jpg') }}" class="foto-kandidat" alt="Foto Kandidat" width="100%">
+                                <img src="{{ asset('storage/public/foto-kandidat/defaultKandidat.jpg') }}" class="foto-kandidat" alt="Foto Kandidat" width="100%">
                             @endif
                             <div class="thumbnail-foto-kandidat px-3">
                                 <h5 class="text-primary">
@@ -51,7 +51,7 @@
                 <form action="/voting/vote" method="post">
                     @csrf
                     <div class="form-floating input-group-sm mb-3">
-                        <input type="password" class="form-control input-sm" name="otp" id="otp" placeholder="One Time Password (OTP)" required>
+                        <input type="password" class="form-control input-sm" name="otp" id="otp" placeholder="One Time Password (OTP)" required autofocus>
                         <label for="otp">One Time Password (OTP)</label>
                         <div id="emailHelp" class="form-text mt-2">
                             <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">

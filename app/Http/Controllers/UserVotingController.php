@@ -70,7 +70,7 @@ class UserVotingController extends Controller
             'kode' => $otp
         ];
 
-        // Mail::to(auth('pemilih')->user()->email)->send(new SendEmail($details));
+        Mail::to(auth('pemilih')->user()->email)->send(new SendEmail($details));
 
         $perolehanSuara = SuratSuara::where('kandidat_id', $kandidat_id)->first();
         $verificationCode = SuratSuara::where('pemilih_id', $pemilih_id)->first();
@@ -134,9 +134,9 @@ class UserVotingController extends Controller
         $suratSuara = SuratSuara::where('pemilih_id', $pemilih_id)->first();
 
         $now = Carbon::now();
-        if (intval($request->otp) !== $suratSuara->otp) {
+        if (intval($request->otp) !== intval($suratSuara->otp)) {
             return redirect()->back()->with('errormessage', 'Kode OTP salah!');
-        } elseif (intval($request->otp) === $suratSuara->otp && $now->isAfter($suratSuara->waktu_kadaluarsa)) {
+        } elseif (intval($request->otp) === intval($suratSuara->otp) && $now->isAfter($suratSuara->waktu_kadaluarsa)) {
             return redirect()->back()->with('errormessage', 'Kode OTP telah kadaluarsa!');
         }
 

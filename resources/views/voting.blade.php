@@ -30,9 +30,9 @@
                     <div class="col-12 col-md-3 bg-light shadow-sm overflow-hidden border-radius-1 px-0 mb-3 h-100">
                         <div class="py-3"></div>
                         @if ($suratSuara->kandidat->foto)
-                            <img src="{{ asset('storage/'. $suratSuara->kandidat->foto) }}" alt="Foto Kandidat" class="foto-kandidat-voting">
+                            <img src="{{ asset('storage/public/'. $suratSuara->kandidat->foto) }}" alt="Foto Kandidat" class="foto-kandidat-voting">
                         @else
-                            <img src="{{ asset('storage/foto-kandidat/defaultKandidat.jpg') }}" alt="Foto Kandidat" class="foto-kandidat-voting">
+                            <img src="{{ asset('storage/public/foto-kandidat/defaultKandidat.jpg') }}" alt="Foto Kandidat" class="foto-kandidat-voting">
                         @endif
                         <h6 class="text-center py-2"><b>{{ $suratSuara->kandidat->nama }}</b></h6>
                     </div>
@@ -79,9 +79,9 @@
                                     <div class="kotak-profil border bg-white overflow-hidden">
                                         <div class="candidate_thumb">
                                             @if ($kandidat->foto)
-                                                <img src="{{ asset('storage/'. $kandidat->foto) }}" class="foto-kandidat" alt="Foto Kandidat" width="100%">
+                                                <img src="{{ asset('storage/public/'. $kandidat->foto) }}" class="foto-kandidat" alt="Foto Kandidat" width="100%">
                                             @else
-                                                <img src="{{ asset('storage/foto-kandidat/defaultKandidat.jpg') }}" class="foto-kandidat" alt="Foto Kandidat" width="100%">
+                                                <img src="{{ asset('storage/public/foto-kandidat/defaultKandidat.jpg') }}" class="foto-kandidat" alt="Foto Kandidat" width="100%">
                                             @endif
                                             <div class="thumbnail-foto-kandidat px-3">
                                                 <h5 class="text-primary">
@@ -94,7 +94,7 @@
                                             <div class="px-3 mb-2 w-100 d-flex justify-content-center lihat-detail"> 
                                                 <div class="form-check">
                                                     <input class="form-check-input csr-pointer" type="radio" name="nomor" id="nomor{{ $kandidat->nomor }}" value="{{ $kandidat->nomor }}">
-                                                    <label class="form-check-label csr-pointer" for="id{{ $kandidat->nomor }}">
+                                                    <label class="form-check-label csr-pointer" for="nomor{{ $kandidat->nomor }}">
                                                         <b class="text-primary">Vote</b>
                                                     </label>
                                                 </div>

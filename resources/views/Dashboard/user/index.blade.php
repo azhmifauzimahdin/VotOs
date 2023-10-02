@@ -57,9 +57,9 @@
                                             <td class="align-middle">{{ $user->level }}</td>
                                             <td class="pb-2">
                                                 @if ($user->foto)
-                                                    <img src="{{ asset('storage/'.$user->foto) }}" class="w-80x aspect-ratio-3-4" alt="Foto kandidat">    
+                                                    <img src="{{ asset('storage/public/'.$user->foto) }}" class="w-80x aspect-ratio-3-4" alt="Foto kandidat">    
                                                 @else
-                                                    <img src="{{ asset('storage/foto-user/defaultUser.png')}}" class="w-80x aspect-ratio-3-4" alt="Foto kandidat">    
+                                                    <img src="{{ asset('storage/public/foto-user/defaultUser.png')}}" class="w-80x aspect-ratio-3-4" alt="Foto kandidat">    
                                                 @endif
                                             </td>
                                             <td class="text-nowrap align-middle">

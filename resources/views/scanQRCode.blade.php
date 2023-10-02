@@ -66,14 +66,14 @@
                                 document.location.reload(true);
                             })
                         }else{
-                            $temp = "{{ asset('storage/') }}";
+                            $temp = "{{ asset('storage/public/') }}";
                             $("#nomor").empty();
                             $("#nama").empty();
                             $("#kode").empty();
                             if(response.kandidat.foto){
                                 $('#foto').attr('src', $temp + '/' + response.kandidat.foto);
                             }else{
-                                $('#foto').attr('src', "{{ asset('storage/foto-kandidat/defaultKandidat.jpg') }}");
+                                $('#foto').attr('src', "{{ asset('storage/public/foto-kandidat/defaultKandidat.jpg') }}");
                             }
                             $('#foto').removeClass('d-none');
                             $("#nomor").append(response.kandidat.nomor);

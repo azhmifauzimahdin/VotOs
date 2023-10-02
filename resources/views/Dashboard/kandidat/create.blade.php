@@ -1,7 +1,6 @@
 @extends('dashboard.layouts.main')
 
 @push('head')
-    {{-- Trix Editor --}}
     <link rel="stylesheet" type="text/css" href="https://unpkg.com/trix@2.0.0/dist/trix.css">
 @endpush
 

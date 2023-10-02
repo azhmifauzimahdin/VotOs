@@ -16,9 +16,9 @@
                     <div class="kotak-profil bg-white overflow-hidden">
                         <div class="candidate_thumb">
                             @if ($kandidat->foto)
-                                <img src="{{ asset('storage/'. $kandidat->foto) }}" class="foto-kandidat" alt="Foto Kandidat" width="100%">
+                                <img src="{{ asset('storage/public/'. $kandidat->foto) }}" class="foto-kandidat" alt="Foto Kandidat" width="100%">
                             @else
-                                <img src="{{ asset('storage/foto-kandidat/defaultKandidat.jpg') }}" class="foto-kandidat" alt="Foto Kandidat" width="100%">
+                                <img src="{{ asset('storage/public/foto-kandidat/defaultKandidat.jpg') }}" class="foto-kandidat" alt="Foto Kandidat" width="100%">
                             @endif
                             <div class="thumbnail-foto-kandidat px-3">
                                 <h5 class="text-primary">

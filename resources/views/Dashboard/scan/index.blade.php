@@ -142,7 +142,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script>
         function onScanSuccess(decodedText, decodedResult) {
-            console.log(decodedText);
             html5QrcodeScanner.clear().then(_ => {
                 var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
                 $.ajax({
@@ -163,21 +162,21 @@
                                 document.location.reload(true);
                             })
                         }else{
-                            $temp = "{{ asset('storage/') }}";
+                            $temp = "{{ asset('storage/public/') }}";
                             $("#nomor").empty();
                             $("#nama").empty();
                             $("#kode").empty();
                             if(response.kandidat.foto){
                                 $('#foto-kandidat').attr('src', $temp + '/' + response.kandidat.foto);
                             }else{
-                                $('#foto-kandidat').attr('src', "{{ asset('storage/foto-kandidat/defaultKandidat.jpg') }}");
+                                $('#foto-kandidat').attr('src', "{{ asset('storage/public/foto-kandidat/defaultKandidat.jpg') }}");
                             }
                             $('#foto-kandidat').removeClass('d-none');
                             $("#nomor").append(response.kandidat.nomor);
                             $("#nama").append(response.kandidat.nama);
                             $('#scan-ulang').removeClass('d-none');
                             $('#card-reader').css('display', 'none');
-                            if(response.kode){
+                            if(response.kode != 0){
                                 $('#status').removeClass('d-none');
                             }else{
                                 $("#hasil"+response.kandidat.nomor).append(`<span class="text-success"> + 1</span>`);
